@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- edited with Eclipse Modeling Tools - 2020-10 by Christoph Broennimann 
+	(IBT Ing. Buero Broennimann Thun) --><!-- Copyright (c) Verein SmartGridready, Switzerland Version 0.2.1 2022-5-25 
+	All Rights Reserved. Source: https://www.SmartGridready.ch/ --><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.1">
+  <include schemaLocation="../Generic/SGrGenTypeDefinitions.xsd"/>
+  <include schemaLocation="../EI-GenSerialInt/SGrSerialIntCapability.xsd"/>
+  <include schemaLocation="SGrModbusEIDataTypes.xsd"/>
+  <complexType name="SGrModbusInterfaceDescriptionType">
+    <sequence>
+      <element maxOccurs="1" minOccurs="1" name="modbusInterfaceSelection" type="sgr:ModbusInterfaceSelectionType"/>
+      <element maxOccurs="1" minOccurs="0" name="trspSrvModbusTCPoutOfBox" type="sgr:tP_IPModbus"/>
+      <element maxOccurs="1" minOccurs="0" name="trspSrvModbusRTUoutOfBox" type="sgr:tP_RTUModbus"/>
+      <element maxOccurs="1" minOccurs="1" name="firstRegisterAddressIsOne" type="boolean"/>
+      <element maxOccurs="unbounded" minOccurs="1" name="conversionScheme" type="sgr:tEnumConversionFct"/>
+    </sequence>
+  </complexType>
+  <simpleType name="ModbusInterfaceSelectionType">
+    <restriction base="string">
+      <enumeration value="RTU"/>
+      <enumeration value="TCP/IP"/>
+      <enumeration value="UDP/IP"/>
+      <enumeration value="RTU-ASCII"/>
+      <enumeration value="TCP/IP-ASCII"/>
+      <enumeration value="UDP/IP-ASCII"/>
+    </restriction>
+  </simpleType>
+  <element name="SGr_ModbusInterfaceDescription" type="sgr:SGrModbusInterfaceDescriptionType"/>
+  <element name="ModbusFunctionCodesSupported" type="string"/>
+  <complexType name="SGrModbusDataPointDescriptionType">
+    <sequence>
+    	<element maxOccurs="1" minOccurs="1" name="modbusDataType"
+    		type="sgr:SGrBasicGenDataPointTypeType" />
+    	<element maxOccurs="1" minOccurs="1"
+    		name="modbusFirstRegisterReference"
+    		type="sgr:tSGrModbus_RegisterRef" />
+    	<element maxOccurs="1" minOccurs="1" name="dpSizeNrRegisters">
+    		<simpleType>
+    			<restriction base="int" />
+    		</simpleType>
+    	</element>
+    	<element maxOccurs="1" minOccurs="0" name="bitmask"
+    		type="sgr:bitmaskType">
+    		<annotation>
+    			<documentation>
+    				Hexadecimal bitmask for mask to elmininate non used
+    				bit frames
+    			</documentation>
+    		</annotation>
+    	</element>
+    	<element maxOccurs="unbounded" minOccurs="1"
+    		name="masterFunctionsSupported"
+    		type="sgr:masterFunctionsSupportedType">
+    		<annotation>
+    			<documentation>
+    				Available function/command codes for Master /
+    				Clients The various reading, writing and other
+    				operations are categorized as follows. The most
+    				"primitive" reads and writes are A number of sources
+    				use alternative terminology, for example Force
+    				Single Coil where the standard uses Write Single
+    				Coil.[11] Prominent entities within a Modbus slave
+    				are: ReadDiscreteInputs (code: 2) ReadCoils (code:
+    				1) WriteSingleCoil (code: 5) WriteMultipleCoils
+    				(code:15) ReadInputRegisters (code:4)
+    				ReadMultipleHoldingRegisters (code:3)
+    				WriteSingleHoldingRegister (code:6)
+    				WriteMultipleHoldingRegisters (code:16) the enum
+    				"Primitives" means, that the current register Type
+    				supports Single Trasnactions If dpSizeNrRegistarts
+    				is &gt;1, also the multiple access functions must be
+    				supported
+    			</documentation>
+    		</annotation>
+    	</element>
+    	<element maxOccurs="1" minOccurs="0" name="modbusJMESPath"
+    		type="sgr:modbusJMESPathType">
+    		<annotation>
+    			<documentation />
+    		</annotation>
+    	</element>
+        </sequence>
+  </complexType>
+  <element name="SGr_ModbusDataPointDescription" type="sgr:SGrModbusDataPointDescriptionType"/>
+  <complexType name="modbusJMESPathType">
+    <simpleContent>
+      <extension base="string"/>
+    </simpleContent>
+  </complexType>
+  <simpleType name="bitmaskType">
+    <restriction base="hexBinary"/>
+  </simpleType>
+  <simpleType name="masterFunctionsSupportedType">
+    <annotation>
+      <documentation>the selection of the supported Master access functions
+			</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="Primitives">
+        <annotation>
+          <documentation>"Primitives" support ReadDiscreteInputs (code: 2)
+						ReadCoils (code: 1) WriteSingleCoil (code: 5) ReadInputRegisters
+						(code:4) WriteSingleHoldingRegister (code:6) for single Register
+						access if dpSizeNrRegisters &gt; 1 "Primitives" supports
+						ReadMultipleHoldingRegisters (code:3) WriteMultipleCoils (code:15)
+						WriteMultipleHoldingRegisters (code:16) for the register Type
+						being adressed 
+					</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ReadDiscreteInputs">
+        <annotation>
+          <documentation>Master function code= 2</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ReadCoils">
+        <annotation>
+          <documentation>Master function code: 1</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="WriteSingleCoil">
+        <annotation>
+          <documentation>Master function code: 5</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="WriteMultipleCoils">
+        <annotation>
+          <documentation>Master function code:15</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ReadInputRegisters">
+        <annotation>
+          <documentation>Master function code:4</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ReadMultipleHoldingRegisters">
+        <annotation>
+          <documentation>Master function code:3</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="WriteSingleHoldingRegister">
+        <annotation>
+          <documentation>Master function code:6</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="WriteMultipleHoldingRegisters">
+        <annotation>
+          <documentation>Master function code:16</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Read/WriteMultipleRegisters">
+        <annotation>
+          <documentation>Master function code:23</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="MaskWriteRegister">
+        <annotation>
+          <documentation>Master function code:22</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ReadFIFOQueue">
+        <annotation>
+          <documentation>Master function code:24</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ReadFileRecord">
+        <annotation>
+          <documentation>Master function code:20</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="WriteFileRecord">
+        <annotation>
+          <documentation>Master function code:21</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ReadExceptionStatus">
+        <annotation>
+          <documentation>Master function code:7</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Diagnostic">
+        <annotation>
+          <documentation>Master function code:8</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="GetComEventCounter">
+        <annotation>
+          <documentation>Master function code:11</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="GetComEventLog">
+        <annotation>
+          <documentation>Master function code:12</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ReportSlaveID">
+        <annotation>
+          <documentation>Master function code:17</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ReadDeviceIdentification">
+        <annotation>
+          <documentation>Master function code:43</documentation>
+        </annotation>
+      </enumeration>
+    </restriction>
+  </simpleType>
+  <complexType name="SGrAccessProtectionEnabledType">
+    <annotation>
+      <documentation>Modbus datapoints may be protected by execptions. If
+				this is the case, a datapoint may be selected as true with a range
+				of supported exceptions. A NOT listed exception means no XY
+				exception
+			</documentation>
+    </annotation>
+    <sequence>
+      <element name="modbusException" type="sgr:tEnumExceptionCodeType" maxOccurs="unbounded" minOccurs="1"/>
+    </sequence>
+    <attribute name="isEnabled" type="boolean"/>
+  </complexType>
+</schema>
