@@ -1,8 +1,8 @@
 # INDEX
 
-## 1) xsdata branch documentation (how to install and use).
+ 1) xsdata branch documentation (how to install and use).
 
-## 2) Directory structure.
+ 2) Directory structure.
 
 # 1) xsdata branch documentation
 
