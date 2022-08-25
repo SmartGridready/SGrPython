@@ -52,6 +52,7 @@ You can use the generated classes I created, they are in the data_info directory
 	
 - modbus_interface.py
 	"Contains get_val and set_val functions".
+	
 	"At the end of the file there is an example for the get_vale function usage"
 
 - restapi_connect.py
