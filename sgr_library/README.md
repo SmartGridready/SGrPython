@@ -59,10 +59,12 @@ You can use the generated classes I created, they are in the data_info directory
 	"Makes connection with the api, also works with xsdata".
 
 - restapi_iterface.py
+"At the end of the file there is an example for the get_vale function usage"
+
 "New library with xsdata, it has two important functions:
 1) new_packet: makes a get request to the api to get a new json packet from the sensor.
 2) get_val: returns the value from a certain datapoint."
-"At the end of the file there is an example for the get_vale function usage"
+
 
 
 ### Examples directory
