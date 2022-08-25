@@ -17,4 +17,4 @@ Pip install -e is extremely useful when simultaneously developing a product and 
 
 I uploaded the library as sgr-demo-v0.0.4 for now
 
-    	pip install --index-url https://test.pypi.org/simple/ sgr-demo-v0.0.4
+    pip install --index-url https://test.pypi.org/simple/ sgr-demo-v0.0.4
