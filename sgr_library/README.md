@@ -8,7 +8,7 @@ You can also use the classes directly wihtout having to do create parser with lo
 
 The code looks cleaner and is easier to handle. The disadvantage is that you have to generate the classes from an xsdf file with an xsdata script, but we can maybe provide that xsd file and the generated classes to our clients so they don't have to do this.
 
-## Instalation
+## xsdata Instalation
 0) Create virtual enviroment:
 
 		py -m venv venv
@@ -21,7 +21,7 @@ The code looks cleaner and is easier to handle. The disadvantage is that you hav
 		"xsdata --package <file_name> <xsd_file_name>"
 	Keep the xsd file in the same directory.
 	file_name will be the name of the folder with the generated classes.
-
+	
 ## Library use
 1) We import the library and the generated classes:
 
@@ -36,23 +36,30 @@ You can use the generated classes I created, they are in the data_info directory
 	parser = XmlParser(context=XmlContext())
 	root = parser.parse(interface_file_path_default, data_info.test.SgrRestApideviceFrame)
 
+# Directory documentation
+
+
 ## Files used in derectory
 
-- introspective-reader-CEM.py
+- modbus_connect.py
+	"Creates client to connect with the modbus server".
+	
+- modbus_interface.py
+	"Contains get_val and set_val functions".
+
+- restapi_connect.py
+	"Makes connection with the api, also works with xsdata".
+
+- restapi_iterface.py
+"New library with xsdata, it has two important functions:
+1) new_packet: makes a get request to the api to get a new json packet from the sensor.
+2) get_val: returns the value from a certain datapoint.
+
+
+### Examples directory
+
+- introspective-reader.py
 "Has the format of the old reader we had in the library. I basically creates a loop and makes a getval over all the datapoints it finds in the xml file.
 The only difference is that now it is implemented with xsdata library and does not need a parser".
 
-- EI4_RestAPI_xsdata.py
-	"Makes connection with the api, also works with xsdata".
-
-- smartGridReadyPythonLibrary_xsdata.py
-"New library with xsdata, it has two functions:
-1) new_packet: makes a get request to the api to get a new json packet from the sensor.
-2) get_val: loops over all datapoints in the xml file until it finds the one that has the corresponding fp_name and dp_name. It could get inneficient if the list of functional proifles and datapoints gets too big, then a better solution would be to save the packet in a dictionary once it is asked".
-
-
-### Other files
-
-- smartGridReadyPythonLibrary_translated.py
-"This is the old library, but I transalted the parser from xml ElementTree library to the xsdata library, making it look a little cleaner".
 
