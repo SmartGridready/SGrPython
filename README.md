@@ -1,17 +1,19 @@
 # Directory
 
--sgr_library: Is the folder which will be installed with the pip install command. 
+- sgr_library: Is the folder which will be installed with the pip install command. 
 
--xml_files: Contains sample xml files for users to modify or use as example.
+- xml_files: Contains sample xml files for users to modify or use as example.
 
--xsd_files: Contains the SGr xsd files structure, from which the dataclasses in "sgr_library" directory were generated. 
+- xsd_files: Contains the SGr xsd files structure, from which the dataclasses in "sgr_library" directory were generated. 
 You don't have to do this, since the classes come included in the pip install, but in case you want to change something, you can generate classes with the following command:
+
 	xsdata --package dataclasses xsdata_files/SGrIncluder.xsd
 	
--setup.py: The script that is executed when installing the library with pip.
+- setup.py: The script that is executed when installing the library with pip.
+
 	pip install -r requirements.txt
 	
--requirements.txt: required libraries are included in the setup of the file, but in case these fail, install from requierements.txt file.
+- requirements.txt: required libraries are included in the setup of the file, but in case these fail, install from requierements.txt file.
 	
 	
 
