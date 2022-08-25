@@ -11,10 +11,6 @@ from xsdata.formats.dataclass.context import XmlContext
 from sgr_library.data_classes.ei_rest_api import SgrRestapideviceDescriptionType
 from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
 
-#instanciate the xsdata parser
-interface_file = 'SGr_04_0018_CLEMAP_EIcloudEnergyMonitorV0.2.1.xml'
-parser = XmlParser(context=XmlContext())
-root = parser.parse(interface_file, SgrRestapideviceDescriptionType)
 
 def add_private_config(string, params):
     jT = Template(string)
@@ -25,14 +21,15 @@ class RestapiConnect():
     """
     SmartGrid ready External Interface Class for Rest API
     """
-    def __init__(self, xmlSGrInterface, private_config):
-        self.restapi_resource = root.rest_apiinterface_desc.trsp_srv_rest_uriout_of_box
-        restapi_auth_method = root.rest_apiinterface_desc.rest_apiauthentication_method.value
+    def __init__(self, root, private_config):
+        self.root = root
+        self.restapi_resource = self.root.rest_apiinterface_desc.trsp_srv_rest_uriout_of_box
+        restapi_auth_method = self.root.rest_apiinterface_desc.rest_apiauthentication_method.value
 
         # Bearer Auth
         if restapi_auth_method == 'BearerSecurityScheme':
             
-            bearer = root.rest_apiinterface_desc.rest_apibearer
+            bearer = self.root.rest_apiinterface_desc.rest_apibearer
             endpoint = bearer.rest_apiend_point.split("'")
             auth_endpoint = endpoint[2][1:]
             request = endpoint[1]
@@ -50,7 +47,7 @@ class RestapiConnect():
 
         #TODO Basic Auth !!! Need to have an xml file with this structure to do it properly.
         elif restapi_auth_method == 'BasicSecurityScheme':
-            auth_location = root.rest_apiinterface_desc.rest_apiauthentication_method.rest_apibasic.rest_apibasic_location
+            auth_location = self.root.rest_apiinterface_desc.rest_apiauthentication_method.rest_apibasic.rest_apibasic_location
 
             self.conn = http.client.HTTPSConnection(self.restapi_resource, timeout=10)
             # reads the user and pass, encode it and add it to the header
