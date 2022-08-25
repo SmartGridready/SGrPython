@@ -1,4 +1,10 @@
-# xsdata branch documentation
+# INDEX
+
+## 1) xsdata branch documentation (how to install and use).
+
+## 2) Directory structure.
+
+# 1) xsdata branch documentation
 
 ## Introduction
 In this branch we parse the xml file with the xsdata library. This library creates generated metadata classes from which you can navigate the xml file.
@@ -36,7 +42,7 @@ You can use the generated classes I created, they are in the data_info directory
 	parser = XmlParser(context=XmlContext())
 	root = parser.parse(interface_file_path_default, data_info.test.SgrRestApideviceFrame)
 
-# Directory documentation
+# 2) Directory documentation
 
 
 ## Files used in derectory
