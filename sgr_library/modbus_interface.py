@@ -11,7 +11,7 @@ from sgr_library.modbus_connect import ModbusConnect
 def get_address(root) -> str:
     """
     :param root: The root element created with the xsdata parser
-    :return: string with ip address from xml file.
+    :returns: String with ip address from xml file.
     """
     address = ''
     address += str(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.address.ip_v4n1)
@@ -73,7 +73,9 @@ class ModbusInterface:
             address = dp.modbus_data_point[0].modbus_first_register_reference.addr
             size = dp.modbus_data_point[0].dp_size_nr_registers
             bitrank = dp.modbus_data_point[0].modbus_first_register_reference.bit_rank
-            register_type = dp.modbus_data_point[0].modbus_first_register_reference.register_type.value
+            register_type = dp.modbus_data_point[0].modbus_first_register_reference.register_type.value # Ex: Hold register. TODO make a function that writes depending on this...
+            data_type = dp.modbus_data_point[0].modbus_data_type # TODO make a function that choose which one it is.
+            print(data_type)
             unit = dp.data_point[0].unit.value
             multiplicator = dp.dp_mb_attr_reference[0].modbus_attr[0].scaling_by_mul_pwr.multiplicator
             power_of = dp.dp_mb_attr_reference[0].modbus_attr[0].scaling_by_mul_pwr.powerof10
@@ -81,7 +83,7 @@ class ModbusInterface:
         print('Requested datapoint not found in xml file')
         #TODO raise exception: datapoint not found.
 
-
+    # TODO a getval for L1, L2 and L3 at the same time
     def getval(self, fp_name, dp_name) -> float:
         """
         Reads datapoint value.
