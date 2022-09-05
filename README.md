@@ -4,12 +4,12 @@
 2) Directory structure
 3) Pip installation for developers
 
-# 1) How to use
+## 1) How to use
 
 - For the xsdata documentation and the library documentation please go to sgr_library folder in this directory. There you will find the specific the documentation.
 - For EXAMPLES on how to use the library, you will also find them in the sgr_library file, as 'examples'.
 
-# 2) Directory
+## 2) Directory
 
 - sgr_library: Is the folder which will be installed with the pip install command. In there 
 
@@ -28,9 +28,9 @@ You don't have to do this, since the classes come included in the pip install, b
 	
 	
 
-# 3) Pip Instalation
+## 3) Pip Instalation
 
-## Pip Install from local repository (developer).
+### Pip Install from local repository (developer).
 0) Create virtual enviroment:
 
 		py -m venv venv
@@ -43,7 +43,7 @@ Pip install -e is extremely useful when simultaneously developing a product and 
     	pip install -e C:\path\to\file\
 
 
-## Pip Install from pypi testing server (user).
+### Pip Install from pypi testing server (user).
 
 I uploaded the library as "sgr-demo-v0.0.4" for now.
 You can download it with the following command.
