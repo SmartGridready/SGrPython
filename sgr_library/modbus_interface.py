@@ -1,13 +1,14 @@
 from dataclasses import dataclass
-from typing import Any
+from typing import Optional, Tuple, Dict, Any, Iterable
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
 
 from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
+from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointsFrameType
 from sgr_library.modbus_connect import ModbusConnect
 
 
-def get_address(root):
+def get_address(root) -> str:
     """
     :return: string with ip address from xml file.
     """
@@ -21,16 +22,15 @@ def get_address(root):
     address += str(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.address.ip_v4n4)
     return address
 
-def get_port(root):
+def get_port(root) -> str:
     """
     :return: string with port from xml file.
     """
     return(str(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.port))
 
-def find_dp(root, fp_name, dp_name):
+def find_dp(root, fp_name, dp_name) -> SgrModbusDataPointsFrameType:
     """
-    Searches for selected datapoint in selected funcitonal profile.
-    Navigates trough the dataclasses until it is found.
+    Search datapoint
     """
     for fp in root.fp_list_element:
             if fp_name == fp.functional_profile.profile_name:
@@ -42,9 +42,10 @@ def find_dp(root, fp_name, dp_name):
 
 class ModbusInterface: 
 
-    def __init__(self, xml_file) -> Any:
+    def __init__(self, xml_file) -> None:
         """
-        returns all the information contained in the datapoint.
+        Creates a connection from xml file data.
+        Parses the xml file with xsdata library.
         """
         interface_file = xml_file
         parser = XmlParser(context=XmlContext())
@@ -53,9 +54,9 @@ class ModbusInterface:
         self.port = get_port(self.root)
         self.client = ModbusConnect(self.ip, self.port)
 
-    def datapoint_info(self, fp_name, dp_name):
+    def datapoint_info(self, fp_name, dp_name) -> Tuple[int, int, int, str, str, int, int]:
         """
-        returns all the information contained in the datapoint.
+        Returns datapoint information.
         """
         dp = find_dp(self.root, fp_name, dp_name)
         if dp:
@@ -72,18 +73,24 @@ class ModbusInterface:
         #TODO raise exception: datapoint not found.
 
 
-    def getval(self, fp_name, dp_name):
+    def getval(self, fp_name, dp_name) -> float:
+        """
+        Reads datapoint value
+        """
         datapoint_info = self.datapoint_info(fp_name, dp_name)
         address = int(datapoint_info[0])
         size = int(datapoint_info[1])
-        reg_type = 'INT32u'
+        reg_type = 'FLOAT32' #TODO Regtype from xml file...
         return self.client.value_decoder(address, size, reg_type)
 
 
-    def setval(self, fp_name, dp_name, value):
+    def setval(self, fp_name, dp_name, value) -> None:
+        """
+        Writes datapoint value
+        """
         datapoint_info = self.datapoint_info(fp_name, dp_name)
         address = int(datapoint_info[0])
-        reg_type = 'INT32u'
+        reg_type = 'INT32u' #TODO Regtype from xml file...
         self.client.value_encoder(address, value, reg_type)
 
 
@@ -92,7 +99,7 @@ if __name__ == "__main__":
     print('start')
     interface_file = 'SGr_04_0016_xxxx_ABBMeterV0.2.1.xml'
     a = ModbusInterface(interface_file)
-    a.setval('ActiveEnerBalanceAC', 'ActiveImportAC', 9000)
+    #a.setval('ActiveEnerBalanceAC', 'ActiveImportAC', 9000)
     print(a.getval('ActiveEnerBalanceAC', 'ActiveImportAC'))
 
     
