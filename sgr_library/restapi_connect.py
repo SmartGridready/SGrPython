@@ -64,6 +64,9 @@ class RestapiConnect():
             print('Error')
 
     def get(self, end_point):
+        """
+        HTTP Get request
+        """
         self.conn = http.client.HTTPSConnection(self.restapi_resource, timeout=10)
         self.conn.request('GET', end_point , '', self.headers)
         response = self.conn.getresponse()

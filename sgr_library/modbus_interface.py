@@ -10,6 +10,7 @@ from sgr_library.modbus_connect import ModbusConnect
 
 def get_address(root) -> str:
     """
+    :param root: The root element created with the xsdata parser
     :return: string with ip address from xml file.
     """
     address = ''
@@ -24,13 +25,18 @@ def get_address(root) -> str:
 
 def get_port(root) -> str:
     """
-    :return: string with port from xml file.
+    :param root: The root element created with the xsdata parser
+    :returns: string with port from xml file.
     """
     return(str(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.port))
 
 def find_dp(root, fp_name, dp_name) -> SgrModbusDataPointsFrameType:
     """
-    Search datapoint
+    Searches the datapoint in the root element.
+    :param root: The root element created with the xsdata parser
+    :param fp_name: The name of the funcitonal profile in which the datapoint resides
+    :param dp_name: The name of the datapoint
+    :returns: The datapoint element found in root, if not, returns None.
     """
     for fp in root.fp_list_element:
             if fp_name == fp.functional_profile.profile_name:
@@ -46,6 +52,7 @@ class ModbusInterface:
         """
         Creates a connection from xml file data.
         Parses the xml file with xsdata library.
+        :param xml_file: Name of the xml file to parse
         """
         interface_file = xml_file
         parser = XmlParser(context=XmlContext())
@@ -56,7 +63,9 @@ class ModbusInterface:
 
     def datapoint_info(self, fp_name, dp_name) -> Tuple[int, int, int, str, str, int, int]:
         """
-        Returns datapoint information.
+        :param fp_name: The name of the funcitonal profile in which the datapoint resides
+        :param dp_name: The name of the datapoint
+        :returns: datapoint information.
         """
         dp = find_dp(self.root, fp_name, dp_name)
         if dp:
@@ -75,7 +84,10 @@ class ModbusInterface:
 
     def getval(self, fp_name, dp_name) -> float:
         """
-        Reads datapoint value
+        Reads datapoint value.
+        :param fp_name: The name of the funcitonal profile in which the datapoint resides.
+        :param dp_name: The name of the datapoint.
+        :returns: The current decoded value in the datapoint register.
         """
         datapoint_info = self.datapoint_info(fp_name, dp_name)
         address = int(datapoint_info[0])
@@ -86,7 +98,10 @@ class ModbusInterface:
 
     def setval(self, fp_name, dp_name, value) -> None:
         """
-        Writes datapoint value
+        Writes datapoint value.
+        :param fp_name: The name of the funcitonal profile in which the datapoint resides.
+        :param dp_name: The name of the datapoint.
+        :param value: The value that is to be written on the datapoint.
         """
         datapoint_info = self.datapoint_info(fp_name, dp_name)
         address = int(datapoint_info[0])

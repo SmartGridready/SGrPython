@@ -28,7 +28,7 @@ class RestapiInterface():
         self.receivedAt = time.time()
 
     
-    def add_private_config(self, string, params) -> str: 
+    def add_private_config(self, string: str, params) -> str: 
         """
         Auxiliary function that adds te sensor_id number to the following string: "/digitaltwins/{{sensor_id}}"
         """
@@ -39,7 +39,7 @@ class RestapiInterface():
     
     def new_packet(self, private_config, communication_channel, endpoint) -> tuple:
         """
-        Function that loads a new packet from the communication_channel with the api
+        HTTP get request for a new packet from the communication_channel
         :return: (packet, recieved)
         """
         endpoint = self.add_private_config(endpoint, private_config) # Adds sensor_id to the private config   
@@ -56,7 +56,7 @@ class RestapiInterface():
             endpoint = dp.rest_apidata_point[0].rest_apiend_point
             self.packet, self.receivedAt = self.new_packet(self.private_config, self.communication_channel, endpoint)
 
-    def datapoint_info(self, fp_name, dp_name):
+    def datapoint_info(self, fp_name: str, dp_name: str) -> tuple:
         """
         returns all the information contained in the datapoint.
         """
@@ -73,7 +73,7 @@ class RestapiInterface():
         print('Requested datapoint not found in xml file')
 
     # get_val function to implement for getting a single value
-    def get_val_detailed(self, fp_name, dp_name) -> float:
+    def get_val_detailed(self, fp_name: str, dp_name: str) -> float:
         """
         :return: Datapoint value
         """
@@ -86,7 +86,7 @@ class RestapiInterface():
         #TODO raise exception: datapoint not found.
 
     
-    def get_val(self, fp_name, dp_name):
+    def get_val(self, fp_name: str, dp_name: str) -> tuple:
         """
         :return: Datapoint value
         """
