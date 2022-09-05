@@ -1,6 +1,17 @@
-# Directory
+# INDEX
 
-- sgr_library: Is the folder which will be installed with the pip install command. 
+1) How to use
+2) Directory structure
+3) Pip installation for developers
+
+# 1) How to use
+
+- For the xsdata documentation and the library documentation please go to sgr_library folder in this directory. There you will find the specific the documentation.
+- For EXAMPLES on how to use the library, you will also find them in the sgr_library file, as 'examples'.
+
+# 2) Directory
+
+- sgr_library: Is the folder which will be installed with the pip install command. In there 
 
 - xml_files: Contains sample xml files for users to modify or use as example.
 
@@ -17,7 +28,7 @@ You don't have to do this, since the classes come included in the pip install, b
 	
 	
 
-# Pip Instalation
+# 3) Pip Instalation
 
 ## Pip Install from local repository (developer).
 0) Create virtual enviroment:
