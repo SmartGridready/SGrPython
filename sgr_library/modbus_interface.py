@@ -62,7 +62,7 @@ class ModbusInterface:
         self.port = get_port(self.root)
         self.client = ModbusConnect(self.ip, self.port)
 
-
+    #TODO
     def get_dp_attribute(self, datapoint: str, attribute: str):
         """
         Searches for a specific attribute in the datapoint via a key.
@@ -72,7 +72,31 @@ class ModbusInterface:
         #TODO
         ...
 
+    def getval(self, fp_name: str, dp_name: str) -> float:
+        """
+        Reads datapoint value.
+        :param fp_name: The name of the funcitonal profile in which the datapoint resides.
+        :param dp_name: The name of the datapoint.
+        :returns: The current decoded value in the datapoint register.
+        """
+        datapoint_info = self.datapoint_info(fp_name, dp_name)
+        address = int(datapoint_info[0])
+        size = int(datapoint_info[1])
+        dp = find_dp(self.root, fp_name, dp_name)
+        reg_type = self.get_datatype(dp)
+        return self.client.value_decoder(address, size, reg_type)
 
+    def setval(self, fp_name: str, dp_name: str, value: float) -> None:
+        """
+        Writes datapoint value.
+        :param fp_name: The name of the funcitonal profile in which the datapoint resides.
+        :param dp_name: The name of the datapoint.
+        :param value: The value that is to be written on the datapoint.
+        """
+        datapoint_info = self.datapoint_info(fp_name, dp_name)
+        address = int(datapoint_info[0])
+        reg_type = 'INT32u' #TODO Regtype from xml file...
+        self.client.value_encoder(address, value, reg_type)
     
     def get_register_type(self, fp_name: str, dp_name: str) -> str:
         """
@@ -111,7 +135,7 @@ class ModbusInterface:
                 return key
         print('data_type not available')
 
-
+    #Slowly discontinue
     def datapoint_info(self, fp_name: str, dp_name: str) -> Tuple[int, int, int, str, str, int, int]:
         """
         :param fp_name: The name of the functional profile
@@ -126,7 +150,6 @@ class ModbusInterface:
             bitrank = dp.modbus_data_point[0].modbus_first_register_reference.bit_rank
             register_type = self.get_register_type
             data_type = self.get_datatype(dp)
-            print(type(data_type))
             unit = dp.data_point[0].unit.value
             multiplicator = dp.dp_mb_attr_reference[0].modbus_attr[0].scaling_by_mul_pwr.multiplicator
             power_of = dp.dp_mb_attr_reference[0].modbus_attr[0].scaling_by_mul_pwr.powerof10
@@ -136,31 +159,7 @@ class ModbusInterface:
         #TODO raise exception: datapoint not found.
 
     # TODO a getval for L1, L2 and L3 at the same time
-    def getval(self, fp_name: str, dp_name: str) -> float:
-        """
-        Reads datapoint value.
-        :param fp_name: The name of the funcitonal profile in which the datapoint resides.
-        :param dp_name: The name of the datapoint.
-        :returns: The current decoded value in the datapoint register.
-        """
-        datapoint_info = self.datapoint_info(fp_name, dp_name)
-        address = int(datapoint_info[0])
-        size = int(datapoint_info[1])
-        dp = find_dp(self.root, fp_name, dp_name)
-        reg_type = self.get_datatype(dp)
-        return self.client.value_decoder(address, size, reg_type)
-
-    def setval(self, fp_name: str, dp_name: str, value: float) -> None:
-        """
-        Writes datapoint value.
-        :param fp_name: The name of the funcitonal profile in which the datapoint resides.
-        :param dp_name: The name of the datapoint.
-        :param value: The value that is to be written on the datapoint.
-        """
-        datapoint_info = self.datapoint_info(fp_name, dp_name)
-        address = int(datapoint_info[0])
-        reg_type = 'INT32u' #TODO Regtype from xml file...
-        self.client.value_encoder(address, value, reg_type)
+    
 
 
 if __name__ == "__main__":
