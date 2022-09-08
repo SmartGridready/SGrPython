@@ -4,6 +4,7 @@ from pymodbus.client.sync import ModbusTcpClient, ModbusSerialClient
 
 
 # In this case establishes a connection with the localhost server that is running the simulation.
+# TODO make this inherit from the ModbusTcpClient
 class ModbusConnect:
 
     def __init__(self, ip: str, port: str):
