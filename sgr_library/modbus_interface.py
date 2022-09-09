@@ -113,11 +113,18 @@ class ModbusInterface:
             return register_type
         print('DP not found')
 
+
+    def get_datatype(self, dp) -> str:
+        datatype = dp.modbus_data_point[0].modbus_data_type.__dict__
+        print(datatype)
+        for key in datatype:
+            if datatype[key] != None:
+                return key
+        print('data_type not available')
     
     def get_bit_rank(self, dp):
         bitrank = dp.modbus_data_point[0].modbus_first_register_reference.bit_rank
         return bitrank
-
 
     def get_address(self, dp):
         address = dp.modbus_data_point[0].modbus_first_register_reference.addr
@@ -127,13 +134,6 @@ class ModbusInterface:
         size = dp.modbus_data_point[0].dp_size_nr_registers
         return size
 
-    def get_datatype(self, dp) -> str:
-        datatype = dp.modbus_data_point[0].modbus_data_type.__dict__
-        print(datatype)
-        for key in datatype:
-            if datatype[key] != None:
-                return key
-        print('data_type not available')
 
     #Slowly discontinue
     def datapoint_info(self, fp_name: str, dp_name: str) -> Tuple[int, int, int, str, str, int, int]:
