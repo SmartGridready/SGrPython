@@ -1,3 +1,9 @@
+"""
+SGr Payload Builder
+------------------------
+
+An adapted payload decoder and payload builder to use with the pymodbus library.
+"""
 from pymodbus.payload import BinaryPayloadDecoder, BinaryPayloadBuilder
 from numpy import ceil, floor, rint
 from enum import Enum
@@ -57,7 +63,6 @@ class PayloadDecoder(BinaryPayloadDecoder):
             return self.decode_string(byte_count)
         else:
             pass
-
 
 class PayloadBuilder(BinaryPayloadBuilder):
     def __init__(self, *args, **kwarg):

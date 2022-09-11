@@ -47,9 +47,10 @@ def find_dp(root, fp_name: str, dp_name: str) -> SgrModbusDataPointsFrameType:
                         return dp
     return None
 
+
 class ModbusInterface: 
 
-    def __init__(self, xml_file) -> None:
+    def __init__(self, xml_file: str) -> None:
         """
         Creates a connection from xml file data.
         Parses the xml file with xsdata library.
@@ -72,19 +73,44 @@ class ModbusInterface:
         #TODO
         ...
 
-    def getval(self, fp_name: str, dp_name: str) -> float:
+    #TODO assign multiple dispatch to the function.
+    '''def getval(self, fp_name: str, dp_name: str) -> float:
         """
         Reads datapoint value.
         :param fp_name: The name of the funcitonal profile in which the datapoint resides.
         :param dp_name: The name of the datapoint.
         :returns: The current decoded value in the datapoint register.
         """
-        datapoint_info = self.datapoint_info(fp_name, dp_name)
-        address = int(datapoint_info[0])
-        size = int(datapoint_info[1])
         dp = find_dp(self.root, fp_name, dp_name)
-        reg_type = self.get_datatype(dp)
-        return self.client.value_decoder(address, size, reg_type)
+        address = self.get_address(dp)
+        size = self.get_size(dp)
+        data_type = self.get_datatype(dp)
+        reg_type = self.get_register_type(dp)
+        return self.client.value_decoder(address, size, data_type, reg_type)'''
+
+    # getval with multiple dispatching
+    def getval(self, *parameters) -> float:
+        """
+        Reads datapoint value.
+
+        1 parameter
+        :dp: The already obtained datapoint object
+
+        2 parameters
+        :param fp_name: The name of the funcitonal profile in which the datapoint resides.
+        :param dp_name: The name of the datapoint.
+
+        :returns: The current decoded value in the datapoint register.
+        """
+        if len(parameters) == 2:
+            dp = find_dp(self.root, parameters[0], parameters[1])
+        else:
+            dp = parameters[0]
+        address = self.get_address(dp)
+        size = self.get_size(dp)
+        data_type = self.get_datatype(dp)
+        reg_type = self.get_register_type(dp)
+        return self.client.value_decoder(address, size, data_type, reg_type)
 
     def setval(self, fp_name: str, dp_name: str, value: float) -> None:
         """
@@ -93,84 +119,65 @@ class ModbusInterface:
         :param dp_name: The name of the datapoint.
         :param value: The value that is to be written on the datapoint.
         """
-        datapoint_info = self.datapoint_info(fp_name, dp_name)
-        address = int(datapoint_info[0])
-        reg_type = 'INT32u' #TODO Regtype from xml file...
-        self.client.value_encoder(address, value, reg_type)
+        dp = find_dp(self.root, fp_name, dp_name)
+        address = self.get_address(dp)
+        data_type = self.get_datatype(dp)
+        self.client.value_encoder(address, value, data_type)
     
-    def get_register_type(self, fp_name: str, dp_name: str) -> str:
+    def get_register_type(self, dp: SgrModbusDataPointsFrameType) -> str:
         """
         Returns register type E.g. "HoldRegister"
         :param fp_name: The name of the functional profile
         :param dp_name: The name of the data point.
         :returns: The type of the register 
         """
-        #TODO Exception: not found in the xml file
-        dp = find_dp(self.root, fp_name, dp_name)
-        if dp:
-            #TODO Exception: not found in the xml file
-            register_type = dp.modbus_data_point[0].modbus_first_register_reference.register_type.value
-            return register_type
-        print('DP not found')
+        register_type = dp.modbus_data_point[0].modbus_first_register_reference.register_type.value
+        return register_type
 
-
-    def get_datatype(self, dp) -> str:
+    def get_datatype(self, dp: SgrModbusDataPointsFrameType) -> str:
         datatype = dp.modbus_data_point[0].modbus_data_type.__dict__
-        print(datatype)
         for key in datatype:
             if datatype[key] != None:
                 return key
         print('data_type not available')
     
-    def get_bit_rank(self, dp):
+    def get_bit_rank(self, dp: SgrModbusDataPointsFrameType):
         bitrank = dp.modbus_data_point[0].modbus_first_register_reference.bit_rank
         return bitrank
 
-    def get_address(self, dp):
+    def get_address(self, dp: SgrModbusDataPointsFrameType):
         address = dp.modbus_data_point[0].modbus_first_register_reference.addr
         return address
 
-    def get_size(self, dp):
+    def get_size(self, dp: SgrModbusDataPointsFrameType):
         size = dp.modbus_data_point[0].dp_size_nr_registers
         return size
 
+    def get_multiplicator(self, dp: SgrModbusDataPointsFrameType):
+        multiplicator = dp.dp_mb_attr_reference[0].modbus_attr[0].scaling_by_mul_pwr.multiplicator
+        return multiplicator
 
-    #Slowly discontinue
-    def datapoint_info(self, fp_name: str, dp_name: str) -> Tuple[int, int, int, str, str, int, int]:
-        """
-        :param fp_name: The name of the functional profile
-        :param dp_name: The name of the data point.
-        :returns: datapoint information.
-        """
-        dp = find_dp(self.root, fp_name, dp_name)
-        if dp:
-            # We fill the searched datapoint information into variables.
-            address = self.get_address(dp)            
-            size = dp.modbus_data_point[0].dp_size_nr_registers
-            bitrank = dp.modbus_data_point[0].modbus_first_register_reference.bit_rank
-            register_type = self.get_register_type
-            data_type = self.get_datatype(dp)
-            unit = dp.data_point[0].unit.value
-            multiplicator = dp.dp_mb_attr_reference[0].modbus_attr[0].scaling_by_mul_pwr.multiplicator
-            power_of = dp.dp_mb_attr_reference[0].modbus_attr[0].scaling_by_mul_pwr.powerof10
-            name = dp.data_point[0].datapoint_name
-            return (address, size, bitrank, register_type, unit, multiplicator, power_of, name)
-        print('Requested datapoint not found in xml file')
-        #TODO raise exception: datapoint not found.
+    def get_power_10(self, dp: SgrModbusDataPointsFrameType):
+        power_10 = dp.dp_mb_attr_reference[0].modbus_attr[0].scaling_by_mul_pwr.powerof10
+        return power_10
+
+    def get_unit(self, dp: SgrModbusDataPointsFrameType):
+        unit = dp.data_point[0].unit.value
+        return unit
+
+    def get_name(self, dp: SgrModbusDataPointsFrameType):
+        name = dp.data_point[0].datapoint_name
+        return name
 
     # TODO a getval for L1, L2 and L3 at the same time
-    
-
 
 if __name__ == "__main__":
     starting_time = time.time()
     print('start')
-    print(time.time() - starting_time)
     interface_file = 'SGr_04_0016_xxxx_ABBMeterV0.2.1.xml'
     a = ModbusInterface(interface_file)
-    pa = (time.time() - starting_time)
     #a.setval('ActiveEnerBalanceAC', 'ActiveImportAC', 9000)
     print(a.getval('ActiveEnerBalanceAC', 'ActiveImportAC'))
-    print(pa)
-
+    dp = find_dp(a.root, 'ActiveEnerBalanceAC', 'ActiveImportAC')
+    print(a.getval(dp))
     
