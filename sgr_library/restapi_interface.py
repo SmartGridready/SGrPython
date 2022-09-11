@@ -12,7 +12,7 @@ from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
 from datetime import datetime, timezone
 import jmespath
 from sgr_library.modbus_interface import find_dp
-from sgr_library.restapi_connect import RestapiConnect
+from sgr_library.restapi_client import RestapiConnect
 from jinja2 import Template
 
 

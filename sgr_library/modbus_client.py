@@ -5,7 +5,7 @@ from pymodbus.client.sync import ModbusTcpClient, ModbusSerialClient
 
 # In this case establishes a connection with the localhost server that is running the simulation.
 # TODO make this inherit from the ModbusTcpClient
-class ModbusConnect:
+class SGrModbusClient:
 
     def __init__(self, ip: str, port: str):
         """
@@ -17,7 +17,7 @@ class ModbusConnect:
         self.client = ModbusTcpClient(ip, port)
         self.client.connect() #TODO a wrapper that opens and closes connection when function is excecuted?
 
-    def value_decoder(self, addr: int, size: int, data_type: str, register_type: str) -> float:
+    def value_decoder(self, addr: int, size: int, data_type: str, register_type: str, slave_id: int) -> float:
         """
         Reads register and decodes the value.
         :param addr: The address to read from and decode
@@ -26,15 +26,15 @@ class ModbusConnect:
         :returns: Decoded float
         """
         if register_type == "HoldingRegister":
-            reg = self.client.read_holding_registers(addr, count=size) #TODO add slave id?
+            reg = self.client.read_holding_registers(addr, count=size, unit=slave_id) #TODO add slave id?
         else:
-            reg = self.client.read_input_registers(addr, count=size)
+            reg = self.client.read_input_registers(addr, count=size, unit=slave_id)
         decoder = PayloadDecoder.fromRegisters(reg.registers, byteorder=Endian.Big, wordorder=Endian.Big)
         
         if not reg.isError():
             return decoder.decode(data_type, 0)
 
-    def value_encoder(self, addr: int, value: float, data_type: str):
+    def value_encoder(self, addr: int, value: float, data_type: str, slave_id: int):
         """
         Encodes value to be set on the register address
         :param addr: The address to read from and decode
@@ -43,4 +43,4 @@ class ModbusConnect:
         """
         builder = PayloadBuilder(byteorder=Endian.Little, wordorder=Endian.Little)
         builder.encode(value, data_type, rounding="floor")
-        self.client.write_registers(address=addr, values=builder.to_registers(), unit=0)
+        self.client.write_registers(address=addr, values=builder.to_registers(), unit=slave_id)

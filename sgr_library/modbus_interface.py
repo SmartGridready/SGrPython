@@ -6,7 +6,7 @@ import time
 
 from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
 from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointsFrameType
-from sgr_library.modbus_connection import ModbusConnect
+from sgr_library.modbus_client import SGrModbusClient
 
 
 def get_address(root) -> str:
@@ -31,6 +31,9 @@ def get_port(root) -> str:
     """
     return(str(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.port))
 
+def get_slave(root) -> int:
+    return(str(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.slave_id))
+
 def find_dp(root, fp_name: str, dp_name: str) -> SgrModbusDataPointsFrameType:
     """
     Searches the datapoint in the root element.
@@ -48,7 +51,7 @@ def find_dp(root, fp_name: str, dp_name: str) -> SgrModbusDataPointsFrameType:
     return None
 
 
-class ModbusInterface: 
+class SgrModbusInterface: 
 
     def __init__(self, xml_file: str) -> None:
         """
@@ -61,7 +64,9 @@ class ModbusInterface:
         self.root = parser.parse(interface_file, SgrModbusDeviceDescriptionType)
         self.ip = get_address(self.root)
         self.port = get_port(self.root)
-        self.client = ModbusConnect(self.ip, self.port)
+        self.client = SGrModbusClient(self.ip, self.port)
+        self.slave_id = get_slave(self.root)
+        print(self.slave_id)
 
     #TODO
     def get_dp_attribute(self, datapoint: str, attribute: str):
@@ -110,7 +115,8 @@ class ModbusInterface:
         size = self.get_size(dp)
         data_type = self.get_datatype(dp)
         reg_type = self.get_register_type(dp)
-        return self.client.value_decoder(address, size, data_type, reg_type)
+        slave_id = self.slave_id
+        return self.client.value_decoder(address, size, data_type, reg_type, slave_id)
 
     def setval(self, fp_name: str, dp_name: str, value: float) -> None:
         """
@@ -122,7 +128,8 @@ class ModbusInterface:
         dp = find_dp(self.root, fp_name, dp_name)
         address = self.get_address(dp)
         data_type = self.get_datatype(dp)
-        self.client.value_encoder(address, value, data_type)
+        slave_id = self.slave_id
+        self.client.value_encoder(address, value, data_type, slave_id)
     
     def get_register_type(self, dp: SgrModbusDataPointsFrameType) -> str:
         """
@@ -175,7 +182,7 @@ if __name__ == "__main__":
     starting_time = time.time()
     print('start')
     interface_file = 'SGr_04_0016_xxxx_ABBMeterV0.2.1.xml'
-    a = ModbusInterface(interface_file)
+    a = SgrModbusInterface(interface_file)
     #a.setval('ActiveEnerBalanceAC', 'ActiveImportAC', 9000)
     print(a.getval('ActiveEnerBalanceAC', 'ActiveImportAC'))
     dp = find_dp(a.root, 'ActiveEnerBalanceAC', 'ActiveImportAC')
