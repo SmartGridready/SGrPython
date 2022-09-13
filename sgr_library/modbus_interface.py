@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Optional, Tuple, Dict, Any, Iterable
+from pymodbus.constants import Endian
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
 import time
@@ -32,7 +33,13 @@ def get_port(root) -> str:
     return(str(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.port))
 
 def get_slave(root) -> int:
-    return(str(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.slave_id))
+    return(int(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.slave_id))
+
+def get_endian(root) -> str:
+    endian = str(root.modbus_interface_desc.conversion_scheme[0].value)
+    if endian == 'BigEndian':
+        return(Endian.Big)
+    return(Endian.Little)
 
 def find_dp(root, fp_name: str, dp_name: str) -> SgrModbusDataPointsFrameType:
     """
@@ -66,7 +73,7 @@ class SgrModbusInterface:
         self.port = get_port(self.root)
         self.client = SGrModbusClient(self.ip, self.port)
         self.slave_id = get_slave(self.root)
-        print(self.slave_id)
+        self.byte_order = get_endian(self.root)
 
     #TODO
     def get_dp_attribute(self, datapoint: str, attribute: str):
@@ -94,29 +101,29 @@ class SgrModbusInterface:
         return self.client.value_decoder(address, size, data_type, reg_type)'''
 
     # getval with multiple dispatching
-    def getval(self, *parameters) -> float:
+    def getval(self, *parameter) -> float:
         """
         Reads datapoint value.
 
-        1 parameter
         :dp: The already obtained datapoint object
 
-        2 parameters
-        :param fp_name: The name of the funcitonal profile in which the datapoint resides.
+        2 parameters alternative:
+        :param fp_name: The name of the functional profile in which the datapoint resides.
         :param dp_name: The name of the datapoint.
 
         :returns: The current decoded value in the datapoint register.
         """
-        if len(parameters) == 2:
-            dp = find_dp(self.root, parameters[0], parameters[1])
+        if len(parameter) == 2:
+            dp = find_dp(self.root, parameter[0], parameter[1])
         else:
-            dp = parameters[0]
+            dp = parameter[0]
         address = self.get_address(dp)
         size = self.get_size(dp)
         data_type = self.get_datatype(dp)
         reg_type = self.get_register_type(dp)
         slave_id = self.slave_id
-        return self.client.value_decoder(address, size, data_type, reg_type, slave_id)
+        order = self.byte_order
+        return self.client.value_decoder(address, size, data_type, reg_type, slave_id, order)
 
     def setval(self, fp_name: str, dp_name: str, value: float) -> None:
         """
@@ -129,7 +136,8 @@ class SgrModbusInterface:
         address = self.get_address(dp)
         data_type = self.get_datatype(dp)
         slave_id = self.slave_id
-        self.client.value_encoder(address, value, data_type, slave_id)
+        order = self.byte_order
+        self.client.value_encoder(address, value, data_type, slave_id, order)
     
     def get_register_type(self, dp: SgrModbusDataPointsFrameType) -> str:
         """

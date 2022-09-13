@@ -17,7 +17,7 @@ class SGrModbusClient:
         self.client = ModbusTcpClient(ip, port)
         self.client.connect() #TODO a wrapper that opens and closes connection when function is excecuted?
 
-    def value_decoder(self, addr: int, size: int, data_type: str, register_type: str, slave_id: int) -> float:
+    def value_decoder(self, addr: int, size: int, data_type: str, register_type: str, slave_id: int, order: Endian) -> float:
         """
         Reads register and decodes the value.
         :param addr: The address to read from and decode
@@ -29,18 +29,18 @@ class SGrModbusClient:
             reg = self.client.read_holding_registers(addr, count=size, unit=slave_id) #TODO add slave id?
         else:
             reg = self.client.read_input_registers(addr, count=size, unit=slave_id)
-        decoder = PayloadDecoder.fromRegisters(reg.registers, byteorder=Endian.Big, wordorder=Endian.Big)
+        decoder = PayloadDecoder.fromRegisters(reg.registers, byteorder=order, wordorder=order)
         
         if not reg.isError():
             return decoder.decode(data_type, 0)
 
-    def value_encoder(self, addr: int, value: float, data_type: str, slave_id: int):
+    def value_encoder(self, addr: int, value: float, data_type: str, slave_id: int, order: Endian):
         """
         Encodes value to be set on the register address
         :param addr: The address to read from and decode
         :param value: The value to be written on the register
         :param data_type: The modbus type to decode
         """
-        builder = PayloadBuilder(byteorder=Endian.Little, wordorder=Endian.Little)
+        builder = PayloadBuilder(byteorder=order, wordorder=order)
         builder.encode(value, data_type, rounding="floor")
         self.client.write_registers(address=addr, values=builder.to_registers(), unit=slave_id)
