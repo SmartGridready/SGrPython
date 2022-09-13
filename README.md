@@ -4,14 +4,6 @@
 2) Directory structure
 3) Pip installation for developers
 
-TODO
-# INDEX
-
-1) Library use
-2) Installation instructions
-3) Developer instructions
-
-
 ## 1) How to use
 
 - For the xsdata documentation and the library documentation please go to sgr_library folder in this directory. There you will find the specific the documentation.
