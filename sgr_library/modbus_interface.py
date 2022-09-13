@@ -6,6 +6,7 @@ from xsdata.formats.dataclass.context import XmlContext
 import time
 
 from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
+from sgr_library.data_classes.ei_modbus import SgrModbusDeviceFrame
 from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointsFrameType
 from sgr_library.modbus_client import SGrModbusClient
 
@@ -68,7 +69,8 @@ class SgrModbusInterface:
         """
         interface_file = xml_file
         parser = XmlParser(context=XmlContext())
-        self.root = parser.parse(interface_file, SgrModbusDeviceDescriptionType)
+        self.root = parser.parse(interface_file, SgrModbusDeviceFrame)
+        #self.root = parser.parse(interface_file, SgrModbusDeviceDescriptionType)
         self.ip = get_address(self.root)
         self.port = get_port(self.root)
         self.client = SGrModbusClient(self.ip, self.port)
@@ -183,6 +185,22 @@ class SgrModbusInterface:
     def get_name(self, dp: SgrModbusDataPointsFrameType):
         name = dp.data_point[0].datapoint_name
         return name
+
+    def find_dp(self, fp_name: str, dp_name: str) -> SgrModbusDataPointsFrameType:
+        """
+        Searches the datapoint in the root element.
+        :param root: The root element created with the xsdata parser
+        :param fp_name: The name of the funcitonal profile in which the datapoint resides
+        :param dp_name: The name of the datapoint
+        :returns: The datapoint element found in root, if not, returns None.
+        """
+        for fp in self.root.fp_list_element:
+                if fp_name == fp.functional_profile.profile_name:
+                    #Secondly we filter the datpoint name
+                    for dp in fp.dp_list_element:
+                        if dp_name == dp.data_point[0].datapoint_name:
+                            return dp
+        return None
 
     # TODO a getval for L1, L2 and L3 at the same time
 
