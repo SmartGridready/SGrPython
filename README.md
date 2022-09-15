@@ -41,6 +41,8 @@ Pip install -e is extremely useful when simultaneously developing a product and 
 
 
     	pip install -e C:\path\to\file\
+	
+	EXAMPLE: pip install -e C:\Users\admin\Desktop\SGrPython   
 
 
 ### Pip Install from pypi testing server (user).
