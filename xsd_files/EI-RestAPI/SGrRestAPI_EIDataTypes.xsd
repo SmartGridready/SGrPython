@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- edited with Eclipse Modeling Tools - 2020-10 by Christoph Broennimann 
 	(IBT Ing. Buero Broennimann Thun) --><!-- Copyright (c) Verein SmartGridready, Switzerland Version 0.2.1 2022-5-25
-	All Rights Reserved. Source: https://www.SmartGridready.ch/ --><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.1">
+	All Rights Reserved. Source: https://www.SmartGridready.ch/ --><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
   <include schemaLocation="../EI-GenTCP_IP/SGrTspSrvTCP_IP.xsd"/>
   <include schemaLocation="../Generic/SGrGenTypeDefinitions.xsd"/>
   <complexType name="SGrRestAPIInterfaceDescriptionType">
@@ -22,12 +22,6 @@
       <enumeration value="trspSrvRestURI"/>
     </restriction>
   </simpleType>
-  <complexType name="SGrRestAPIAttrFrameType">
-    <sequence>
-      <element maxOccurs="unbounded" minOccurs="0" name="genAttribute" type="sgr:SGrAttr4GenericType"/>
-      <element maxOccurs="unbounded" minOccurs="0" name="restAPIAttr" type="sgr:SGrAttr4RestAPIType"/>
-    </sequence>
-  </complexType>
   <complexType name="SGrRestAPIDataPointsFrameType">
     <annotation>
       <documentation>RPT Root Point for stand alone RestAPI Functional
@@ -37,29 +31,16 @@
     </annotation>
     <sequence>
       <element maxOccurs="unbounded" minOccurs="1" name="dataPoint" type="sgr:SGrDataPointDescriptionType"/>
-      <element maxOccurs="unbounded" minOccurs="1" name="restAPIDataPoint" type="sgr:SGrRestAPIDataPointDescriptionType">
-        <annotation>
-          <documentation>RestAPIAttrFrameTypes contain two branches of
-						SmartGridready attributes: RestAPI related and Generic
-						fpRestAPIAttrRefernce values are valid for a single datapoint
-					</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="unbounded" minOccurs="0" name="dpRestAPIAttrReference" type="sgr:SGrRestAPIAttrFrameType"/>
+      <element maxOccurs="unbounded" minOccurs="1" name="restAPIDataPoint" type="sgr:SGrRestAPIDataPointDescriptionType"/>
+      <element maxOccurs="unbounded" minOccurs="0" name="genAttribute" type="sgr:SGrAttr4GenericType"/>
+      <element maxOccurs="unbounded" minOccurs="0" name="restAPIAttr" type="sgr:SGrAttr4RestAPIType"/>
     </sequence>
   </complexType>
   <complexType name="SGrRestAPIProfilesFrameType">
     <sequence>
       <element maxOccurs="1" minOccurs="1" name="functionalProfile" type="sgr:SGrProfileDescriptionType"/>
-      <element maxOccurs="unbounded" minOccurs="0" name="fpRestAPIAttrReference" type="sgr:SGrRestAPIAttrFrameType">
-        <annotation>
-          <documentation>RestAPIAttrFrameTypes contain two branches of
-						SmartGridready attributes: RestAPI related and Generic
-						fpRestAPIAttrRefernce values are valid for a whole functional
-						profile
-					</documentation>
-        </annotation>
-      </element>
+      <element maxOccurs="unbounded" minOccurs="0" name="genAttribute" type="sgr:SGrAttr4GenericType"/>
+      <element maxOccurs="unbounded" minOccurs="0" name="restAPIAttr" type="sgr:SGrAttr4RestAPIType"/>
       <element maxOccurs="unbounded" minOccurs="1" name="dpListElement" type="sgr:SGrRestAPIDataPointsFrameType"/>
     </sequence>
   </complexType>

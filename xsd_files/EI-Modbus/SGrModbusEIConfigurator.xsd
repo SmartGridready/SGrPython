@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- edited with Eclipse Modeling Tools - 2020-10 by Christoph Broennimann 
-	(IBT Ing. Buero Broennimann Thun) --><!-- Copyright (c) Verein SmartGridready, Switzerland Version 0.2.1 2022-5-25 
-	All Rights Reserved. Source: https://www.SmartGridready.ch/ --><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.1">
+	(IBT Ing. Buero Broennimann Thun) --><!-- Copyright (c) Verein SmartGridready, Switzerland Version 0.2.2 2022-8-22 
+	All Rights Reserved. Source: https://www.SmartGridready.ch/ --><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
   <include schemaLocation="../Generic/SGrGenTypeDefinitions.xsd"/>
   <include schemaLocation="../EI-GenSerialInt/SGrSerialIntCapability.xsd"/>
   <include schemaLocation="SGrModbusEIDataTypes.xsd"/>
@@ -28,8 +28,10 @@
   <element name="ModbusFunctionCodesSupported" type="string"/>
   <complexType name="SGrModbusDataPointDescriptionType">
     <sequence>
-    	<element maxOccurs="1" minOccurs="1" name="modbusDataType"
-    		type="sgr:SGrBasicGenDataPointTypeType" />
+    	<element maxOccurs="1" minOccurs="0" name="modbusDataType"
+    		type="sgr:SGrBasicGenDataPointTypeType" />
+
+    	<element name="modbusArrayDataType" type="sgr:SGrBasicGenArrayDPTypeType" maxOccurs="1" minOccurs="0"></element>
     	<element maxOccurs="1" minOccurs="1"
     		name="modbusFirstRegisterReference"
     		type="sgr:tSGrModbus_RegisterRef" />
@@ -77,8 +79,9 @@
     		<annotation>
     			<documentation />
     		</annotation>
-    	</element>
-        </sequence>
+    	</element>
+
+    </sequence>
   </complexType>
   <element name="SGr_ModbusDataPointDescription" type="sgr:SGrModbusDataPointDescriptionType"/>
   <complexType name="modbusJMESPathType">
@@ -217,4 +220,64 @@
     </sequence>
     <attribute name="isEnabled" type="boolean"/>
   </complexType>
+  
+  <simpleType name="SGrModbusLayer6DeviationType">     
+      <annotation>
+          <documentation>this type is used to manage non standard data type definitions at ISO/OSI Layer 6</documentation>
+        </annotation>
+    <restriction base="string">
+      <enumeration value="2RegBase1000_L2H">        
+      <annotation>
+          <documentation>2 Registers show a combined value, as example in kWh and MWh beginning  with lower range @ lower address</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="2RegBase1000_H2L">       
+      <annotation>
+          <documentation>
+          <documentation>2 Registers show a combined value, as example in kWh and MWh beginning with lower range @ higher address</documentation></documentation>
+        </annotation>
+      </enumeration>      
+    </restriction>
+  </simpleType>     
+  
+  <simpleType name="SGrModbusReg2BoolArrayType">     
+      <annotation>
+          <documentation>this type is used to manage thetypical Buit level Status Flags being allocated to Registers for bitmap to boolean array</documentation>
+        </annotation>
+    <restriction base="string">
+      <enumeration value="Register2Boolean_B0"/> 
+      <enumeration value="Register2Boolean_B1"/> 
+      <enumeration value="Register2Boolean_B2"/> 
+      <enumeration value="Register2Boolean_B3"/> 
+      <enumeration value="Register2Boolean_B4"/> 
+      <enumeration value="Register2Boolean_B5"/> 
+      <enumeration value="Register2Boolean_B6"/> 
+      <enumeration value="Register2Boolean_B7"/> 
+      <enumeration value="Register2Boolean_B8"/> 
+      <enumeration value="Register2Boolean_B9"/> 
+      <enumeration value="Register2Boolean_B10"/> 
+      <enumeration value="Register2Boolean_B11"/> 
+      <enumeration value="Register2Boolean_B12"/> 
+      <enumeration value="Register2Boolean_B13"/> 
+      <enumeration value="Register2Boolean_B14"/> 
+      <enumeration value="Register2Boolean_B15"/> 
+      <enumeration value="Register2Boolean_B16"/> 
+      <enumeration value="Register2Boolean_B27"/> 
+      <enumeration value="Register2Boolean_B18"/> 
+      <enumeration value="Register2Boolean_B19"/> 
+      <enumeration value="Register2Boolean_B20"/> 
+      <enumeration value="Register2Boolean_B21"/> 
+      <enumeration value="Register2Boolean_B22"/> 
+      <enumeration value="Register2Boolean_B23"/> 
+      <enumeration value="Register2Boolean_B24"/> 
+      <enumeration value="Register2Boolean_B25"/> 
+      <enumeration value="Register2Boolean_B26"/> 
+      <enumeration value="Register2Boolean_B27"/> 
+      <enumeration value="Register2Boolean_B28"/> 
+      <enumeration value="Register2Boolean_B29"/> 
+      <enumeration value="Register2Boolean_B30"/> 
+      <enumeration value="Register2Boolean_B31"/> 
+    </restriction>
+  </simpleType>
+  
 </schema>

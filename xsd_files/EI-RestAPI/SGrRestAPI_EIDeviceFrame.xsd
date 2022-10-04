@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- edited with Eclipse Modeling Tools - 2020-10 by Christoph Broennimann 
 	(IBT Ing. Buero Broennimann Thun) --><!-- Copyright (c) Verein SmartGridready, Switzerland Version Switzerland Version 0.2.1 2022-5-25
-	All Rights Reserved. Source: https://www.SmartGridready.ch/ --><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.1">
+	All Rights Reserved. Source: https://www.SmartGridready.ch/ --><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
   <include schemaLocation="../Generic/SGrGenDataPointDefinition.xsd"/>
   <include schemaLocation="../Generic/SGrGenDeviceProfile.xsd"/>
   <include schemaLocation="../Generic/SGrGenFunctionalProfileDefinition.xsd"/>
@@ -17,14 +17,8 @@
     </annotation>
     <sequence>
       <element maxOccurs="1" minOccurs="1" name="deviceProfile" type="sgr:SGrDeviceProfileType"/>
-      <element maxOccurs="unbounded" minOccurs="0" name="devRestAPIAttrReference" type="sgr:SGrRestAPIAttrFrameType">
-        <annotation>
-          <documentation> RestAPIAttrFrameTypes contain two branches of
-						SmartGridready attributes: REST related and Generic
-						devAttrReference values are valid for a whole device
-					</documentation>
-        </annotation>
-      </element>
+      <element maxOccurs="unbounded" minOccurs="0" name="genAttribute" type="sgr:SGrAttr4GenericType"/>
+      <element maxOccurs="unbounded" minOccurs="0" name="restAPIAttr" type="sgr:SGrAttr4RestAPIType"/>
       <element maxOccurs="1" minOccurs="1" name="restAPIInterfaceDesc" type="sgr:SGrRestAPIInterfaceDescriptionType"/>
       <element maxOccurs="unbounded" minOccurs="1" name="fpListElement" type="sgr:SGrRestAPIProfilesFrameType"/>
     </sequence>
@@ -67,14 +61,8 @@
   <complexType name="SGrRestProfilesFrameType">
     <sequence>
       <element maxOccurs="1" minOccurs="1" name="functionalProfile" type="sgr:SGrProfileDescriptionType"/>
-      <element maxOccurs="unbounded" minOccurs="0" name="fpRestAPIAttrReference" type="sgr:SGrRestAPIAttrFrameType">
-        <annotation>
-          <documentation> RestAttrFrameTypes contain two branches of
-						SmartGridready attributes: REST related and Generic
-						fpMbAttrRefernce values are valid for a whole functional profile
-					</documentation>
-        </annotation>
-      </element>
+      <element maxOccurs="unbounded" minOccurs="0" name="genAttribute" type="sgr:SGrAttr4GenericType"/>
+      <element maxOccurs="unbounded" minOccurs="0" name="restAPIAttr" type="sgr:SGrAttr4RestAPIType"/>
       <element maxOccurs="unbounded" minOccurs="1" name="dpListElement" type="sgr:SGrRestAPIDataPointsFrameType"/>
     </sequence>
   </complexType>
@@ -87,15 +75,9 @@
     </annotation>
     <sequence>
       <element maxOccurs="unbounded" minOccurs="1" name="dataPoint" type="sgr:SGrDataPointDescriptionType"/>
-      <element maxOccurs="unbounded" minOccurs="1" name="RestDataPoint" type="sgr:SGrRestAPIDataPointDescriptionType">
-        <annotation>
-          <documentation> RestAPIAttrFrameTypes contain two branches of
-						SmartGridready attributes: Rest related and Generic
-						fpReatAPIAttrRefernce values are valid for a single datapoint
-					</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="unbounded" minOccurs="0" name="dpRestAPIAttrReference" type="sgr:SGrRestAPIAttrFrameType"/>
+      <element maxOccurs="unbounded" minOccurs="1" name="RestDataPoint" type="sgr:SGrRestAPIDataPointDescriptionType"/>
+      <element maxOccurs="unbounded" minOccurs="0" name="genAttribute" type="sgr:SGrAttr4GenericType"/>
+      <element maxOccurs="unbounded" minOccurs="0" name="restAPIAttr" type="sgr:SGrAttr4RestAPIType"/>
     </sequence>
   </complexType>
   <element name="SGrRESTAPIDeviceDescriptionType" type="sgr:SGrRESTAPIDeviceDescriptionType" />
