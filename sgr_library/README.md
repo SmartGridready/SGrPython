@@ -8,8 +8,8 @@
  
 # 1) xsdata branch documentation
 
-getval(<fp_name>, <dp_name>) from generic_interface.py module (Implemented in restapi and modbus)
-setval(<fp_name>, <dp_name>, ) from generic_interface.py module (Only implemented for modbus)
+- getval(<fp_name>, <dp_name>) from generic_interface.py module (Implemented in restapi and modbus)
+- setval(<fp_name>, <dp_name>, ) from generic_interface.py module (Only implemented for modbus)
 
 # 2) xsdata branch documentation
 
