@@ -6,7 +6,7 @@
 
  3) Directory structure.
  
-# 1) xsdata branch documentation
+# 1) Library use
 
 - getval(<fp_name_string>, <dp_name_string>) from generic_interface.py module (Implemented in restapi and modbus)
 - setval(<fp_nam_stringe>, <dp_name_string>, <value_integer>) from generic_interface.py module (Only implemented for modbus)
