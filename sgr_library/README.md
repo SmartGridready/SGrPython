@@ -3,6 +3,8 @@
  1) Library use.
 
  2) xsdata branch documentation (how to install and use).
+ 	- generation of classes from xsd
+ 	- xml parsing
 
  3) Directory structure.
  
@@ -54,7 +56,11 @@ You can use the generated classes I created, they are in the data_info directory
 
 ## Files used in derectory
 
-- modbus_connect.py
+-generic_interface.py
+	"this is from where we use our getval and setval functions"
+	"abstraction layer of interface"
+
+- modbus_client.py
 	"Creates client to connect with the modbus server".
 	
 - modbus_interface.py
@@ -62,7 +68,7 @@ You can use the generated classes I created, they are in the data_info directory
 	
 	"At the end of the file there is an example for the get_vale function usage"
 
-- restapi_connect.py
+- restapi_client.py
 	"Makes connection with the api, also works with xsdata".
 
 - restapi_iterface.py 
