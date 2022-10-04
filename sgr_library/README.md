@@ -1,8 +1,8 @@
-# SGrLibrary and xsData usage
+# SGrLibrary and xsData "generation" and "parsing" instructions.
 
  1) Library use.
 
- 2) xsdata branch documentation (how to install and use).
+ 2) xsdata branch (how to install and use).
  	- generation of classes from xsd
  	- xml parsing
 
@@ -13,7 +13,7 @@
 - getval(<fp_name_string>, <dp_name_string>) from **generic_interface.py** module (Implemented in restapi and modbus)
 - setval(<fp_nam_stringe>, <dp_name_string>, <value_integer>) from **generic_interface.py** module (Only implemented for modbus)
 
-# 2) xsdata branch documentation
+# 2) xsData documentation
 
 ## Introduction
 In this branch we parse the xml file with the xsdata library. This library creates generated metadata classes from which you can navigate the xml file.
