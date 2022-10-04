@@ -141,6 +141,12 @@ class SgrModbusInterface:
         order = self.byte_order
         self.client.value_encoder(address, value, data_type, slave_id, order)
     
+    def get_device_profile(self):
+        print(f"Brand Name: {self.root.device_profile.brand_name}")
+        print(f"Nominal Power: {self.root.device_profile.nominal_power}")
+        print(f"Level of Operation: {self.root.device_profile.dev_levelof_operation}")
+        return (self.root.device_profile)
+
     def get_register_type(self, dp: SgrModbusDataPointsFrameType) -> str:
         """
         Returns register type E.g. "HoldRegister"
@@ -165,6 +171,7 @@ class SgrModbusInterface:
     def get_address(self, dp: SgrModbusDataPointsFrameType):
         address = dp.modbus_data_point[0].modbus_first_register_reference.addr
         return address
+
 
     def get_size(self, dp: SgrModbusDataPointsFrameType):
         size = dp.modbus_data_point[0].dp_size_nr_registers

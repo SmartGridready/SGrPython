@@ -58,6 +58,7 @@ if __name__ == "__main__":
     interface_file2 = 'SGr_HeatPump_Test.xml'
     sgr_component2 = GenericInterface(interface_file2)
     dp = sgr_component2.find_dp('HeatPumpBase', 'HPOpState')
+    sgr_component2.get_device_profile()
 
     value2 = sgr_component2.getval('HeatPumpBase', 'HPOpState')
     print(value2)
