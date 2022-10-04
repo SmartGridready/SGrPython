@@ -30,7 +30,6 @@ class SGrModbusClient:
         else:
             reg = self.client.read_input_registers(addr, count=size, unit=slave_id)
         decoder = PayloadDecoder.fromRegisters(reg.registers, byteorder=order, wordorder=order)
-        
         if not reg.isError():
             return decoder.decode(data_type, 0)
 

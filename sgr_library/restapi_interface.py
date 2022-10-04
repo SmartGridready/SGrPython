@@ -86,7 +86,7 @@ class RestapiInterface():
         #TODO raise exception: datapoint not found.
 
     
-    def get_val(self, fp_name: str, dp_name: str) -> tuple:
+    def getval(self, fp_name: str, dp_name: str) -> tuple:
         """
         :return: Datapoint value
         """
@@ -95,11 +95,13 @@ class RestapiInterface():
 
 
 if __name__ == "__main__":
+
     print('start')
     interface_file = 'SGr_04_0018_CLEMAP_EIcloudEnergyMonitorV0.2.1.xml'
     config_file = 'config_CLEMAPEnMon_ressource_default.ini'
 
-    config_file_path_default = os.path.join( os.path.dirname(os.path.realpath(__file__)), config_file)
+    config_file_path_default = os.path.join(os.path.dirname(os.path.realpath(__file__)), config_file)
+    print(config_file_path_default)
     config_ressource = configparser.ConfigParser()
     config_ressource.read(config_file_path_default)
     a = RestapiInterface(interface_file, config_ressource)
