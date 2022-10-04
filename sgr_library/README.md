@@ -21,7 +21,7 @@ You can also use the classes directly wihtout having to do create parser with lo
 
 The code looks cleaner and is easier to handle. The disadvantage is that you have to generate the classes from an xsdf file with an xsdata script, but we can maybe provide that xsd file and the generated classes to our clients so they don't have to do this.
 
-## xsdata Instalation
+## xsdata instalation and generation of classes
 0) Create virtual enviroment:
 
 		py -m venv venv
@@ -35,7 +35,7 @@ The code looks cleaner and is easier to handle. The disadvantage is that you hav
 	Keep the xsd file in the same directory.
 	file_name will be the name of the folder with the generated classes.
 	
-## Library use
+## xsData Library xml parsing
 1) We import the library and the generated classes:
 
 		from  xsdata.formats.dataclass.parsers  import  XmlParser 
