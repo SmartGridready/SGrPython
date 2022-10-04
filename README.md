@@ -8,6 +8,7 @@
 
 - getval(<fp_name>, <dp_name>) from generic_interface.py module (Implemented in restapi and modbus)
 - setval(<fp_name>, <dp_name>, <value>) from generic_interface.py module (Only implemented for modbus)
+	
 AT THE END OF: generic_interface.py is a script with an example on how to use these cunfiont.
 
 - For the xsdata documentation and the library documentation please go to sgr_library folder in this directory. There you will find the specific the documentation.
