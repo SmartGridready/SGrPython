@@ -2,9 +2,14 @@
 
 1) How to use
 2) Pip installation for developers
-3) 2) Directory structure
+3) Directory structure
 
 ## 1) How to use
+
+- getval(<fp_name>, <dp_name>) from generic_interface.py module (Implemented in restapi and modbus)
+- setval(<fp_name>, <dp_name>, <value>) from generic_interface.py module (Only implemented for modbus)
+	
+generic_interface.py has a script with an example on how to use these functions.
 
 - For the xsdata documentation and the library documentation please go to sgr_library folder in this directory. There you will find the specific the documentation.
 - For EXAMPLES on how to use the library, you will also find them in the sgr_library file, as 'examples'.

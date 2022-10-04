@@ -1,10 +1,19 @@
 # INDEX
 
- 1) xsdata branch documentation (how to install and use).
+ 1) Library use.
 
- 2) Directory structure.
+ 2) xsdata branch documentation (how to install and use).
+ 	- generation of classes from xsd
+ 	- xml parsing
 
-# 1) xsdata branch documentation
+ 3) Directory structure.
+ 
+# 1) Library use
+
+- getval(<fp_name_string>, <dp_name_string>) from **generic_interface.py** module (Implemented in restapi and modbus)
+- setval(<fp_nam_stringe>, <dp_name_string>, <value_integer>) from **generic_interface.py** module (Only implemented for modbus)
+
+# 2) xsdata branch documentation
 
 ## Introduction
 In this branch we parse the xml file with the xsdata library. This library creates generated metadata classes from which you can navigate the xml file.
@@ -14,7 +23,7 @@ You can also use the classes directly wihtout having to do create parser with lo
 
 The code looks cleaner and is easier to handle. The disadvantage is that you have to generate the classes from an xsdf file with an xsdata script, but we can maybe provide that xsd file and the generated classes to our clients so they don't have to do this.
 
-## xsdata Instalation
+## xsdata instalation and generation of classes
 0) Create virtual enviroment:
 
 		py -m venv venv
@@ -28,7 +37,7 @@ The code looks cleaner and is easier to handle. The disadvantage is that you hav
 	Keep the xsd file in the same directory.
 	file_name will be the name of the folder with the generated classes.
 	
-## Library use
+## xsData Library xml parsing
 1) We import the library and the generated classes:
 
 		from  xsdata.formats.dataclass.parsers  import  XmlParser 
@@ -42,12 +51,16 @@ You can use the generated classes I created, they are in the data_info directory
 	parser = XmlParser(context=XmlContext())
 	root = parser.parse(interface_file_path_default, data_info.test.SgrRestApideviceFrame)
 
-# 2) Directory documentation
+# 3) Directory documentation
 
 
 ## Files used in derectory
 
-- modbus_connect.py
+- **generic_interface.py**
+	"this is from where we use our getval and setval functions"
+	"abstraction layer of interface"
+
+- modbus_client.py
 	"Creates client to connect with the modbus server".
 	
 - modbus_interface.py
@@ -55,7 +68,7 @@ You can use the generated classes I created, they are in the data_info directory
 	
 	"At the end of the file there is an example for the get_vale function usage"
 
-- restapi_connect.py
+- restapi_client.py
 	"Makes connection with the api, also works with xsdata".
 
 - restapi_iterface.py 
