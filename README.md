@@ -6,8 +6,8 @@
 
 ## 1) How to use
 
-- getval(<fp_name>, <dp_name>) from generic_interface.py module (Implemented in restapi and modbus)
-- setval(<fp_name>, <dp_name>, <value>) from generic_interface.py module (Only implemented for modbus)
+- getval(<fp_name>, <dp_name>) from **generic_interface.py** module (Implemented in restapi and modbus)
+- setval(<fp_name>, <dp_name>, <value>) from **generic_interface.py** module (Only implemented for modbus)
 	
 generic_interface.py has a script with an example on how to use these functions.
 
