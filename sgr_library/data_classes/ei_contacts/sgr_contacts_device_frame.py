@@ -40,8 +40,7 @@ class SgrContactApideviceDescriptionType:
     Interface) Geraet.
 
     :ivar device_profile:
-    :ivar dev_attr4_generic: ContactsAPI_AttrFrameTypes contains only
-        the generic branch of SGr attributes
+    :ivar gen_attribute:
     :ivar contact_api_interface_desc:
     :ivar fp_list_element:
     :ivar device_name: Device Name in the context of the ManufacturerID
@@ -66,10 +65,10 @@ class SgrContactApideviceDescriptionType:
             "required": True,
         }
     )
-    dev_attr4_generic: List[SgrAttr4GenericType] = field(
+    gen_attribute: List[SgrAttr4GenericType] = field(
         default_factory=list,
         metadata={
-            "name": "devAttr4Generic",
+            "name": "genAttribute",
             "type": "Element",
         }
     )

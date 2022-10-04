@@ -1,8 +1,7 @@
-from sgr_library.data_classes.ei_rest_api.sgr_rest_api_eidata_types import (
+from data_classes.ei_rest_api.sgr_rest_api_eidata_types import (
     SgrRestBasicType,
     SgrrestApibearerType,
     SgrAttr4RestApitype,
-    SgrRestApiattrFrameType,
     SgrRestApiauthenticationEnumMethodType,
     SgrRestApidataPointDescriptionType,
     SgrRestApidataPointsFrameType,
@@ -11,7 +10,7 @@ from sgr_library.data_classes.ei_rest_api.sgr_rest_api_eidata_types import (
     SgrRestApiprofilesFrameType,
     SgrRestApidataTypeType,
 )
-from sgr_library.data_classes.ei_rest_api.sgr_rest_api_eidevice_frame import (
+from data_classes.ei_rest_api.sgr_rest_api_eidevice_frame import (
     SgrRestapideviceDescriptionType,
     SgrRestApideviceFrame,
     SgrRestDataPointsFrameType,
@@ -22,7 +21,6 @@ __all__ = [
     "SgrRestBasicType",
     "SgrrestApibearerType",
     "SgrAttr4RestApitype",
-    "SgrRestApiattrFrameType",
     "SgrRestApiauthenticationEnumMethodType",
     "SgrRestApidataPointDescriptionType",
     "SgrRestApidataPointsFrameType",

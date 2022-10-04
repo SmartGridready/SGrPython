@@ -48,12 +48,12 @@
   <sgr:modbusInterfaceDesc>
     <sgr:modbusInterfaceSelection>RTU</sgr:modbusInterfaceSelection>
     <sgr:trspSrvModbusTCPoutOfBox>
-      <sgr:port>502</sgr:port>
+      <sgr:port>5002</sgr:port>
       <sgr:address>
-        <sgr:ipV4n1>192</sgr:ipV4n1>
-        <sgr:ipV4n2>168</sgr:ipV4n2>
-        <sgr:ipV4n3>1</sgr:ipV4n3>
-        <sgr:ipV4n4>151</sgr:ipV4n4>
+        <sgr:ipV4n1>127</sgr:ipV4n1>
+        <sgr:ipV4n2>0</sgr:ipV4n2>
+        <sgr:ipV4n3>0</sgr:ipV4n3>
+        <sgr:ipV4n4>1</sgr:ipV4n4>
       </sgr:address>
       <sgr:slaveID>0</sgr:slaveID>
     </sgr:trspSrvModbusTCPoutOfBox>   
@@ -139,13 +139,13 @@
       </sgr:dataPoint>
       <sgr:modbusDataPoint>
         <sgr:modbusDataType>
-        	<sgr:int64>0</sgr:int64>
+        	<sgr:float32>0</sgr:float32>
         </sgr:modbusDataType>
-        <sgr:modbusFirstRegisterReference addr="8301" bitRank="0" registerType="HoldRegister"></sgr:modbusFirstRegisterReference>
+        <sgr:modbusFirstRegisterReference addr="19012" bitRank="0" registerType="HoldRegister"></sgr:modbusFirstRegisterReference>
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>
-      <sgr:dpMbAttrReference>        
+      <sgr:genAttribute>        
         <sgr:genAttribute>
         	<sgr:precision>1.0</sgr:precision>
         	<sgr:timeStampLog>2001-12-31T12:00:00<!--must be supplied by communuicator--></sgr:timeStampLog>
@@ -155,7 +155,7 @@
       			<sgr:multiplicator>1</sgr:multiplicator>
       			<sgr:powerof10>-2</sgr:powerof10>
       		</sgr:scalingByMulPwr>
-      	</sgr:modbusAttr></sgr:dpMbAttrReference>
+      	</sgr:modbusAttr></sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="ActiveExportAC" mroVisibilityIndicator="M" rwpDatadirection="R" unit="KILOWATT_HOURS">
@@ -181,11 +181,11 @@
         <sgr:modbusDataType>
         	<sgr:int64>0</sgr:int64>
         </sgr:modbusDataType>
-        <sgr:modbusFirstRegisterReference addr="8301" bitRank="0" registerType="HoldRegister"></sgr:modbusFirstRegisterReference>
+        <sgr:modbusFirstRegisterReference addr="19014" bitRank="0" registerType="HoldRegister"></sgr:modbusFirstRegisterReference>
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>
-      <sgr:dpMbAttrReference>        
+      <sgr:genAttribute>        
         <sgr:genAttribute>
         	<sgr:precision>1.0</sgr:precision>
         	<sgr:timeStampLog>2001-12-31T12:00:00<!--must be supplied by communuicator--></sgr:timeStampLog>
@@ -195,7 +195,7 @@
       			<sgr:multiplicator>1</sgr:multiplicator>
       			<sgr:powerof10>-2</sgr:powerof10>
       		</sgr:scalingByMulPwr>
-      	</sgr:modbusAttr></sgr:dpMbAttrReference>
+      	</sgr:modbusAttr></sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="ActiveNetAC" mroVisibilityIndicator="M" rwpDatadirection="R" unit="KILOWATT_HOURS">
@@ -221,11 +221,11 @@
         <sgr:modbusDataType>
         	<sgr:int64>0</sgr:int64>
         </sgr:modbusDataType>
-        <sgr:modbusFirstRegisterReference addr="8301" bitRank="0" registerType="HoldRegister"></sgr:modbusFirstRegisterReference>
+        <sgr:modbusFirstRegisterReference addr="19016" bitRank="0" registerType="HoldRegister"></sgr:modbusFirstRegisterReference>
         <sgr:dpSizeNrRegisters>4</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>     
-      <sgr:dpMbAttrReference>        
+      <sgr:genAttribute>        
         <sgr:genAttribute>
         	<sgr:precision>1.0</sgr:precision>
         	<sgr:timeStampLog>2001-12-31T12:00:00<!--must be supplied by communuicator--></sgr:timeStampLog>
@@ -236,7 +236,7 @@
       			<sgr:powerof10>-2</sgr:powerof10>
       		</sgr:scalingByMulPwr>
       	</sgr:modbusAttr>
-      	</sgr:dpMbAttrReference>
+      	</sgr:genAttribute>
     </sgr:dpListElement>
   </sgr:fpListElement>
   <sgr:fpListElement>
@@ -295,14 +295,14 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>      
-      <sgr:dpMbAttrReference>        
+      <sgr:genAttribute>        
       	<sgr:modbusAttr>
       		<sgr:scalingByMulPwr>
       			<sgr:multiplicator>1</sgr:multiplicator>
       			<sgr:powerof10>-2</sgr:powerof10>
       		</sgr:scalingByMulPwr>
       	</sgr:modbusAttr>
-      	</sgr:dpMbAttrReference>
+      	</sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="ActivePowerACL1" mroVisibilityIndicator="M" rwpDatadirection="R" unit="KILOWATT_HOURS">
@@ -332,14 +332,14 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>         
-      <sgr:dpMbAttrReference>        
+      <sgr:genAttribute>        
       	<sgr:modbusAttr>
       		<sgr:scalingByMulPwr>
       			<sgr:multiplicator>1</sgr:multiplicator>
       			<sgr:powerof10>-2</sgr:powerof10>
       		</sgr:scalingByMulPwr>
       	</sgr:modbusAttr>
-      	</sgr:dpMbAttrReference>
+      	</sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="ActivePowerACL2" mroVisibilityIndicator="M" rwpDatadirection="R" unit="KILOWATT_HOURS">
@@ -369,14 +369,14 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>  
-      	<sgr:dpMbAttrReference>
+      	<sgr:genAttribute>
       	<sgr:modbusAttr>
       		<sgr:scalingByMulPwr>
       			<sgr:multiplicator>1</sgr:multiplicator>
       			<sgr:powerof10>-2</sgr:powerof10>
       		</sgr:scalingByMulPwr>
       	</sgr:modbusAttr>
-      	</sgr:dpMbAttrReference>
+      	</sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="ActivePowerACL3" mroVisibilityIndicator="M" rwpDatadirection="R" unit="KILOWATT_HOURS">
@@ -406,14 +406,14 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>  
-      	<sgr:dpMbAttrReference>
+      	<sgr:genAttribute>
       	<sgr:modbusAttr>
       		<sgr:scalingByMulPwr>
       			<sgr:multiplicator>1</sgr:multiplicator>
       			<sgr:powerof10>-2</sgr:powerof10>
       		</sgr:scalingByMulPwr>
       	</sgr:modbusAttr>
-      	</sgr:dpMbAttrReference>
+      	</sgr:genAttribute>
     </sgr:dpListElement>
   </sgr:fpListElement>
   <sgr:fpListElement>
@@ -472,14 +472,14 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>   
-      	<sgr:dpMbAttrReference>
+      	<sgr:genAttribute>
       	<sgr:modbusAttr>
       		<sgr:scalingByMulPwr>
       			<sgr:multiplicator>1</sgr:multiplicator>
       			<sgr:powerof10>-2</sgr:powerof10>
       		</sgr:scalingByMulPwr>
       	</sgr:modbusAttr>
-      	</sgr:dpMbAttrReference>
+      	</sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="CurrentACL2" mroVisibilityIndicator="M" rwpDatadirection="R" unit="KILOWATT_HOURS">
@@ -509,14 +509,14 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>  
-      	<sgr:dpMbAttrReference>
+      	<sgr:genAttribute>
       	<sgr:modbusAttr>
       		<sgr:scalingByMulPwr>
       			<sgr:multiplicator>1</sgr:multiplicator>
       			<sgr:powerof10>-2</sgr:powerof10>
       		</sgr:scalingByMulPwr>
       	</sgr:modbusAttr>
-      	</sgr:dpMbAttrReference>
+      	</sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="CurrentACL3" mroVisibilityIndicator="M" rwpDatadirection="R" unit="KILOWATT_HOURS">
@@ -546,14 +546,14 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>     
-      	<sgr:dpMbAttrReference>
+      	<sgr:genAttribute>
       	<sgr:modbusAttr>
       		<sgr:scalingByMulPwr>
       			<sgr:multiplicator>1</sgr:multiplicator>
       			<sgr:powerof10>-2</sgr:powerof10>
       		</sgr:scalingByMulPwr>
       	</sgr:modbusAttr>
-      	</sgr:dpMbAttrReference>
+      	</sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="CurrentACN" mroVisibilityIndicator="M" rwpDatadirection="R" unit="KILOWATT_HOURS">
@@ -583,12 +583,12 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>
-      <sgr:dpMbAttrReference>
+      <sgr:genAttribute>
       	<sgr:modbusAttr>
       		<sgr:scalingByMulPwr>
       			<sgr:multiplicator>1</sgr:multiplicator>
       			<sgr:powerof10>-2</sgr:powerof10>
-      		</sgr:scalingByMulPwr></sgr:modbusAttr></sgr:dpMbAttrReference>
+      		</sgr:scalingByMulPwr></sgr:modbusAttr></sgr:genAttribute>
     </sgr:dpListElement>
   </sgr:fpListElement>
 </sgr:SGrModbusDeviceDescriptionType>

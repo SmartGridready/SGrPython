@@ -1,20 +1,21 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
-from sgr_library.data_classes.ei_modbus.sgr_modbus_eiconfigurator import (
+from data_classes.ei_modbus.sgr_modbus_eiconfigurator import (
     SgrAccessProtectionEnabledType,
     SgrModbusDataPointDescriptionType,
     SgrModbusInterfaceDescriptionType,
+    SgrModbusLayer6DeviationType,
 )
-from sgr_library.data_classes.ei_modbus.sgr_modbus_eidata_types import TimeSyncBlockNotificationType
-from sgr_library.data_classes.ei_modbus.sgr_modbus_helpers import NetworkConnectionStateType
-from sgr_library.data_classes.generic.sgr_gen_data_point_definition import SgrDataPointDescriptionType
-from sgr_library.data_classes.generic.sgr_gen_device_profile import SgrDeviceProfileType
-from sgr_library.data_classes.generic.sgr_gen_functional_profile_definition import SgrProfileDescriptionType
-from sgr_library.data_classes.generic.sgr_gen_type_definitions import (
+from data_classes.ei_modbus.sgr_modbus_eidata_types import TimeSyncBlockNotificationType
+from data_classes.ei_modbus.sgr_modbus_helpers import NetworkConnectionStateType
+from data_classes.generic.sgr_gen_data_point_definition import SgrDataPointDescriptionType
+from data_classes.generic.sgr_gen_device_profile import SgrDeviceProfileType
+from data_classes.generic.sgr_gen_functional_profile_definition import SgrProfileDescriptionType
+from data_classes.generic.sgr_gen_type_definitions import (
     SgrAttr4GenericType,
     SgrScalingType,
 )
-from sgr_library.data_classes.generic.sgr_manufacturer_list import SgrManufacturerIdtype
+from data_classes.generic.sgr_manufacturer_list import SgrManufacturerIdtype
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 
@@ -36,6 +37,7 @@ class SgrAttr4ModbusType:
         sequence of Regsisteres (usually transmitted by Blocktransfers)
         to be transferred together
     :ivar access_protection:
+    :ivar layer6_deviation:
     """
     class Meta:
         name = "SGrAttr4ModbusType"
@@ -87,25 +89,10 @@ class SgrAttr4ModbusType:
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
-
-
-@dataclass
-class SgrModbusAttrFrameType:
-    class Meta:
-        name = "SGrModbusAttrFrameType"
-
-    gen_attribute: List[SgrAttr4GenericType] = field(
-        default_factory=list,
+    layer6_deviation: Optional[SgrModbusLayer6DeviationType] = field(
+        default=None,
         metadata={
-            "name": "genAttribute",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    modbus_attr: List[SgrAttr4ModbusType] = field(
-        default_factory=list,
-        metadata={
-            "name": "modbusAttr",
+            "name": "layer6Deviation",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
@@ -117,12 +104,6 @@ class SgrModbusDataPointsFrameType:
     """RPT Root Point for stand alone Modbus Functional Profile description.
 
     It includes the embedded generic Porfile decription
-
-    :ivar data_point:
-    :ivar modbus_data_point: ModbusAttrFrameTypes contain two branches
-        of SmartGridready attributes: Modbus related and Generic
-        fpMbAttrRefernce values are valid for a single datapoint
-    :ivar dp_mb_attr_reference:
     """
     class Meta:
         name = "SGrModbusDataPointsFrameType"
@@ -145,10 +126,18 @@ class SgrModbusDataPointsFrameType:
             "min_occurs": 1,
         }
     )
-    dp_mb_attr_reference: List[SgrModbusAttrFrameType] = field(
+    gen_attribute: List[SgrAttr4GenericType] = field(
         default_factory=list,
         metadata={
-            "name": "dpMbAttrReference",
+            "name": "genAttribute",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    modbus_attr: List[SgrAttr4ModbusType] = field(
+        default_factory=list,
+        metadata={
+            "name": "modbusAttr",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
@@ -157,14 +146,6 @@ class SgrModbusDataPointsFrameType:
 
 @dataclass
 class SgrModbusProfilesFrameType:
-    """
-    :ivar functional_profile:
-    :ivar fp_mb_attr_reference: ModbusAttrFrameTypes contain two
-        branches of SmartGridready attributes: Modbus related and
-        Generic fpMbAttrRefernce values are valid for a whole functional
-        profile
-    :ivar dp_list_element:
-    """
     class Meta:
         name = "SGrModbusProfilesFrameType"
 
@@ -177,10 +158,18 @@ class SgrModbusProfilesFrameType:
             "required": True,
         }
     )
-    fp_mb_attr_reference: List[SgrModbusAttrFrameType] = field(
+    gen_attribute: List[SgrAttr4GenericType] = field(
         default_factory=list,
         metadata={
-            "name": "fpMbAttrReference",
+            "name": "genAttribute",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    modbus_attr: List[SgrAttr4ModbusType] = field(
+        default_factory=list,
+        metadata={
+            "name": "modbusAttr",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
@@ -203,9 +192,8 @@ class SgrModbusDeviceDescriptionType:
     Interface) Geraet.
 
     :ivar device_profile:
-    :ivar dev_mb_attr_reference: ModbusAttrFrameTypes contain two
-        branches of SmartGridready attributes: Modbus related and
-        Generic devMbAttrRefernce values are valid for a whole device
+    :ivar gen_attribute:
+    :ivar modbus_attr:
     :ivar modbus_interface_desc:
     :ivar fp_list_element:
     :ivar network_connection_state:
@@ -231,10 +219,17 @@ class SgrModbusDeviceDescriptionType:
             "required": True,
         }
     )
-    dev_mb_attr_reference: List[SgrModbusAttrFrameType] = field(
+    gen_attribute: List[SgrAttr4GenericType] = field(
         default_factory=list,
         metadata={
-            "name": "devMbAttrReference",
+            "name": "genAttribute",
+            "type": "Element",
+        }
+    )
+    modbus_attr: List[SgrAttr4ModbusType] = field(
+        default_factory=list,
+        metadata={
+            "name": "modbusAttr",
             "type": "Element",
         }
     )

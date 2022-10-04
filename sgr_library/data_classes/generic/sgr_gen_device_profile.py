@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional
-from sgr_library.data_classes.generic.sgr_gen_type_definitions import (
+from data_classes.generic.sgr_gen_type_definitions import (
     SgrDeviceKindType,
     SgrLegibDocumentationType,
     SgrNamelistType,
@@ -152,7 +152,7 @@ class SgrDeviceProfileType:
     rem_author_id: Optional[str] = field(
         default=None,
         metadata={
-            "name": "remAuthorID ",
+            "name": "remAuthorID",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }

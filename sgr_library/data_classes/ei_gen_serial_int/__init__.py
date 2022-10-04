@@ -1,4 +1,4 @@
-from sgr_library.data_classes.ei_gen_serial_int.sgr_serial_int_capability import (
+from data_classes.ei_gen_serial_int.sgr_serial_int_capability import (
     SgrSerialInterfaceCapabilityType,
     BaudRatesSupported,
     ByteLenSupported,

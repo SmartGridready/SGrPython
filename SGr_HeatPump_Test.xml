@@ -113,14 +113,10 @@
         <sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>
-      <sgr:dpMbAttrReference>
-        <sgr:modbusAttr>
-          <sgr:scalingByMulPwr>
-            <sgr:multiplicator>1</sgr:multiplicator>
-            <sgr:powerof10>0</sgr:powerof10>
-          </sgr:scalingByMulPwr>
-        </sgr:modbusAttr>
-      </sgr:dpMbAttrReference>
+      <sgr:genAttribute>
+
+        
+      </sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="HPOpState" mroVisibilityIndicator="M" rwpDatadirection="R" unit="NONE">
@@ -145,14 +141,8 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>
-      <sgr:dpMbAttrReference>
-        <sgr:modbusAttr>
-          <sgr:scalingByMulPwr>
-            <sgr:multiplicator>1</sgr:multiplicator>
-            <sgr:powerof10>0</sgr:powerof10>
-          </sgr:scalingByMulPwr>
-        </sgr:modbusAttr>
-      </sgr:dpMbAttrReference>
+      <sgr:genAttribute>
+      </sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="ErrorNrSGr" mroVisibilityIndicator="M" rwpDatadirection="R" unit="NONE">
@@ -177,14 +167,10 @@
         <sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>
-      <sgr:dpMbAttrReference>
-        <sgr:modbusAttr>
-          <sgr:scalingByMulPwr>
-            <sgr:multiplicator>1</sgr:multiplicator>
-            <sgr:powerof10>0</sgr:powerof10>
-          </sgr:scalingByMulPwr>
-        </sgr:modbusAttr>
-      </sgr:dpMbAttrReference>
+      <sgr:genAttribute>
+
+        
+      </sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="OutsideAirTemp" mroVisibilityIndicator="M" rwpDatadirection="R" unit="DEGREES_CELSIUS">
@@ -211,14 +197,10 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>
-      <sgr:dpMbAttrReference>
-        <sgr:modbusAttr>
-          <sgr:scalingByMulPwr>
-            <sgr:multiplicator>1</sgr:multiplicator>
-            <sgr:powerof10>0</sgr:powerof10>
-          </sgr:scalingByMulPwr>
-        </sgr:modbusAttr>
-      </sgr:dpMbAttrReference>
+      <sgr:genAttribute>
+
+        
+      </sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="FlowWaterTemp" mroVisibilityIndicator="M" rwpDatadirection="R" unit="DEGREES_CELSIUS">
@@ -234,14 +216,10 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>
-      <sgr:dpMbAttrReference>
-        <sgr:modbusAttr>
-          <sgr:scalingByMulPwr>
-            <sgr:multiplicator>1</sgr:multiplicator>
-            <sgr:powerof10>0</sgr:powerof10>
-          </sgr:scalingByMulPwr>
-        </sgr:modbusAttr>
-      </sgr:dpMbAttrReference>
+      <sgr:genAttribute>
+
+        
+      </sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="BackFlowWaterTemp" mroVisibilityIndicator="O" rwpDatadirection="R" unit="DEGREES_CELSIUS">
@@ -266,14 +244,10 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>
-      <sgr:dpMbAttrReference>
-        <sgr:modbusAttr>
-          <sgr:scalingByMulPwr>
-            <sgr:multiplicator>1</sgr:multiplicator>
-            <sgr:powerof10>0</sgr:powerof10>
-          </sgr:scalingByMulPwr>
-        </sgr:modbusAttr>
-      </sgr:dpMbAttrReference>
+      <sgr:genAttribute>
+
+        
+      </sgr:genAttribute>
     </sgr:dpListElement>
   </sgr:fpListElement>
   <sgr:fpListElement>
@@ -331,14 +305,8 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>
-      <sgr:dpMbAttrReference>
-        <sgr:modbusAttr>
-          <sgr:scalingByMulPwr>
-            <sgr:multiplicator>1</sgr:multiplicator>
-            <sgr:powerof10>2</sgr:powerof10>
-          </sgr:scalingByMulPwr>
-        </sgr:modbusAttr>
-      </sgr:dpMbAttrReference>
+      <sgr:genAttribute>      
+      </sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="ActSpeed" mroVisibilityIndicator="M" rwpDatadirection="R" unit="REVOLUTIONS_PER_MINUTE">
@@ -365,14 +333,10 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>
-      <sgr:dpMbAttrReference>
-        <sgr:modbusAttr>
-          <sgr:scalingByMulPwr>
-            <sgr:multiplicator>1</sgr:multiplicator>
-            <sgr:powerof10>0</sgr:powerof10>
-          </sgr:scalingByMulPwr>
-        </sgr:modbusAttr>
-      </sgr:dpMbAttrReference>
+      <sgr:genAttribute>
+
+        
+      </sgr:genAttribute>
     </sgr:dpListElement>
     <sgr:dpListElement>
       <sgr:dataPoint datapointName="ActPowerACtot" mroVisibilityIndicator="O" rwpDatadirection="R" unit="KILOWATTS">
@@ -399,14 +363,10 @@
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>
-      <sgr:dpMbAttrReference>
-        <sgr:modbusAttr>
-          <sgr:scalingByMulPwr>
-            <sgr:multiplicator>1</sgr:multiplicator>
-            <sgr:powerof10>0</sgr:powerof10>
-          </sgr:scalingByMulPwr>
-        </sgr:modbusAttr>
-      </sgr:dpMbAttrReference>
+      <sgr:genAttribute>
+
+        
+      </sgr:genAttribute>
     </sgr:dpListElement>
   </sgr:fpListElement>
 </sgr:SGrModbusDeviceFrame>

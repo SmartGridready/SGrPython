@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
-from sgr_library.data_classes.generic.sgr_gen_type_definitions import (
+from data_classes.generic.sgr_gen_type_definitions import (
+    SgrBasicGenArrayDptypeType,
     SgrBasicGenDataPointTypeType,
     SgrLegibDocumentationType,
     SgrMropresenceLevelIndicationType,
@@ -22,6 +23,7 @@ class SgrDataPointDescriptionType:
     Attributen.
 
     :ivar basic_data_type:
+    :ivar basic_array_data_type:
     :ivar dp_name_list:
     :ivar dp_legib_desc: this is the public explanation of the
         functionlity of this Datapoint
@@ -48,7 +50,14 @@ class SgrDataPointDescriptionType:
             "name": "basicDataType",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
+        }
+    )
+    basic_array_data_type: Optional[SgrBasicGenArrayDptypeType] = field(
+        default=None,
+        metadata={
+            "name": "basicArrayDataType",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
     dp_name_list: Optional[SgrNamelistType] = field(

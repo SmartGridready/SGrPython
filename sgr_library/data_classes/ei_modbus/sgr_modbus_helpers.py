@@ -1,13 +1,13 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
 from xsdata.models.datatype import XmlTime
-from sgr_library.data_classes.ei_gen_serial_int.sgr_serial_int_capability import (
+from data_classes.ei_gen_serial_int.sgr_serial_int_capability import (
     EBaudRateType,
     EByteLenType,
     EParityType,
     EStopBitLenType,
 )
-from sgr_library.data_classes.ei_modbus.sgr_modbus_eidata_types import TPIpmodbus
+from data_classes.ei_modbus.sgr_modbus_eidata_types import TPIpmodbus
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 

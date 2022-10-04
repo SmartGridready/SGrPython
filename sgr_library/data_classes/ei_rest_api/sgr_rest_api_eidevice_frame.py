@@ -1,16 +1,17 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
-from sgr_library.data_classes.ei_rest_api.sgr_rest_api_eidata_types import (
-    SgrRestApiattrFrameType,
+from data_classes.ei_rest_api.sgr_rest_api_eidata_types import (
+    SgrAttr4RestApitype,
     SgrRestApidataPointDescriptionType,
     SgrRestApidataPointsFrameType,
     SgrRestApiinterfaceDescriptionType,
     SgrRestApiprofilesFrameType,
 )
-from sgr_library.data_classes.generic.sgr_gen_data_point_definition import SgrDataPointDescriptionType
-from sgr_library.data_classes.generic.sgr_gen_device_profile import SgrDeviceProfileType
-from sgr_library.data_classes.generic.sgr_gen_functional_profile_definition import SgrProfileDescriptionType
-from sgr_library.data_classes.generic.sgr_manufacturer_list import SgrManufacturerIdtype
+from data_classes.generic.sgr_gen_data_point_definition import SgrDataPointDescriptionType
+from data_classes.generic.sgr_gen_device_profile import SgrDeviceProfileType
+from data_classes.generic.sgr_gen_functional_profile_definition import SgrProfileDescriptionType
+from data_classes.generic.sgr_gen_type_definitions import SgrAttr4GenericType
+from data_classes.generic.sgr_manufacturer_list import SgrManufacturerIdtype
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 
@@ -22,9 +23,8 @@ class SgrRestapideviceDescriptionType:
     Interace) Geraet.
 
     :ivar device_profile:
-    :ivar dev_rest_apiattr_reference: RestAPIAttrFrameTypes contain two
-        branches of SmartGridready attributes: REST related and Generic
-        devAttrReference values are valid for a whole device
+    :ivar gen_attribute:
+    :ivar rest_apiattr:
     :ivar rest_apiinterface_desc:
     :ivar fp_list_element:
     :ivar device_name: Device Name in the context of the ManufacturerID
@@ -49,10 +49,17 @@ class SgrRestapideviceDescriptionType:
             "required": True,
         }
     )
-    dev_rest_apiattr_reference: List[SgrRestApiattrFrameType] = field(
+    gen_attribute: List[SgrAttr4GenericType] = field(
         default_factory=list,
         metadata={
-            "name": "devRestAPIAttrReference",
+            "name": "genAttribute",
+            "type": "Element",
+        }
+    )
+    rest_apiattr: List[SgrAttr4RestApitype] = field(
+        default_factory=list,
+        metadata={
+            "name": "restAPIAttr",
             "type": "Element",
         }
     )
@@ -107,12 +114,6 @@ class SgrRestDataPointsFrameType:
     """RPT Root Point for stand alone Rest Functional Profile description.
 
     It includes the embedded generic Profile decription
-
-    :ivar data_point:
-    :ivar rest_data_point: RestAPIAttrFrameTypes contain two branches of
-        SmartGridready attributes: Rest related and Generic
-        fpReatAPIAttrRefernce values are valid for a single datapoint
-    :ivar dp_rest_apiattr_reference:
     """
     class Meta:
         name = "SGrRestDataPointsFrameType"
@@ -135,10 +136,18 @@ class SgrRestDataPointsFrameType:
             "min_occurs": 1,
         }
     )
-    dp_rest_apiattr_reference: List[SgrRestApiattrFrameType] = field(
+    gen_attribute: List[SgrAttr4GenericType] = field(
         default_factory=list,
         metadata={
-            "name": "dpRestAPIAttrReference",
+            "name": "genAttribute",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    rest_apiattr: List[SgrAttr4RestApitype] = field(
+        default_factory=list,
+        metadata={
+            "name": "restAPIAttr",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
@@ -147,13 +156,6 @@ class SgrRestDataPointsFrameType:
 
 @dataclass
 class SgrRestProfilesFrameType:
-    """
-    :ivar functional_profile:
-    :ivar fp_rest_apiattr_reference: RestAttrFrameTypes contain two
-        branches of SmartGridready attributes: REST related and Generic
-        fpMbAttrRefernce values are valid for a whole functional profile
-    :ivar dp_list_element:
-    """
     class Meta:
         name = "SGrRestProfilesFrameType"
 
@@ -166,10 +168,18 @@ class SgrRestProfilesFrameType:
             "required": True,
         }
     )
-    fp_rest_apiattr_reference: List[SgrRestApiattrFrameType] = field(
+    gen_attribute: List[SgrAttr4GenericType] = field(
         default_factory=list,
         metadata={
-            "name": "fpRestAPIAttrReference",
+            "name": "genAttribute",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    rest_apiattr: List[SgrAttr4RestApitype] = field(
+        default_factory=list,
+        metadata={
+            "name": "restAPIAttr",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }

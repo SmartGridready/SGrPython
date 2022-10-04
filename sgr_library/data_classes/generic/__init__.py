@@ -1,28 +1,30 @@
-from sgr_library.data_classes.generic.sgr_gen_data_point_definition import SgrDataPointDescriptionType
-from sgr_library.data_classes.generic.sgr_gen_device_frame import (
+from data_classes.generic.sgr_gen_data_point_definition import SgrDataPointDescriptionType
+from data_classes.generic.sgr_gen_device_frame import (
     GenDeviceFrame,
     SgrDataPointsFrameType,
     SgrDeviceDescriptionType,
+    SgrFunctionalProfileDescriptionType,
     SgrProfilesFrameType,
-    FunctionalProfiles,
 )
-from sgr_library.data_classes.generic.sgr_gen_device_profile import (
+from data_classes.generic.sgr_gen_device_profile import (
     DeviceProfile,
     SgrDeviceProfileType,
     SgrInterfaceDescriptionType,
     SgrTransportServicesUsedListType,
 )
-from sgr_library.data_classes.generic.sgr_gen_functional_profile_definition import (
+from data_classes.generic.sgr_gen_functional_profile_definition import (
     ProfileTypeEnumType,
     SgrProfileDescriptionType,
     SgrProfilenumberType,
     SubProfileTypeEnumType,
 )
-from sgr_library.data_classes.generic.sgr_gen_type_definitions import (
+from data_classes.generic.sgr_gen_type_definitions import (
     SgreadyStateLv1Type,
     SgreadyStateLv2Type,
     SgrAttr4GenericType,
+    SgrBasicGenArrayDptypeType,
     SgrBasicGenDataPointTypeType,
+    SgrChangeLog,
     SgrDeviceKindType,
     SgrEvsestateLv1Type,
     SgrEvsestateLv2Type,
@@ -36,12 +38,15 @@ from sgr_library.data_classes.generic.sgr_gen_type_definitions import (
     SgrMeasValueSourceType,
     SgrMeasValueStateType,
     SgrMeasValueTendencyType,
+    SgrMeasValueType,
     SgrNamelistKindOfType,
     SgrNamelistType,
     SgrOcppstateType,
     SgrObligLvlType,
     SgrPowerSourceType,
     SgrRwptype,
+    SgrReleaseNotes,
+    SgrReleaseState,
     SgrSgcpfeedInStateLv2Type,
     SgrSgcploadStateLv2Type,
     SgrSgcpserviceType,
@@ -53,15 +58,15 @@ from sgr_library.data_classes.generic.sgr_gen_type_definitions import (
     SgrUnits,
     SgrVersionNumberType,
 )
-from sgr_library.data_classes.generic.sgr_manufacturer_list import SgrManufacturerIdtype
+from data_classes.generic.sgr_manufacturer_list import SgrManufacturerIdtype
 
 __all__ = [
     "SgrDataPointDescriptionType",
     "GenDeviceFrame",
     "SgrDataPointsFrameType",
     "SgrDeviceDescriptionType",
+    "SgrFunctionalProfileDescriptionType",
     "SgrProfilesFrameType",
-    "FunctionalProfiles",
     "DeviceProfile",
     "SgrDeviceProfileType",
     "SgrInterfaceDescriptionType",
@@ -73,7 +78,9 @@ __all__ = [
     "SgreadyStateLv1Type",
     "SgreadyStateLv2Type",
     "SgrAttr4GenericType",
+    "SgrBasicGenArrayDptypeType",
     "SgrBasicGenDataPointTypeType",
+    "SgrChangeLog",
     "SgrDeviceKindType",
     "SgrEvsestateLv1Type",
     "SgrEvsestateLv2Type",
@@ -87,12 +94,15 @@ __all__ = [
     "SgrMeasValueSourceType",
     "SgrMeasValueStateType",
     "SgrMeasValueTendencyType",
+    "SgrMeasValueType",
     "SgrNamelistKindOfType",
     "SgrNamelistType",
     "SgrOcppstateType",
     "SgrObligLvlType",
     "SgrPowerSourceType",
     "SgrRwptype",
+    "SgrReleaseNotes",
+    "SgrReleaseState",
     "SgrSgcpfeedInStateLv2Type",
     "SgrSgcploadStateLv2Type",
     "SgrSgcpserviceType",

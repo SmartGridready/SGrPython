@@ -1,13 +1,13 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional
-from sgr_library.data_classes.ei_gen_tcp_ip.sgr_tsp_srv_tcp_ip import (
+from data_classes.ei_gen_tcp_ip.sgr_tsp_srv_tcp_ip import (
     TPipV4GenAddrType,
     TPipV6GenAddrType,
 )
-from sgr_library.data_classes.generic.sgr_gen_data_point_definition import SgrDataPointDescriptionType
-from sgr_library.data_classes.generic.sgr_gen_functional_profile_definition import SgrProfileDescriptionType
-from sgr_library.data_classes.generic.sgr_gen_type_definitions import SgrAttr4GenericType
+from data_classes.generic.sgr_gen_data_point_definition import SgrDataPointDescriptionType
+from data_classes.generic.sgr_gen_functional_profile_definition import SgrProfileDescriptionType
+from data_classes.generic.sgr_gen_type_definitions import SgrAttr4GenericType
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 
@@ -106,29 +106,6 @@ class SgrRestApidataTypeType(Enum):
     JSON_BOOLEAN = "JSON_boolean"
     JSON_OBJECT = "JSON_object"
     JSON_ARRAY = "JSON_array"
-
-
-@dataclass
-class SgrRestApiattrFrameType:
-    class Meta:
-        name = "SGrRestAPIAttrFrameType"
-
-    gen_attribute: List[SgrAttr4GenericType] = field(
-        default_factory=list,
-        metadata={
-            "name": "genAttribute",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    rest_apiattr: List[SgrAttr4RestApitype] = field(
-        default_factory=list,
-        metadata={
-            "name": "restAPIAttr",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
 
 
 @dataclass
@@ -233,12 +210,6 @@ class SgrRestApidataPointsFrameType:
     """RPT Root Point for stand alone RestAPI Functional Profile description.
 
     It includes the embedded generic Porfile decription
-
-    :ivar data_point:
-    :ivar rest_apidata_point: RestAPIAttrFrameTypes contain two branches
-        of SmartGridready attributes: RestAPI related and Generic
-        fpRestAPIAttrRefernce values are valid for a single datapoint
-    :ivar dp_rest_apiattr_reference:
     """
     class Meta:
         name = "SGrRestAPIDataPointsFrameType"
@@ -261,10 +232,18 @@ class SgrRestApidataPointsFrameType:
             "min_occurs": 1,
         }
     )
-    dp_rest_apiattr_reference: List[SgrRestApiattrFrameType] = field(
+    gen_attribute: List[SgrAttr4GenericType] = field(
         default_factory=list,
         metadata={
-            "name": "dpRestAPIAttrReference",
+            "name": "genAttribute",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    rest_apiattr: List[SgrAttr4RestApitype] = field(
+        default_factory=list,
+        metadata={
+            "name": "restAPIAttr",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
@@ -273,14 +252,6 @@ class SgrRestApidataPointsFrameType:
 
 @dataclass
 class SgrRestApiprofilesFrameType:
-    """
-    :ivar functional_profile:
-    :ivar fp_rest_apiattr_reference: RestAPIAttrFrameTypes contain two
-        branches of SmartGridready attributes: RestAPI related and
-        Generic fpRestAPIAttrRefernce values are valid for a whole
-        functional profile
-    :ivar dp_list_element:
-    """
     class Meta:
         name = "SGrRestAPIProfilesFrameType"
 
@@ -293,10 +264,18 @@ class SgrRestApiprofilesFrameType:
             "required": True,
         }
     )
-    fp_rest_apiattr_reference: List[SgrRestApiattrFrameType] = field(
+    gen_attribute: List[SgrAttr4GenericType] = field(
         default_factory=list,
         metadata={
-            "name": "fpRestAPIAttrReference",
+            "name": "genAttribute",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    rest_apiattr: List[SgrAttr4RestApitype] = field(
+        default_factory=list,
+        metadata={
+            "name": "restAPIAttr",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }

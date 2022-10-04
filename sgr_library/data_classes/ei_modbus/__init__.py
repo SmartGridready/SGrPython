@@ -1,14 +1,15 @@
-from sgr_library.data_classes.ei_modbus.sgr_modbus_eiconfigurator import (
+from data_classes.ei_modbus.sgr_modbus_eiconfigurator import (
     ModbusFunctionCodesSupported,
     ModbusInterfaceSelectionType,
     SgrAccessProtectionEnabledType,
     SgrModbusDataPointDescriptionType,
     SgrModbusInterfaceDescriptionType,
+    SgrModbusLayer6DeviationType,
     SgrModbusDataPointDescription,
     SgrModbusInterfaceDescription,
     MasterFunctionsSupportedType,
 )
-from sgr_library.data_classes.ei_modbus.sgr_modbus_eidata_types import (
+from data_classes.ei_modbus.sgr_modbus_eidata_types import (
     IpAddrtype,
     TEnumConversionFct,
     TEnumExceptionCodeType,
@@ -18,15 +19,14 @@ from sgr_library.data_classes.ei_modbus.sgr_modbus_eidata_types import (
     TSgrModbusRegisterRef,
     TimeSyncBlockNotificationType,
 )
-from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import (
+from data_classes.ei_modbus.sgr_modbus_eidevice_frame import (
     SgrAttr4ModbusType,
-    SgrModbusAttrFrameType,
     SgrModbusDataPointsFrameType,
     SgrModbusDeviceDescriptionType,
     SgrModbusDeviceFrame,
     SgrModbusProfilesFrameType,
 )
-from sgr_library.data_classes.ei_modbus.sgr_modbus_helpers import (
+from data_classes.ei_modbus.sgr_modbus_helpers import (
     RtudevInstanceType,
     Rtutype,
     RtutrspSrvInstanceType,
@@ -45,6 +45,7 @@ __all__ = [
     "SgrAccessProtectionEnabledType",
     "SgrModbusDataPointDescriptionType",
     "SgrModbusInterfaceDescriptionType",
+    "SgrModbusLayer6DeviationType",
     "SgrModbusDataPointDescription",
     "SgrModbusInterfaceDescription",
     "MasterFunctionsSupportedType",
@@ -57,7 +58,6 @@ __all__ = [
     "TSgrModbusRegisterRef",
     "TimeSyncBlockNotificationType",
     "SgrAttr4ModbusType",
-    "SgrModbusAttrFrameType",
     "SgrModbusDataPointsFrameType",
     "SgrModbusDeviceDescriptionType",
     "SgrModbusDeviceFrame",

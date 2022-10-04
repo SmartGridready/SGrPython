@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional
-from xsdata.models.datatype import XmlDateTime, XmlTime
+from typing import List, Optional
+from xsdata.models.datatype import XmlDate, XmlDateTime, XmlTime
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 
@@ -34,6 +34,45 @@ class SgreadyStateLv2Type(Enum):
     HP_INTENSIVIED = "HP_INTENSIVIED"
     HP_LOCKED = "HP_LOCKED"
     HP_FORCED = "HP_FORCED"
+
+
+@dataclass
+class SgrChangeLog:
+    class Meta:
+        name = "SGrChangeLog"
+
+    version: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "required": True,
+        }
+    )
+    date: Optional[XmlDate] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "required": True,
+        }
+    )
+    author: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "required": True,
+        }
+    )
+    comment: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "required": True,
+        }
+    )
 
 
 class SgrDeviceKindType(Enum):
@@ -220,6 +259,13 @@ class SgrMeasValueTendencyType(Enum):
     FALLING = "falling"
 
 
+class SgrMeasValueType(Enum):
+    MIN = "min"
+    MAX = "max"
+    AVERAGE = "average"
+    STD_DEV = "stdDev"
+
+
 class SgrNamelistKindOfType(Enum):
     """
     :cvar DEVICE: Identifies the level of the names used -Device
@@ -329,6 +375,13 @@ class SgrRwptype(Enum):
     W = "W"
     RW = "RW"
     RWP = "RWP"
+
+
+class SgrReleaseState(Enum):
+    DRAFT = "Draft"
+    REVIEW = "Review"
+    PUBLISHED = "Published"
+    REVOKED = "Revoked"
 
 
 class SgrSgcpfeedInStateLv2Type(Enum):
@@ -937,7 +990,7 @@ class SgrLegibDocumentationType:
             "namespace": "http://www.smartgridready.com/ns/V0/",
             "required": True,
             "min_length": 0,
-            "max_length": 750,
+            "max_length": 4000,
         }
     )
     language: Optional[SgrLanguageType] = field(
@@ -953,7 +1006,6 @@ class SgrLegibDocumentationType:
         metadata={
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
         }
     )
 
@@ -1059,6 +1111,32 @@ class SgrNamelistType:
 
 
 @dataclass
+class SgrReleaseNotes:
+    """
+    Contains versioning, history and release states.
+    """
+    class Meta:
+        name = "SGrReleaseNotes"
+
+    state: Optional[SgrReleaseState] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "required": True,
+        }
+    )
+    changelog: List[SgrChangeLog] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "min_occurs": 1,
+        }
+    )
+
+
+@dataclass
 class SgrAttr4GenericType:
     """these attributes are defined for the generic interface for the
     application programmer.
@@ -1094,6 +1172,8 @@ class SgrAttr4GenericType:
         measuement was taken or where a higher controls software level
         indicates when it got the value
     :ivar time_range: time range min…max
+    :ivar value_type: MeasValueType: type of measurement. Possbile
+        values are "min", max", "average", "stdDev"
     :ivar value_state: MeasValueState: Status / validity of the
         measurement. Possible values are "normal", "outOfRange", "error"
     :ivar value_tendency: value trend based on timely changes, potential
@@ -1217,6 +1297,14 @@ class SgrAttr4GenericType:
         default=None,
         metadata={
             "name": "timeRange",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    value_type: Optional[SgrMeasValueType] = field(
+        default=None,
+        metadata={
+            "name": "valueType",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
@@ -1414,5 +1502,34 @@ class SgrBasicGenDataPointTypeType:
         metadata={
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+
+
+@dataclass
+class SgrBasicGenArrayDptypeType:
+    """These are the basic generic data array  types must remain high level
+    definitions for to be supported.
+
+    The definition focuses on the programming languages used at the
+    level of the communicators. So far Java and Python.
+    """
+    class Meta:
+        name = "SGrBasicGenArrayDPTypeType"
+
+    type: Optional[SgrBasicGenDataPointTypeType] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "required": True,
+        }
+    )
+    lenght: Optional[int] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "required": True,
         }
     )

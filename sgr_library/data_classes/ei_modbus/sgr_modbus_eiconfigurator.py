@@ -1,14 +1,17 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional
-from sgr_library.data_classes.ei_modbus.sgr_modbus_eidata_types import (
+from data_classes.ei_modbus.sgr_modbus_eidata_types import (
     TEnumConversionFct,
     TEnumExceptionCodeType,
     TPIpmodbus,
     TPRtumodbus,
     TSgrModbusRegisterRef,
 )
-from sgr_library.data_classes.generic.sgr_gen_type_definitions import SgrBasicGenDataPointTypeType
+from data_classes.generic.sgr_gen_type_definitions import (
+    SgrBasicGenArrayDptypeType,
+    SgrBasicGenDataPointTypeType,
+)
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 
@@ -33,6 +36,23 @@ class ModbusInterfaceSelectionType(Enum):
     RTU_ASCII = "RTU-ASCII"
     TCP_IP_ASCII = "TCP/IP-ASCII"
     UDP_IP_ASCII = "UDP/IP-ASCII"
+
+
+class SgrModbusLayer6DeviationType(Enum):
+    """
+    this type is used to manage non standard data type definitions at ISO/OSI
+    Layer 6.
+
+    :cvar VALUE_2_REG_BASE1000_L2_H: 2 Registers show a combined value,
+        as example in kWh and MWh beginning  with lower range @ lower
+        address
+    :cvar VALUE_2_REG_BASE1000_H2_L: <xs:documentation
+        xmlns:xs="http://www.w3.org/2001/XMLSchema">2 Registers show a
+        combined value, as example in kWh and MWh beginning with lower
+        range @ higher address</xs:documentation>
+    """
+    VALUE_2_REG_BASE1000_L2_H = "2RegBase1000_L2H"
+    VALUE_2_REG_BASE1000_H2_L = "2RegBase1000_H2L"
 
 
 class MasterFunctionsSupportedType(Enum):
@@ -121,6 +141,7 @@ class SgrAccessProtectionEnabledType:
 class SgrModbusDataPointDescriptionType:
     """
     :ivar modbus_data_type:
+    :ivar modbus_array_data_type:
     :ivar modbus_first_register_reference:
     :ivar dp_size_nr_registers:
     :ivar bitmask: Hexadecimal bitmask for mask to elmininate non used
@@ -150,7 +171,14 @@ class SgrModbusDataPointDescriptionType:
             "name": "modbusDataType",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
+        }
+    )
+    modbus_array_data_type: Optional[SgrBasicGenArrayDptypeType] = field(
+        default=None,
+        metadata={
+            "name": "modbusArrayDataType",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
     modbus_first_register_reference: Optional[TSgrModbusRegisterRef] = field(

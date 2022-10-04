@@ -52,12 +52,7 @@
 				<sgr:restAPIEndPoint>/digitaltwins/?sensor_id={{sensor_id}}</sgr:restAPIEndPoint>
 				<sgr:restAPIJMESPath>sum([[0].ten_sec.p_l1,[0].ten_sec.p_l2,[0].ten_sec.p_l3])</sgr:restAPIJMESPath>
 			</sgr:restAPIDataPoint>
-			<sgr:dpRestAPIAttrReference>
-				<sgr:genAttribute>
-					<sgr:valueSource>measuredValue</sgr:valueSource>
-					<sgr:sampleRate>10.0</sgr:sampleRate>
-				</sgr:genAttribute>
-			</sgr:dpRestAPIAttrReference>
+''
 		</sgr:dpListElement>
 		<sgr:dpListElement>
 			<sgr:dataPoint datapointName="ActivePowerACL1"
@@ -69,12 +64,7 @@
 				<sgr:restAPIEndPoint>/digitaltwins/?sensor_id={{sensor_id}}</sgr:restAPIEndPoint>
 				<sgr:restAPIJMESPath>[0].ten_sec.p_l1</sgr:restAPIJMESPath>
 			</sgr:restAPIDataPoint>
-			<sgr:dpRestAPIAttrReference>
-				<sgr:genAttribute>
-					<sgr:valueSource>measuredValue</sgr:valueSource>
-					<sgr:sampleRate>10.0</sgr:sampleRate>
-				</sgr:genAttribute>
-			</sgr:dpRestAPIAttrReference>
+
 		</sgr:dpListElement>
 		<sgr:dpListElement>
 			<sgr:dataPoint datapointName="ActivePowerACL2"
@@ -86,12 +76,7 @@
 				<sgr:restAPIEndPoint>/digitaltwins/?sensor_id={{sensor_id}}</sgr:restAPIEndPoint>
 				<sgr:restAPIJMESPath>[0].ten_sec.p_l2</sgr:restAPIJMESPath>
 			</sgr:restAPIDataPoint>
-			<sgr:dpRestAPIAttrReference>
-				<sgr:genAttribute>
-					<sgr:valueSource>measuredValue</sgr:valueSource>
-					<sgr:sampleRate>10.0</sgr:sampleRate>
-				</sgr:genAttribute>
-			</sgr:dpRestAPIAttrReference>
+
 		</sgr:dpListElement>
 		<sgr:dpListElement>
 			<sgr:dataPoint mroVisibilityIndicator="R"
@@ -103,12 +88,7 @@
 				<sgr:restAPIEndPoint>/digitaltwins/?sensor_id={{sensor_id}}</sgr:restAPIEndPoint>
 				<sgr:restAPIJMESPath>[0].ten_sec.p_l3</sgr:restAPIJMESPath>
 			</sgr:restAPIDataPoint>
-			<sgr:dpRestAPIAttrReference>
-				<sgr:genAttribute>
-					<sgr:valueSource>measuredValue</sgr:valueSource>
-					<sgr:sampleRate>10.0</sgr:sampleRate>
-				</sgr:genAttribute>
-			</sgr:dpRestAPIAttrReference>
+
 		</sgr:dpListElement>
 	</sgr:fpListElement>
 </sgr:SGrRESTAPIDeviceDescriptionType>

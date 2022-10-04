@@ -1,10 +1,13 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
-from sgr_library.data_classes.generic.sgr_gen_data_point_definition import SgrDataPointDescriptionType
-from sgr_library.data_classes.generic.sgr_gen_device_profile import SgrDeviceProfileType
-from sgr_library.data_classes.generic.sgr_gen_functional_profile_definition import SgrProfileDescriptionType
-from sgr_library.data_classes.generic.sgr_gen_type_definitions import SgrAttr4GenericType
-from sgr_library.data_classes.generic.sgr_manufacturer_list import SgrManufacturerIdtype
+from data_classes.generic.sgr_gen_data_point_definition import SgrDataPointDescriptionType
+from data_classes.generic.sgr_gen_device_profile import SgrDeviceProfileType
+from data_classes.generic.sgr_gen_functional_profile_definition import SgrProfileDescriptionType
+from data_classes.generic.sgr_gen_type_definitions import (
+    SgrAttr4GenericType,
+    SgrReleaseNotes,
+)
+from data_classes.generic.sgr_manufacturer_list import SgrManufacturerIdtype
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 
@@ -23,10 +26,10 @@ class SgrDataPointsFrameType:
             "required": True,
         }
     )
-    dp_attr4_generic: List[SgrAttr4GenericType] = field(
+    gen_attribute: List[SgrAttr4GenericType] = field(
         default_factory=list,
         metadata={
-            "name": "dpAttr4Generic",
+            "name": "genAttribute",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
@@ -41,6 +44,14 @@ class SgrProfilesFrameType:
     class Meta:
         name = "SGrProfilesFrameType"
 
+    release_notes: Optional[SgrReleaseNotes] = field(
+        default=None,
+        metadata={
+            "name": "releaseNotes",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
     functional_profile: Optional[SgrProfileDescriptionType] = field(
         default=None,
         metadata={
@@ -50,10 +61,10 @@ class SgrProfilesFrameType:
             "required": True,
         }
     )
-    fp_attr4_generic: List[SgrAttr4GenericType] = field(
+    gen_attribute: List[SgrAttr4GenericType] = field(
         default_factory=list,
         metadata={
-            "name": "fpAttr4Generic",
+            "name": "genAttribute",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
@@ -86,10 +97,10 @@ class SgrDeviceDescriptionType:
             "required": True,
         }
     )
-    dev_attr4_generic: List[SgrAttr4GenericType] = field(
+    gen_attribute: List[SgrAttr4GenericType] = field(
         default_factory=list,
         metadata={
-            "name": "devAttr4Generic",
+            "name": "genAttribute",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
@@ -134,12 +145,12 @@ class SgrDeviceDescriptionType:
 
 
 @dataclass
-class FunctionalProfiles(SgrProfilesFrameType):
+class SgrFunctionalProfileDescriptionType(SgrProfilesFrameType):
     """
     RPT Root Point for stand alone generic Functional Profile description.
     """
     class Meta:
-        name = "functionalProfiles"
+        name = "SGrFunctionalProfileDescriptionType"
         namespace = "http://www.smartgridready.com/ns/V0/"
 
 
