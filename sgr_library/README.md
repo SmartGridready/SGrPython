@@ -1,4 +1,4 @@
-# INDEX
+# SGrLibrary and xsData usage
 
  1) Library use.
 
