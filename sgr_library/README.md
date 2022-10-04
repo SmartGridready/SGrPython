@@ -10,8 +10,8 @@
  
 # 1) Library use
 
-- getval(<fp_name_string>, <dp_name_string>) from generic_interface.py module (Implemented in restapi and modbus)
-- setval(<fp_nam_stringe>, <dp_name_string>, <value_integer>) from generic_interface.py module (Only implemented for modbus)
+- getval(<fp_name_string>, <dp_name_string>) from **generic_interface.py** module (Implemented in restapi and modbus)
+- setval(<fp_nam_stringe>, <dp_name_string>, <value_integer>) from **generic_interface.py** module (Only implemented for modbus)
 
 # 2) xsdata branch documentation
 
@@ -56,7 +56,7 @@ You can use the generated classes I created, they are in the data_info directory
 
 ## Files used in derectory
 
--generic_interface.py
+- **generic_interface.py**
 	"this is from where we use our getval and setval functions"
 	"abstraction layer of interface"
 
