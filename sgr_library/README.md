@@ -1,10 +1,17 @@
 # INDEX
 
- 1) xsdata branch documentation (how to install and use).
+ 1) Library use.
 
- 2) Directory structure.
+ 2) xsdata branch documentation (how to install and use).
 
+ 3) Directory structure.
+ 
 # 1) xsdata branch documentation
+
+getval(<fp_name>, <dp_name>) from generic_interface.py module (Implemented in restapi and modbus)
+setval(<fp_name>, <dp_name>, ) from generic_interface.py module (Only implemented for modbus)
+
+# 2) xsdata branch documentation
 
 ## Introduction
 In this branch we parse the xml file with the xsdata library. This library creates generated metadata classes from which you can navigate the xml file.
@@ -42,7 +49,7 @@ You can use the generated classes I created, they are in the data_info directory
 	parser = XmlParser(context=XmlContext())
 	root = parser.parse(interface_file_path_default, data_info.test.SgrRestApideviceFrame)
 
-# 2) Directory documentation
+# 3) Directory documentation
 
 
 ## Files used in derectory
