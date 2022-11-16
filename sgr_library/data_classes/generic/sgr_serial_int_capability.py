@@ -143,5 +143,5 @@ class StopBitLenSupported:
 @dataclass
 class SgrSerialInterfaceCapability(SgrSerialInterfaceCapabilityType):
     class Meta:
-        name = "sgrSerialInterfaceCapability"
+        name = "SGrSerialInterfaceCapability"
         namespace = "http://www.smartgridready.com/ns/V0/"

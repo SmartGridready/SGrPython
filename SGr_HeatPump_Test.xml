@@ -105,6 +105,8 @@
           <sgr:uri>http://tempuri.org</sgr:uri>
         </sgr:dpLegibDesc>
       </sgr:dataPoint>
+    
+    
       <sgr:modbusDataPoint>
         <sgr:modbusDataType>
           <sgr:int16>0</sgr:int16>
@@ -113,6 +115,9 @@
         <sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>
+     
+     
+     
       <sgr:genAttribute>
 
         
@@ -137,7 +142,7 @@
         <sgr:modbusDataType>
           <sgr:float32>0</sgr:float32>
         </sgr:modbusDataType>
-        <sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="19012" bitRank="0" />
+        <sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="19002" bitRank="0" />
         <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>

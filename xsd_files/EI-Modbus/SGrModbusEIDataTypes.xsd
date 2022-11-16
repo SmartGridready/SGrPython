@@ -11,7 +11,7 @@
   <!-- ************************************** -->
   <!-- Modbus Communication Section: TCP based -->
   <!-- ************************************** -->
-  <include schemaLocation="../EI-GenSerialInt/SGrSerialIntCapability.xsd"/>
+  <include schemaLocation="../Generic/SGrSerialIntCapability.xsd"/>
   <complexType name="tP_IPModbus">
     <annotation>
       <documentation>Modbus IP address:Specific P elements for Modbus over

@@ -1,13 +1,10 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Optional
-from data_classes.ei_gen_tcp_ip.sgr_tsp_srv_tcp_ip import (
+from typing import Optional
+from data_classes.generic.sgr_tsp_srv_tcp_ip import (
     TPipV4GenAddrType,
     TPipV6GenAddrType,
 )
-from data_classes.generic.sgr_gen_data_point_definition import SgrDataPointDescriptionType
-from data_classes.generic.sgr_gen_functional_profile_definition import SgrProfileDescriptionType
-from data_classes.generic.sgr_gen_type_definitions import SgrAttr4GenericType
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 
@@ -201,91 +198,5 @@ class SgrRestApiinterfaceDescriptionType:
             "name": "restAPIBasic",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-
-
-@dataclass
-class SgrRestApidataPointsFrameType:
-    """RPT Root Point for stand alone RestAPI Functional Profile description.
-
-    It includes the embedded generic Porfile decription
-    """
-    class Meta:
-        name = "SGrRestAPIDataPointsFrameType"
-
-    data_point: List[SgrDataPointDescriptionType] = field(
-        default_factory=list,
-        metadata={
-            "name": "dataPoint",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "min_occurs": 1,
-        }
-    )
-    rest_apidata_point: List[SgrRestApidataPointDescriptionType] = field(
-        default_factory=list,
-        metadata={
-            "name": "restAPIDataPoint",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "min_occurs": 1,
-        }
-    )
-    gen_attribute: List[SgrAttr4GenericType] = field(
-        default_factory=list,
-        metadata={
-            "name": "genAttribute",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    rest_apiattr: List[SgrAttr4RestApitype] = field(
-        default_factory=list,
-        metadata={
-            "name": "restAPIAttr",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-
-
-@dataclass
-class SgrRestApiprofilesFrameType:
-    class Meta:
-        name = "SGrRestAPIProfilesFrameType"
-
-    functional_profile: Optional[SgrProfileDescriptionType] = field(
-        default=None,
-        metadata={
-            "name": "functionalProfile",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
-        }
-    )
-    gen_attribute: List[SgrAttr4GenericType] = field(
-        default_factory=list,
-        metadata={
-            "name": "genAttribute",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    rest_apiattr: List[SgrAttr4RestApitype] = field(
-        default_factory=list,
-        metadata={
-            "name": "restAPIAttr",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    dp_list_element: List[SgrRestApidataPointsFrameType] = field(
-        default_factory=list,
-        metadata={
-            "name": "dpListElement",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "min_occurs": 1,
         }
     )

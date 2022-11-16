@@ -30,14 +30,17 @@ class GenericInterface(SgrModbusInterface, RestapiInterface):
         self.restapi_protocol = ['SGrRESTAPIDeviceDescriptionType']
 
         if self.protocol_type in self.modbus_protocol:
-            SgrModbusInterface.__init__(self, xml_file)
+            SgrModbusInterface.__init__(self, xml_file) # Maybe add config file, but we just ignore it.
         elif self.protocol_type in self.restapi_protocol:
             RestapiInterface.__init__(self, xml_file, config_file)
 
+    # Here we would wait asynchronously with PxPy (Reactive Programming).
     def getval(self, *parameter) -> tuple:
         if self.protocol_type in self.modbus_protocol:
-            return(SgrModbusInterface.getval(self, *parameter))
+            # Here we would wait asynchronously for the machine to answer.
+            return(SgrModbusInterface.getval(self, *parameter)) 
         elif self.protocol_type in self.restapi_protocol:
+            # Here we would wait asynchronously for the machine to answer.
             return(RestapiInterface.getval(self, *parameter))
         
 

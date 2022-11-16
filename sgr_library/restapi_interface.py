@@ -5,9 +5,7 @@ from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
 
 # Import generated Data Classes
-from sgr_library.data_classes.ei_rest_api import SgrRestapideviceDescriptionType
-from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
-
+from sgr_library.data_classes.ei_rest_api import SgrRestApideviceFrame
 # Smartgrid Ready Libraries
 from datetime import datetime, timezone
 import jmespath
@@ -15,13 +13,19 @@ from sgr_library.modbus_interface import find_dp
 from sgr_library.restapi_client import RestapiConnect
 from jinja2 import Template
 
+import logging
+logging.basicConfig()
+log = logging.getLogger()
+log.setLevel(logging.DEBUG)
+
 
 class RestapiInterface():
 
     def __init__(self, interface_file, private_config):
         self.private_config = private_config
         self.parser = XmlParser(context=XmlContext())
-        self.root = self.parser.parse(interface_file, SgrRestapideviceDescriptionType)
+        self.root = self.parser.parse(interface_file, SgrRestApideviceFrame)
+        print(self.root.rest_apiinterface_desc.rest_apibearer.rest_apijmespath)
         self.communication_channel = RestapiConnect(self.root, private_config)
         self.packet = False
         self.cycle_start_timestamp = time.time()
@@ -39,7 +43,7 @@ class RestapiInterface():
     
     def new_packet(self, private_config, communication_channel, endpoint) -> tuple:
         """
-        HTTP get request for a new packet from the communication_channel
+        GET http request for a new packet from the communication_channel
         :return: (packet, recieved)
         """
         endpoint = self.add_private_config(endpoint, private_config) # Adds sensor_id to the private config   
@@ -52,7 +56,7 @@ class RestapiInterface():
         """
         Checks the time the package was recieved, if it is older than the value, it takes a new one.
         """
-        if not self.packet or self.cycle_start_timestamp - self.receivedAt > 10.0:        
+        if not self.packet or self.cycle_start_timestamp - self.receivedAt > 10.0: #TODO add this to variable config       
             endpoint = dp.rest_apidata_point[0].rest_apiend_point
             self.packet, self.receivedAt = self.new_packet(self.private_config, self.communication_channel, endpoint)
 
@@ -73,9 +77,9 @@ class RestapiInterface():
         print('Requested datapoint not found in xml file')
 
     # get_val function to implement for getting a single value
-    def get_val_detailed(self, fp_name: str, dp_name: str) -> float:
+    def getval_detailed(self, fp_name: str, dp_name: str) -> float:
         """
-        :return: Datapoint value
+        :return: Datapoint value, for example the current in L1
         """
         datapoint_info = self.datapoint_info(fp_name, dp_name)
         value = datapoint_info[0]
@@ -86,12 +90,26 @@ class RestapiInterface():
         #TODO raise exception: datapoint not found.
 
     
-    def getval(self, fp_name: str, dp_name: str) -> tuple:
+    def getval(self, fp_name: str, dp_name: str) -> float:
         """
-        :return: Datapoint value
+        :return: Datapoint value, for example the current in L1
         """
         datapoint_info = self.datapoint_info(fp_name, dp_name)
         return datapoint_info[0]
+
+
+    def setval(self, fp_name, dp_name, value):
+        dp = find_dp(self.root, fp_name, dp_name)
+        if dp:
+            endpoint = dp.rest_apidata_point[0].rest_apiend_point
+            return self.communication_channel.post(endpoint, value)
+        else:
+            print('No dp found')
+        # 1) Get information from where to post in the datapoint. 
+        # AKA check requestMethod post or patch, and choose function
+        # AKA check headers, requestPath, parameters
+        # Make request.
+        ...
 
 
 if __name__ == "__main__":
@@ -105,6 +123,25 @@ if __name__ == "__main__":
     config_ressource = configparser.ConfigParser()
     config_ressource.read(config_file_path_default)
     a = RestapiInterface(interface_file, config_ressource)
-    print(a.get_val('ActivePowerAC', 'ActivePowerACtot'))
- 
+    #print(a.getval('ActivePowerAC', 'ActivePowerACtot'))
+
+
+    body = """{
+						"name": "post test",
+						"description": "this is a test",
+						"address": {{address_value}},
+						"coordinates": {{coordinates_vlue}},
+						"group_measuring_point": false,
+						"sensor_ids": [],
+						"user_ids": ["60cc663f6440846788a86cc3"],
+						"organization_ids": [],
+						"virtual_meter_point": false
+			}"""
+
+    #print(a.setval('ActivePowerAC', 'MeterGroup', body))
+    #print(a.setval('ActivePowerAC', 'MeterGroup', value1, value2, value3))
+    #Setval only defines one value, all others are replaced by configuration.
+    #Setarray or Setvalues
+
+
 

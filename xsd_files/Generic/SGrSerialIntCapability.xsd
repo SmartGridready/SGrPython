@@ -66,5 +66,5 @@
       <element maxOccurs="unbounded" minOccurs="1" ref="sgr:stopBitLenSupported"/>
     </sequence>
   </complexType>
-  <element name="sgrSerialInterfaceCapability" type="sgr:SGrSerialInterfaceCapabilityType"/>
+  <element name="SGrSerialInterfaceCapability" type="sgr:SGrSerialInterfaceCapabilityType"/>
 </schema>

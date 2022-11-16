@@ -7,9 +7,6 @@ import os
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
 
-# Import generated Data Classes
-from sgr_library.data_classes.ei_rest_api import SgrRestapideviceDescriptionType
-from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
 
 
 def add_private_config(string, params):
@@ -31,9 +28,10 @@ class RestapiConnect():
             
             bearer = self.root.rest_apiinterface_desc.rest_apibearer
             endpoint = bearer.rest_apiend_point.split("'")
-            auth_endpoint = endpoint[2][1:]
+            auth_endpoint = endpoint[2][1:] # Regex?
             request = endpoint[1]
             json_data = add_private_config(request, private_config)
+            print(json_data)
             restapi_JMES_path = bearer.rest_apijmespath
             self.conn = http.client.HTTPSConnection(self.restapi_resource, timeout=10)
             self.headers = {'Content-type': 'application/json',
@@ -42,6 +40,8 @@ class RestapiConnect():
             self.conn.request('POST', auth_endpoint, json_data, self.headers)
             response = self.conn.getresponse()
             response_dec = json.loads(response.read().decode())
+            print(response_dec)
+            print(token)
             token = jmespath.search(restapi_JMES_path, response_dec)
             self.headers['Authorization'] = 'Bearer ' + token
 
@@ -73,6 +73,24 @@ class RestapiConnect():
         response_dec = json.loads(response.read().decode())
         return response_dec
 
+    def post(self, end_point, body):
+        self.conn = http.client.HTTPSConnection(self.restapi_resource, timeout=10)
+    
+        #TODO Test system in which we can give either a string or a dictionary.
+        if type(body) == dict:
+            body = json.dumps(body)
+        elif type(body) == str:
+            body = json.loads(body)
+            body = json.dumps(body)
+
+        self.conn.request('POST', end_point, body, self.headers)
+        response = self.conn.getresponse()
+        print(response.status, response.reason)
+
     def put(self, end_point, value_to_send):
+        #TODO to implement
+        pass
+
+    def patch(self, end_point, value_to_send):
         #TODO to implement
         pass

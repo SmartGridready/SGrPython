@@ -2,7 +2,7 @@
 <!-- edited with Eclipse Modeling Tools - 2020-10 by Christoph Broennimann 
 	(IBT Ing. Buero Broennimann Thun) --><!-- Copyright (c) Verein SmartGridready, Switzerland Version 0.2.1 2022-5-25
 	All Rights Reserved. Source: https://www.SmartGridready.ch/ --><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
-  <include schemaLocation="../EI-GenTCP_IP/SGrTspSrvTCP_IP.xsd"/>
+  <include schemaLocation="../Generic/SGrTspSrvTCP_IP.xsd"/>
   <include schemaLocation="../Generic/SGrGenTypeDefinitions.xsd"/>
   <complexType name="SGrRestAPIInterfaceDescriptionType">
     <sequence>
@@ -22,28 +22,6 @@
       <enumeration value="trspSrvRestURI"/>
     </restriction>
   </simpleType>
-  <complexType name="SGrRestAPIDataPointsFrameType">
-    <annotation>
-      <documentation>RPT Root Point for stand alone RestAPI Functional
-				Profile description. It includes the embedded generic Porfile
-				decription
-			</documentation>
-    </annotation>
-    <sequence>
-      <element maxOccurs="unbounded" minOccurs="1" name="dataPoint" type="sgr:SGrDataPointDescriptionType"/>
-      <element maxOccurs="unbounded" minOccurs="1" name="restAPIDataPoint" type="sgr:SGrRestAPIDataPointDescriptionType"/>
-      <element maxOccurs="unbounded" minOccurs="0" name="genAttribute" type="sgr:SGrAttr4GenericType"/>
-      <element maxOccurs="unbounded" minOccurs="0" name="restAPIAttr" type="sgr:SGrAttr4RestAPIType"/>
-    </sequence>
-  </complexType>
-  <complexType name="SGrRestAPIProfilesFrameType">
-    <sequence>
-      <element maxOccurs="1" minOccurs="1" name="functionalProfile" type="sgr:SGrProfileDescriptionType"/>
-      <element maxOccurs="unbounded" minOccurs="0" name="genAttribute" type="sgr:SGrAttr4GenericType"/>
-      <element maxOccurs="unbounded" minOccurs="0" name="restAPIAttr" type="sgr:SGrAttr4RestAPIType"/>
-      <element maxOccurs="unbounded" minOccurs="1" name="dpListElement" type="sgr:SGrRestAPIDataPointsFrameType"/>
-    </sequence>
-  </complexType>
   <complexType name="SGrAttr4RestAPIType">
     <sequence>
       <element maxOccurs="1" minOccurs="1" name="placeHolder4futureExtensions">
@@ -103,11 +81,9 @@
   <simpleType name="restAPIEndPointType">
     <restriction base="string"/>
   </simpleType>
-  <complexType name="restAPIJMESPathType">
-    <simpleContent>
-      <extension base="string"/>
-    </simpleContent>
-  </complexType>
+  <simpleType name="restAPIJMESPathType">
+    <restriction base="string"/>
+  </simpleType>
   <complexType name=" SGrRestBasicType">
     <sequence>
       <element name="restBasicUsername" type="sgr:restBasicUsernameType"/>

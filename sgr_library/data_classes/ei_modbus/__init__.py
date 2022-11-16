@@ -2,6 +2,7 @@ from data_classes.ei_modbus.sgr_modbus_eiconfigurator import (
     ModbusFunctionCodesSupported,
     ModbusInterfaceSelectionType,
     SgrAccessProtectionEnabledType,
+    SgrAttr4ModbusType,
     SgrModbusDataPointDescriptionType,
     SgrModbusInterfaceDescriptionType,
     SgrModbusLayer6DeviationType,
@@ -20,11 +21,9 @@ from data_classes.ei_modbus.sgr_modbus_eidata_types import (
     TimeSyncBlockNotificationType,
 )
 from data_classes.ei_modbus.sgr_modbus_eidevice_frame import (
-    SgrAttr4ModbusType,
-    SgrModbusDataPointsFrameType,
-    SgrModbusDeviceDescriptionType,
+    SgrModbusDataPointType,
     SgrModbusDeviceFrame,
-    SgrModbusProfilesFrameType,
+    SgrModbusFunctionalProfileType,
 )
 from data_classes.ei_modbus.sgr_modbus_helpers import (
     RtudevInstanceType,
@@ -43,6 +42,7 @@ __all__ = [
     "ModbusFunctionCodesSupported",
     "ModbusInterfaceSelectionType",
     "SgrAccessProtectionEnabledType",
+    "SgrAttr4ModbusType",
     "SgrModbusDataPointDescriptionType",
     "SgrModbusInterfaceDescriptionType",
     "SgrModbusLayer6DeviationType",
@@ -57,11 +57,9 @@ __all__ = [
     "TPRtumodbus",
     "TSgrModbusRegisterRef",
     "TimeSyncBlockNotificationType",
-    "SgrAttr4ModbusType",
-    "SgrModbusDataPointsFrameType",
-    "SgrModbusDeviceDescriptionType",
+    "SgrModbusDataPointType",
     "SgrModbusDeviceFrame",
-    "SgrModbusProfilesFrameType",
+    "SgrModbusFunctionalProfileType",
     "RtudevInstanceType",
     "Rtutype",
     "RtutrspSrvInstanceType",

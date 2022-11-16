@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- edited with Eclipse Modeling Tools - 2020-10 by Christoph Broennimann 
+	(IBT Ing. Buero Broennimann Thun) -->
+<!-- Copyright (c) Verein SmartGridready, Switzerland Version 0.2.2 2022-8-22 
+	All Rights Reserved. Source: https://www.SmartGridready.ch/ -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
+  <include schemaLocation="SGrGenTypeDefinitions.xsd" />
+  <include schemaLocation="SGrEnumProfileType.xsd" />
+  <include schemaLocation="SGrEnumSubProfileType.xsd" />
+
+  <complexType name="SGrProfileDescriptionType">
+    <annotation>
+      <documentation xml:lang="en"> Profile Element for to be used
+				for the generation of SGrGenericDevices and the Ecore modelling the
+				generation of the generic profile level interface class
+			</documentation>
+      <documentation xml:lang="de"> Profil Element zur Integration
+				in generische Gerätedefinitionen oder zur Erzeugung von
+				ecore-Modellierungen
+			</documentation>
+    </annotation>
+    <sequence>
+      <element maxOccurs="1" minOccurs="1" name="profileNumber" type="sgr:SGrProfilenumberType" />
+      <element maxOccurs="1" minOccurs="0" name="fpNameList" type="sgr:SGrNamelistType" />
+      <element maxOccurs="4" minOccurs="0" name="fpLegibDesc" type="sgr:SGrLegibDocumentationType">
+        <annotation>
+          <documentation>
+    				this is the published information related to this
+    				functional profile
+    			</documentation>
+        </annotation>
+      </element>
+
+      <element maxOccurs="4" minOccurs="0" name="fpPrgDesc" type="sgr:SGrLegibDocumentationType"></element>
+    </sequence>
+    <attribute name="profileName" type="string" />
+    <attribute name="mroVisibilityIndicator" type="sgr:SGrMROPresenceLevelIndicationType" />
+  </complexType>
+  <complexType name="SGrProfilenumberType">
+    <annotation>
+      <documentation>Specification of design source 0 means: specified by
+				SmartGridready, the Porfilenumber follows the SmargGirdready scheme
+				&gt;0 means: specfied by manufacturer hhhh, the Profilenumber
+				followos a manufacturors scheme 
+			</documentation>
+    </annotation>
+    <sequence>
+      <element maxOccurs="1" minOccurs="1" name="specsOwnerId" type="int">
+        <annotation>
+          <documentation>This number idntifies the creator of this instance
+						definition 0 means "This is a SmartGridready specification, SGr
+						definition are valid" means "designed and manufaturer hhhh" and a
+						seperate set of definitions created by the manufacturer is valid
+						The profile number hhhh.nnnn.uuuu.ss.VV.vv is documented in the
+						SGr profile specification number
+					</documentation>
+        </annotation>
+      </element>
+      <element maxOccurs="1" minOccurs="1" name="profileIdentification" type="sgr:ProfileTypeEnumType">
+        <annotation>
+          <documentation>The Profile Identfication identiofis the main
+						profile classes. The enumeration text is also documented with
+						numbers being referenced in the profile number
+						hhhh.nnnn.uuuu.ss.VV.vv as nnnn
+					</documentation>
+        </annotation>
+      </element>
+      <element maxOccurs="1" minOccurs="1" name="subProfileIdent" type="sgr:SubProfileTypeEnumType" />
+      <element maxOccurs="1" minOccurs="1" name="sgrLevelOfOperation" type="int">
+        <annotation>
+          <documentation>SGrLevelOfOperation defines a controls complexity
+						level 1) single contact 2) 2 or more contacts /state controlled
+						interface 3) statical defined characteristics tables 4) dynamic
+						realtime control combined with statical defined characteristics
+						tables 5) dynamic realtime control combined with dynamic
+						changeable characteristics tables 6) prognosis based systems
+					</documentation>
+        </annotation>
+      </element>
+      <element maxOccurs="1" minOccurs="1" name="versionNumber" type="sgr:SGrVersionNumberType" />
+    </sequence>
+  </complexType>
+
+</schema>

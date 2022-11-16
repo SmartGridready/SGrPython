@@ -266,18 +266,92 @@ class SgrMeasValueType(Enum):
     STD_DEV = "stdDev"
 
 
-class SgrNamelistKindOfType(Enum):
+@dataclass
+class SgrNamelistType:
+    """a list of relevant namespaces list for to display names used in
+    different standards like EEBUS, IEC6850,, SAREF4ENER etc this list type is
+    used for devices, functional profiles and datapoints.
+
+    This namespace naming framework is typically used by the SGr
+    association in order to tailer web based information tools. This
+    complex data type is intended to be extended for future relevant
+    standarrds in order to secure information over technology live
+    cycles List der für ein Profil relevanten Namen von benutzten
+    Standards
+
+    :ivar s_lv1_name: names used for SGr label V1 used to secure legacy
+        compatibility
+    :ivar s_work_name: work names for temporary use
+    :ivar s_manuf_name: manufacturers may use an internal wording
+    :ivar s_iec61850_name: IEC 61850 termonoligy place to add the 61850
+        abreviatuions if an overlap exists
+    :ivar s_sarefname: SAREF for ENER termonoligy place to add the SAREF
+        abreviations if an overlap exists
+    :ivar s_eebusname: EEBUS for terminology place to add the EEBUS
+        abreviations if an overlap exists
+    :ivar s_hpbwp_name: bwp (German Heat Pump Association) for
+        terminology place to add the bwp naming for HVAC if an overlap
+        exists
     """
-    :cvar DEVICE: Identifies the level of the names used -Device
-        -FunctionalProfile -DataPoint -other
-    :cvar FUNCTIONAL_PROFILE:
-    :cvar DATA_POINT:
-    :cvar OTHER:
-    """
-    DEVICE = "Device"
-    FUNCTIONAL_PROFILE = "FunctionalProfile"
-    DATA_POINT = "DataPoint"
-    OTHER = "other"
+    class Meta:
+        name = "SGrNamelistType"
+
+    s_lv1_name: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "sLV1Name",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    s_work_name: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "sWorkName",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    s_manuf_name: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "sManufName",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    s_iec61850_name: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "sIEC61850Name",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    s_sarefname: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "sSAREFName",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    s_eebusname: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "sEEBUSName",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    s_hpbwp_name: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "sHPbwpName",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
 
 
 class SgrOcppstateType(Enum):
@@ -550,7 +624,7 @@ class SgrSunspStateCodesType(Enum):
 @dataclass
 class SgrTimeRangeType:
     """
-    ime range min…max.
+    time range min…max.
 
     :ivar start_time: Cycle begins
     :ivar end_time: Cycle ends
@@ -576,6 +650,18 @@ class SgrTimeRangeType:
             "required": True,
         }
     )
+
+
+class SgrTransportServicesUsedListType(Enum):
+    EEBUS = "EEBUS"
+    MODBUS = "Modbus"
+    OCPP1_6 = "OCPP1.6"
+    OCPP2_01 = "OCPP2.01"
+    RESTFUL_JSON = "RESTfulJSON"
+    CONTACTS = "Contacts"
+    WO_T = "WoT"
+    PROPRIETARY = "proprietary"
+    GENERIC = "generic"
 
 
 class SgrUnits(Enum):
@@ -1011,106 +1097,6 @@ class SgrLegibDocumentationType:
 
 
 @dataclass
-class SgrNamelistType:
-    """a list of relevant namespaces list for to display names used in
-    different standards like EEBUS, IEC6850,, SAREF4ENER etc this list type is
-    used for devices, functional profiles and datapoints.
-
-    This namespace naming framework is typically used by the SGr
-    association in order to tailer web based information tools. This
-    complex data type is intended to be extended for future relevant
-    standarrds in order to secure information over technology live
-    cycles List der für ein Profil relevanten Namen von benutzten
-    Standards
-
-    :ivar name_type: is used to define where this naming is place in a
-        device-architecture hierarchy way Device; FunctionalProfile;
-        DataPoint
-    :ivar s_lv1_name: names used for SGr label V1 used to secure legacy
-        compatibility
-    :ivar s_work_name: work names for temporary use
-    :ivar s_manuf_name: manufacturers may use an internal wording
-    :ivar s_iec61850_name: IEC 61850 termonoligy place to add the 61850
-        abreviatuions if an overlap exists
-    :ivar s_sarefname: SAREF for ENER termonoligy place to add the SAREF
-        abreviations if an overlap exists
-    :ivar s_eebusname: EEBUS for terminology place to add the EEBUS
-        abreviations if an overlap exists
-    :ivar s_hpbwp_name: bwp (German Heat Pump Association) for
-        terminology place to add the bwp naming for HVAC if an overlap
-        exists
-    """
-    class Meta:
-        name = "SGrNamelistType"
-
-    name_type: Optional[SgrNamelistKindOfType] = field(
-        default=None,
-        metadata={
-            "name": "nameType",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
-        }
-    )
-    s_lv1_name: Optional[str] = field(
-        default=None,
-        metadata={
-            "name": "sLV1Name",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    s_work_name: Optional[str] = field(
-        default=None,
-        metadata={
-            "name": "sWorkName",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    s_manuf_name: Optional[str] = field(
-        default=None,
-        metadata={
-            "name": "sManufName",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    s_iec61850_name: Optional[str] = field(
-        default=None,
-        metadata={
-            "name": "sIEC61850Name",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    s_sarefname: Optional[str] = field(
-        default=None,
-        metadata={
-            "name": "sSAREFName",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    s_eebusname: Optional[str] = field(
-        default=None,
-        metadata={
-            "name": "sEEBUSName",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    s_hpbwp_name: Optional[str] = field(
-        default=None,
-        metadata={
-            "name": "sHPbwpName",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-
-
-@dataclass
 class SgrReleaseNotes:
     """
     Contains versioning, history and release states.
@@ -1124,6 +1110,13 @@ class SgrReleaseNotes:
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
             "required": True,
+        }
+    )
+    remarks: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
     changelog: List[SgrChangeLog] = field(
@@ -1161,12 +1154,14 @@ class SgrAttr4GenericType:
         return to the initial value.
     :ivar min_send_delta: A measured value difference that must lead to
         a notification . Unit: inheritted
-    :ivar max_send_time: The maximum time between 2 notifications
-    :ivar max_receive_time:
+    :ivar max_send_time: The maximum time between 2 notifications in
+        seconds
+    :ivar max_receive_time: The maximum time between 2 notifications in
+        seconds
     :ivar min_send_time: The fastest possible or allowable sequence of
-        notifications
-    :ivar max_latency_time: Maximum occurring or permitted delay time,
-        e.g. of a data transaction
+        notifications in seconds
+    :ivar max_latency_time_ms: Maximum occurring or permitted delay
+        time, e.g. of a data transaction in milliseconds
     :ivar time_stamp_log: This is the date Time Value indicates that any
         value generation must be paired with the time of either a
         measuement was taken or where a higher controls software level
@@ -1175,7 +1170,7 @@ class SgrAttr4GenericType:
     :ivar value_type: MeasValueType: type of measurement. Possbile
         values are "min", max", "average", "stdDev"
     :ivar value_state: MeasValueState: Status / validity of the
-        measurement. Possible values are "normal", "outOfRange", "error"
+        measurement. Possible values are "normal", "error"
     :ivar value_tendency: value trend based on timely changes, potential
         values are rising, stable, falling
     :ivar value_source: Value source kind related to SGr level 6
@@ -1253,7 +1248,7 @@ class SgrAttr4GenericType:
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
-    max_send_time: Optional[XmlTime] = field(
+    max_send_time: Optional[float] = field(
         default=None,
         metadata={
             "name": "maxSendTime",
@@ -1261,7 +1256,7 @@ class SgrAttr4GenericType:
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
-    max_receive_time: Optional[XmlTime] = field(
+    max_receive_time: Optional[float] = field(
         default=None,
         metadata={
             "name": "maxReceiveTime",
@@ -1269,7 +1264,7 @@ class SgrAttr4GenericType:
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
-    min_send_time: Optional[XmlTime] = field(
+    min_send_time: Optional[float] = field(
         default=None,
         metadata={
             "name": "minSendTime",
@@ -1277,10 +1272,10 @@ class SgrAttr4GenericType:
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
-    max_latency_time: Optional[int] = field(
+    max_latency_time_ms: Optional[int] = field(
         default=None,
         metadata={
-            "name": "maxLatencyTime",
+            "name": "maxLatencyTimeMs",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }

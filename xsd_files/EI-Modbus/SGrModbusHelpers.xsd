@@ -3,7 +3,7 @@
 	(IBT Ing. Buero Broennimann Thun) --><!-- Copyright (c) Verein SmartGridready, Switzerland Version 0.2.2 2022-8-22 
 	All Rights Reserved. Source: https://www.SmartGridready.ch/ --><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
   <include schemaLocation="SGrModbusEIDataTypes.xsd"/>
-  <include schemaLocation="../EI-GenSerialInt/SGrSerialIntCapability.xsd"/>
+  <include schemaLocation="../Generic/SGrSerialIntCapability.xsd"/>
   <element name="TrspServiceModbus" type="sgr:TrspServiceModbusType"/>
   <complexType name="TrspServiceModbusType">
     <sequence>

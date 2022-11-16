@@ -1,27 +1,15 @@
 from dataclasses import dataclass, field
-from enum import Enum
 from typing import List, Optional
 from data_classes.generic.sgr_gen_type_definitions import (
     SgrDeviceKindType,
     SgrLegibDocumentationType,
     SgrNamelistType,
     SgrPowerSourceType,
+    SgrTransportServicesUsedListType,
     SgrVersionNumberType,
 )
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
-
-
-class SgrTransportServicesUsedListType(Enum):
-    EEBUS = "EEBUS"
-    MODBUS = "Modbus"
-    OCPP1_6 = "OCPP1.6"
-    OCPP2_01 = "OCPP2.01"
-    RESTFUL_JSON = "RESTfulJSON"
-    CONTACTS = "Contacts"
-    WO_T = "WoT"
-    PROPRIETARY = "proprietary"
-    GENERIC = "generic"
 
 
 @dataclass
@@ -174,34 +162,3 @@ class SgrDeviceProfileType:
             "max_occurs": 4,
         }
     )
-
-
-@dataclass
-class SgrInterfaceDescriptionType:
-    class Meta:
-        name = "SGrInterfaceDescriptionType"
-
-    technology_used: Optional[SgrTransportServicesUsedListType] = field(
-        default=None,
-        metadata={
-            "name": "technologyUsed",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
-        }
-    )
-    is_local_control: Optional[bool] = field(
-        default=None,
-        metadata={
-            "name": "IsLocalControl",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
-        }
-    )
-
-
-@dataclass
-class DeviceProfile(SgrDeviceProfileType):
-    class Meta:
-        namespace = "http://www.smartgridready.com/ns/V0/"

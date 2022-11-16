@@ -1,11 +1,11 @@
 from data_classes.ei_contacts.sgr_contacts_device_frame import (
     ContactApiInterfaceDescType,
-    SgrContactApideviceDescriptionType,
-    SgrContactApiDeviceFrame,
+    SgrContactApideviceFrame,
+    SgrContactApifunctionalProfileType,
 )
 
 __all__ = [
     "ContactApiInterfaceDescType",
-    "SgrContactApideviceDescriptionType",
-    "SgrContactApiDeviceFrame",
+    "SgrContactApideviceFrame",
+    "SgrContactApifunctionalProfileType",
 ]

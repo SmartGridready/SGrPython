@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- edited with Eclipse Modeling Tools - 2020-10 by Christoph Broennimann 
+	(IBT Ing. Buero Broennimann Thun) -->
+<!-- Copyright (c) Verein SmartGridready, Switzerland Version 0.2.2 2022-8-22 
+	All Rights Reserved. Source: https://www.SmartGridready.ch/ -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
+  <include schemaLocation="../Generic/SGrBaseDeviceFrame.xsd" />
+
+  <!-- Generic Device definitions -->
+  <complexType name="SGrGenFunctionalProfileType">
+    <annotation>
+      <documentation>Extends the base functional profile type with generic data points</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="sgr:SGrFunctionalProfileBaseType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="1" name="dpListElement" type="sgr:SGrDataPointBaseType" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="SGrGenDeviceFrame">
+    <annotation>
+      <documentation>Data type definition for a Generic Device Description as an EI (External Interface)</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="sgr:SGrDeviceBaseType">
+        <sequence>
+          <element maxOccurs="1" minOccurs="1" name="fpListElement" type="sgr:SGrGenFunctionalProfileType" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="SGrGenDeviceFrame" type="sgr:SGrGenDeviceFrame">
+    <annotation>
+      <documentation> RPT Root Point for Generic Device External Interface.</documentation>
+    </annotation>
+  </element>
+</schema>

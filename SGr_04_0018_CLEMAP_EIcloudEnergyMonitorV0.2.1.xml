@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sgr:SGrRESTAPIDeviceDescriptionType
+<sgr:SGrRestAPIDeviceFrame
 	deviceName="CLEMAP Energy Monitor" isLocalControl="false"
 	manufacturerID="ClemapAG" manufacturerName="CLEMAP"
 	xmlns:sgr="http://www.smartgridready.com/ns/V0/"
@@ -17,7 +17,7 @@
 	</sgr:deviceProfile>
 	<sgr:restAPIInterfaceDesc>
 		<sgr:restAPIInterfaceSelection>trspSrvRestURI</sgr:restAPIInterfaceSelection>
-		<sgr:trspSrvRestURIoutOfBox>b1.cloud.clemap.com:3032</sgr:trspSrvRestURIoutOfBox>
+		<sgr:trspSrvRestURIoutOfBox>cloud.clemap.com:3032</sgr:trspSrvRestURIoutOfBox>
 		<sgr:restAPIAuthenticationMethod>BearerSecurityScheme</sgr:restAPIAuthenticationMethod>
 		<sgr:restAPIBearer>
 			<sgr:restAPIEndPoint>request='{"strategy": "local", "email": "{{username}}", "password": "{{password}}"}'>/authentication</sgr:restAPIEndPoint>
@@ -91,4 +91,4 @@
 
 		</sgr:dpListElement>
 	</sgr:fpListElement>
-</sgr:SGrRESTAPIDeviceDescriptionType>
+</sgr:SGrRestAPIDeviceFrame>

@@ -7,10 +7,12 @@ from data_classes.ei_modbus.sgr_modbus_eidata_types import (
     TPIpmodbus,
     TPRtumodbus,
     TSgrModbusRegisterRef,
+    TimeSyncBlockNotificationType,
 )
 from data_classes.generic.sgr_gen_type_definitions import (
     SgrBasicGenArrayDptypeType,
     SgrBasicGenDataPointTypeType,
+    SgrScalingType,
 )
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
@@ -272,6 +274,85 @@ class SgrModbusInterfaceDescriptionType:
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
             "min_occurs": 1,
+        }
+    )
+
+
+@dataclass
+class SgrAttr4ModbusType:
+    """
+    Modbus Attributes support TransportService specific parameters.
+
+    :ivar scaling_by_mul_pwr: generic value = dataPoint * m * 10^p
+    :ivar step_by_increment: each didgit
+    :ivar sunssf: a Sunpec specific attribute (scalefactor p -10 ...
+        +10) generic value = dataPoint * 10^p note: Sunspec uses sunssf
+        usually as Modbus Register with dynamic values check attribute
+        "timeAlignedNotification"
+    :ivar poll_latency_ms: the time for a master slave communication
+        cycle in ms
+    :ivar time_sync_block_notification: a transaction number for a
+        sequence of Regsisteres (usually transmitted by Blocktransfers)
+        to be transferred together
+    :ivar access_protection:
+    :ivar layer6_deviation:
+    """
+    class Meta:
+        name = "SGrAttr4ModbusType"
+
+    scaling_by_mul_pwr: Optional[SgrScalingType] = field(
+        default=None,
+        metadata={
+            "name": "scalingByMulPwr",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    step_by_increment: Optional[int] = field(
+        default=None,
+        metadata={
+            "name": "stepByIncrement",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    sunssf: Optional[int] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    poll_latency_ms: Optional[int] = field(
+        default=None,
+        metadata={
+            "name": "pollLatencyMS",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    time_sync_block_notification: Optional[TimeSyncBlockNotificationType] = field(
+        default=None,
+        metadata={
+            "name": "timeSyncBlockNotification",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    access_protection: Optional[SgrAccessProtectionEnabledType] = field(
+        default=None,
+        metadata={
+            "name": "accessProtection",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    layer6_deviation: Optional[SgrModbusLayer6DeviationType] = field(
+        default=None,
+        metadata={
+            "name": "layer6Deviation",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
 

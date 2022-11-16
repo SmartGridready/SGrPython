@@ -3,8 +3,56 @@
 	(IBT Ing. Buero Broennimann Thun) --><!-- Copyright (c) Verein SmartGridready, Switzerland Version 0.2.2 2022-8-22 
 	All Rights Reserved. Source: https://www.SmartGridready.ch/ --><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
   <include schemaLocation="../Generic/SGrGenTypeDefinitions.xsd"/>
-  <include schemaLocation="../EI-GenSerialInt/SGrSerialIntCapability.xsd"/>
   <include schemaLocation="SGrModbusEIDataTypes.xsd"/>
+  <complexType name="SGrAttr4ModbusType">
+		<annotation>
+			<documentation>Modbus Attributes support TransportService specific
+				parameters
+			</documentation>
+		</annotation>
+		<all>
+			<element maxOccurs="1" minOccurs="0" name="scalingByMulPwr" type="sgr:SGrScalingType">
+				<annotation>
+					<documentation>
+    				generic value = dataPoint * m * 10^p
+    			</documentation>
+				</annotation>
+			</element>
+			<element maxOccurs="1" minOccurs="0" name="stepByIncrement" type="unsignedInt">
+				<annotation>
+					<documentation>each didgit</documentation>
+				</annotation>
+			</element>
+			<element maxOccurs="1" minOccurs="0" name="sunssf" type="unsignedInt">
+				<annotation>
+					<documentation>
+    				a Sunpec specific attribute (scalefactor p -10 ...
+    				+10) generic value = dataPoint * 10^p note: Sunspec
+    				uses sunssf usually as Modbus Register with dynamic
+    				values check attribute "timeAlignedNotification"
+    			</documentation>
+				</annotation>
+			</element>
+			<element maxOccurs="1" minOccurs="0" name="pollLatencyMS" type="unsignedInt">
+				<annotation>
+					<documentation>
+    				the time for a master slave communication cycle in ms
+    			</documentation>
+				</annotation>
+			</element>
+			<element maxOccurs="1" minOccurs="0" name="timeSyncBlockNotification" type="sgr:timeSyncBlockNotificationType">
+				<annotation>
+					<documentation>
+    				a transaction number for a sequence of Regsisteres
+    				(usually transmitted by Blocktransfers) to be
+    				transferred together
+    			</documentation>
+				</annotation>
+			</element>
+			<element name="accessProtection" type="sgr:SGrAccessProtectionEnabledType" maxOccurs="1" minOccurs="0"></element>
+			<element name="layer6Deviation" type="sgr:SGrModbusLayer6DeviationType" maxOccurs="1" minOccurs="0"></element>
+		</all>
+	</complexType>
   <complexType name="SGrModbusInterfaceDescriptionType">
     <sequence>
       <element maxOccurs="1" minOccurs="1" name="modbusInterfaceSelection" type="sgr:ModbusInterfaceSelectionType"/>

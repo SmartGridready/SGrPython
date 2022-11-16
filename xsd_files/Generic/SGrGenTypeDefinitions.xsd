@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- edited with Eclipse Modeling Tools - 2020-10 by Christoph Broennimann 
-	(IBT Ing. Buero Broennimann Thun) --><!-- Copyright (c) Verein SmartGridready, Switzerland Version 0.2.2 2022-8-22 
-	All Rights Reserved. Source: https://www.SmartGridready.ch/ --><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
-  <include schemaLocation="SGrGenDeviceFrame.xsd"/>
+	(IBT Ing. Buero Broennimann Thun) -->
+<!-- Copyright (c) Verein SmartGridready, Switzerland Version 0.2.2 2022-8-22 
+	All Rights Reserved. Source: https://www.SmartGridready.ch/ -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
+
   <complexType name="SGrReleaseNotes">
     <annotation>
       <documentation xml:lang="en">
@@ -11,15 +13,16 @@
     </annotation>
     <sequence>
       <element maxOccurs="1" minOccurs="1" name="state" type="sgr:SGrReleaseState" />
-      <element maxOccurs="unbounded" minOccurs="1" name="changelog" type="sgr:SGrChangeLog"/>
+      <element maxOccurs="1" minOccurs="0" name="remarks" type="string" />
+      <element maxOccurs="unbounded" minOccurs="1" name="changelog" type="sgr:SGrChangeLog" />
     </sequence>
   </complexType>
   <simpleType name="SGrReleaseState">
     <restriction base="string">
-      <enumeration value="Draft"/>
-      <enumeration value="Review"/>
-      <enumeration value="Published"/>
-      <enumeration value="Revoked"/>
+      <enumeration value="Draft" />
+      <enumeration value="Review" />
+      <enumeration value="Published" />
+      <enumeration value="Revoked" />
     </restriction>
   </simpleType>
   <complexType name="SGrChangeLog">
@@ -36,9 +39,9 @@
 				describes a test to be applied like a quality certification for
 				SmartMeters
 			</documentation>
-      <documentation xml:lang="de"/>
+      <documentation xml:lang="de" />
     </annotation>
-    <restriction base="string"/>
+    <restriction base="string" />
   </simpleType>
   <!-- data value with precision range -->
   <simpleType name="SGrPrecisionType">
@@ -53,8 +56,8 @@
 			</documentation>
     </annotation>
     <restriction base="double">
-      <minInclusive value="0.001"/>
-      <maxInclusive value="15"/>
+      <minInclusive value="0.001" />
+      <maxInclusive value="15" />
     </restriction>
   </simpleType>
   <!-- Namelist Type for listing the relevant name references -->
@@ -74,14 +77,6 @@
 			</documentation>
     </annotation>
     <sequence maxOccurs="1" minOccurs="1">
-      <element maxOccurs="1" minOccurs="1" name="nameType" type="sgr:SGrNamelistKindOfType">
-        <annotation>
-          <documentation>is used to define where this naming is place in a
-						device-architecture hierarchy way Device; FunctionalProfile;
-						DataPoint
-					</documentation>
-        </annotation>
-      </element>
       <element maxOccurs="1" minOccurs="0" name="sLV1Name" type="string">
         <annotation>
           <documentation>names used for SGr label V1 used to secure legacy
@@ -130,7 +125,7 @@
       </element>
     </sequence>
   </complexType>
-  
+
   <!-- the basic data based used für the generic level of a communicator -->
   <complexType name="SGrBasicGenDataPointTypeType">
     <annotation>
@@ -139,25 +134,25 @@
 				The definition focuses on the programming languages used at the
 				level of the communicators. So far Java and Python.
 			</documentation>
-      <documentation xml:lang="de"/>
-      <documentation/>
+      <documentation xml:lang="de" />
+      <documentation />
     </annotation>
-    <choice>        
-    	<element maxOccurs="1" minOccurs="1" name="boolean" type="boolean"/>
-        <element maxOccurs="1" minOccurs="1" name="int8" type="byte"/>
-        <element maxOccurs="1" minOccurs="1" name="int16" type="short"/>
-        <element maxOccurs="1" minOccurs="1" name="int32" type="integer"/>
-        <element maxOccurs="1" minOccurs="1" name="int64" type="long"/>
-        <element maxOccurs="1" minOccurs="1" name="int8U" type="unsignedByte"/>
-        <element maxOccurs="1" minOccurs="1" name="int16U" type="unsignedShort"/>
-        <element maxOccurs="1" minOccurs="1" name="int32U" type="unsignedInt"/>
-        <element maxOccurs="1" minOccurs="1" name="int64U" type="unsignedLong"/>
-        <element maxOccurs="1" minOccurs="1" name="float32" type="float"/>
-        <element maxOccurs="1" minOccurs="1" name="float64" type="double"/>
-        <element maxOccurs="1" minOccurs="1" name="enum" type="sgr:SGrEnumListType"/>
-        <element maxOccurs="1" minOccurs="1" name="dateTime" type="dateTime"/>
-        <element maxOccurs="1" minOccurs="1" name="string" type="string"/>
-        <!-- weitere aus IEC61850 übertragbare Datentypen: Achtung: Elemente müssen ohne "_" sein und mit Kleinbuschtsaben beginnen
+    <choice>
+      <element maxOccurs="1" minOccurs="1" name="boolean" type="boolean" />
+      <element maxOccurs="1" minOccurs="1" name="int8" type="byte" />
+      <element maxOccurs="1" minOccurs="1" name="int16" type="short" />
+      <element maxOccurs="1" minOccurs="1" name="int32" type="integer" />
+      <element maxOccurs="1" minOccurs="1" name="int64" type="long" />
+      <element maxOccurs="1" minOccurs="1" name="int8U" type="unsignedByte" />
+      <element maxOccurs="1" minOccurs="1" name="int16U" type="unsignedShort" />
+      <element maxOccurs="1" minOccurs="1" name="int32U" type="unsignedInt" />
+      <element maxOccurs="1" minOccurs="1" name="int64U" type="unsignedLong" />
+      <element maxOccurs="1" minOccurs="1" name="float32" type="float" />
+      <element maxOccurs="1" minOccurs="1" name="float64" type="double" />
+      <element maxOccurs="1" minOccurs="1" name="enum" type="sgr:SGrEnumListType" />
+      <element maxOccurs="1" minOccurs="1" name="dateTime" type="dateTime" />
+      <element maxOccurs="1" minOccurs="1" name="string" type="string" />
+      <!-- weitere aus IEC61850 übertragbare Datentypen: Achtung: Elemente müssen ohne "_" sein und mit Kleinbuschtsaben beginnen
         		     <enumeration value="Dbpos"/> 
 					<enumeration value="Tcmd"/> <enumeration value="Quality"/> <enumeration value="VisString32"/> 
 					<enumeration value="VisString64"/> <enumeration value="VisString65"/> <enumeration 
@@ -170,21 +165,21 @@
 					value="Octet6"/> <enumeration value="Octet16"/> -->
     </choice>
   </complexType>
-  
+
   <complexType name="SGrBasicGenArrayDPTypeType">
-  
+
     <annotation>
       <documentation xml:lang="en"> These are the basic generic
 				data array  types must remain high level definitions for to be supported.
 				The definition focuses on the programming languages used at the
 				level of the communicators. So far Java and Python.
 			</documentation>
-      <documentation xml:lang="de"/>
-      <documentation/>
+      <documentation xml:lang="de" />
+      <documentation />
     </annotation>
     <sequence>
-      <element name="type" type="sgr:SGrBasicGenDataPointTypeType"/>
-      <element name="lenght" type="integer"/>
+      <element name="type" type="sgr:SGrBasicGenDataPointTypeType" />
+      <element name="lenght" type="integer" />
     </sequence>
   </complexType>
   <!-- enumeration to select mandatory, optional or recommended use of elements -->
@@ -195,13 +190,13 @@
 				(using the EEBUS terminology): "M" mandatotory use (IEC:SHALL), "R"
 				recommended use (IEC:SHOULD) and "O" optional use (IEC:MAY)
 			</documentation>
-      <documentation xml:lang="de"/>
-      <documentation/>
+      <documentation xml:lang="de" />
+      <documentation />
     </annotation>
     <restriction base="Name">
-      <enumeration value="M"/>
-      <enumeration value="R"/>
-      <enumeration value="O"/>
+      <enumeration value="M" />
+      <enumeration value="R" />
+      <enumeration value="O" />
     </restriction>
   </simpleType>
   <!-- enumeration to select data direction (Read Write) and persistent storage 
@@ -213,14 +208,14 @@
 				and writable data, "RWP" readible and writable data with persistent
 				storage
 			</documentation>
-      <documentation xml:lang="de"/>
-      <documentation/>
+      <documentation xml:lang="de" />
+      <documentation />
     </annotation>
     <restriction base="Name">
-      <enumeration value="R"/>
-      <enumeration value="W"/>
-      <enumeration value="RW"/>
-      <enumeration value="RWP"/>
+      <enumeration value="R" />
+      <enumeration value="W" />
+      <enumeration value="RW" />
+      <enumeration value="RWP" />
     </restriction>
   </simpleType>
   <!-- create a new title as separator in between type definitions -->
@@ -239,8 +234,8 @@
         </annotation>
         <simpleType>
           <restriction base="string">
-            <minLength value="0"/>
-            <maxLength value="4000"/>
+            <minLength value="0" />
+            <maxLength value="4000" />
           </restriction>
         </simpleType>
       </element>
@@ -264,27 +259,10 @@
 			</documentation>
     </annotation>
     <restriction base="Name">
-      <enumeration value="de"/>
-      <enumeration value="en"/>
-      <enumeration value="fr"/>
-      <enumeration value="it"/>
-    </restriction>
-  </simpleType>
-  <simpleType name="SGrNamelistKindOfType">
-    <annotation>
-      <documentation/>
-    </annotation>
-    <restriction base="Name">
-      <enumeration value="Device">
-        <annotation>
-          <documentation>Identifies the level of the names used -Device
-						-FunctionalProfile -DataPoint -other
-					</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="FunctionalProfile"/>
-      <enumeration value="DataPoint"/>
-      <enumeration value="other"/>
+      <enumeration value="de" />
+      <enumeration value="en" />
+      <enumeration value="fr" />
+      <enumeration value="it" />
     </restriction>
   </simpleType>
   <complexType name="SGrVersionNumberType">
@@ -293,9 +271,9 @@
 			</documentation>
     </annotation>
     <sequence>
-      <element name="primaryVersionNumber" type="int"/>
-      <element name="secondaryVersionNumber" type="int"/>
-      <element name="subReleaseVersionNumber" type="int"/>
+      <element name="primaryVersionNumber" type="int" />
+      <element name="secondaryVersionNumber" type="int" />
+      <element name="subReleaseVersionNumber" type="int" />
     </sequence>
   </complexType>
   <simpleType name="SGrDeviceKindType">
@@ -305,252 +283,252 @@
 			</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="Battery"/>
-      <enumeration value="Compressor"/>
-      <enumeration value="DeviceInformation"/>
-      <enumeration value="DHWCircuit"/>
-      <enumeration value="DHWStorage"/>
-      <enumeration value="Dishwasher"/>
-      <enumeration value="Dryer"/>
-      <enumeration value="ElectricalImmersionHeater"/>
-      <enumeration value="Fan"/>
-      <enumeration value="GasHeatingAppliance"/>
-      <enumeration value="Generic"/>
-      <enumeration value="HeatingBufferStorage"/>
-      <enumeration value="HeatingCircuit"/>
-      <enumeration value="HeatingObject"/>
-      <enumeration value="HeatingZone"/>
-      <enumeration value="HeatPumpAppliance"/>
-      <enumeration value="HeatSinkCircuit"/>
-      <enumeration value="HeatSourceCircuit"/>
-      <enumeration value="HeatSourceUnit"/>
-      <enumeration value="HVACController"/>
-      <enumeration value="HVACRoom"/>
-      <enumeration value="InstantDHWHeater"/>
-      <enumeration value="Inverter"/>
-      <enumeration value="OilHeatingAppliance"/>
-      <enumeration value="Pump"/>
-      <enumeration value="RefrigerantCircuit"/>
-      <enumeration value="SmartEnergyAppliance"/>
-      <enumeration value="SolarDHWStorage"/>
-      <enumeration value="SolarThermalCircuit"/>
-      <enumeration value="SubMeterElectricity"/>
-      <enumeration value="TemperatureSensor"/>
-      <enumeration value="Washer"/>
-      <enumeration value="BatterySystem"/>
-      <enumeration value="ElectricityGenerationSystem"/>
-      <enumeration value="ElectricityStorageSystem"/>
+      <enumeration value="Battery" />
+      <enumeration value="Compressor" />
+      <enumeration value="DeviceInformation" />
+      <enumeration value="DHWCircuit" />
+      <enumeration value="DHWStorage" />
+      <enumeration value="Dishwasher" />
+      <enumeration value="Dryer" />
+      <enumeration value="ElectricalImmersionHeater" />
+      <enumeration value="Fan" />
+      <enumeration value="GasHeatingAppliance" />
+      <enumeration value="Generic" />
+      <enumeration value="HeatingBufferStorage" />
+      <enumeration value="HeatingCircuit" />
+      <enumeration value="HeatingObject" />
+      <enumeration value="HeatingZone" />
+      <enumeration value="HeatPumpAppliance" />
+      <enumeration value="HeatSinkCircuit" />
+      <enumeration value="HeatSourceCircuit" />
+      <enumeration value="HeatSourceUnit" />
+      <enumeration value="HVACController" />
+      <enumeration value="HVACRoom" />
+      <enumeration value="InstantDHWHeater" />
+      <enumeration value="Inverter" />
+      <enumeration value="OilHeatingAppliance" />
+      <enumeration value="Pump" />
+      <enumeration value="RefrigerantCircuit" />
+      <enumeration value="SmartEnergyAppliance" />
+      <enumeration value="SolarDHWStorage" />
+      <enumeration value="SolarThermalCircuit" />
+      <enumeration value="SubMeterElectricity" />
+      <enumeration value="TemperatureSensor" />
+      <enumeration value="Washer" />
+      <enumeration value="BatterySystem" />
+      <enumeration value="ElectricityGenerationSystem" />
+      <enumeration value="ElectricityStorageSystem" />
       <enumeration value="SGCP">
         <annotation>
           <documentation>EEBUS: GridConnectionPointOfPremises</documentation>
         </annotation>
       </enumeration>
-      <enumeration value="Household"/>
-      <enumeration value="PVSystem"/>
-      <enumeration value="EV"/>
-      <enumeration value="EVSE"/>
+      <enumeration value="Household" />
+      <enumeration value="PVSystem" />
+      <enumeration value="EV" />
+      <enumeration value="EVSE" />
       <enumeration value="ChargingStation">
         <annotation>
           <documentation>EEBUS: ChargingOutlet</documentation>
         </annotation>
       </enumeration>
-      <enumeration value="CEM"/>
+      <enumeration value="CEM" />
     </restriction>
   </simpleType>
   <simpleType name="SGrUnits">
     <restriction base="string">
-      <enumeration value="AMPERE_SQUARE_METERS"/>
-      <enumeration value="AMPERES"/>
-      <enumeration value="AMPERES_PER_METER"/>
-      <enumeration value="AMPERES_PER_SQUARE_METER"/>
-      <enumeration value="BARS"/>
-      <enumeration value="BTUS"/>
-      <enumeration value="BTUS_PER_HOUR"/>
-      <enumeration value="BTUS_PER_POUND"/>
-      <enumeration value="BTUS_PER_POUND_DRY_AIR"/>
-      <enumeration value="CANDELAS"/>
-      <enumeration value="CANDELAS_PER_SQUARE_METER"/>
-      <enumeration value="CENTIMETERS"/>
-      <enumeration value="CENTIMETERS_OF_MERCURY"/>
-      <enumeration value="CENTIMETERS_OF_WATER"/>
-      <enumeration value="CUBIC_FEET"/>
-      <enumeration value="CUBIC_FEET_PER_MINUTE"/>
-      <enumeration value="CUBIC_FEET_PER_SECOND"/>
-      <enumeration value="CUBIC_METERS"/>
-      <enumeration value="CUBIC_METERS_PER_HOUR"/>
-      <enumeration value="CUBIC_METERS_PER_MINUTE"/>
-      <enumeration value="CUBIC_METERS_PER_SECOND"/>
-      <enumeration value="CURRENCY1"/>
-      <enumeration value="CURRENCY10"/>
-      <enumeration value="CURRENCY2"/>
-      <enumeration value="CURRENCY3"/>
-      <enumeration value="CURRENCY4"/>
-      <enumeration value="CURRENCY5"/>
-      <enumeration value="CURRENCY6"/>
-      <enumeration value="CURRENCY7"/>
-      <enumeration value="CURRENCY8"/>
-      <enumeration value="CURRENCY9"/>
-      <enumeration value="CYCLES_PER_HOUR"/>
-      <enumeration value="CYCLES_PER_MINUTE"/>
-      <enumeration value="DAYS"/>
-      <enumeration value="DEGREE_DAYS_CELSIUS"/>
-      <enumeration value="DEGREE_DAYS_FAHRENHEIT"/>
-      <enumeration value="DEGREES_ANGULAR"/>
-      <enumeration value="DEGREES_CELSIUS"/>
-      <enumeration value="DEGREES_CELSIUS_PER_HOUR"/>
-      <enumeration value="DEGREES_CELSIUS_PER_MINUTE"/>
-      <enumeration value="DEGREES_FAHRENHEIT"/>
-      <enumeration value="DEGREES_FAHRENHEIT_PER_HOUR"/>
-      <enumeration value="DEGREES_FAHRENHEIT_PER_MINUTE"/>
-      <enumeration value="DEGREES_KELVIN"/>
-      <enumeration value="DEGREES_KELVIN_PER_HOUR"/>
-      <enumeration value="DEGREES_KELVIN_PER_MINUTE"/>
-      <enumeration value="DEGREES_PHASE"/>
-      <enumeration value="DELTA_DEGREES_FAHRENHEIT"/>
-      <enumeration value="DELTA_DEGREES_KELVIN"/>
-      <enumeration value="FARADS"/>
-      <enumeration value="FEET"/>
-      <enumeration value="FEET_PER_MINUTE"/>
-      <enumeration value="FEET_PER_SECOND"/>
-      <enumeration value="FOOT_CANDLES"/>
-      <enumeration value="GIGAJOULES"/>
-      <enumeration value="GRAMS_OF_WATER_PER_KILOGRAM_DRY_AIR"/>
-      <enumeration value="GRAMS_PER_MINUTE"/>
-      <enumeration value="GRAMS_PER_SECOND"/>
-      <enumeration value="HECTOPASCALS"/>
-      <enumeration value="HENRYS"/>
-      <enumeration value="HERTZ"/>
-      <enumeration value="HORSEPOWER"/>
-      <enumeration value="HOURS"/>
-      <enumeration value="HUNDREDTHS_SECONDS"/>
-      <enumeration value="IMPERIAL_GALLONS"/>
-      <enumeration value="IMPERIAL_GALLONS_PER_MINUTE"/>
-      <enumeration value="INCHES"/>
-      <enumeration value="INCHES_OF_MERCURY"/>
-      <enumeration value="INCHES_OF_WATER"/>
-      <enumeration value="JOULE_SECONDS"/>
-      <enumeration value="JOULES"/>
-      <enumeration value="JOULES_PER_DEGREE_KELVIN"/>
-      <enumeration value="JOULES_PER_KILOGRAM_DEGREE_KELVIN"/>
-      <enumeration value="JOULES_PER_KILOGRAM_DRY_AIR"/>
-      <enumeration value="KILO_BTUS"/>
-      <enumeration value="KILO_BTUS_PER_HOUR"/>
-      <enumeration value="KILOGRAMS"/>
-      <enumeration value="KILOGRAMS_PER_CUBIC_METER"/>
-      <enumeration value="KILOGRAMS_PER_HOUR"/>
-      <enumeration value="KILOGRAMS_PER_MINUTE"/>
-      <enumeration value="KILOGRAMS_PER_SECOND"/>
-      <enumeration value="KILOHERTZ"/>
-      <enumeration value="KILOOHMS"/>
-      <enumeration value="KILOJOULES"/>
-      <enumeration value="KILOJOULES_PER_DEGREE_KELVIN"/>
-      <enumeration value="KILOJOULES_PER_KILOGRAM"/>
-      <enumeration value="KILOJOULES_PER_KILOGRAM_DRY_AIR"/>
-      <enumeration value="KILOMETERS_PER_HOUR"/>
-      <enumeration value="KILOPASCALS"/>
-      <enumeration value="KILOVOLT_AMPERES"/>
-      <enumeration value="KILOVOLT_AMPERES_REACTIVE"/>
-      <enumeration value="KILOVOLTS"/>
-      <enumeration value="KILOWATT_HOURS"/>
-      <enumeration value="KILOWATTS"/>
-      <enumeration value="KW_HOURS_PER_SQUARE_FOOT"/>
-      <enumeration value="KW_HOURS_PER_SQUARE_METER"/>
-      <enumeration value="LITERS"/>
-      <enumeration value="LITERS_PER_HOUR"/>
-      <enumeration value="LITERS_PER_MINUTE"/>
-      <enumeration value="LITERS_PER_SECOND"/>
-      <enumeration value="LUMENS"/>
-      <enumeration value="LUXES"/>
-      <enumeration value="MEGA_BTUS"/>
-      <enumeration value="MEGAHERTZ"/>
-      <enumeration value="MEGAJOULES"/>
-      <enumeration value="MEGAJOULES_PER_DEGREE_KELVIN"/>
-      <enumeration value="MEGAJOULES_PER_KILOGRAM_DRY_AIR"/>
-      <enumeration value="MEGAJOULES_PER_SQUARE_FOOT"/>
-      <enumeration value="MEGAJOULES_PER_SQUARE_METER"/>
-      <enumeration value="MEGAVOLT_AMPERES"/>
-      <enumeration value="MEGAVOLT_AMPERES_REACTIVE"/>
-      <enumeration value="MEGAVOLTS"/>
-      <enumeration value="MEGAWATT_HOURS"/>
-      <enumeration value="MEGAWATTS"/>
-      <enumeration value="MEGOHMS"/>
-      <enumeration value="METERS"/>
-      <enumeration value="METERS_PER_HOUR"/>
-      <enumeration value="METERS_PER_MINUTE"/>
-      <enumeration value="METERS_PER_SECOND"/>
-      <enumeration value="METERS_PER_SECOND_PER_SECOND"/>
-      <enumeration value="MILES_PER_HOUR"/>
-      <enumeration value="MILLIAMPERES"/>
-      <enumeration value="MILLIBARS"/>
-      <enumeration value="MILLIMETERS"/>
-      <enumeration value="MILLIMETERS_OF_MERCURY"/>
-      <enumeration value="MILLIMETERS_PER_MINUTE"/>
-      <enumeration value="MILLIMETERS_PER_SECOND"/>
-      <enumeration value="MILLIOHMS"/>
-      <enumeration value="MILLISECONDS"/>
-      <enumeration value="MILLIVOLTS"/>
-      <enumeration value="MILLIWATTS"/>
-      <enumeration value="MINUTES"/>
-      <enumeration value="MONTHS"/>
-      <enumeration value="NEWTON"/>
-      <enumeration value="NEWTON_METERS"/>
-      <enumeration value="NEWTON_SECONDS"/>
-      <enumeration value="NEWTONS_PER_METER"/>
-      <enumeration value="NO_UNITS"/>
-      <enumeration value="OHM_METERS"/>
-      <enumeration value="OHMS"/>
-      <enumeration value="PARTS_PER_BILLION"/>
-      <enumeration value="PARTS_PER_MILLION"/>
-      <enumeration value="PASCALS"/>
-      <enumeration value="PER_HOUR"/>
-      <enumeration value="PER_MINUTE"/>
-      <enumeration value="PER_SECOND"/>
-      <enumeration value="PERCENT"/>
-      <enumeration value="PERCENT_OBSCURATION_PER_FOOT"/>
-      <enumeration value="PERCENT_OBSCURATION_PER_METER"/>
-      <enumeration value="PERCENT_PER_SECOND"/>
-      <enumeration value="PERCENT_RELATIVE_HUMIDITY"/>
-      <enumeration value="POUNDS_FORCE_PER_SQUARE_INCH"/>
-      <enumeration value="POUNDS_MASS"/>
-      <enumeration value="POUNDS_MASS_PER_HOUR"/>
-      <enumeration value="POUNDS_MASS_PER_MINUTE"/>
-      <enumeration value="POUNDS_MASS_PER_SECOND"/>
-      <enumeration value="POWER_FACTOR"/>
-      <enumeration value="PSI_PER_DEGREE_FAHRENHEIT"/>
-      <enumeration value="RADIANS"/>
-      <enumeration value="RADIANS_PER_SECOND"/>
-      <enumeration value="REVOLUTIONS_PER_MINUTE"/>
-      <enumeration value="SECONDS"/>
-      <enumeration value="SIEMENS"/>
-      <enumeration value="SIEMENS_PER_METER"/>
-      <enumeration value="SQUARE_CENTIMETERS"/>
-      <enumeration value="SQUARE_FEET"/>
-      <enumeration value="SQUARE_INCHES"/>
-      <enumeration value="SQUARE_METERS"/>
-      <enumeration value="SQUARE_METERS_PER_NEWTON"/>
-      <enumeration value="TESLAS"/>
-      <enumeration value="THERMS"/>
-      <enumeration value="TON_HOURS"/>
-      <enumeration value="TONS"/>
-      <enumeration value="TONS_PER_HOUR"/>
-      <enumeration value="TONS_REFRIGERATION"/>
-      <enumeration value="US_GALLONS"/>
-      <enumeration value="US_GALLONS_PER_MINUTE"/>
-      <enumeration value="VOLT_AMPERES"/>
-      <enumeration value="VOLT_AMPERES_REACTIVE"/>
-      <enumeration value="VOLTS"/>
-      <enumeration value="VOLTS_PER_DEGREE_KELVIN"/>
-      <enumeration value="VOLTS_PER_METER"/>
-      <enumeration value="WATT_HOURS"/>
-      <enumeration value="WATTS"/>
-      <enumeration value="WATTS_PER_METER_PER_DEGREE_KELVIN"/>
-      <enumeration value="WATTS_PER_SQUARE_FOOT"/>
-      <enumeration value="WATTS_PER_SQUARE_METER"/>
-      <enumeration value="WATTS_PER_SQUARE_METER_DEGREE_KELVIN"/>
-      <enumeration value="WEBERS"/>
-      <enumeration value="WEEKS"/>
-      <enumeration value="YEARS"/>
-      <enumeration value="NONE"/>
+      <enumeration value="AMPERE_SQUARE_METERS" />
+      <enumeration value="AMPERES" />
+      <enumeration value="AMPERES_PER_METER" />
+      <enumeration value="AMPERES_PER_SQUARE_METER" />
+      <enumeration value="BARS" />
+      <enumeration value="BTUS" />
+      <enumeration value="BTUS_PER_HOUR" />
+      <enumeration value="BTUS_PER_POUND" />
+      <enumeration value="BTUS_PER_POUND_DRY_AIR" />
+      <enumeration value="CANDELAS" />
+      <enumeration value="CANDELAS_PER_SQUARE_METER" />
+      <enumeration value="CENTIMETERS" />
+      <enumeration value="CENTIMETERS_OF_MERCURY" />
+      <enumeration value="CENTIMETERS_OF_WATER" />
+      <enumeration value="CUBIC_FEET" />
+      <enumeration value="CUBIC_FEET_PER_MINUTE" />
+      <enumeration value="CUBIC_FEET_PER_SECOND" />
+      <enumeration value="CUBIC_METERS" />
+      <enumeration value="CUBIC_METERS_PER_HOUR" />
+      <enumeration value="CUBIC_METERS_PER_MINUTE" />
+      <enumeration value="CUBIC_METERS_PER_SECOND" />
+      <enumeration value="CURRENCY1" />
+      <enumeration value="CURRENCY10" />
+      <enumeration value="CURRENCY2" />
+      <enumeration value="CURRENCY3" />
+      <enumeration value="CURRENCY4" />
+      <enumeration value="CURRENCY5" />
+      <enumeration value="CURRENCY6" />
+      <enumeration value="CURRENCY7" />
+      <enumeration value="CURRENCY8" />
+      <enumeration value="CURRENCY9" />
+      <enumeration value="CYCLES_PER_HOUR" />
+      <enumeration value="CYCLES_PER_MINUTE" />
+      <enumeration value="DAYS" />
+      <enumeration value="DEGREE_DAYS_CELSIUS" />
+      <enumeration value="DEGREE_DAYS_FAHRENHEIT" />
+      <enumeration value="DEGREES_ANGULAR" />
+      <enumeration value="DEGREES_CELSIUS" />
+      <enumeration value="DEGREES_CELSIUS_PER_HOUR" />
+      <enumeration value="DEGREES_CELSIUS_PER_MINUTE" />
+      <enumeration value="DEGREES_FAHRENHEIT" />
+      <enumeration value="DEGREES_FAHRENHEIT_PER_HOUR" />
+      <enumeration value="DEGREES_FAHRENHEIT_PER_MINUTE" />
+      <enumeration value="DEGREES_KELVIN" />
+      <enumeration value="DEGREES_KELVIN_PER_HOUR" />
+      <enumeration value="DEGREES_KELVIN_PER_MINUTE" />
+      <enumeration value="DEGREES_PHASE" />
+      <enumeration value="DELTA_DEGREES_FAHRENHEIT" />
+      <enumeration value="DELTA_DEGREES_KELVIN" />
+      <enumeration value="FARADS" />
+      <enumeration value="FEET" />
+      <enumeration value="FEET_PER_MINUTE" />
+      <enumeration value="FEET_PER_SECOND" />
+      <enumeration value="FOOT_CANDLES" />
+      <enumeration value="GIGAJOULES" />
+      <enumeration value="GRAMS_OF_WATER_PER_KILOGRAM_DRY_AIR" />
+      <enumeration value="GRAMS_PER_MINUTE" />
+      <enumeration value="GRAMS_PER_SECOND" />
+      <enumeration value="HECTOPASCALS" />
+      <enumeration value="HENRYS" />
+      <enumeration value="HERTZ" />
+      <enumeration value="HORSEPOWER" />
+      <enumeration value="HOURS" />
+      <enumeration value="HUNDREDTHS_SECONDS" />
+      <enumeration value="IMPERIAL_GALLONS" />
+      <enumeration value="IMPERIAL_GALLONS_PER_MINUTE" />
+      <enumeration value="INCHES" />
+      <enumeration value="INCHES_OF_MERCURY" />
+      <enumeration value="INCHES_OF_WATER" />
+      <enumeration value="JOULE_SECONDS" />
+      <enumeration value="JOULES" />
+      <enumeration value="JOULES_PER_DEGREE_KELVIN" />
+      <enumeration value="JOULES_PER_KILOGRAM_DEGREE_KELVIN" />
+      <enumeration value="JOULES_PER_KILOGRAM_DRY_AIR" />
+      <enumeration value="KILO_BTUS" />
+      <enumeration value="KILO_BTUS_PER_HOUR" />
+      <enumeration value="KILOGRAMS" />
+      <enumeration value="KILOGRAMS_PER_CUBIC_METER" />
+      <enumeration value="KILOGRAMS_PER_HOUR" />
+      <enumeration value="KILOGRAMS_PER_MINUTE" />
+      <enumeration value="KILOGRAMS_PER_SECOND" />
+      <enumeration value="KILOHERTZ" />
+      <enumeration value="KILOOHMS" />
+      <enumeration value="KILOJOULES" />
+      <enumeration value="KILOJOULES_PER_DEGREE_KELVIN" />
+      <enumeration value="KILOJOULES_PER_KILOGRAM" />
+      <enumeration value="KILOJOULES_PER_KILOGRAM_DRY_AIR" />
+      <enumeration value="KILOMETERS_PER_HOUR" />
+      <enumeration value="KILOPASCALS" />
+      <enumeration value="KILOVOLT_AMPERES" />
+      <enumeration value="KILOVOLT_AMPERES_REACTIVE" />
+      <enumeration value="KILOVOLTS" />
+      <enumeration value="KILOWATT_HOURS" />
+      <enumeration value="KILOWATTS" />
+      <enumeration value="KW_HOURS_PER_SQUARE_FOOT" />
+      <enumeration value="KW_HOURS_PER_SQUARE_METER" />
+      <enumeration value="LITERS" />
+      <enumeration value="LITERS_PER_HOUR" />
+      <enumeration value="LITERS_PER_MINUTE" />
+      <enumeration value="LITERS_PER_SECOND" />
+      <enumeration value="LUMENS" />
+      <enumeration value="LUXES" />
+      <enumeration value="MEGA_BTUS" />
+      <enumeration value="MEGAHERTZ" />
+      <enumeration value="MEGAJOULES" />
+      <enumeration value="MEGAJOULES_PER_DEGREE_KELVIN" />
+      <enumeration value="MEGAJOULES_PER_KILOGRAM_DRY_AIR" />
+      <enumeration value="MEGAJOULES_PER_SQUARE_FOOT" />
+      <enumeration value="MEGAJOULES_PER_SQUARE_METER" />
+      <enumeration value="MEGAVOLT_AMPERES" />
+      <enumeration value="MEGAVOLT_AMPERES_REACTIVE" />
+      <enumeration value="MEGAVOLTS" />
+      <enumeration value="MEGAWATT_HOURS" />
+      <enumeration value="MEGAWATTS" />
+      <enumeration value="MEGOHMS" />
+      <enumeration value="METERS" />
+      <enumeration value="METERS_PER_HOUR" />
+      <enumeration value="METERS_PER_MINUTE" />
+      <enumeration value="METERS_PER_SECOND" />
+      <enumeration value="METERS_PER_SECOND_PER_SECOND" />
+      <enumeration value="MILES_PER_HOUR" />
+      <enumeration value="MILLIAMPERES" />
+      <enumeration value="MILLIBARS" />
+      <enumeration value="MILLIMETERS" />
+      <enumeration value="MILLIMETERS_OF_MERCURY" />
+      <enumeration value="MILLIMETERS_PER_MINUTE" />
+      <enumeration value="MILLIMETERS_PER_SECOND" />
+      <enumeration value="MILLIOHMS" />
+      <enumeration value="MILLISECONDS" />
+      <enumeration value="MILLIVOLTS" />
+      <enumeration value="MILLIWATTS" />
+      <enumeration value="MINUTES" />
+      <enumeration value="MONTHS" />
+      <enumeration value="NEWTON" />
+      <enumeration value="NEWTON_METERS" />
+      <enumeration value="NEWTON_SECONDS" />
+      <enumeration value="NEWTONS_PER_METER" />
+      <enumeration value="NO_UNITS" />
+      <enumeration value="OHM_METERS" />
+      <enumeration value="OHMS" />
+      <enumeration value="PARTS_PER_BILLION" />
+      <enumeration value="PARTS_PER_MILLION" />
+      <enumeration value="PASCALS" />
+      <enumeration value="PER_HOUR" />
+      <enumeration value="PER_MINUTE" />
+      <enumeration value="PER_SECOND" />
+      <enumeration value="PERCENT" />
+      <enumeration value="PERCENT_OBSCURATION_PER_FOOT" />
+      <enumeration value="PERCENT_OBSCURATION_PER_METER" />
+      <enumeration value="PERCENT_PER_SECOND" />
+      <enumeration value="PERCENT_RELATIVE_HUMIDITY" />
+      <enumeration value="POUNDS_FORCE_PER_SQUARE_INCH" />
+      <enumeration value="POUNDS_MASS" />
+      <enumeration value="POUNDS_MASS_PER_HOUR" />
+      <enumeration value="POUNDS_MASS_PER_MINUTE" />
+      <enumeration value="POUNDS_MASS_PER_SECOND" />
+      <enumeration value="POWER_FACTOR" />
+      <enumeration value="PSI_PER_DEGREE_FAHRENHEIT" />
+      <enumeration value="RADIANS" />
+      <enumeration value="RADIANS_PER_SECOND" />
+      <enumeration value="REVOLUTIONS_PER_MINUTE" />
+      <enumeration value="SECONDS" />
+      <enumeration value="SIEMENS" />
+      <enumeration value="SIEMENS_PER_METER" />
+      <enumeration value="SQUARE_CENTIMETERS" />
+      <enumeration value="SQUARE_FEET" />
+      <enumeration value="SQUARE_INCHES" />
+      <enumeration value="SQUARE_METERS" />
+      <enumeration value="SQUARE_METERS_PER_NEWTON" />
+      <enumeration value="TESLAS" />
+      <enumeration value="THERMS" />
+      <enumeration value="TON_HOURS" />
+      <enumeration value="TONS" />
+      <enumeration value="TONS_PER_HOUR" />
+      <enumeration value="TONS_REFRIGERATION" />
+      <enumeration value="US_GALLONS" />
+      <enumeration value="US_GALLONS_PER_MINUTE" />
+      <enumeration value="VOLT_AMPERES" />
+      <enumeration value="VOLT_AMPERES_REACTIVE" />
+      <enumeration value="VOLTS" />
+      <enumeration value="VOLTS_PER_DEGREE_KELVIN" />
+      <enumeration value="VOLTS_PER_METER" />
+      <enumeration value="WATT_HOURS" />
+      <enumeration value="WATTS" />
+      <enumeration value="WATTS_PER_METER_PER_DEGREE_KELVIN" />
+      <enumeration value="WATTS_PER_SQUARE_FOOT" />
+      <enumeration value="WATTS_PER_SQUARE_METER" />
+      <enumeration value="WATTS_PER_SQUARE_METER_DEGREE_KELVIN" />
+      <enumeration value="WEBERS" />
+      <enumeration value="WEEKS" />
+      <enumeration value="YEARS" />
+      <enumeration value="NONE" />
     </restriction>
   </simpleType>
   <complexType name="SGrScalingType">
@@ -561,12 +539,26 @@
 			</documentation>
     </annotation>
     <sequence>
-      <element name="multiplicator" type="int"/>
-      <element name="powerof10" type="int"/>
+      <element name="multiplicator" type="int" />
+      <element name="powerof10" type="int" />
     </sequence>
   </complexType>
-  
-    <!--  generic Attribute Definitions  -->
+
+  <simpleType name="SGrTransportServicesUsedListType">
+    <restriction base="string">
+      <enumeration value="EEBUS" />
+      <enumeration value="Modbus" />
+      <enumeration value="OCPP1.6" />
+      <enumeration value="OCPP2.01" />
+      <enumeration value="RESTfulJSON" />
+      <enumeration value="Contacts" />
+      <enumeration value="WoT" />
+      <enumeration value="proprietary" />
+      <enumeration value="generic" />
+    </restriction>
+  </simpleType>
+
+  <!--  generic Attribute Definitions  -->
   <complexType name="SGrAttr4GenericType">
     <annotation>
       <documentation>these attributes are defined for the generic interface
@@ -574,7 +566,7 @@
 				either a device, a functional Profile or a datapoint
 			</documentation>
     </annotation>
-    <sequence>
+    <all>
       <element maxOccurs="1" minOccurs="0" name="maxVal" type="float">
         <annotation>
           <documentation> upper range limit. Unit:inherited
@@ -627,24 +619,29 @@
 					</documentation>
         </annotation>
       </element>
-      <element maxOccurs="1" minOccurs="0" name="maxSendTime" type="time">
+      <element maxOccurs="1" minOccurs="0" name="maxSendTime" type="float">
         <annotation>
-          <documentation> The maximum time between 2 notifications
+          <documentation> The maximum time between 2 notifications in seconds
 					</documentation>
         </annotation>
       </element>
-      <element maxOccurs="1" minOccurs="0" name="maxReceiveTime" type="time"/>
-      <element maxOccurs="1" minOccurs="0" name="minSendTime" type="time">
+      <element maxOccurs="1" minOccurs="0" name="maxReceiveTime" type="float">
+        <annotation>
+          <documentation> The maximum time between 2 notifications in seconds
+					</documentation>
+        </annotation>
+        </element>
+      <element maxOccurs="1" minOccurs="0" name="minSendTime" type="float">
         <annotation>
           <documentation> The fastest possible or allowable sequence of
-						notifications
+						notifications in seconds
 					</documentation>
         </annotation>
       </element>
-      <element maxOccurs="1" minOccurs="0" name="maxLatencyTime" type="unsignedLong">
+      <element maxOccurs="1" minOccurs="0" name="maxLatencyTimeMs" type="unsignedLong">
         <annotation>
           <documentation> Maximum occurring or permitted delay time, e.g. of
-						a data transaction
+						a data transaction in milliseconds
 					</documentation>
         </annotation>
       </element>
@@ -670,7 +667,7 @@
       <element maxOccurs="1" minOccurs="0" name="valueState" type="sgr:SGrMeasValueStateType">
         <annotation>
           <documentation> MeasValueState: Status / validity of the
-						measurement. Possible values are "normal", "outOfRange", "error"
+						measurement. Possible values are "normal", "error"
 					</documentation>
         </annotation>
       </element>
@@ -695,11 +692,11 @@
 					</documentation>
         </annotation>
       </element>
-      <element maxOccurs="1" minOccurs="0" name="curtailment" type="float"/>
-      <element maxOccurs="1" minOccurs="0" name="minLoad" type="float"/>
-      <element maxOccurs="1" minOccurs="0" name="maxLockTimeMinutes" type="float"/>
-      <element maxOccurs="1" minOccurs="0" name="minRunTimeMinutes" type="float"/>
-      <element maxOccurs="1" minOccurs="0" name="valueByTimeTableMinutes" type="float"/>
+      <element maxOccurs="1" minOccurs="0" name="curtailment" type="float" />
+      <element maxOccurs="1" minOccurs="0" name="minLoad" type="float" />
+      <element maxOccurs="1" minOccurs="0" name="maxLockTimeMinutes" type="float" />
+      <element maxOccurs="1" minOccurs="0" name="minRunTimeMinutes" type="float" />
+      <element maxOccurs="1" minOccurs="0" name="valueByTimeTableMinutes" type="float" />
       <element maxOccurs="1" minOccurs="0" name="flexAssistance" type="sgr:SGrFlexAssistanceType">
         <annotation>
           <documentation> Systems with more than One communicator need a definition of the priority of the commands / demands for a flexibility
@@ -708,7 +705,7 @@
 		 </documentation>
         </annotation>
       </element>
-    </sequence>
+    </all>
   </complexType>
   <complexType name="SGrStabilityFallbackType">
     <annotation>
@@ -718,7 +715,7 @@
 			</documentation>
     </annotation>
     <sequence>
-      <element name="maxReceiveTime" type="time"/>
+      <element name="maxReceiveTime" type="time" />
       <element name="initValue" type="float">
         <annotation>
           <documentation>Value of the reference variable at the start of the
@@ -774,7 +771,7 @@
   </complexType>
   <complexType name="SGrTimeRangeType">
     <annotation>
-      <documentation>ime range min…max</documentation>
+      <documentation>time range min…max</documentation>
     </annotation>
     <sequence>
       <element maxOccurs="1" minOccurs="1" name="startTime" type="time">
@@ -790,15 +787,15 @@
     </sequence>
   </complexType>
   <complexType name="SGrFlexAssistanceType">
-  <sequence>
-    <element maxOccurs="1" minOccurs="1"   	name="assists" type="sgr:SGrSGCPServiceType"/>
-    <element maxOccurs="1" minOccurs="1" name="obliged_to" type="sgr:SGrObligLvlType"/>     
+    <sequence>
+      <element maxOccurs="1" minOccurs="1" name="assists" type="sgr:SGrSGCPServiceType" />
+      <element maxOccurs="1" minOccurs="1" name="obliged_to" type="sgr:SGrObligLvlType" />
     </sequence>
- </complexType>
-  
-  
- <!--  generic Enumeration Definitions  -->
-  
+  </complexType>
+
+
+  <!--  generic Enumeration Definitions  -->
+
   <simpleType name="SGrMeasValueType">
     <restriction base="string">
       <enumeration value="min" />
@@ -812,8 +809,8 @@
       <documentation>E0001</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="normal"/>
-      <enumeration value="error"/>
+      <enumeration value="normal" />
+      <enumeration value="error" />
     </restriction>
   </simpleType>
   <simpleType name="SGrMeasValueTendencyType">
@@ -823,9 +820,9 @@
 			</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="rising"/>
-      <enumeration value="stable"/>
-      <enumeration value="falling"/>
+      <enumeration value="rising" />
+      <enumeration value="stable" />
+      <enumeration value="falling" />
     </restriction>
   </simpleType>
   <simpleType name="SGrMeasValueSourceType">
@@ -833,21 +830,21 @@
       <documentation>E0003</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="measuredValue"/>
-      <enumeration value="calculatedValue"/>
-      <enumeration value="empiricalValue"/>
+      <enumeration value="measuredValue" />
+      <enumeration value="calculatedValue" />
+      <enumeration value="empiricalValue" />
     </restriction>
-  </simpleType>  
+  </simpleType>
   <simpleType name="SGrPowerSourceType">
     <annotation>
       <documentation>E0004</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="unknown"/>
-      <enumeration value="mains1Phase"/>
-      <enumeration value="mains3Phase"/>
-      <enumeration value="battery"/>
-      <enumeration value="dc"/>
+      <enumeration value="unknown" />
+      <enumeration value="mains1Phase" />
+      <enumeration value="mains3Phase" />
+      <enumeration value="battery" />
+      <enumeration value="dc" />
     </restriction>
   </simpleType>
   <simpleType name="SGReadyStateLv2Type">
@@ -914,14 +911,14 @@
 			</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="I_STATUS_OFF"/>
-      <enumeration value="I_STATUS_SLEEPING"/>
-      <enumeration value="I_STATUS_STARTING"/>
-      <enumeration value="I_STATUS_MPPT"/>
-      <enumeration value="I_STATUS_THROTTLED"/>
-      <enumeration value="I_STATUS_SHUTING_DOWN"/>
-      <enumeration value="I_STATUS_FAULT"/>
-      <enumeration value="I_STATUS_STANDBY"/>
+      <enumeration value="I_STATUS_OFF" />
+      <enumeration value="I_STATUS_SLEEPING" />
+      <enumeration value="I_STATUS_STARTING" />
+      <enumeration value="I_STATUS_MPPT" />
+      <enumeration value="I_STATUS_THROTTLED" />
+      <enumeration value="I_STATUS_SHUTING_DOWN" />
+      <enumeration value="I_STATUS_FAULT" />
+      <enumeration value="I_STATUS_STANDBY" />
     </restriction>
   </simpleType>
   <simpleType name="SGrEVSEStateLv2Type">
@@ -931,10 +928,10 @@
 			</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="EV_NORMAL"/>
-      <enumeration value="EV_REDUCED"/>
-      <enumeration value="EV_MINIMAL"/>
-      <enumeration value="EV_NONE_OR_FEEDIN"/>
+      <enumeration value="EV_NORMAL" />
+      <enumeration value="EV_REDUCED" />
+      <enumeration value="EV_MINIMAL" />
+      <enumeration value="EV_NONE_OR_FEEDIN" />
     </restriction>
   </simpleType>
   <simpleType name="SGrEVSEStateLv1Type">
@@ -943,8 +940,8 @@
 			</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="EV_NORMAL"/>
-      <enumeration value="EV_REDUCED"/>
+      <enumeration value="EV_NORMAL" />
+      <enumeration value="EV_REDUCED" />
     </restriction>
   </simpleType>
   <simpleType name="SGrSGCPLoadStateLv2Type">
@@ -954,10 +951,10 @@
 			</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="LD_NORMAL"/>
-      <enumeration value="LD_REDUCED"/>
-      <enumeration value="LD_LOCKED"/>
-      <enumeration value="LD_MAX"/>
+      <enumeration value="LD_NORMAL" />
+      <enumeration value="LD_REDUCED" />
+      <enumeration value="LD_LOCKED" />
+      <enumeration value="LD_MAX" />
     </restriction>
   </simpleType>
   <simpleType name="SGrSGCPFeedInStateLv2Type">
@@ -967,10 +964,10 @@
 			</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="FI_NORMAL"/>
-      <enumeration value="FI_REDUCED"/>
-      <enumeration value="FI_LOCKED"/>
-      <enumeration value="FI_MAX"/>
+      <enumeration value="FI_NORMAL" />
+      <enumeration value="FI_REDUCED" />
+      <enumeration value="FI_LOCKED" />
+      <enumeration value="FI_MAX" />
     </restriction>
   </simpleType>
   <simpleType name="SGrEVStateType">
@@ -985,46 +982,47 @@
 	 </documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="EV_STATE_UNDEF"/>
-      <enumeration value="EV_STANDBY"/>
-      <enumeration value="EV_DETECTED"/>
-      <enumeration value="EV_READY4CHARGING"/>
-      <enumeration value="EV_WITHFAN"/>
-      <enumeration value="EV_SHUTOFF"/>
-      <enumeration value="EV_ERROR"/>
+      <enumeration value="EV_STATE_UNDEF" />
+      <enumeration value="EV_STANDBY" />
+      <enumeration value="EV_DETECTED" />
+      <enumeration value="EV_READY4CHARGING" />
+      <enumeration value="EV_WITHFAN" />
+      <enumeration value="EV_SHUTOFF" />
+      <enumeration value="EV_ERROR" />
     </restriction>
-  </simpleType><simpleType name="SGrSGCPServiceType">
-  <annotation>     
-    <documentation>E0013: Assistance type of a reaction / function. This Attribute indicates the type of Flexibility Entity of the operation 
+  </simpleType>
+  <simpleType name="SGrSGCPServiceType">
+    <annotation>
+      <documentation>E0013: Assistance type of a reaction / function. This Attribute indicates the type of Flexibility Entity of the operation 
       NET  servicable: Operation for the benefit of a distribution network operator (DSO) 
       SYS  servicable: Operation of the total system operators (TSO) 
       ENER servicable: Operation for energy optimization
     </documentation>
-  </annotation>
-  <restriction base="string">
-      <enumeration value="AT_NetServicable"/>
-      <enumeration value="AT_SysServicable"/>
-      <enumeration value="AT_EnerServicable"/>
-  </restriction>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="AT_NetServicable" />
+      <enumeration value="AT_SysServicable" />
+      <enumeration value="AT_EnerServicable" />
+    </restriction>
   </simpleType>
-  <simpleType name="SGrObligLvlType"> 
-  <annotation>
-    <documentation>E0014:  Obligation level of a reaction / function.
+  <simpleType name="SGrObligLvlType">
+    <annotation>
+      <documentation>E0014:  Obligation level of a reaction / function.
       SHALL:  action is required
       SHOULD: action is strongly recommended
       MAY: action is permitted
     </documentation>
-  </annotation>
-  <restriction base="string">
-      <enumeration value="OL_SHALL"/>
-      <enumeration value="OL_SHOULD"/>
-      <enumeration value="OL_MAY"/>
-  </restriction>
- </simpleType>
- 
-  <simpleType name="SGrOCPPStateType"> 
-  <annotation>
-    <documentation>E0015:
+    </annotation>
+    <restriction base="string">
+      <enumeration value="OL_SHALL" />
+      <enumeration value="OL_SHOULD" />
+      <enumeration value="OL_MAY" />
+    </restriction>
+  </simpleType>
+
+  <simpleType name="SGrOCPPStateType">
+    <annotation>
+      <documentation>E0015:
 	Available (0): 
 	  When a Connector becomes available for a new
 	  user (Operative)
@@ -1086,57 +1084,57 @@
 	  (Operative)
 	
 	</documentation>
-  </annotation>
-  <restriction base="string">
-      <enumeration value="Available"/>
-      <enumeration value="Charging"/>
-      <enumeration value="Preparing"/>
-      <enumeration value="Finishing"/>
-      <enumeration value="Reserved"/>
-      <enumeration value="Unavailable"/>
-      <enumeration value="Faulted"/>
-      <enumeration value="SuspendedEVSE"/>
-      <enumeration value="SuspendedEV"/>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="Available" />
+      <enumeration value="Charging" />
+      <enumeration value="Preparing" />
+      <enumeration value="Finishing" />
+      <enumeration value="Reserved" />
+      <enumeration value="Unavailable" />
+      <enumeration value="Faulted" />
+      <enumeration value="SuspendedEVSE" />
+      <enumeration value="SuspendedEV" />
     </restriction>
-   </simpleType>
-  <simpleType name="SGrHPOpModeType"> 
-  <annotation>
-    <documentation>E0016:
+  </simpleType>
+  <simpleType name="SGrHPOpModeType">
+    <annotation>
+      <documentation>E0016:
      Basic operation type of a heat pump
      Bereitschaft, Programm, Komfort, Eco, Warmwasser, Notbetrieb     
 	</documentation>
-  </annotation>
-  <restriction base="string">
-      <enumeration value="WP_EMERG_OP"/>
-      <enumeration value="WP_READY"/>
-      <enumeration value="WP_PROG_OP"/>
-      <enumeration value="WP_COMFORT_OP"/>
-      <enumeration value="WP_ECO_OP"/>
-      <enumeration value="WP_DOM_WATER_OP"/>
-   </restriction>
- </simpleType>
-      
-     
+    </annotation>
+    <restriction base="string">
+      <enumeration value="WP_EMERG_OP" />
+      <enumeration value="WP_READY" />
+      <enumeration value="WP_PROG_OP" />
+      <enumeration value="WP_COMFORT_OP" />
+      <enumeration value="WP_ECO_OP" />
+      <enumeration value="WP_DOM_WATER_OP" />
+    </restriction>
+  </simpleType>
+
+
   <complexType name="SGrEnumListType">
     <choice>
-      <element maxOccurs="1" minOccurs="1" name="sgrMeasValueState"       type="sgr:SGrMeasValueStateType"/>
-      <element maxOccurs="1" minOccurs="1" name="sgrMeasValueTendency"    type="sgr:SGrMeasValueTendencyType"/>
-      <element maxOccurs="1" minOccurs="1" name="sgrMeasValueSource"      type="sgr:SGrMeasValueSourceType"/>
-      <element maxOccurs="1" minOccurs="1" name="sgrPowerSource"          type="sgr:SGrPowerSourceType"/>
-      <element maxOccurs="1" minOccurs="1" name="sgreadyStateLv2"         type="sgr:SGReadyStateLv2Type"/>      
-      <element maxOccurs="1" minOccurs="1" name="sgreadyStateLv1"         type="sgr:SGReadyStateLv1Type"/>
-      <element maxOccurs="1" minOccurs="1" name="sgrSunspStateCodes"      type="sgr:SGrSunspStateCodesType"/>      
-      <element maxOccurs="1" minOccurs="1" name="sgrEVSEStateLv2"         type="sgr:SGrEVSEStateLv2Type"/>
-      <element maxOccurs="1" minOccurs="1" name="sgrEVSEStateLv1"         type="sgr:SGrEVSEStateLv1Type"/>
-      <element maxOccurs="1" minOccurs="1" name="sgrSGCPLoadStateLv2"     type="sgr:SGrSGCPLoadStateLv2Type"/>
-      <element maxOccurs="1" minOccurs="1" name="sgrSGCPFeedInStateLv2"   type="sgr:SGrSGCPFeedInStateLv2Type"/>
-      <element maxOccurs="1" minOccurs="1" name="sgrEVState"              type="sgr:SGrEVStateType"/>
-      <element maxOccurs="1" minOccurs="1" name="sgrSGCPService"          type="sgr:SGrSGCPServiceType"/>
-      <element maxOccurs="1" minOccurs="1" name="sgrObligLvl"             type="sgr:SGrObligLvlType"/>
-      <element maxOccurs="1" minOccurs="1" name="sgrOCPPState"            type="sgr:SGrOCPPStateType"/>
-      <element maxOccurs="1" minOccurs="1" name="sgrHPOpMode"             type="sgr:SGrHPOpModeType"/>   
+      <element maxOccurs="1" minOccurs="1" name="sgrMeasValueState" type="sgr:SGrMeasValueStateType" />
+      <element maxOccurs="1" minOccurs="1" name="sgrMeasValueTendency" type="sgr:SGrMeasValueTendencyType" />
+      <element maxOccurs="1" minOccurs="1" name="sgrMeasValueSource" type="sgr:SGrMeasValueSourceType" />
+      <element maxOccurs="1" minOccurs="1" name="sgrPowerSource" type="sgr:SGrPowerSourceType" />
+      <element maxOccurs="1" minOccurs="1" name="sgreadyStateLv2" type="sgr:SGReadyStateLv2Type" />
+      <element maxOccurs="1" minOccurs="1" name="sgreadyStateLv1" type="sgr:SGReadyStateLv1Type" />
+      <element maxOccurs="1" minOccurs="1" name="sgrSunspStateCodes" type="sgr:SGrSunspStateCodesType" />
+      <element maxOccurs="1" minOccurs="1" name="sgrEVSEStateLv2" type="sgr:SGrEVSEStateLv2Type" />
+      <element maxOccurs="1" minOccurs="1" name="sgrEVSEStateLv1" type="sgr:SGrEVSEStateLv1Type" />
+      <element maxOccurs="1" minOccurs="1" name="sgrSGCPLoadStateLv2" type="sgr:SGrSGCPLoadStateLv2Type" />
+      <element maxOccurs="1" minOccurs="1" name="sgrSGCPFeedInStateLv2" type="sgr:SGrSGCPFeedInStateLv2Type" />
+      <element maxOccurs="1" minOccurs="1" name="sgrEVState" type="sgr:SGrEVStateType" />
+      <element maxOccurs="1" minOccurs="1" name="sgrSGCPService" type="sgr:SGrSGCPServiceType" />
+      <element maxOccurs="1" minOccurs="1" name="sgrObligLvl" type="sgr:SGrObligLvlType" />
+      <element maxOccurs="1" minOccurs="1" name="sgrOCPPState" type="sgr:SGrOCPPStateType" />
+      <element maxOccurs="1" minOccurs="1" name="sgrHPOpMode" type="sgr:SGrHPOpModeType" />
     </choice>
   </complexType>
-          
+
 
 </schema>
