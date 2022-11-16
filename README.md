@@ -48,7 +48,7 @@ You can download it with the following command.
 - xsd_files: Contains the SGr xsd files structure, from which the dataclasses in "sgr_library" directory were generated. 
 You don't have to do this, since the classes come included in the pip install, but in case you want to change something, you can generate classes with the following command:
 
-		xsdata --package dataclasses xsdata_files/SGrIncluder.xsd
+		xsdata --package data_classes xsd_files/SGrIncluder.xsd
 	
 - setup.py: The script that is executed when installing the library with pip.
 
