@@ -33,8 +33,6 @@ class SGrModbusClient:
         """
         if register_type == "HoldRegister":
             reg = await self.client.read_holding_registers(addr, size, slave=slave_id) #TODO add slave id?
-            print(reg.registers)
-            print(data_type)
         else:
             reg = await self.client.read_input_registers(addr, count=size, unit=slave_id)
         decoder = PayloadDecoder.fromRegisters(reg.registers, byteorder=order, wordorder=order)

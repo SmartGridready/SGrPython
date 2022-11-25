@@ -67,9 +67,10 @@ class SgrModbusInterface:
         Parses the xml file with xsdata library.
         :param xml_file: Name of the xml file to parse
         """
-        interface_file = xml_file
-        parser = XmlParser(context=XmlContext())
-        self.root = parser.parse(interface_file, SgrModbusDeviceFrame)
+        print('I Have been created!')
+        self.interface_file = xml_file
+        self.parser = XmlParser(context=XmlContext())
+        self.root = self.parser.parse(self.interface_file, SgrModbusDeviceFrame)
         #self.root = parser.parse(interface_file, SgrModbusDeviceDescriptionType)
         self.ip = get_address(self.root)
         self.port = get_port(self.root)

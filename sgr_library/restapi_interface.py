@@ -24,7 +24,8 @@ class RestapiInterface():
     def __init__(self, interface_file, private_config):
         self.private_config = private_config
         self.parser = XmlParser(context=XmlContext())
-        self.root = self.parser.parse(interface_file, SgrRestApideviceFrame)
+        self.interface_file = interface_file
+        self.root = self.parser.parse(self.interface_file, SgrRestApideviceFrame)
         print(self.root.rest_apiinterface_desc.rest_apibearer.rest_apijmespath)
         self.communication_channel = RestapiConnect(self.root, private_config)
         self.packet = False
