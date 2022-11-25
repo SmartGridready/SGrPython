@@ -141,10 +141,10 @@
       </sgr:genAttribute>
       <sgr:modbusDataPoint>
         <sgr:modbusDataType>
-          <sgr:int64>0</sgr:int64>
+          <sgr:float32>0</sgr:float32>
         </sgr:modbusDataType>
         <sgr:modbusFirstRegisterReference addr="19012" bitRank="0" registerType="HoldRegister"></sgr:modbusFirstRegisterReference>
-        <sgr:dpSizeNrRegisters>4</sgr:dpSizeNrRegisters>
+        <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
         <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
       </sgr:modbusDataPoint>
       <sgr:modbusAttr>

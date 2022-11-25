@@ -8,6 +8,7 @@ import time
 from sgr_library.data_classes.ei_modbus import SgrModbusDeviceFrame
 from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointType
 from sgr_library.modbus_client import SGrModbusClient
+import asyncio
 
 
 def get_address(root) -> str:
@@ -102,7 +103,7 @@ class SgrModbusInterface:
         return self.client.value_decoder(address, size, data_type, reg_type)'''
 
     # getval with multiple dispatching
-    def getval(self, *parameter) -> float:
+    async def getval(self, *parameter) -> float:
         """
         Reads datapoint value.
 
@@ -124,9 +125,10 @@ class SgrModbusInterface:
         reg_type = self.get_register_type(dp)
         slave_id = self.slave_id
         order = self.byte_order
-        return self.client.value_decoder(address, size, data_type, reg_type, slave_id, order)
+        answer = await self.client.value_decoder(address, size, data_type, reg_type, slave_id, order)
+        return answer
 
-    def setval(self, fp_name: str, dp_name: str, value: float) -> None:
+    async def setval(self, fp_name: str, dp_name: str, value: float) -> None:
         """
         Writes datapoint value.
         :param fp_name: The name of the funcitonal profile in which the datapoint resides.
@@ -138,7 +140,7 @@ class SgrModbusInterface:
         data_type = self.get_datatype(dp)
         slave_id = self.slave_id
         order = self.byte_order
-        self.client.value_encoder(address, value, data_type, slave_id, order)
+        await self.client.value_encoder(address, value, data_type, slave_id, order)
     
     def get_device_profile(self):
         print(f"Brand Name: {self.root.device_profile.brand_name}")
@@ -216,14 +218,31 @@ class SgrModbusInterface:
 
     # TODO a getval for L1, L2 and L3 at the same time
 
+async def test_loop():
+    while True:
+        print('start')
+        interface_file = 'SGr_04_0016_xxxx_ABBMeterV0.2.1.xml'
+        client = SgrModbusInterface(interface_file)
+        await client.client.client.connect()
+        getval = await client.getval('ActiveEnerBalanceAC', 'ActiveImportAC')
+        print(getval)
+        await asyncio.sleep(10)
+
 if __name__ == "__main__":
     starting_time = time.time()
     print('start')
-    interface_file = 'SGr_04_0016_xxxx_ABBMeterV0.2.1.xml'
-    a = SgrModbusInterface(interface_file)
+    try:
+        asyncio.run(test_loop())
+    except KeyboardInterrupt:
+        print("done")
+
+
+
+    """interface_file = 'SGr_04_0016_xxxx_ABBMeterV0.2.1.xml'
+    client = SgrModbusInterface(interface_file)
     #a.setval('ActiveEnerBalanceAC', 'ActiveImportAC', 9000)
-    print(a.root.fp_list_element[0].dp_list_element[0].data_point.datapoint_name)
-    print(a.getval('ActiveEnerBalanceAC', 'ActiveImportAC'))
-    dp = find_dp(a.root, 'ActiveEnerBalanceAC', 'ActiveImportAC')
-    print(a.getval(dp))
+    #print(a.root.fp_list_element[0].dp_list_element[0].data_point.datapoint_name)
+    print(client.getval('ActiveEnerBalanceAC', 'ActiveImportAC'))"""
+    """dp = find_dp(a.root, 'ActiveEnerBalanceAC', 'ActiveImportAC')
+    print(a.getval(dp))"""
     

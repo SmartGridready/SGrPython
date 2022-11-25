@@ -1,6 +1,6 @@
 from sgr_library.payload_decoder import PayloadDecoder, PayloadBuilder
 from pymodbus.constants import Endian
-from pymodbus.client.sync import ModbusTcpClient, ModbusSerialClient
+from pymodbus.client import AsyncModbusTcpClient, ModbusSerialClient
 
 
 # In this case establishes a connection with the localhost server that is running the simulation.
@@ -14,10 +14,16 @@ class SGrModbusClient:
         :param port: The modbus port to connect to (default 502)
         """
         #EXAMPLE: client = ModbusTcpClient('127.0.0.1', 5002)
-        self.client = ModbusTcpClient(ip, port)
-        self.client.connect() #TODO a wrapper that opens and closes connection when function is excecuted?
+        self.client = AsyncModbusTcpClient(
+        host=ip, 
+        port=port,
+        timeout=1,
+        retries=0,
+        reconnect_delay=5000,
+        close_comm_on_error=False,)
+        #self.client.connect() #TODO a wrapper that opens and closes connection when function is excecuted?
 
-    def value_decoder(self, addr: int, size: int, data_type: str, register_type: str, slave_id: int, order: Endian) -> float:
+    async def value_decoder(self, addr: int, size: int, data_type: str, register_type: str, slave_id: int, order: Endian) -> float:
         """
         Reads register and decodes the value.
         :param addr: The address to read from and decode
@@ -25,15 +31,19 @@ class SGrModbusClient:
         :param data_type: The modbus type to decode
         :returns: Decoded float
         """
-        if register_type == "HoldingRegister":
-            reg = self.client.read_holding_registers(addr, count=size, unit=slave_id) #TODO add slave id?
+        if register_type == "HoldRegister":
+            reg = await self.client.read_holding_registers(addr, size, slave=slave_id) #TODO add slave id?
+            print(reg.registers)
+            print(data_type)
         else:
-            reg = self.client.read_input_registers(addr, count=size, unit=slave_id)
+            reg = await self.client.read_input_registers(addr, count=size, unit=slave_id)
         decoder = PayloadDecoder.fromRegisters(reg.registers, byteorder=order, wordorder=order)
+        #print(decoder.decode('float32', 0))
         if not reg.isError():
+            #await print(decoder.decode(data_type, 0))
             return decoder.decode(data_type, 0)
 
-    def value_encoder(self, addr: int, value: float, data_type: str, slave_id: int, order: Endian):
+    async def value_encoder(self, addr: int, value: float, data_type: str, slave_id: int, order: Endian):
         """
         Encodes value to be set on the register address
         :param addr: The address to read from and decode
@@ -42,4 +52,4 @@ class SGrModbusClient:
         """
         builder = PayloadBuilder(byteorder=order, wordorder=order)
         builder.encode(value, data_type, rounding="floor")
-        self.client.write_registers(address=addr, values=builder.to_registers(), unit=slave_id)
+        await self.client.write_registers(address=addr, values=builder.to_registers(), unit=slave_id)

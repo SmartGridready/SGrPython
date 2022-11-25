@@ -13,10 +13,10 @@ from sgr_library.modbus_interface import find_dp
 from sgr_library.restapi_client import RestapiConnect
 from jinja2 import Template
 
-import logging
+"""import logging
 logging.basicConfig()
 log = logging.getLogger()
-log.setLevel(logging.DEBUG)
+log.setLevel(logging.DEBUG)"""
 
 
 class RestapiInterface():
