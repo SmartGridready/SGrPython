@@ -22,20 +22,17 @@ class GenericInterface:
 
 
     def __new__(cls, xml_file:str, config_file=None):
-        print(xml_file)
         protocol_type = get_protocol(xml_file)
         modbus_protocol = ['SGrModbusDeviceFrame', 'SGrModbusDeviceDescriptionType']
-        restapi_protocol = ['SGrRESTAPIDeviceDescriptionType']
+        restapi_protocol = ['SGrRESTAPIDeviceDescriptionType', 'SGrRestAPIDeviceFrame']
 
         if protocol_type in modbus_protocol:
-            print('Its MODBUS time!')
             obj = object.__new__(SgrModbusInterface)
-            obj.interface_file = xml_file
+            obj.__init__(xml_file)
             return obj
         elif protocol_type in restapi_protocol:
             obj = object.__new__(RestapiInterface)
-            obj.interface_file = xml_file
-            obj.private_config = config_file
+            obj.__init__(xml_file, config_file)
             return obj
         return None
 

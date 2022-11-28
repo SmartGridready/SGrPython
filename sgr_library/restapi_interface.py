@@ -26,7 +26,7 @@ class RestapiInterface():
         self.parser = XmlParser(context=XmlContext())
         self.interface_file = interface_file
         self.root = self.parser.parse(self.interface_file, SgrRestApideviceFrame)
-        print(self.root.rest_apiinterface_desc.rest_apibearer.rest_apijmespath)
+        #print(self.root.rest_apiinterface_desc.rest_apibearer.rest_apijmespath)
         self.communication_channel = RestapiConnect(self.root, private_config)
         self.packet = False
         self.cycle_start_timestamp = time.time()
