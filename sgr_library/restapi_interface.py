@@ -71,7 +71,7 @@ class RestapiInterface():
             self.check_package(dp)
             # We get the datapoint's information
             value = jmespath.search(dp.rest_apidata_point[0].rest_apijmespath, self.packet) # Returns the key value in the jmes packet
-            unit = dp.data_point[0].unit.value
+            unit = dp.data_point.unit.value
             timestamp = time.ctime(self.receivedAt)
             aged = self.cycle_start_timestamp - self.receivedAt
             return value, unit, timestamp, aged
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     config_ressource = configparser.ConfigParser()
     config_ressource.read(config_file_path_default)
     a = RestapiInterface(interface_file, config_ressource)
-    #print(a.getval('ActivePowerAC', 'ActivePowerACtot'))
+    print(a.getval('ActivePowerAC', 'ActivePowerACtot'))
 
 
     body = """{

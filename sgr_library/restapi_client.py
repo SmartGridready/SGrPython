@@ -31,7 +31,6 @@ class RestapiConnect():
             auth_endpoint = endpoint[2][1:] # Regex?
             request = endpoint[1]
             json_data = add_private_config(request, private_config)
-            print(json_data)
             restapi_JMES_path = bearer.rest_apijmespath
             self.conn = http.client.HTTPSConnection(self.restapi_resource, timeout=10)
             self.headers = {'Content-type': 'application/json',
@@ -41,7 +40,6 @@ class RestapiConnect():
             response = self.conn.getresponse()
             response_dec = json.loads(response.read().decode())
             print(response_dec)
-            print(token)
             token = jmespath.search(restapi_JMES_path, response_dec)
             self.headers['Authorization'] = 'Bearer ' + token
 
