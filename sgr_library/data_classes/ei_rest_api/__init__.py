@@ -13,6 +13,14 @@ from data_classes.ei_rest_api.sgr_rest_api_eidevice_frame import (
     SgrRestApideviceFrame,
     SgrRestApifunctionalProfileType,
 )
+from data_classes.ei_rest_api.sgr_rest_api_rest_service_call import (
+    HeaderEntry,
+    HeaderList,
+    HttpMethod,
+    ResponseQuery,
+    ResponseQueryType,
+    RestServiceCall,
+)
 
 __all__ = [
     "SgrRestBasicType",
@@ -26,4 +34,10 @@ __all__ = [
     "SgrRestApidataPointType",
     "SgrRestApideviceFrame",
     "SgrRestApifunctionalProfileType",
+    "HeaderEntry",
+    "HeaderList",
+    "HttpMethod",
+    "ResponseQuery",
+    "ResponseQueryType",
+    "RestServiceCall",
 ]

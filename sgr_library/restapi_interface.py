@@ -3,13 +3,14 @@ import os
 import configparser
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
+from typing import Any, Optional
 
 # Import generated Data Classes
-from sgr_library.data_classes.ei_rest_api import SgrRestApideviceFrame
+from sgr_library.data_classes.ei_rest_api import SgrRestApidataPointType, SgrRestApideviceFrame
 # Smartgrid Ready Libraries
 from datetime import datetime, timezone
 import jmespath
-from sgr_library.modbus_interface import find_dp
+
 from sgr_library.restapi_client import RestapiConnect
 from jinja2 import Template
 
@@ -17,6 +18,22 @@ from jinja2 import Template
 logging.basicConfig()
 log = logging.getLogger()
 log.setLevel(logging.DEBUG)"""
+
+def find_dp(root, fp_name: str, dp_name: str) -> Optional[SgrRestApidataPointType]:
+    """
+    Searches the datapoint in the root element.
+    :param root: The root element created with the xsdata parser
+    :param fp_name: The name of the funcitonal profile in which the datapoint resides
+    :param dp_name: The name of the datapoint
+    :returns: The datapoint element found in root, if not, returns None.
+    """
+    for fp in root.fp_list_element:
+            if fp_name == fp.functional_profile.profile_name:
+                #Secondly we filter the datpoint name
+                for dp in fp.dp_list_element:
+                    if dp_name == dp.data_point.datapoint_name:
+                        return dp
+    return None
 
 
 class RestapiInterface():
@@ -26,6 +43,7 @@ class RestapiInterface():
         self.parser = XmlParser(context=XmlContext())
         self.interface_file = interface_file
         self.root = self.parser.parse(self.interface_file, SgrRestApideviceFrame)
+        print(self.root.rest_apiinterface_desc.rest_apibearer.service_call.response_query.query)
         #print(self.root.rest_apiinterface_desc.rest_apibearer.rest_apijmespath)
         self.communication_channel = RestapiConnect(self.root, private_config)
         self.packet = False
@@ -61,7 +79,7 @@ class RestapiInterface():
             endpoint = dp.rest_apidata_point[0].rest_apiend_point
             self.packet, self.receivedAt = self.new_packet(self.private_config, self.communication_channel, endpoint)
 
-    def datapoint_info(self, fp_name: str, dp_name: str) -> tuple:
+    def datapoint_info(self, fp_name: str, dp_name: str) -> Optional[tuple]:
         """
         returns all the information contained in the datapoint.
         """
@@ -78,7 +96,7 @@ class RestapiInterface():
         print('Requested datapoint not found in xml file')
 
     # get_val function to implement for getting a single value
-    def getval_detailed(self, fp_name: str, dp_name: str) -> float:
+    def getval_detailed(self, fp_name: str, dp_name: str) -> Optional[tuple]:
         """
         :return: Datapoint value, for example the current in L1
         """
@@ -102,6 +120,7 @@ class RestapiInterface():
     def setval(self, fp_name, dp_name, value):
         dp = find_dp(self.root, fp_name, dp_name)
         if dp:
+            hello = dp.rest_apidata_point[0].rest_service_call
             endpoint = dp.rest_apidata_point[0].rest_apiend_point
             return self.communication_channel.post(endpoint, value)
         else:
@@ -114,6 +133,9 @@ class RestapiInterface():
 
 
 if __name__ == "__main__":
+
+
+
 
     print('start')
     interface_file = 'SGr_04_0018_CLEMAP_EIcloudEnergyMonitorV0.2.1.xml'

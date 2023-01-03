@@ -20,19 +20,8 @@
 		<sgr:trspSrvRestURIoutOfBox>b1.cloud.clemap.com:3032</sgr:trspSrvRestURIoutOfBox>
 		<sgr:restAPIAuthenticationMethod>BearerSecurityScheme</sgr:restAPIAuthenticationMethod>
 		<sgr:restAPIBearer>
-			<sgr:serviceCall>
-				<sgr:requestHeader>
-					<sgr:header headerName="Accept" value="application/json" />
-					<sgr:header headerName="Content-Type" value="application/json" />
-				</sgr:requestHeader>
-				<sgr:requestMethod>POST</sgr:requestMethod>
-				<sgr:requestPath>/authentication</sgr:requestPath>
-				<sgr:requestBody>{"strategy": "local", "email": "{username}", "password": "{password}"}</sgr:requestBody>
-				<sgr:responseQuery>
-					<sgr:queryType>JMESPathExpression</sgr:queryType>
-					<sgr:query>accessToken</sgr:query>
-				</sgr:responseQuery>
-			</sgr:serviceCall>
+			<sgr:restAPIEndPoint>request='{"strategy": "local", "email": "{{username}}", "password": "{{password}}"}'>/authentication</sgr:restAPIEndPoint>
+			<sgr:restAPIJMESPath>accessToken</sgr:restAPIJMESPath>
 		</sgr:restAPIBearer>
 	</sgr:restAPIInterfaceDesc>
 	<sgr:fpListElement>
@@ -60,39 +49,22 @@
 					<sgr:float32>0.0</sgr:float32></sgr:basicDataType>
 			</sgr:dataPoint>
 			<sgr:restAPIDataPoint dataType="JSON_number">
-				<sgr:restServiceCall>
-					<sgr:requestHeader>
-						<sgr:header headerName="Accept" value="application/json" />
-						<sgr:header headerName="Authentication" value="Bearer {{bearerToken}}" />
-					</sgr:requestHeader>
-					<sgr:requestMethod>GET</sgr:requestMethod>				
-					<sgr:requestPath>/digitaltwins/?sensor_id={sensor_id}</sgr:requestPath>
-					<sgr:responseQuery>
-						<sgr:queryType>JMESPathExpression</sgr:queryType>
-						<sgr:query>sum([[0].ten_sec.p_l1,[0].ten_sec.p_l2,[0].ten_sec.p_l3])</sgr:query>
-					</sgr:responseQuery>
-				</sgr:restServiceCall>
+				<sgr:restAPIEndPoint>/digitaltwins/?sensor_id={{sensor_id}}</sgr:restAPIEndPoint>
+				<sgr:restAPIJMESPath>sum([[0].ten_sec.p_l1,[0].ten_sec.p_l2,[0].ten_sec.p_l3])</sgr:restAPIJMESPath>
 			</sgr:restAPIDataPoint>
+''
 		</sgr:dpListElement>
-		<sgr:dpListElement>		
+		<sgr:dpListElement>
 			<sgr:dataPoint datapointName="ActivePowerACL1"
 				rwpDatadirection="R" unit="KILOWATTS" mroVisibilityIndicator="M">
 				<sgr:basicDataType>
 					<sgr:float32>0.0</sgr:float32></sgr:basicDataType>
 			</sgr:dataPoint>
 			<sgr:restAPIDataPoint dataType="JSON_number">
-				<sgr:restServiceCall>
-					<sgr:requestHeader>
-						<sgr:header headerName="Accept" value="application/json" />
-					</sgr:requestHeader>
-					<sgr:requestMethod>GET</sgr:requestMethod>
-					<sgr:requestPath>/digitaltwins/?sensor_id={sensor_id}</sgr:requestPath>
-					<sgr:responseQuery>
-						<sgr:queryType>JMESPathExpression</sgr:queryType>
-						<sgr:query>[0].ten_sec.p_l1</sgr:query>
-					</sgr:responseQuery>
-				</sgr:restServiceCall>
+				<sgr:restAPIEndPoint>/digitaltwins/?sensor_id={{sensor_id}}</sgr:restAPIEndPoint>
+				<sgr:restAPIJMESPath>[0].ten_sec.p_l1</sgr:restAPIJMESPath>
 			</sgr:restAPIDataPoint>
+
 		</sgr:dpListElement>
 		<sgr:dpListElement>
 			<sgr:dataPoint datapointName="ActivePowerACL2"
@@ -101,18 +73,10 @@
 					<sgr:float32>0.0</sgr:float32></sgr:basicDataType>
 			</sgr:dataPoint>
 			<sgr:restAPIDataPoint dataType="JSON_number">
-				<sgr:restServiceCall>
-					<sgr:requestHeader>
-						<sgr:header headerName="Accept" value="application/json" />
-					</sgr:requestHeader>
-					<sgr:requestMethod>GET</sgr:requestMethod>
-					<sgr:requestPath>/digitaltwins/?sensor_id={sensor_id}</sgr:requestPath>
-					<sgr:responseQuery>
-						<sgr:queryType>JMESPathExpression</sgr:queryType>
-						<sgr:query>[0].ten_sec.p_l2</sgr:query>
-					</sgr:responseQuery>
-				</sgr:restServiceCall>
-			</sgr:restAPIDataPoint>			
+				<sgr:restAPIEndPoint>/digitaltwins/?sensor_id={{sensor_id}}</sgr:restAPIEndPoint>
+				<sgr:restAPIJMESPath>[0].ten_sec.p_l2</sgr:restAPIJMESPath>
+			</sgr:restAPIDataPoint>
+
 		</sgr:dpListElement>
 		<sgr:dpListElement>
 			<sgr:dataPoint mroVisibilityIndicator="R"
@@ -121,18 +85,10 @@
 				<sgr:basicDataType><sgr:float32>0</sgr:float32></sgr:basicDataType>
 			</sgr:dataPoint>
 			<sgr:restAPIDataPoint dataType="JSON_number">
-				<sgr:restServiceCall>
-					<sgr:requestHeader>
-						<sgr:header headerName="Accept" value="application/json" />
-					</sgr:requestHeader>
-					<sgr:requestMethod>GET</sgr:requestMethod>
-					<sgr:requestPath>/digitaltwins/?sensor_id={sensor_id}</sgr:requestPath>
-					<sgr:responseQuery>
-						<sgr:queryType>JMESPathExpression</sgr:queryType>
-						<sgr:query>[0].ten_sec.p_l3</sgr:query>
-					</sgr:responseQuery>
-				</sgr:restServiceCall>
+				<sgr:restAPIEndPoint>/digitaltwins/?sensor_id={{sensor_id}}</sgr:restAPIEndPoint>
+				<sgr:restAPIJMESPath>[0].ten_sec.p_l3</sgr:restAPIJMESPath>
 			</sgr:restAPIDataPoint>
+
 		</sgr:dpListElement>
 	</sgr:fpListElement>
 </sgr:SGrRestAPIDeviceFrame>

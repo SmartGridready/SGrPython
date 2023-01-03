@@ -25,23 +25,27 @@ class RestapiConnect():
 
         # Bearer Auth
         if restapi_auth_method == 'BearerSecurityScheme':
+
+            service_call = self.root.rest_apiinterface_desc.rest_apibearer.service_call
+            request_path = service_call.request_path #auth endpoint
+            body = service_call.request_body #request
+            query = service_call.response_query.query #accesToken
+
             
-            bearer = self.root.rest_apiinterface_desc.rest_apibearer
-            endpoint = bearer.rest_apiend_point.split("'")
-            auth_endpoint = endpoint[2][1:] # Regex?
-            request = endpoint[1]
-            json_data = add_private_config(request, private_config)
-            restapi_JMES_path = bearer.rest_apijmespath
+            #auth_endpoint = endpoint[2][1:] # Regex? #auth endpoint
+            #request = endpoint[1] #body
+            json_data = add_private_config(body, private_config)
+            #restapi_JMES_path = bearer.rest_apijmespath #accesToken
             self.conn = http.client.HTTPSConnection(self.restapi_resource, timeout=10)
             self.headers = {'Content-type': 'application/json',
                             'Accept': 'application/json'}
             #json_data = json.dumps(json.loads(auth_request))
-            self.conn.request('POST', auth_endpoint, json_data, self.headers)
+            self.conn.request('POST', request_path, json_data, self.headers)
             response = self.conn.getresponse()
             response_dec = json.loads(response.read().decode())
-            print(response_dec)
-            token = jmespath.search(restapi_JMES_path, response_dec)
-            self.headers['Authorization'] = 'Bearer ' + token
+
+            token = jmespath.search(query, response_dec)
+            self.headers['Authorization'] = 'Bearer ' + str(token)
 
         #TODO Basic Auth !!! Need to have an xml file with this structure to do it properly.
         elif restapi_auth_method == 'BasicSecurityScheme':
@@ -62,6 +66,7 @@ class RestapiConnect():
             print('Error')
 
     def get(self, end_point):
+        
         """
         HTTP Get request
         """
@@ -81,7 +86,7 @@ class RestapiConnect():
             body = json.loads(body)
             body = json.dumps(body)
 
-        self.conn.request('POST', end_point, body, self.headers)
+        self.conn.request('POST', end_point, body=body, headers=self.headers)
         response = self.conn.getresponse()
         print(response.status, response.reason)
 

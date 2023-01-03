@@ -18,8 +18,8 @@ class SubProfileTypeEnumType(Enum):
     :cvar PHASE_ANGLE: 10:
     :cvar CURRENT_QUADRANT: 11:
     :cvar FREQUENCY: 12:
-    :cvar ACTIVE_ENER_BALANCE_AC: 13:
-    :cvar REACTIVE_ENER_BALANCE_AC: 14:
+    :cvar ACTIVE_ENERGY_BALANCE_AC: 13:
+    :cvar REACTIVE_ENERGY_BALANCE_AC: 14:
     :cvar CURRENT_DIRECTION: 15:
     :cvar POWER_QUADRANT: 16:
     :cvar ENERGY_DC: 17:
@@ -99,8 +99,8 @@ class SubProfileTypeEnumType(Enum):
     PHASE_ANGLE = "PhaseAngle"
     CURRENT_QUADRANT = "CurrentQuadrant"
     FREQUENCY = "Frequency"
-    ACTIVE_ENER_BALANCE_AC = "ActiveEnerBalanceAC"
-    REACTIVE_ENER_BALANCE_AC = "ReactiveEnerBalanceAC"
+    ACTIVE_ENERGY_BALANCE_AC = "ActiveEnergyBalanceAC"
+    REACTIVE_ENERGY_BALANCE_AC = "ReactiveEnergyBalanceAC"
     CURRENT_DIRECTION = "CurrentDirection"
     POWER_QUADRANT = "PowerQuadrant"
     ENERGY_DC = "EnergyDC"

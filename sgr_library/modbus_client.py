@@ -1,13 +1,14 @@
 from sgr_library.payload_decoder import PayloadDecoder, PayloadBuilder
 from pymodbus.constants import Endian
-from pymodbus.client import AsyncModbusTcpClient, ModbusSerialClient
+from pymodbus.client import AsyncModbusTcpClient
+from typing import Optional, Tuple, Dict, Any, Iterable
 
 
 # In this case establishes a connection with the localhost server that is running the simulation.
 # TODO make this inherit from the ModbusTcpClient
 class SGrModbusClient:
 
-    def __init__(self, ip: str, port: str):
+    def __init__(self, ip: str, port: int):
         """
         Creates client
         :param ip: The host to connect to (default 127.0.0.1)
@@ -23,7 +24,7 @@ class SGrModbusClient:
         close_comm_on_error=False,)
         #self.client.connect() #TODO a wrapper that opens and closes connection when function is excecuted?
 
-    async def value_decoder(self, addr: int, size: int, data_type: str, register_type: str, slave_id: int, order: Endian) -> float:
+    async def value_decoder(self, addr: int, size: int, data_type: str, register_type: str, slave_id: int, order: Endian) -> Optional[float]:
         """
         Reads register and decodes the value.
         :param addr: The address to read from and decode

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- edited with Eclipse Modeling Tools - 2020-10 by Christoph Broennimann 
+	(IBT Ing. Buero Broennimann Thun) --><!-- Copyright (c) Verein SmartGridready, Switzerland Version 0.2.1 2022-5-25
+	All Rights Reserved. Source: https://www.SmartGridready.ch/ -->
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
+
+    <complexType name="HeaderEntry">
+            <attribute name="headerName" type="string" use="required"/>
+            <attribute name="value" type="string" use="required" />
+    </complexType>
+
+    <complexType name="HeaderList">
+        <sequence>
+            <element minOccurs="0" maxOccurs="unbounded" name="header" type="sgr:HeaderEntry"/>
+        </sequence>
+    </complexType>
+
+    <simpleType name="HttpMethod">
+        <restriction base="string" >
+            <enumeration value="GET" />
+            <enumeration value="POST" />
+            <enumeration value="PUT" />
+            <enumeration value="PATCH" />
+            <enumeration value="DELETE" />
+        </restriction>
+    </simpleType>
+   
+    <simpleType name="ResponseQueryType">
+        <restriction base="string" >
+            <enumeration value="JMESPathExpression" />
+            <enumeration value="XPathExpression" />
+            <enumeration value="RegularExpression" />
+        </restriction>
+    </simpleType>
+
+    <complexType name="ResponseQuery">        
+        <sequence>
+            <element minOccurs="1" maxOccurs="1" name="queryType" type="sgr:ResponseQueryType"/>
+            <element minOccurs="1" maxOccurs="1" name="query" type="string" />
+        </sequence>      
+    </complexType>
+
+    <complexType name="RestServiceCall">
+        <sequence>
+            <element minOccurs="0" maxOccurs="1" name="requestHeader" type="sgr:HeaderList" />
+            <element minOccurs="1" maxOccurs="1" name="requestMethod" type="sgr:HttpMethod" />
+            <element minOccurs="0" maxOccurs="1" name="requestPath" type="string" />
+            <element minOccurs="0" maxOccurs="1" name="requestBody" type="string" />
+            <element minOccurs="0" maxOccurs="1" name="responseQuery" type="sgr:ResponseQuery"/>
+        </sequence>            
+    </complexType>
+</schema>

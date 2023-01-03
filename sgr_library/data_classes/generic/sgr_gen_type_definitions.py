@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional
-from xsdata.models.datatype import XmlDate, XmlDateTime, XmlTime
+from xsdata.models.datatype import XmlDate, XmlDateTime
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 
@@ -243,23 +243,8 @@ class SgrMeasValueSourceType(Enum):
     EMPIRICAL_VALUE = "empiricalValue"
 
 
-class SgrMeasValueStateType(Enum):
-    """
-    E0001.
-    """
-    NORMAL = "normal"
-    ERROR = "error"
-
-
-class SgrMeasValueTendencyType(Enum):
-    """E0002: value trend based on timely changes, potential
-    values are rising, stable, falling"""
-    RISING = "rising"
-    STABLE = "stable"
-    FALLING = "falling"
-
-
 class SgrMeasValueType(Enum):
+    VALUE = "value"
     MIN = "min"
     MAX = "max"
     AVERAGE = "average"
@@ -520,16 +505,18 @@ class SgrSmoothTransitionType:
     with a random time delay, changes via a ramp and an expiry time with return
     to the initial value.
 
-    :ivar win_tms: indicates a time window in which the new operating
-        mode is started randomly. The time window begins with the start
-        command of the operating mode. The value 0 means immediate
+    :ivar win_tms: indicates a time window in seconds in which the new
+        operating mode is started randomly. The time window begins with
+        the start command of the operating mode. The value 0 means
+        immediate
     :ivar rvrt_tms: determines how long the operating mode should be
-        active. When the time has elapsed, the operating mode is
-        automatically terminated. If rvrtTms = 0 (standard value), the
-        operating mode remains active until a new command is received.
-    :ivar rmp_tms: specifies how quickly the changes should be made. The
-        corresponding value is gradually changed from the old to the new
-        value in the specified time.
+        active in seconds. When the time has elapsed, the operating mode
+        is automatically terminated. If rvrtTms = 0 (standard value),
+        the operating mode remains active until a new command is
+        received.
+    :ivar rmp_tms: specifies how quickly the changes should be made in
+        seconds. The corresponding value is gradually changed from the
+        old to the new value in the specified time.
     """
     class Meta:
         name = "SGrSmoothTransitionType"
@@ -568,7 +555,10 @@ class SgrStabilityFallbackType:
     This time is always set to 0 each time a confirmation message is
     received (HeartBeat).
 
-    :ivar max_receive_time:
+    :ivar max_receive_time: Time in seconds. If the device does not
+        recieve any communication within this specified time the device
+        automatically initiates the fallback. 0 indicates no fallback
+        will be performed.
     :ivar init_value: Value of the reference variable at the start of
         the process cycle. Unit: inherited
     :ivar fallback_value: Value of the reference variable in the event
@@ -577,7 +567,7 @@ class SgrStabilityFallbackType:
     class Meta:
         name = "SGrStabilityFallbackType"
 
-    max_receive_time: Optional[XmlTime] = field(
+    max_receive_time: Optional[float] = field(
         default=None,
         metadata={
             "name": "maxReceiveTime",
@@ -619,37 +609,6 @@ class SgrSunspStateCodesType(Enum):
     I_STATUS_SHUTING_DOWN = "I_STATUS_SHUTING_DOWN"
     I_STATUS_FAULT = "I_STATUS_FAULT"
     I_STATUS_STANDBY = "I_STATUS_STANDBY"
-
-
-@dataclass
-class SgrTimeRangeType:
-    """
-    time range min…max.
-
-    :ivar start_time: Cycle begins
-    :ivar end_time: Cycle ends
-    """
-    class Meta:
-        name = "SGrTimeRangeType"
-
-    start_time: Optional[XmlTime] = field(
-        default=None,
-        metadata={
-            "name": "startTime",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
-        }
-    )
-    end_time: Optional[XmlTime] = field(
-        default=None,
-        metadata={
-            "name": "endTime",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
-        }
-    )
 
 
 class SgrTransportServicesUsedListType(Enum):
@@ -901,22 +860,6 @@ class SgrEnumListType:
     class Meta:
         name = "SGrEnumListType"
 
-    sgr_meas_value_state: Optional[SgrMeasValueStateType] = field(
-        default=None,
-        metadata={
-            "name": "sgrMeasValueState",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    sgr_meas_value_tendency: Optional[SgrMeasValueTendencyType] = field(
-        default=None,
-        metadata={
-            "name": "sgrMeasValueTendency",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
     sgr_meas_value_source: Optional[SgrMeasValueSourceType] = field(
         default=None,
         metadata={
@@ -1152,27 +1095,11 @@ class SgrAttr4GenericType:
         determined by several time values, so that this starts with a
         random time delay, changes via a ramp and an expiry time with
         return to the initial value.
-    :ivar min_send_delta: A measured value difference that must lead to
-        a notification . Unit: inheritted
-    :ivar max_send_time: The maximum time between 2 notifications in
-        seconds
-    :ivar max_receive_time: The maximum time between 2 notifications in
-        seconds
-    :ivar min_send_time: The fastest possible or allowable sequence of
-        notifications in seconds
-    :ivar max_latency_time_ms: Maximum occurring or permitted delay
-        time, e.g. of a data transaction in milliseconds
-    :ivar time_stamp_log: This is the date Time Value indicates that any
-        value generation must be paired with the time of either a
-        measuement was taken or where a higher controls software level
-        indicates when it got the value
-    :ivar time_range: time range min…max
+    :ivar max_latency_time_ms: Maximum time in milliseconds from
+        capturing of measured value until ready at the external
+        interface (i.e. analog-digital conversion time)
     :ivar value_type: MeasValueType: type of measurement. Possbile
-        values are "min", max", "average", "stdDev"
-    :ivar value_state: MeasValueState: Status / validity of the
-        measurement. Possible values are "normal", "error"
-    :ivar value_tendency: value trend based on timely changes, potential
-        values are rising, stable, falling
+        values are "value", "min", max", "average", "stdDev"
     :ivar value_source: Value source kind related to SGr level 6
         applications. Potential values are measuredValue,
         calculatedValue, empiricalValue
@@ -1240,58 +1167,10 @@ class SgrAttr4GenericType:
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
-    min_send_delta: Optional[float] = field(
-        default=None,
-        metadata={
-            "name": "minSendDelta",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    max_send_time: Optional[float] = field(
-        default=None,
-        metadata={
-            "name": "maxSendTime",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    max_receive_time: Optional[float] = field(
-        default=None,
-        metadata={
-            "name": "maxReceiveTime",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    min_send_time: Optional[float] = field(
-        default=None,
-        metadata={
-            "name": "minSendTime",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
     max_latency_time_ms: Optional[int] = field(
         default=None,
         metadata={
             "name": "maxLatencyTimeMs",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    time_stamp_log: Optional[XmlDateTime] = field(
-        default=None,
-        metadata={
-            "name": "timeStampLog",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    time_range: Optional[SgrTimeRangeType] = field(
-        default=None,
-        metadata={
-            "name": "timeRange",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
@@ -1304,22 +1183,6 @@ class SgrAttr4GenericType:
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
-    value_state: Optional[SgrMeasValueStateType] = field(
-        default=None,
-        metadata={
-            "name": "valueState",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    value_tendency: Optional[SgrMeasValueTendencyType] = field(
-        default=None,
-        metadata={
-            "name": "valueTendency",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
     value_source: Optional[SgrMeasValueSourceType] = field(
         default=None,
         metadata={
@@ -1328,7 +1191,7 @@ class SgrAttr4GenericType:
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
-    sample_rate: Optional[float] = field(
+    sample_rate: Optional[int] = field(
         default=None,
         metadata={
             "name": "sampleRate",

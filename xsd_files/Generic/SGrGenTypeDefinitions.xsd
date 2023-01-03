@@ -612,70 +612,16 @@
 					</documentation>
         </annotation>
       </element>
-      <element maxOccurs="1" minOccurs="0" name="minSendDelta" type="float">
-        <annotation>
-          <documentation> A measured value difference that must lead to a
-						notification . Unit: inheritted
-					</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="1" minOccurs="0" name="maxSendTime" type="float">
-        <annotation>
-          <documentation> The maximum time between 2 notifications in seconds
-					</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="1" minOccurs="0" name="maxReceiveTime" type="float">
-        <annotation>
-          <documentation> The maximum time between 2 notifications in seconds
-					</documentation>
-        </annotation>
-        </element>
-      <element maxOccurs="1" minOccurs="0" name="minSendTime" type="float">
-        <annotation>
-          <documentation> The fastest possible or allowable sequence of
-						notifications in seconds
-					</documentation>
-        </annotation>
-      </element>
       <element maxOccurs="1" minOccurs="0" name="maxLatencyTimeMs" type="unsignedLong">
         <annotation>
-          <documentation> Maximum occurring or permitted delay time, e.g. of
-						a data transaction in milliseconds
+          <documentation> Maximum time in milliseconds from capturing of measured value 
+            until ready at the external interface (i.e. analog-digital conversion time)
 					</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="1" minOccurs="0" name="timeStampLog" type="dateTime">
-        <annotation>
-          <documentation> This is the date Time Value indicates that any
-						value generation must be paired with the time of either a
-						measuement was taken or where a higher controls software level
-						indicates when it got the value
-					</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="1" minOccurs="0" name="timeRange" type="sgr:SGrTimeRangeType">
-        <annotation>
-          <documentation>time range min…max</documentation>
         </annotation>
       </element>
       <element maxOccurs="1" minOccurs="0" name="valueType" type="sgr:SGrMeasValueType">
         <annotation>
-          <documentation> MeasValueType: type of measurement. Possbile values are "min", max", "average", "stdDev"</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="1" minOccurs="0" name="valueState" type="sgr:SGrMeasValueStateType">
-        <annotation>
-          <documentation> MeasValueState: Status / validity of the
-						measurement. Possible values are "normal", "error"
-					</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="1" minOccurs="0" name="valueTendency" type="sgr:SGrMeasValueTendencyType">
-        <annotation>
-          <documentation> value trend based on timely changes, potential
-						values are rising, stable, falling
-					</documentation>
+          <documentation> MeasValueType: type of measurement. Possbile values are "value", "min", max", "average", "stdDev"</documentation>
         </annotation>
       </element>
       <element maxOccurs="1" minOccurs="0" name="valueSource" type="sgr:SGrMeasValueSourceType">
@@ -686,7 +632,7 @@
 					</documentation>
         </annotation>
       </element>
-      <element maxOccurs="1" minOccurs="0" name="sampleRate" type="float">
+      <element maxOccurs="1" minOccurs="0" name="sampleRate" type="unsignedLong">
         <annotation>
           <documentation> SampleRate in milliseconds
 					</documentation>
@@ -715,7 +661,11 @@
 			</documentation>
     </annotation>
     <sequence>
-      <element name="maxReceiveTime" type="time" />
+      <element name="maxReceiveTime" type="float" >
+        <annotation>
+          <documentation>Time in seconds. If the device does not recieve any communication within this specified time the device automatically initiates the fallback. 0 indicates no fallback will be performed.</documentation>
+        </annotation>
+      </element>
       <element name="initValue" type="float">
         <annotation>
           <documentation>Value of the reference variable at the start of the
@@ -744,7 +694,7 @@
     <sequence>
       <element maxOccurs="1" minOccurs="0" name="winTms" type="unsignedLong">
         <annotation>
-          <documentation>indicates a time window in which the new operating
+          <documentation>indicates a time window in seconds in which the new operating
 						mode is started randomly. The time window begins with the start
 						command of the operating mode. The value 0 means immediate
 					</documentation>
@@ -753,7 +703,7 @@
       <element maxOccurs="1" minOccurs="0" name="rvrtTms" type="unsignedLong">
         <annotation>
           <documentation>determines how long the operating mode should be
-						active. When the time has elapsed, the operating mode is
+						active in seconds. When the time has elapsed, the operating mode is
 						automatically terminated. If rvrtTms = 0 (standard value), the
 						operating mode remains active until a new command is received.
 					</documentation>
@@ -761,27 +711,10 @@
       </element>
       <element maxOccurs="1" minOccurs="0" name="rmpTms" type="unsignedLong">
         <annotation>
-          <documentation>specifies how quickly the changes should be made.
+          <documentation>specifies how quickly the changes should be made in seconds.
 						The corresponding value is gradually changed from the old to the
 						new value in the specified time.
 					</documentation>
-        </annotation>
-      </element>
-    </sequence>
-  </complexType>
-  <complexType name="SGrTimeRangeType">
-    <annotation>
-      <documentation>time range min…max</documentation>
-    </annotation>
-    <sequence>
-      <element maxOccurs="1" minOccurs="1" name="startTime" type="time">
-        <annotation>
-          <documentation>Cycle begins</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="1" minOccurs="1" name="endTime" type="time">
-        <annotation>
-          <documentation>Cycle ends</documentation>
         </annotation>
       </element>
     </sequence>
@@ -798,31 +731,11 @@
 
   <simpleType name="SGrMeasValueType">
     <restriction base="string">
+      <enumeration value="value" />
       <enumeration value="min" />
       <enumeration value="max" />
       <enumeration value="average" />
       <enumeration value="stdDev" />
-    </restriction>
-  </simpleType>
-  <simpleType name="SGrMeasValueStateType">
-    <annotation>
-      <documentation>E0001</documentation>
-    </annotation>
-    <restriction base="string">
-      <enumeration value="normal" />
-      <enumeration value="error" />
-    </restriction>
-  </simpleType>
-  <simpleType name="SGrMeasValueTendencyType">
-    <annotation>
-      <documentation>E0002: value trend based on timely changes, potential
-				values are rising, stable, falling
-			</documentation>
-    </annotation>
-    <restriction base="string">
-      <enumeration value="rising" />
-      <enumeration value="stable" />
-      <enumeration value="falling" />
     </restriction>
   </simpleType>
   <simpleType name="SGrMeasValueSourceType">
@@ -1117,8 +1030,6 @@
 
   <complexType name="SGrEnumListType">
     <choice>
-      <element maxOccurs="1" minOccurs="1" name="sgrMeasValueState" type="sgr:SGrMeasValueStateType" />
-      <element maxOccurs="1" minOccurs="1" name="sgrMeasValueTendency" type="sgr:SGrMeasValueTendencyType" />
       <element maxOccurs="1" minOccurs="1" name="sgrMeasValueSource" type="sgr:SGrMeasValueSourceType" />
       <element maxOccurs="1" minOccurs="1" name="sgrPowerSource" type="sgr:SGrPowerSourceType" />
       <element maxOccurs="1" minOccurs="1" name="sgreadyStateLv2" type="sgr:SGReadyStateLv2Type" />

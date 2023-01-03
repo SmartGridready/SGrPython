@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional
+from data_classes.ei_rest_api.sgr_rest_api_rest_service_call import RestServiceCall
 from data_classes.generic.sgr_tsp_srv_tcp_ip import (
     TPipV4GenAddrType,
     TPipV6GenAddrType,
@@ -27,31 +28,6 @@ class SgrRestBasicType:
         default=None,
         metadata={
             "name": "restBasicPassword",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
-        }
-    )
-
-
-@dataclass
-class SgrrestApibearerType:
-    class Meta:
-        name = "SGRrestAPIBearerType"
-
-    rest_apiend_point: Optional[str] = field(
-        default=None,
-        metadata={
-            "name": "restAPIEndPoint",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
-        }
-    )
-    rest_apijmespath: Optional[str] = field(
-        default=None,
-        metadata={
-            "name": "restAPIJMESPath",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
             "required": True,
@@ -106,23 +82,30 @@ class SgrRestApidataTypeType(Enum):
 
 
 @dataclass
-class SgrRestApidataPointDescriptionType:
+class SgrrestApibearerType:
     class Meta:
-        name = "SGrRestAPIDataPointDescriptionType"
+        name = "SGRrestAPIBearerType"
 
-    rest_apiend_point: Optional[str] = field(
+    service_call: Optional[RestServiceCall] = field(
         default=None,
         metadata={
-            "name": "restAPIEndPoint",
+            "name": "serviceCall",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
             "required": True,
         }
     )
-    rest_apijmespath: Optional[str] = field(
+
+
+@dataclass
+class SgrRestApidataPointDescriptionType:
+    class Meta:
+        name = "SGrRestAPIDataPointDescriptionType"
+
+    rest_service_call: Optional[RestServiceCall] = field(
         default=None,
         metadata={
-            "name": "restAPIJMESPath",
+            "name": "restServiceCall",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
             "required": True,

@@ -26,12 +26,12 @@ def get_address(root) -> str:
     address += str(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.address.ip_v4n4)
     return address
 
-def get_port(root) -> str:
+def get_port(root) -> int:
     """
     :param root: The root element created with the xsdata parser
     :returns: string with port from xml file.
     """
-    return(str(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.port))
+    return(int(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.port))
 
 def get_slave(root) -> int:
     return(int(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.slave_id))
@@ -42,7 +42,7 @@ def get_endian(root) -> str:
         return(Endian.Big)
     return(Endian.Little)
 
-def find_dp(root, fp_name: str, dp_name: str) -> SgrModbusDataPointType:
+def find_dp(root, fp_name: str, dp_name: str) -> Optional[SgrModbusDataPointType]:
     """
     Searches the datapoint in the root element.
     :param root: The root element created with the xsdata parser
@@ -142,6 +142,7 @@ class SgrModbusInterface:
         slave_id = self.slave_id
         order = self.byte_order
         await self.client.value_encoder(address, value, data_type, slave_id, order)
+    
     
     def get_device_profile(self):
         print(f"Brand Name: {self.root.device_profile.brand_name}")

@@ -71,12 +71,12 @@
           <documentation>12:</documentation>
         </annotation>
       </enumeration>
-      <enumeration value="ActiveEnerBalanceAC">
+      <enumeration value="ActiveEnergyBalanceAC">
         <annotation>
           <documentation>13:</documentation>
         </annotation>
       </enumeration>
-      <enumeration value="ReactiveEnerBalanceAC">
+      <enumeration value="ReactiveEnergyBalanceAC">
         <annotation>
           <documentation>14:</documentation>
         </annotation>

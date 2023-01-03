@@ -4,12 +4,13 @@
 	All Rights Reserved. Source: https://www.SmartGridready.ch/ --><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
   <include schemaLocation="../Generic/SGrTspSrvTCP_IP.xsd"/>
   <include schemaLocation="../Generic/SGrGenTypeDefinitions.xsd"/>
+  <include schemaLocation="SGrRestAPI_RestServiceCall.xsd" />
   <complexType name="SGrRestAPIInterfaceDescriptionType">
     <sequence>
       <element maxOccurs="1" minOccurs="1" name="restAPIInterfaceSelection" type="sgr:SGrRestAPIInterfaceSelectiontype"/>
       <element maxOccurs="1" minOccurs="0" name="trspSrvRestTCPV4outOfBox" type="sgr:tPipV4genAddrType"/>
       <element maxOccurs="1" minOccurs="0" name="trspSrvRestTCPV6outOfBox" type="sgr:tPipV6genAddrType"/>
-      <element maxOccurs="1" minOccurs="0" name="trspSrvRestURIoutOfBox" type="anyURI"/>
+      <element maxOccurs="1" minOccurs="0" name="trspSrvRestURIoutOfBox" type="anyURI"/>  
       <element maxOccurs="1" minOccurs="1" name="restAPIAuthenticationMethod" type="sgr:SGrRestAPIAuthenticationEnumMethodType"/>
       <element maxOccurs="1" minOccurs="0" name="restAPIBearer" type="sgr:SGRrestAPIBearerType"/>
       <element maxOccurs="1" minOccurs="0" name="restAPIBasic" type="sgr:SGrRestBasicType"/>
@@ -33,16 +34,7 @@
   </complexType>
   <complexType name="SGrRestAPIDataPointDescriptionType">
     <sequence>
-      <element maxOccurs="1" minOccurs="1" name="restAPIEndPoint">
-        <simpleType>
-          <restriction base="string"/>
-        </simpleType>
-      </element>
-      <element maxOccurs="1" minOccurs="1" name="restAPIJMESPath">
-        <simpleType>
-          <restriction base="string"/>
-        </simpleType>
-      </element>
+      <element minOccurs="1" maxOccurs="1" name="restServiceCall" type="sgr:RestServiceCall" />    
     </sequence>
     <attribute name="dataType" type="sgr:SGrRestAPIdataTypeType"/>
   </complexType>
@@ -72,10 +64,9 @@
       <enumeration value="AkamaiEdgeGridSecurityScheme"/>
     </restriction>
   </simpleType>
-  <complexType name="SGRrestAPIBearerType">
+  <complexType name="SGRrestAPIBearerType">    
     <sequence>
-      <element name="restAPIEndPoint" type="sgr:restAPIEndPointType"/>
-      <element name="restAPIJMESPath" type="sgr:restAPIJMESPathType"/>
+      <element minOccurs="1" maxOccurs="1" name="serviceCall" type="sgr:RestServiceCall" />
     </sequence>
   </complexType>
   <simpleType name="restAPIEndPointType">
