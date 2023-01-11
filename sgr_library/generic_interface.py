@@ -1,6 +1,6 @@
 from xml.dom.minidom import Element
 from modbus_interface import SgrModbusInterface
-from restapi_interface import RestapiInterface
+from restapi_client_async import RestapiConnect
 import os
 import configparser
 import xml.etree.ElementTree as ET
@@ -31,7 +31,7 @@ class GenericInterface:
             obj.__init__(xml_file)
             return obj
         elif protocol_type in restapi_protocol:
-            obj = object.__new__(RestapiInterface)
+            obj = object.__new__(RestapiConnect)
             obj.__init__(xml_file, config_file)
             return obj
         return None
@@ -60,27 +60,32 @@ class GenericInterface:
 if __name__ == "__main__":
 
     async def test_loop():
+
+        print('start loop')
+
+        # We instanciate one interface object with a modbus xml
+        interface_file_modbus = 'SGr_04_0016_xxxx_ABBMeterV0.2.1.xml'
+        client = GenericInterface(interface_file_modbus)
+
+        #TODO fix this ugly client.client.client
+        await client.client.client.connect()
+
+        # We instanciate a second interface object with a restapi xml
+        config_file_rest = 'config_CLEMAPEnMon_ressource_default.ini'
+        interface_file_rest = 'SGr_04_0018_CLEMAP_EIcloudEnergyMonitorV0.2.1.xml'
+        sgr_component = GenericInterface(interface_file_rest, config_file_rest)
+        await sgr_component.authenticate()
+
         while True:
-            print('start')
-            interface_file = 'SGr_04_0016_xxxx_ABBMeterV0.2.1.xml'
-            client = GenericInterface(interface_file)
-            await client.client.client.connect()
+            
             getval = await client.getval('ActiveEnerBalanceAC', 'ActiveImportAC')
             print(getval)
-
-            energy_monitor_config_file_path_default = os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), 
-                'config_CLEMAPEnMon_ressource_default.ini'
-                )
-            config_file = configparser.ConfigParser()
-            config_file.read(energy_monitor_config_file_path_default)
-
-            interface_file = 'SGr_04_0018_CLEMAP_EIcloudEnergyMonitorV0.2.1.xml'
-            sgr_component = GenericInterface(interface_file, config_file)
-            value = sgr_component.getval('ActivePowerAC', 'ActivePowerACtot')
+            value = await sgr_component.getval('ActivePowerAC', 'ActivePowerACtot')
             print(value)
-
             await asyncio.sleep(10)
+
+            #you could do the same funciton with a asyncio gather functions if you 
+            #want to get the variables "concurrently"
 
     asyncio.run(test_loop())
 

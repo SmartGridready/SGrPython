@@ -50,13 +50,11 @@ def find_dp(root, fp_name: str, dp_name: str) -> Optional[SgrModbusDataPointType
     :param dp_name: The name of the datapoint
     :returns: The datapoint element found in root, if not, returns None.
     """
-    for fp in root.fp_list_element:
-            if fp_name == fp.functional_profile.profile_name:
-                #Secondly we filter the datpoint name
-                for dp in fp.dp_list_element:
-                    if dp_name == dp.data_point.datapoint_name:
-                        return dp
-    return None
+    fp = next(filter(lambda x: x.functional_profile.profile_name == fp_name, root.fp_list_element), None)
+    if fp:
+        dp = next(filter(lambda x: x.data_point.datapoint_name == dp_name, fp.dp_list_element), None)
+        if dp:
+            return dp
 
 
 class SgrModbusInterface: 
@@ -210,13 +208,11 @@ class SgrModbusInterface:
         :param dp_name: The name of the datapoint
         :returns: The datapoint element found in root, if not, returns None.
         """
-        for fp in self.root.fp_list_element:
-                if fp_name == fp.functional_profile.profile_name:
-                    #Secondly we filter the datpoint name
-                    for dp in fp.dp_list_element:
-                        if dp_name == dp.data_point.datapoint_name:
-                            return dp
-        return None
+        fp = next(filter(lambda x: x.functional_profile.profile_name == fp_name, root.fp_list_element), None)
+        if fp:
+            dp = next(filter(lambda x: x.data_point.datapoint_name == dp_name, fp.dp_list_element), None)
+            if dp:
+                return dp
 
     # TODO a getval for L1, L2 and L3 at the same time
 

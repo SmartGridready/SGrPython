@@ -13,7 +13,7 @@ from sgr_library.data_classes.ei_rest_api import SgrRestapideviceDescriptionType
 from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
 
 # Smartgrid Ready Libraries
-from sgr_library.restapi_interface import RestapiInterface
+from sgr_library.OLD_restapi_interface import RestapiInterface
 
 
 ###################################################################################

@@ -31,18 +31,18 @@ class RestapiConnect():
     SmartGrid ready External Interface Class for Rest API
     """
 
-    def __init__(self):
+    def __init__(self, xml_file, config_file):
         #session
         self.session = aiohttp.ClientSession()
         self.token = None
 
         #xsd parser and file directory
         parser = XmlParser(context=XmlContext())
-        interface_file = "SGr_04_0018_CLEMAP_EIcloudEnergyMonitorV0.2.1.xml"
+        interface_file = xml_file
         self.root = parser.parse(interface_file, SgrRestApideviceFrame)
 
         #config file
-        private_config = "config_CLEMAPEnMon_ressource_default.ini"
+        private_config = config_file
         config_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), private_config)
         parser = configparser.ConfigParser()
         parser.read(config_file_path)
@@ -82,7 +82,7 @@ class RestapiConnect():
                 print(f"RESPONSE: {res}")
 
 
-    async def get_val(self, fp_name, dp_name):
+    async def getval(self, fp_name, dp_name):
         dp = find_dp(self.root, fp_name, dp_name)
         request_path = dp.rest_apidata_point[0].rest_service_call.request_path
         url = 'https://' + str(self.base_url) + str(request_path)
@@ -103,9 +103,12 @@ class RestapiConnect():
             return value
 
 async def test():
-    client = RestapiConnect()
+    interface_file = "SGr_04_0018_CLEMAP_EIcloudEnergyMonitorV0.2.1.xml"
+    private_config = "config_CLEMAPEnMon_ressource_default.ini"
+    client = RestapiConnect(interface_file, private_config)
     token = await client.authenticate()
-    await asyncio.gather(client.get_val('ActivePowerAC', 'ActivePowerACL1'))
+    a = await asyncio.gather(client.getval('ActivePowerAC', 'ActivePowerACL1'))
+    print(a)
     await asyncio.sleep(1)
     print('1')
     await asyncio.sleep(1)
