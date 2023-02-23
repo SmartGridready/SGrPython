@@ -26,7 +26,7 @@ def find_dp(root, fp_name: str, dp_name: str) -> Optional[SgrRestApidataPointTyp
         if dp:
             return dp
 
-class RestapiConnect():
+class SgrRestInterface():
     """
     SmartGrid ready External Interface Class for Rest API
     """
@@ -105,7 +105,7 @@ class RestapiConnect():
 async def test():
     interface_file = "SGr_04_0018_CLEMAP_EIcloudEnergyMonitorV0.2.1.xml"
     private_config = "config_CLEMAPEnMon_ressource_default.ini"
-    client = RestapiConnect(interface_file, private_config)
+    client = SgrRestInterface(interface_file, private_config)
     token = await client.authenticate()
     a = await asyncio.gather(client.getval('ActivePowerAC', 'ActivePowerACL1'))
     print(a)

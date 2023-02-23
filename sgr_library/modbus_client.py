@@ -6,6 +6,7 @@ from typing import Optional, Tuple, Dict, Any, Iterable
 
 # In this case establishes a connection with the localhost server that is running the simulation.
 # TODO make this inherit from the ModbusTcpClient
+# TODO maybe make everything in one module... Modulating this is redundant in my taste.
 class SGrModbusClient:
 
     def __init__(self, ip: str, port: int):
@@ -52,3 +53,4 @@ class SGrModbusClient:
         builder = PayloadBuilder(byteorder=order, wordorder=order)
         builder.encode(value, data_type, rounding="floor")
         await self.client.write_registers(address=addr, values=builder.to_registers(), unit=slave_id)
+

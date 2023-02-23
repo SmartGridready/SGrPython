@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional, Tuple, Dict, Any, Iterable
+
 from pymodbus.constants import Endian
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
@@ -8,6 +8,7 @@ import time
 from sgr_library.data_classes.ei_modbus import SgrModbusDeviceFrame
 from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointType
 from sgr_library.modbus_client import SGrModbusClient
+from auxiliary_functions import find_dp
 import asyncio
 
 
@@ -42,20 +43,6 @@ def get_endian(root) -> str:
         return(Endian.Big)
     return(Endian.Little)
 
-def find_dp(root, fp_name: str, dp_name: str) -> Optional[SgrModbusDataPointType]:
-    """
-    Searches the datapoint in the root element.
-    :param root: The root element created with the xsdata parser
-    :param fp_name: The name of the funcitonal profile in which the datapoint resides
-    :param dp_name: The name of the datapoint
-    :returns: The datapoint element found in root, if not, returns None.
-    """
-    fp = next(filter(lambda x: x.functional_profile.profile_name == fp_name, root.fp_list_element), None)
-    if fp:
-        dp = next(filter(lambda x: x.data_point.datapoint_name == dp_name, fp.dp_list_element), None)
-        if dp:
-            return dp
-
 
 class SgrModbusInterface: 
 
@@ -86,46 +73,33 @@ class SgrModbusInterface:
         #TODO
         ...
 
-    #TODO assign multiple dispatch to the function.
-    '''def getval(self, fp_name: str, dp_name: str) -> float:
-        """
-        Reads datapoint value.
-        :param fp_name: The name of the funcitonal profile in which the datapoint resides.
-        :param dp_name: The name of the datapoint.
-        :returns: The current decoded value in the datapoint register.
-        """
-        dp = find_dp(self.root, fp_name, dp_name)
-        address = self.get_address(dp)
-        size = self.get_size(dp)
-        data_type = self.get_datatype(dp)
-        reg_type = self.get_register_type(dp)
-        return self.client.value_decoder(address, size, data_type, reg_type)'''
+    async def getval(self, fp_name, dp_name) -> float:
+            """
+            Reads datapoint value.
 
-    # getval with multiple dispatching
-    async def getval(self, *parameter) -> float:
-        """
-        Reads datapoint value.
+            :dp: The already obtained datapoint object
 
-        :dp: The already obtained datapoint object
+            2 parameters alternative:
+            :param fp_name: The name of the functional profile in which the datapoint resides.
+            :param dp_name: The name of the datapoint.
 
-        2 parameters alternative:
-        :param fp_name: The name of the functional profile in which the datapoint resides.
-        :param dp_name: The name of the datapoint.
+            :returns: The current decoded value in the datapoint register.
+            """
+            
+            dp = find_dp(self.root, fp_name, dp_name)
+            address = self.get_address(dp)
+            size = self.get_size(dp)
+            data_type = self.get_datatype(dp)
+            reg_type = self.get_register_type(dp)
+            slave_id = self.slave_id
+            order = self.byte_order
+            answer = await self.client.value_decoder(address, size, data_type, reg_type, slave_id, order)
+            return answer
 
-        :returns: The current decoded value in the datapoint register.
-        """
-        if len(parameter) == 2:
-            dp = find_dp(self.root, parameter[0], parameter[1])
-        else:
-            dp = parameter[0]
-        address = self.get_address(dp)
-        size = self.get_size(dp)
-        data_type = self.get_datatype(dp)
-        reg_type = self.get_register_type(dp)
-        slave_id = self.slave_id
-        order = self.byte_order
-        answer = await self.client.value_decoder(address, size, data_type, reg_type, slave_id, order)
-        return answer
+
+    async def getval_3phase(self, fp_name: str, dp_name: str):
+        
+        ...
 
     async def setval(self, fp_name: str, dp_name: str, value: float) -> None:
         """
@@ -220,9 +194,9 @@ async def test_loop():
     while True:
         print('start')
         interface_file = 'SGr_04_0016_xxxx_ABBMeterV0.2.1.xml'
-        client = SgrModbusInterface(interface_file)
-        await client.client.client.connect()
-        getval = await client.getval('ActiveEnerBalanceAC', 'ActiveImportAC')
+        sgr_modbus = SgrModbusInterface(interface_file)
+        await sgr_modbus.client.client.connect()
+        getval = await sgr_modbus.getval('ActiveEnerBalanceAC', 'ActiveImportAC')
         print(getval)
         await asyncio.sleep(10)
 
