@@ -1,8 +1,11 @@
 
 import xml.etree.ElementTree as ET
 from typing import Optional, Tuple, Dict, Any, Iterable
-from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointType
+from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointType, SgrModbusDeviceFrame
 from exceptions import DataPointException, FunctionalProfileException
+
+from xsdata.formats.dataclass.context import XmlContext
+from xsdata.formats.dataclass.parsers import XmlParser
 
 
 
@@ -32,3 +35,19 @@ def find_dp(root, fp_name: str, dp_name: str) -> Optional[SgrModbusDataPointType
             return dp
         raise DataPointException(f"Datapoint {dp_name} not found in functional profile {fp_name}.")
     raise FunctionalProfileException(f"Functional profile {fp_name} not found in XML file.")
+
+def get_modbusInterfaceSelection(xml_file: str) -> str:
+    """
+    Searches for selected Modbus Interface in XML file and returns it
+    return: possible values :
+      RTU,
+      TCP/IP,
+      UDP/IP,
+      RTU-ASCII,
+      TCP/IP-ASCII,
+      UDP/IP-ASCII
+    """
+    parser = XmlParser(context=XmlContext())
+    root = parser.parse(xml_file, SgrModbusDeviceFrame)
+
+    return (root.modbus_interface_desc.modbus_interface_selection.value)
