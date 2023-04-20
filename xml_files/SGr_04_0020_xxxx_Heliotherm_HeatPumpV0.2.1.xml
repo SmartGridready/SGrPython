@@ -1,0 +1,1415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<sgr:SGrModbusDeviceFrame deviceName="BitteGeraetnamenSetzen" isLocalControl="true" manufacturerID="Heliotherm" manufacturerName="HELIOTHERM Wärmepumpentechnik Ges.m.b.H" xmlns:sgr="http://www.smartgridready.com/ns/V0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/EI-Modbus/SGrModbusEIDeviceFrame.xsd ">
+	<sgr:releaseNotes>
+		<sgr:state>Draft</sgr:state>
+	</sgr:releaseNotes>
+	<sgr:deviceProfile>
+		<sgr:devLegibDesc>
+			<sgr:textElement>Bitte leicht lesbarerGeraetebeschreibung einfügen</sgr:textElement>
+			<sgr:language>de</sgr:language>
+		</sgr:devLegibDesc>
+		<sgr:devLegibDesc>
+			<sgr:textElement>easy readible explanation in English</sgr:textElement>
+			<sgr:language>en</sgr:language>
+		</sgr:devLegibDesc>
+		<sgr:devLegibDesc>
+			<sgr:textElement>simple text an Francais</sgr:textElement>
+			<sgr:language>fr</sgr:language>
+		</sgr:devLegibDesc>
+		<sgr:devLegibDesc>
+			<sgr:textElement>Semplice descrizione in italiano </sgr:textElement>
+			<sgr:language>it</sgr:language>
+		</sgr:devLegibDesc>
+		<sgr:transportService>Modbus</sgr:transportService>
+		<sgr:deviceKind>HeatPumpAppliance</sgr:deviceKind>
+		<sgr:serialNumber>0</sgr:serialNumber>
+		<sgr:softwareRevision>
+			<sgr:primaryVersionNumber>1</sgr:primaryVersionNumber>
+			<sgr:secondaryVersionNumber>0</sgr:secondaryVersionNumber>
+			<sgr:subReleaseVersionNumber>0</sgr:subReleaseVersionNumber>
+		</sgr:softwareRevision>
+		<sgr:hardwareRevision>
+			<sgr:primaryVersionNumber>1</sgr:primaryVersionNumber>
+			<sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+			<sgr:subReleaseVersionNumber>0</sgr:subReleaseVersionNumber>
+		</sgr:hardwareRevision>
+		<sgr:brandName>Heliotherm</sgr:brandName>
+		<sgr:powerSource>mains3Phase</sgr:powerSource>
+		<sgr:nominalPower>sgr:nominalPower</sgr:nominalPower>
+		<sgr:manufSpecIdent>sgr:manufSpecIdent</sgr:manufSpecIdent>
+		<sgr:manufacturerLabel>Bite Label des Gateways einsetzen</sgr:manufacturerLabel>
+		<sgr:remAuthorID>vorläufig Ibt/cb</sgr:remAuthorID>
+		<sgr:devLevelofOperation>4</sgr:devLevelofOperation>
+	</sgr:deviceProfile>
+	<sgr:modbusInterfaceDesc>
+		<sgr:modbusInterfaceSelection>TCP/IP</sgr:modbusInterfaceSelection>
+		<sgr:trspSrvModbusTCPoutOfBox>
+			<sgr:port>502</sgr:port>
+			<sgr:address>
+				<sgr:ipV4n1>192</sgr:ipV4n1>
+				<sgr:ipV4n2>168</sgr:ipV4n2>
+				<sgr:ipV4n3>1</sgr:ipV4n3>
+				<sgr:ipV4n4>51</sgr:ipV4n4>
+			</sgr:address>
+			<sgr:slaveID>1</sgr:slaveID>
+		</sgr:trspSrvModbusTCPoutOfBox>
+		<sgr:firstRegisterAddressIsOne>
+			true
+		</sgr:firstRegisterAddressIsOne>
+		<sgr:conversionScheme>BigEndian</sgr:conversionScheme>
+	</sgr:modbusInterfaceDesc>
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="HeatPumpBase">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>HeatPumpControl</sgr:profileIdentification>
+				<sgr:subProfileIdent>HeatPumpBase</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>2</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+			<sgr:fpNameList>
+				<sgr:sLV1Name>HeatPumpBase</sgr:sLV1Name>
+			</sgr:fpNameList>
+			<sgr:fpLegibDesc>
+				<sgr:textElement>Das Profil definiert den Grundbaustein zur dynamischen Ansteuerung von Wärmepumpen über eine variable Beeinflussung der Sollwerte nach SGr Level 4. Der Betrieb der Wärmepumpe muss in sich sicher sein, unabhängig von den äusseren Vorgaben. Dieses Grundprofil definiert die Datenpunkte, welche zur Steuerung des Gerätes «Wärmepumpe» auf Level 4 grundsätzlich zur Verfügung gestellt werden und stellen die Version einer typischen EInfamilienhauswärmepumpe miz Aussentemperaturfühler dar. Für die einzelnen Heizkreise, Warmwasser, Pufferspeicher und das Energie-Monitoring  sowie eine Verdichterdrehzahl / Leistungsregelung werden separate Profile zur Verfügung gestellt.
+ 				</sgr:textElement>
+				<sgr:language>de</sgr:language>
+			</sgr:fpLegibDesc>
+		</sgr:functionalProfile>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="HPOpModeCmd" mroVisibilityIndicator="M" rwpDatadirection="W" unit="NONE">
+				<sgr:basicDataType>
+					<sgr:int16U>0</sgr:int16U>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>HPOpModeCmd</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>0=AUS, 1=Automatik, 2=Kühlen, 3=Sommer, 4=Dauerbetrieb, 5=Absenkung, 6=Urlaub, 7=Party, 8=Ausheizen, 9=EVU Sperre, 10=Hauptschalter AUS</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>0=off, 1=automatic, 2=Cooling, 3=Summer, 4=Continuous(?), 5=setback (?), 6=Vacation, 7=Party, 8=Ausheizen, 9=?, 10=?. 8 to 10 only informational</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="100" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="HPOpState" mroVisibilityIndicator="M" rwpDatadirection="R" unit="NONE">
+				<sgr:basicDataType>
+					<sgr:int16U>0</sgr:int16U>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>HPOpState</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>0=AUS, 1=Automatik, 2=Kühlen, 3=Sommer, 4=Dauerbetrieb, 5=Absenkung, 6=Urlaub, 7=Party, 8=Ausheizen, 9=EVU Sperre, 10=Hauptschalter AUS</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>0=off, 1=automatic, 2=Cooling, 3=Summer, 4=Continuous(?), 5=setback (?), 6=Vacation, 7=Party, 8=Ausheizen, 9=?, 10=?</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int8U>0</sgr:int8U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="100" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ErrorNrSGr" mroVisibilityIndicator="M" rwpDatadirection="R" unit="NONE">
+				<sgr:basicDataType>
+					<sgr:int16U>0</sgr:int16U>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>Fault_HP_SGr</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>?check: enum oder Bit-Array? Fehlerliste gem. Standard</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>List of error codes not available in modbus doc</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int8U>0</sgr:int8U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="26" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="OutsideAirTemp" mroVisibilityIndicator="M" rwpDatadirection="R" unit="DEGREES_CELSIUS">
+				<sgr:basicDataType>
+					<sgr:float32>0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>OutsideAirTemp</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>
+						Aktuelle Aussentemperatur (gemessen über Aussenfühler)
+					</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="10" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="FlowWaterTemp" mroVisibilityIndicator="M" rwpDatadirection="R" unit="DEGREES_CELSIUS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="12" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ReturnFlowWaterTemp" mroVisibilityIndicator="M" rwpDatadirection="R" unit="DEGREES_CELSIUS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="13" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="CompressorPwrCtrl">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>HeatPumpControl</sgr:profileIdentification>
+				<sgr:subProfileIdent>PowerCtrl</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>2</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+			<sgr:fpNameList>
+				<sgr:sLV1Name>CompressorPwrCtrl</sgr:sLV1Name>
+			</sgr:fpNameList>
+			<sgr:fpLegibDesc>
+				<sgr:textElement>The compressor speed or the heat pump power can be controlled (not both). For compressor speed, a setpoint speed is sent to register 126, For power, a set point input is sent to the heat pump via register 125. The heat pump then regulates the compressor speed upwards or downwards until the setpoint is reached. However, it can take up to several minutes for the heat pump to reach the setpoint. It must also be taken into account that the heat pump does not change compressor speed during the pre-regulation time (usually between 2 and 10 minutes, depending on the heat pump type) and therefore cannot yet regulate to the setpoint.
+				</sgr:textElement>
+				<sgr:language>en</sgr:language>
+				</sgr:fpLegibDesc>
+		</sgr:functionalProfile>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="SpeedCtrlSetpt" mroVisibilityIndicator="M" rwpDatadirection="W" unit="PERCENT">
+				<sgr:basicDataType>
+					<sgr:float32>0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>SpeedCtrlSetpt</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>
+						?check: Adress durch cb? Absolute Vorgabe der Drehzahl in der gewählten Betriebsart
+					</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:genAttribute>
+				<sgr:maxVal>60.0</sgr:maxVal>
+				<sgr:minVal>15.0</sgr:minVal>
+			</sgr:genAttribute>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="126" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ActSpeed" mroVisibilityIndicator="M" rwpDatadirection="R" unit="PERCENT">
+				<sgr:basicDataType>
+					<sgr:float32>0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>ActSpeed</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>
+						Effektive Drehzahl des Verdichters
+					</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="29" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="PowerCtrlSetpt" mroVisibilityIndicator="O" rwpDatadirection="R" unit="WATTS">
+				<sgr:basicDataType>
+					<sgr:float32>0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>ActPower</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>
+						Effektive elektrischen Aufnahmeleistung des Verdichters
+					</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>
+						To allow setpoint control, register 117 for PV demand should be set to 1. Should we create a PowerCtrlSetptEn ?. In RCG web interface, Menu item "Photovoltaics" > PV selection on > MODBUS (TCP or RTU). Also, in web controller, Main menu > "WNA" > FU External on > ON and Hot water > DHW preparation > Parameters > DHW Max to "53" Heating circuit > Parameter> Offset to "3"; Mixer1 and 2 > Parameter> Offset to "3".
+					</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpPrgDesc>
+					<sgr:textElement>
+						For power setpoint control, register 117 for PV demand should be set to 1 and register 126 should not be written.
+					</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpPrgDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="125" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ActPowerACtot" mroVisibilityIndicator="O" rwpDatadirection="R" unit="WATTS">
+				<sgr:basicDataType>
+					<sgr:float32>0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>ActPower</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>
+						Effektive elektrischen Aufnahmeleistung des Verdichters (der WP?)
+					</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int32U>0</sgr:int32U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="70" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+
+
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="HeatCoolCtrl_1">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>HeatPumpControl</sgr:profileIdentification>
+				<sgr:subProfileIdent>HeatCoolCtrl</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>2</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+			<sgr:fpNameList>
+				<sgr:sLV1Name>HeatCoolCtrl</sgr:sLV1Name>
+			</sgr:fpNameList>
+			<sgr:fpLegibDesc>
+				<sgr:textElement>Dieses Profil definiert die erweiterten Datenpunkte zum Grundprofil "HeatPumpBase", welche zur Steuerung eines Heiz- oder Kühlkreises zur Verfügung gestellt werden. Derselbe physikalische Kreislauf kann entweder für das Heizen oder das Kühlen verwendet werden. Das Heiz-/Kühlkreisprofil muss immer in Kombination mit dem Grundprofil der Wärmepumpe  bewirtschaftet werden. Es können mehrere Heiz-/Kühlkreisprofile definiert werden.</sgr:textElement>
+				<sgr:language>de</sgr:language>
+			</sgr:fpLegibDesc>
+			<sgr:fpLegibDesc>
+				<sgr:textElement>This profile defines the extended data points to the basic profile "HeatPumpBase", which are provided to control a heating or cooling circuit. The same physical circuit can be used for either heating or cooling. The heating/cooling circuit profile must always be managed in combination with the heat pump base profile. Several heating/cooling circuit profiles can be defined. The heliotherm heat pump is controllable through tank or return temperature setpoint</sgr:textElement>
+				<sgr:language>en</sgr:language>
+				</sgr:fpLegibDesc>
+		</sgr:functionalProfile>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="HeatCoolCtrlOpModeCmd" mroVisibilityIndicator="M" rwpDatadirection="RW" unit="NONE">
+				<sgr:basicDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>HeatCoolCtrlOpModeCmd</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Festlegen der Betriebsart des Heiz-/Kühlkreises 1  [Aus Bereitschaft, Programm, Komfort, Eco]              </sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Control of the heating/cooling circle 1. Modes:  0=off, 1=automatic, 2=Cooling, 3=Summer, 4=Continuous(?), 5=setback (?), 6=Vacation, 7=Party, 8=Ausheizen, 9=?, 10=?. 8 to 10 only informational             </sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="107" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="HeatCoolOpState" mroVisibilityIndicator="M" rwpDatadirection="R" unit="NONE">
+				<sgr:basicDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>HeatCoolOpState</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Modes:  0=off, 1=automatic, 2=Cooling, 3=Summer, 4=Continuous(?), 5=setback (?), 6=Vacation, 7=Party, 8=Ausheizen, 9=?, 10=?. 8 to 10 only informational</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>This seems redundant with previous registers for RW</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="107" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="FlowWaterTempStpt" mroVisibilityIndicator="O" rwpDatadirection="R" unit="DEGREES_CELSIUS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>FlowWaterTempStpt</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Setzen der aktuellen Soll-Temperatur des Vorlaufs (Grundwert) fur HeizKreis 1.</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Sets the supply temperature setpoint for heaqting loop 1</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="109" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="FlowWaterTempStptEn" mroVisibilityIndicator="O" rwpDatadirection="R" unit="NONE">
+				<sgr:basicDataType>
+					<sgr:boolean>true</sgr:boolean>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>FlowWaterTempStptEN</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Aktiviert der kontrol von vorlauf Temperatur in register 109 fur heizkreis 1 </sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Activates following of supply temperature setpoint in register 109 for heating loop 1. If 0, setpoint sent to register 109 is not applied. </sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="110" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ReturnFlowWaterTemp" mroVisibilityIndicator="O" rwpDatadirection="R" unit="DEGREES_CELSIUS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>ReturnFlowWaterTemp</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Auslesen der aktuellen aktuellen-Temperatur des Rücklaufs.</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="12" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="HeatCoolCtrl_2">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>HeatPumpControl</sgr:profileIdentification>
+				<sgr:subProfileIdent>HeatCoolCtrl</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>2</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+			<sgr:fpNameList>
+				<sgr:sLV1Name>HeatCoolCtrl</sgr:sLV1Name>
+			</sgr:fpNameList>
+			<sgr:fpLegibDesc>
+				<sgr:textElement>Dieses Profil definiert die erweiterten Datenpunkte zum Grundprofil "HeatPumpBase", welche zur Steuerung des Heiz- oder Kühlkreise 2 zur Verfügung gestellt werden. Derselbe physikalische Kreislauf kann entweder für das Heizen oder das Kühlen verwendet werden. Das Heiz-/Kühlkreisprofil muss immer in Kombination mit dem Grundprofil der Wärmepumpe  bewirtschaftet werden. Es können mehrere Heiz-/Kühlkreisprofile definiert werden.</sgr:textElement>
+				<sgr:language>de</sgr:language>
+				</sgr:fpLegibDesc>
+			<sgr:fpLegibDesc>
+				<sgr:textElement>This profile defines the extended data points to the basic profile "HeatPumpBase", which are provided to control of heating or cooling circuit 2. The same physical circuit can be used for either heating or cooling. The heating/cooling circuit profile must always be managed in combination with the heat pump base profile.</sgr:textElement>
+				<sgr:language>de</sgr:language>
+			</sgr:fpLegibDesc>
+		</sgr:functionalProfile>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="HeatCoolCtrlOpModeCmd" mroVisibilityIndicator="M" rwpDatadirection="RW" unit="NONE">
+				<sgr:basicDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>HeatCoolCtrlOpModeCmd</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Festlegen der Betriebsart des Heiz-/Kühlkreises 2 Modes:  0=off, 1=automatic, 2=Cooling, 3=Summer, 4=Continuous(?), 5=setback (?), 6=Vacation, 7=Party, 8=Ausheizen, 9=?, 10=?. 8 to 10 only informational            </sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="112" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="HeatCoolOpState" mroVisibilityIndicator="M" rwpDatadirection="R" unit="NONE">
+				<sgr:basicDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>HeatCoolOpState</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Auslesen des aktuellen Status des Heiz-/Kühlkreises 2 (Aus, Bereitschaft, Programm, Comfort, Eco)</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>This seems redundant with previous registers for W</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="112" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="FlowWaterTempStpt" mroVisibilityIndicator="O" rwpDatadirection="R" unit="DEGREES_CELSIUS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>FlowWaterTempStpt</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Setzen der aktuellen Soll-Temperatur des Vorlaufs 2 (Grundwert).</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="114" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="FlowWaterTempStptEn" mroVisibilityIndicator="O" rwpDatadirection="R" unit="NONE">
+				<sgr:basicDataType>
+					<sgr:boolean>true</sgr:boolean>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>FlowWaterTempStptEN</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Setzen der aktuellen Soll-Temperatur des Vorlaufs (Grundwert).</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="115" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ReturnFlowWaterTemp" mroVisibilityIndicator="O" rwpDatadirection="R" unit="DEGREES_CELSIUS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>ReturnFlowWaterTemp</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Auslesen der aktuellen aktuellen-Temperatur des Rücklaufs.</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="12" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+
+
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="DomHotWaterCtrl">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>HeatPumpControl</sgr:profileIdentification>
+				<sgr:subProfileIdent>DomHotWaterCtrl</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>2</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+			<sgr:fpNameList>
+				<sgr:sLV1Name>DomHotWaterCtrl</sgr:sLV1Name>
+			</sgr:fpNameList>
+			<sgr:fpLegibDesc>
+				<sgr:textElement>Dieses Profil definiert die erweiterten Datenpunkte zum Grundprofil "HeatPumpBase", welche zur Steuerung eines Brauchwarmwasserkreises zur Verfügung gestellt werden. Das Brauchwarmwasser-Profil muss immer in Kombination mit dem Grundprofil der Wärmepumpe bewirtschaftet werden. Es können mehrere Brauchwarmwasser-Profile definiert werden.</sgr:textElement>
+				<sgr:language>de</sgr:language>
+			</sgr:fpLegibDesc>
+		</sgr:functionalProfile>
+
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ActDomHotWaterTemp" mroVisibilityIndicator="M" rwpDatadirection="R" unit="DEGREES_CELSIUS">
+				<sgr:basicDataType>
+					<sgr:float32>0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>ActDomHotWaterTemp</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Domestic hot water tank temperature</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Domestic hot water tank temperature</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16U>0</sgr:int16U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="11" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="DomHotWTempStpt" mroVisibilityIndicator="M" rwpDatadirection="W" unit="DEGREES_CELSIUS">
+				<sgr:basicDataType>
+					<sgr:float32>0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>DomHotWTempStpt</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>
+						Domestic hot water temperature setpoint. Another register also available for minimum allowed temp
+					</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>
+						Domestic hot water temperature setpoint. also 133 work fo reading. Set 134 to 0 to have effect by having temperature active.
+					</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16U>0</sgr:int16U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="105" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="BufferStorageCtrl">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>HeatPumpControl</sgr:profileIdentification>
+				<sgr:subProfileIdent>BufferStorageCtrl</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>2</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+			<sgr:fpNameList>
+				<sgr:sLV1Name>BufferStorageCtrl</sgr:sLV1Name>
+			</sgr:fpNameList>
+			<sgr:fpLegibDesc>
+				<sgr:textElement>x
+				</sgr:textElement>
+				<sgr:language>de</sgr:language>
+			</sgr:fpLegibDesc>
+		</sgr:functionalProfile>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="HeatWTempStptOffset" mroVisibilityIndicator="M" rwpDatadirection="W" unit="DEGREES_CELSIUS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>HeatWTempStpt</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>
+						Sollwerte der Solltemperatur (+/-) für den Heiz-Pufferspeicher.
+					</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>
+						Setpoint for tank temperature. to be considered, depends on the WNA settings of the heat pump which should be on Puffer Speicher mode. Otherwise, it will be used for return temperature setpoint setting
+					</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="102" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+
+		</sgr:dpListElement>
+
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="HeatWTempStptOffsetEn" mroVisibilityIndicator="O" rwpDatadirection="R" unit="NONE">
+				<sgr:basicDataType>
+					<sgr:boolean>true</sgr:boolean>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>FlowWaterTempStptEN</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Wenn 1, setzen der aktuellen Soll-Temperatur des Vorlaufs (Grundwert).</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>When 1, activates setpoint for tank temperature. If 0, setpoint not applied </sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="103" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ActHeatBufferTemp" mroVisibilityIndicator="M" rwpDatadirection="R" unit="DEGREES_CELSIUS">
+				<sgr:basicDataType>
+					<sgr:float32>0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>ActHeatBufferTemp</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Aktuelle Ist-Temperatur des Heiz-Pufferspeichers oben</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="14" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="RoomTempCtrl_Z1">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>HeatPumpControl</sgr:profileIdentification>
+				<sgr:subProfileIdent>RoomTempCtrl</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>2</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+			<sgr:fpNameList>
+				<sgr:sLV1Name>RoomTempCtrl</sgr:sLV1Name>
+			</sgr:fpNameList>
+			<sgr:fpLegibDesc>
+				<sgr:textElement>x
+				</sgr:textElement>
+				<sgr:language>de</sgr:language>
+			</sgr:fpLegibDesc>
+		</sgr:functionalProfile>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="RoomZoneTempSetpt" mroVisibilityIndicator="R" rwpDatadirection="RW" unit="DEGREES_CELSIUS">
+				<sgr:basicDataType>
+					<sgr:float32>0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>RoomZoneTemp</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Aktuelle Ist-Temperatur des 1. Raumes oder Mittelwert der Bezugsräume für die Begrenzung der Reduktions- oder Anhebungsmassnahmen</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="108" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+
+
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="RoomTempCtrl_Z2">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>HeatPumpControl</sgr:profileIdentification>
+				<sgr:subProfileIdent>RoomTempCtrl</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>2</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+			<sgr:fpNameList>
+				<sgr:sLV1Name>RoomTempCtrl</sgr:sLV1Name>
+			</sgr:fpNameList>
+			<sgr:fpLegibDesc>
+				<sgr:textElement>x
+				</sgr:textElement>
+				<sgr:language>de</sgr:language>
+			</sgr:fpLegibDesc>
+		</sgr:functionalProfile>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="RoomZoneTempSetpt" mroVisibilityIndicator="R" rwpDatadirection="RW" unit="DEGREES_CELSIUS">
+				<sgr:basicDataType>
+					<sgr:float32>0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>RoomZoneTemp</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Aktuelle Ist-Temperatur des 1. Raumes oder Mittelwert der Bezugsräume für die Begrenzung der Reduktions- oder Anhebungsmassnahmen</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="113" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="EnergyMonitor">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>HeatPumpControl</sgr:profileIdentification>
+				<sgr:subProfileIdent>EnergyMonitor</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>2</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+			<sgr:fpNameList>
+				<sgr:sLV1Name>Monitoring</sgr:sLV1Name>
+			</sgr:fpNameList>
+
+			<sgr:fpLegibDesc>
+				<sgr:textElement>Das Profil definiert den Monitoriungbaustein zur dynamischen Ansteuerung von Wärmepumpen über eine variable Beeinflussung der Sollwerte nach SGr Level 4. </sgr:textElement>
+				<sgr:language>de</sgr:language>
+			</sgr:fpLegibDesc>
+		</sgr:functionalProfile>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName=" ActiveEnergyACtot" mroVisibilityIndicator="R" rwpDatadirection="R" unit="KILOWATT_HOURS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name> ActiveEnergyACtot</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Summe der aufgenommenen elektrischen Energie des Verdichters inkl. Hilfsaggregate total.</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int32U>0</sgr:int32U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="68" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+
+
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName=" ActiveEnergyACheat" mroVisibilityIndicator="R" rwpDatadirection="R" unit="KILOWATT_HOURS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>ActiveEnergyACheat</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Summe der aufgenommenen elektrischen Energie des Verdichters für das Heizen.</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int32U>0</sgr:int32U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="62" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+
+
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ThermalEnergyDomWater" mroVisibilityIndicator="R" rwpDatadirection="R" unit="KILOWATT_HOURS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>ThermalEnergyDomWater</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Summe der aufgenommenen elektrischen Energie des Verdichters für die Brauchwarmwasser-Erwärmung.</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int32U>0</sgr:int32U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="62" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ThermalEnergyTot" mroVisibilityIndicator="R" rwpDatadirection="R" unit="KILOWATT_HOURS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>ThermalEnergyTot</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Summe der abgegebenen thermischen Energie total.</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int32U>0</sgr:int32U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="72" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ThermalEnergyHeat" mroVisibilityIndicator="R" rwpDatadirection="R" unit="KILOWATT_HOURS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>ThermalEnergyHeat</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Summe der abgegebenen thermischen Energie für das Heizen.</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int32U>0</sgr:int32U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="60" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-3</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ThermalEnergyDomWater" mroVisibilityIndicator="R" rwpDatadirection="R" unit="KILOWATT_HOURS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>ThermalEnergyDomWater</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Summe der abgegebenen thermischen Energie für die Brauchwarmwasser-Erwärmung.</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int32U>0</sgr:int32U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="62" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ActivePowerACtot" mroVisibilityIndicator="R" rwpDatadirection="R" unit="WATTS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>ActivePowerACtot</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Aktuell aufgenommene elektrische Leistung des Verdichters.</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int32U>0</sgr:int32U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="70" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ThermalPower" mroVisibilityIndicator="R" rwpDatadirection="R" unit="KILOWATTS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>ThermalPower</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>
+						Thermisch Leistung total
+					</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>
+						Total thermal power
+					</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int32U>0</sgr:int32U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="68" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="RuntimeHeating" mroVisibilityIndicator="R" rwpDatadirection="R" unit="HOURS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>RuntimeHeating</sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Summe der Laufzeit in der Heizphase.</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int32U>0</sgr:int32U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="InputRegister" addr="68" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="RuntimeDomHotWater " mroVisibilityIndicator="R" rwpDatadirection="R" unit="HOURS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>RuntimeDomHotWater </sgr:sLV1Name>
+				</sgr:dpNameList>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Summe der Laufzeit in der Brauchwarmwasser-Phase.</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int32U>0</sgr:int32U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister" addr="42" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+
+	</sgr:fpListElement>
+</sgr:SGrModbusDeviceFrame>

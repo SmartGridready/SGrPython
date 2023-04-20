@@ -7,6 +7,7 @@
   <include schemaLocation="SGrGenTypeDefinitions.xsd" />
   <include schemaLocation="SGrEnumProfileType.xsd" />
   <include schemaLocation="SGrEnumSubProfileType.xsd" />
+  <include schemaLocation="SGrEnumLevelOfOperationType.xsd" />
 
   <complexType name="SGrProfileDescriptionType">
     <annotation>
@@ -34,7 +35,6 @@
       <element maxOccurs="4" minOccurs="0" name="fpPrgDesc" type="sgr:SGrLegibDocumentationType"></element>
     </sequence>
     <attribute name="profileName" type="string" />
-    <attribute name="mroVisibilityIndicator" type="sgr:SGrMROPresenceLevelIndicationType" />
   </complexType>
   <complexType name="SGrProfilenumberType">
     <annotation>
@@ -66,10 +66,11 @@
         </annotation>
       </element>
       <element maxOccurs="1" minOccurs="1" name="subProfileIdent" type="sgr:SubProfileTypeEnumType" />
-      <element maxOccurs="1" minOccurs="1" name="sgrLevelOfOperation" type="int">
+      <element maxOccurs="1" minOccurs="1" name="sgrLevelOfOperation" type="sgr:LevelOfOperationType">
         <annotation>
           <documentation>SGrLevelOfOperation defines a controls complexity
-						level 1) single contact 2) 2 or more contacts /state controlled
+					  level m) for read-only monitoring dat points
+            level 1) single contact 2) 2 or more contacts /state controlled
 						interface 3) statical defined characteristics tables 4) dynamic
 						realtime control combined with statical defined characteristics
 						tables 5) dynamic realtime control combined with dynamic

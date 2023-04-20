@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<sgr:SGrModbusDeviceFrame deviceName="WALLBOX beta 1 asymmetrisch steuerbar" isLocalControl="true" manufacturerID="thirdPartySrcInfo"	manufacturerName="TODO: add manufaturer name" 	xmlns:sgr="http://www.smartgridready.com/ns/V0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/EI-Modbus/SGrModbusEIDeviceFrame.xsd">
+	<sgr:releaseNotes>
+		<sgr:state>Draft</sgr:state>
+	</sgr:releaseNotes>
+	<sgr:deviceProfile>
+		<sgr:devLegibDesc>
+			<sgr:textElement>TODO: einfach lesbare Beschreibung in deutsch</sgr:textElement>
+			<sgr:language>de</sgr:language>
+		</sgr:devLegibDesc>
+		<sgr:devLegibDesc>
+			<sgr:textElement>easy readible explanation in English easy readible explanation in English</sgr:textElement>
+			<sgr:language>en</sgr:language>
+		</sgr:devLegibDesc>
+		<sgr:devLegibDesc>
+			<sgr:textElement>TODO: simple text an Francais</sgr:textElement>
+			<sgr:language>fr</sgr:language>
+		</sgr:devLegibDesc>
+		<sgr:devLegibDesc>
+			<sgr:textElement>TODO: Semplice descrizione in italiano</sgr:textElement>
+			<sgr:language>it</sgr:language>
+		</sgr:devLegibDesc>
+		<sgr:transportService>Modbus</sgr:transportService>
+		<sgr:deviceKind>ChargingStation</sgr:deviceKind>
+        <sgr:softwareRevision>
+          <sgr:primaryVersionNumber>5</sgr:primaryVersionNumber>
+          <sgr:secondaryVersionNumber>12</sgr:secondaryVersionNumber>
+          <sgr:subReleaseVersionNumber>1</sgr:subReleaseVersionNumber>
+        </sgr:softwareRevision>
+        <sgr:hardwareRevision>
+         <sgr:primaryVersionNumber>6</sgr:primaryVersionNumber>
+         <sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+         <sgr:subReleaseVersionNumber>2</sgr:subReleaseVersionNumber>
+        </sgr:hardwareRevision>
+        <sgr:brandName>TODO:  add Brand name</sgr:brandName>
+        <sgr:powerSource>mains3Phase</sgr:powerSource>
+        <sgr:nominalPower>TODO: add nominal power as Text</sgr:nominalPower>
+        <sgr:manufSpecIdent>TODO: add internal ident code</sgr:manufSpecIdent>
+        <sgr:manufacturerLabel>TODO:  add manufacturer label</sgr:manufacturerLabel>
+        <sgr:remAuthorID>TODO:  add company  (or external with remark "no warranty on this EI")</sgr:remAuthorID>
+		<sgr:devLevelofOperation>4</sgr:devLevelofOperation>
+	</sgr:deviceProfile>
+	<sgr:modbusAttr>
+		<sgr:pollLatencyMS>350</sgr:pollLatencyMS>
+	</sgr:modbusAttr>
+	<sgr:modbusInterfaceDesc>
+		<sgr:modbusInterfaceSelection>TCP/IP</sgr:modbusInterfaceSelection>
+		<sgr:firstRegisterAddressIsOne>false
+		</sgr:firstRegisterAddressIsOne>
+		<sgr:conversionScheme>BigEndian</sgr:conversionScheme>
+	</sgr:modbusInterfaceDesc>
+	<sgr:fpListElement>
+		<sgr:functionalProfile
+			profileName="EVState">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>EVSE</sgr:profileIdentification>
+				<sgr:subProfileIdent>EVState</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>2</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>1</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+		</sgr:functionalProfile>
+
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="isSmartEV15188"
+				mroVisibilityIndicator="O" rwpDatadirection="R"
+				unit="NONE">
+				<sgr:basicDataType>
+					<sgr:boolean>false</sgr:boolean>
+				</sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+				<sgr:int16U>0</sgr:int16U>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference
+					registerType="HoldRegister" addr="0" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="EVCCID"	mroVisibilityIndicator="O" rwpDatadirection="R"
+				unit="NONE">
+				<sgr:basicDataType>
+				<sgr:string>not set</sgr:string>			
+				</sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+				<sgr:string>not set</sgr:string>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference
+					registerType="HoldRegister" addr="0" bitRank="0" />
+				<sgr:dpSizeNrRegisters>6</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="EVSEState">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>EVSE</sgr:profileIdentification>
+				<sgr:subProfileIdent>EVSEState</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>2</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>1</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+		</sgr:functionalProfile>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="EV-StatusCode"
+				mroVisibilityIndicator="M" rwpDatadirection="R"
+				unit="NONE">
+				<sgr:basicDataType>
+					<sgr:enum>
+						<sgr:sgrEVState>EV_STANDBY</sgr:sgrEVState>
+					</sgr:enum>
+				</sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:enum>
+						<sgr:sgrEVState>EV_STANDBY</sgr:sgrEVState>
+					</sgr:enum>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference
+					registerType="HoldRegister" addr="0" bitRank="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+	
+	<sgr:fpListElement>
+		<sgr:functionalProfile
+			profileName="CurtailmentL1">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>EVSE</sgr:profileIdentification>
+				<sgr:subProfileIdent>Curtailment</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>2</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>1</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+		</sgr:functionalProfile>
+		<sgr:genAttribute>
+			<sgr:stabilityFallback>
+				<sgr:maxReceiveTime>1200</sgr:maxReceiveTime>
+				<sgr:initValue>8.0</sgr:initValue>
+				<sgr:fallbackValue>8.0</sgr:fallbackValue>
+			</sgr:stabilityFallback>
+		</sgr:genAttribute>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="SafeCurrent"
+				mroVisibilityIndicator="M" rwpDatadirection="RW"
+				unit="AMPERES">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>fallbackValue</sgr:sLV1Name>
+				</sgr:dpNameList>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>					
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister"
+					addr="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="HemsCurrentLimit"
+				rwpDatadirection="RW">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>					
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>initValue</sgr:sLV1Name>
+				</sgr:dpNameList>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>					
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister"
+					addr="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="maxReceiveTimeSec"
+				mroVisibilityIndicator="M" rwpDatadirection="RW"
+				unit="SECONDS">
+				<sgr:basicDataType>
+					<sgr:int16U>0</sgr:int16U>
+				</sgr:basicDataType>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Programmers hint: This maxReceiveTimeSec represents the timeout of the stabilityFallback Attribute. Hovewer, the timeout will be set to 0 whenever the Modbus interface is polled vor any data transaction</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16U>0</sgr:int16U>					
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister"
+					addr="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="HWCurrentLimit"
+				mroVisibilityIndicator="R" unit="AMPERES">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>					
+				</sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>					
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister"
+					addr="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+		<sgr:fpListElement>
+		<sgr:functionalProfile
+			profileName="CurtailmentL2">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>EVSE</sgr:profileIdentification>
+				<sgr:subProfileIdent>Curtailment</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>2</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>1</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+		</sgr:functionalProfile>
+		<sgr:genAttribute>
+			<sgr:stabilityFallback>
+				<sgr:maxReceiveTime>1200</sgr:maxReceiveTime>
+				<sgr:initValue>8.0</sgr:initValue>
+				<sgr:fallbackValue>8.0</sgr:fallbackValue>
+			</sgr:stabilityFallback>
+		</sgr:genAttribute>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="SafeCurrent"
+				mroVisibilityIndicator="M" rwpDatadirection="RW"
+				unit="AMPERES">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>fallbackValue</sgr:sLV1Name>
+				</sgr:dpNameList>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>					
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister"
+					addr="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="HemsCurrentLimit"
+				rwpDatadirection="RW">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>					
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>initValue</sgr:sLV1Name>
+				</sgr:dpNameList>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>					
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister"
+					addr="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="maxReceiveTimeSec"
+				mroVisibilityIndicator="M" rwpDatadirection="RW"
+				unit="SECONDS">
+				<sgr:basicDataType>
+					<sgr:int16U>0</sgr:int16U>
+				</sgr:basicDataType>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Programmers hint: This maxReceiveTimeSec represents the timeout of the stabilityFallback Attribute. Hovewer, the timeout will be set to 0 whenever the Modbus interface is polled vor any data transaction</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16U>0</sgr:int16U>					
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister"
+					addr="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="HWCurrentLimit"
+				mroVisibilityIndicator="R" unit="AMPERES">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>					
+				</sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>					
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister"
+					addr="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+		<sgr:fpListElement>
+		<sgr:functionalProfile
+			profileName="CurtailmentL3">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>EVSE</sgr:profileIdentification>
+				<sgr:subProfileIdent>Curtailment</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>2</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>1</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+		</sgr:functionalProfile>
+		<sgr:genAttribute>
+			<sgr:stabilityFallback>
+				<sgr:maxReceiveTime>1200</sgr:maxReceiveTime>
+				<sgr:initValue>8.0</sgr:initValue>
+				<sgr:fallbackValue>8.0</sgr:fallbackValue>
+			</sgr:stabilityFallback>
+		</sgr:genAttribute>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="SafeCurrent"
+				mroVisibilityIndicator="M" rwpDatadirection="RW"
+				unit="AMPERES">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>fallbackValue</sgr:sLV1Name>
+				</sgr:dpNameList>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>					
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister"
+					addr="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="HemsCurrentLimit"
+				rwpDatadirection="RW">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>					
+				</sgr:basicDataType>
+				<sgr:dpNameList>
+					<sgr:sLV1Name>initValue</sgr:sLV1Name>
+				</sgr:dpNameList>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>					
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister"
+					addr="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="maxReceiveTimeSec"
+				mroVisibilityIndicator="M" rwpDatadirection="RW"
+				unit="SECONDS">
+				<sgr:basicDataType>
+					<sgr:int16U>0</sgr:int16U>
+				</sgr:basicDataType>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Programmers hint: This maxReceiveTimeSec represents the timeout of the stabilityFallback Attribute. Hovewer, the timeout will be set to 0 whenever the Modbus interface is polled vor any data transaction</sgr:textElement>
+					<sgr:language>en</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16U>0</sgr:int16U>					
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister"
+					addr="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="HWCurrentLimit"
+				mroVisibilityIndicator="R" unit="AMPERES">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>					
+				</sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>					
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference registerType="HoldRegister"
+					addr="0" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+	
+  <sgr:fpListElement>
+    <sgr:functionalProfile profileName="VoltageAC">
+      <sgr:profileNumber>
+        <sgr:specsOwnerId>0</sgr:specsOwnerId>
+        <sgr:profileIdentification>SubMeterElectricity</sgr:profileIdentification>
+        <sgr:subProfileIdent>VoltageAC</sgr:subProfileIdent>
+        <sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+        <sgr:versionNumber>
+          <sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+          <sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+          <sgr:subReleaseVersionNumber>3</sgr:subReleaseVersionNumber>
+        </sgr:versionNumber>
+      </sgr:profileNumber>
+      <sgr:fpLegibDesc>
+        <sgr:textElement>Voltage</sgr:textElement>
+        <sgr:language>de</sgr:language>
+      </sgr:fpLegibDesc>
+    </sgr:functionalProfile>
+    <sgr:dpListElement>
+      <sgr:dataPoint datapointName="VoltageL1" mroVisibilityIndicator="M" rwpDatadirection="R" unit="VOLTS">
+        <sgr:basicDataType >
+        <sgr:int32>0</sgr:int32></sgr:basicDataType>
+        <sgr:dpNameList>
+          <sgr:sManufName>L1 Spannung</sgr:sManufName>
+        </sgr:dpNameList>
+      </sgr:dataPoint>
+      <sgr:modbusDataPoint>
+        <sgr:modbusDataType>
+        <sgr:float32>0</sgr:float32></sgr:modbusDataType>
+        <sgr:modbusFirstRegisterReference addr="0" bitRank="0" registerType="HoldRegister"></sgr:modbusFirstRegisterReference>
+        <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+        <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+      </sgr:modbusDataPoint>
+    </sgr:dpListElement>
+    <sgr:dpListElement>
+      <sgr:dataPoint datapointName="VoltageL2" mroVisibilityIndicator="M" rwpDatadirection="R" unit="VOLTS">
+        <sgr:basicDataType >
+        <sgr:float32>0</sgr:float32></sgr:basicDataType>
+        <sgr:dpNameList>
+          <sgr:sManufName>L2 Spannung</sgr:sManufName>
+        </sgr:dpNameList>
+      </sgr:dataPoint>
+      <sgr:modbusDataPoint>
+        <sgr:modbusDataType>
+        <sgr:float32>0</sgr:float32></sgr:modbusDataType>
+        <sgr:modbusFirstRegisterReference addr="0" bitRank="0" registerType="HoldRegister"></sgr:modbusFirstRegisterReference>
+        <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+        <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+      </sgr:modbusDataPoint>
+    </sgr:dpListElement>
+    <sgr:dpListElement>
+      <sgr:dataPoint datapointName="VoltageL3" mroVisibilityIndicator="M" rwpDatadirection="R" unit="VOLTS">
+        <sgr:basicDataType >
+        <sgr:float32>0</sgr:float32></sgr:basicDataType>
+        <sgr:dpNameList>
+          <sgr:sManufName>L3 Spannung</sgr:sManufName>
+        </sgr:dpNameList>
+      </sgr:dataPoint>
+      <sgr:modbusDataPoint>
+        <sgr:modbusDataType>
+        <sgr:float64>0</sgr:float64></sgr:modbusDataType>
+        <sgr:modbusFirstRegisterReference addr="0" bitRank="0" registerType="HoldRegister"></sgr:modbusFirstRegisterReference>
+        <sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+        <sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+      </sgr:modbusDataPoint>
+    </sgr:dpListElement>
+  </sgr:fpListElement>
+	
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="CurrentAC">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>NonSpecific</sgr:profileIdentification>
+				<sgr:subProfileIdent>CurrentAC</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>m</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>1</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>0</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>0</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+		</sgr:functionalProfile>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="CurrentACL1"
+				mroVisibilityIndicator="M" rwpDatadirection="R" unit="AMPERES">
+				<sgr:basicDataType><sgr:float32>0</sgr:float32></sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType><sgr:int32>0</sgr:int32></sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference
+					registerType="HoldRegister" addr="0" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+				<sgr:modbusAttr>
+					<sgr:scalingByMulPwr>
+						<sgr:multiplicator>1</sgr:multiplicator>
+						<sgr:powerof10>-3</sgr:powerof10>
+					</sgr:scalingByMulPwr>
+					<sgr:timeSyncBlockNotification>
+						<sgr:blockNumber>1</sgr:blockNumber>
+						<sgr:timeoutMs>3000</sgr:timeoutMs>
+					</sgr:timeSyncBlockNotification>
+				</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="CurrentACL2"
+				mroVisibilityIndicator="R" unit="AMPERES" rwpDatadirection="R">
+				<sgr:basicDataType><sgr:float32>0</sgr:float32></sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType><sgr:int32>0</sgr:int32></sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference
+					registerType="HoldRegister" addr="0" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+				<sgr:modbusAttr>
+					<sgr:scalingByMulPwr>
+						<sgr:multiplicator>1</sgr:multiplicator>
+						<sgr:powerof10>-3</sgr:powerof10>
+					</sgr:scalingByMulPwr>
+					<sgr:timeSyncBlockNotification>
+						<sgr:blockNumber>1</sgr:blockNumber>
+						<sgr:timeoutMs>3000</sgr:timeoutMs>
+					</sgr:timeSyncBlockNotification>
+				</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="CurrentACL3"
+				mroVisibilityIndicator="R" unit="AMPERES" rwpDatadirection="R">
+				<sgr:basicDataType><sgr:float32>0</sgr:float32></sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType><sgr:int32>0</sgr:int32></sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference addr="0"
+					registerType="HoldRegister" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+				<sgr:modbusAttr>
+					<sgr:scalingByMulPwr>
+						<sgr:multiplicator>1</sgr:multiplicator>
+						<sgr:powerof10>-3</sgr:powerof10>
+					</sgr:scalingByMulPwr>
+					<sgr:timeSyncBlockNotification>
+						<sgr:blockNumber>1</sgr:blockNumber>
+						<sgr:timeoutMs>3000</sgr:timeoutMs>
+					</sgr:timeSyncBlockNotification>
+				</sgr:modbusAttr>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="ActivePowerAC">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>NonSpecific</sgr:profileIdentification>
+				<sgr:subProfileIdent>ActivePowerAC</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>m</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>1</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>0</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>0</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+		</sgr:functionalProfile>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ActivePowerACL1"
+				mroVisibilityIndicator="R" rwpDatadirection="R" unit="KILOWATTS">
+				<sgr:basicDataType><sgr:float32>0</sgr:float32></sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType><sgr:int32>0</sgr:int32></sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference
+					registerType="HoldRegister" addr="0" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+				<sgr:modbusAttr>
+					<sgr:scalingByMulPwr>
+						<sgr:multiplicator>1</sgr:multiplicator>
+						<sgr:powerof10>-3</sgr:powerof10>
+					</sgr:scalingByMulPwr>
+					<sgr:timeSyncBlockNotification>
+						<sgr:blockNumber>2</sgr:blockNumber>
+						<sgr:timeoutMs>5000</sgr:timeoutMs>
+					</sgr:timeSyncBlockNotification>
+				</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ActivePowerACL2"
+				mroVisibilityIndicator="R" unit="KILOWATTS" rwpDatadirection="R">
+				<sgr:basicDataType><sgr:float32>0</sgr:float32></sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType><sgr:int32>0</sgr:int32></sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference
+					registerType="HoldRegister" addr="0" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+				<sgr:modbusAttr>
+					<sgr:scalingByMulPwr>
+						<sgr:multiplicator>1</sgr:multiplicator>
+						<sgr:powerof10>-3</sgr:powerof10>
+					</sgr:scalingByMulPwr>
+					<sgr:timeSyncBlockNotification>
+						<sgr:blockNumber>2</sgr:blockNumber>
+						<sgr:timeoutMs>5000</sgr:timeoutMs>
+					</sgr:timeSyncBlockNotification>
+				</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ActivePowerACL3"
+				mroVisibilityIndicator="R" unit="KILOWATTS" rwpDatadirection="R">
+				<sgr:basicDataType><sgr:float32>0</sgr:float32></sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType><sgr:int32>0</sgr:int32></sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference addr="0"
+					registerType="HoldRegister" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+				<sgr:modbusAttr>
+					<sgr:scalingByMulPwr>
+						<sgr:multiplicator>1</sgr:multiplicator>
+						<sgr:powerof10>-3</sgr:powerof10>
+					</sgr:scalingByMulPwr>
+					<sgr:timeSyncBlockNotification>
+						<sgr:blockNumber>0</sgr:blockNumber>
+						<sgr:timeoutMs>0</sgr:timeoutMs>
+					</sgr:timeSyncBlockNotification>
+				</sgr:modbusAttr>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="ActiveEnergyAC">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>NonSpecific</sgr:profileIdentification>
+				<sgr:subProfileIdent>ActiveEnergyAC</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>m</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>1</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>0</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>0</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+		</sgr:functionalProfile>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ActiveEnergyACL1"
+				mroVisibilityIndicator="R" rwpDatadirection="R" unit="KILOWATT_HOURS">
+				<sgr:basicDataType><sgr:float64>0</sgr:float64></sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType><sgr:int32>0</sgr:int32></sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference
+					registerType="HoldRegister" addr="0" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+				<sgr:modbusAttr>
+					<sgr:scalingByMulPwr>
+						<sgr:multiplicator>1</sgr:multiplicator>
+						<sgr:powerof10>-3</sgr:powerof10>
+					</sgr:scalingByMulPwr>
+				</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ActiveEnergyACL2"
+				mroVisibilityIndicator="R" unit="KILOWATT_HOURS" rwpDatadirection="R">
+				<sgr:basicDataType><sgr:float64>0</sgr:float64></sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType><sgr:int32>0</sgr:int32></sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference
+					registerType="HoldRegister" addr="0" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+				<sgr:modbusAttr>
+					<sgr:scalingByMulPwr>
+						<sgr:multiplicator>1</sgr:multiplicator>
+						<sgr:powerof10>-3</sgr:powerof10>
+					</sgr:scalingByMulPwr>
+				</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ActiveEnergyACL3"
+				mroVisibilityIndicator="R" unit="KILOWATT_HOURS" rwpDatadirection="R">
+				<sgr:basicDataType><sgr:float64>0</sgr:float64></sgr:basicDataType>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int32U>0</sgr:int32U></sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference addr="0"
+					registerType="HoldRegister" bitRank="0" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+				<sgr:modbusAttr>
+					<sgr:scalingByMulPwr>
+						<sgr:multiplicator>1</sgr:multiplicator>
+						<sgr:powerof10>-3</sgr:powerof10>
+					</sgr:scalingByMulPwr>
+				</sgr:modbusAttr>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+	<sgr:networkConnectionState></sgr:networkConnectionState>
+</sgr:SGrModbusDeviceFrame>	
+		
+		

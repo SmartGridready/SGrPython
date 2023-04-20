@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<sgr:SGrRestAPIDeviceFrame deviceName="Smart Charge Controller" isLocalControl="true" manufacturerID="LehmannAG" manufacturerName="A. Lehmann Elektro AG" xmlns:sgr="http://www.smartgridready.com/ns/V0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/EI-RestAPI/SGrRestAPI_EIDeviceFrame.xsd ">
+    <!-- TODO: broken XML, this EI needs fixing... -->
+	<sgr:releaseNotes>
+		<sgr:state>Draft</sgr:state>
+	</sgr:releaseNotes>
+    <sgr:deviceProfile>
+        <sgr:transportService>RESTfulJSON</sgr:transportService>
+        <sgr:deviceKind>SubMeterElectricity</sgr:deviceKind>
+        <sgr:softwareRevision>
+            <!-- preliminary stub data to fulfill the schema --> 
+            <sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+            <sgr:secondaryVersionNumber>0</sgr:secondaryVersionNumber>
+            <sgr:subReleaseVersionNumber>0</sgr:subReleaseVersionNumber>
+        </sgr:softwareRevision>
+    </sgr:deviceProfile>
+    <sgr:restAPIInterfaceDesc> 
+        <sgr:restAPIInterfaceSelection>trspSrvRestURI</sgr:restAPIInterfaceSelection>
+        <sgr:trspSrvRestURIoutOfBox>https://api.smartchargecontroller.ch:3000</sgr:trspSrvRestURIoutOfBox>
+        <sgr:restAPIAuthenticationMethod>BearerSecurityScheme</sgr:restAPIAuthenticationMethod>
+        <sgr:restAPIBearer>
+            <sgr:serviceCall>
+                <sgr:requestHeader>
+                    <sgr:header headerName="Accept" value="application/json" />
+                </sgr:requestHeader>
+                <sgr:requestMethod>POST</sgr:requestMethod>
+                <sgr:requestPath>/auth/login</sgr:requestPath>
+                <sgr:requestBody>{"username": "{{username}}", "password": "{{password}}" }</sgr:requestBody>
+                <sgr:responseQuery>
+                    <sgr:queryType>JMESPathExpression</sgr:queryType>
+                    <sgr:query>accessToken</sgr:query>
+                </sgr:responseQuery>
+            </sgr:serviceCall>
+        </sgr:restAPIBearer>               
+    </sgr:restAPIInterfaceDesc>
+    <sgr:fpListElement>
+        <sgr:functionalProfile profileName="ActivePowerAC">
+            <sgr:profileNumber>
+                <sgr:specsOwnerId>0</sgr:specsOwnerId>
+                <sgr:profileIdentification>NonSpecific</sgr:profileIdentification>
+                <sgr:subProfileIdent>ActivePowerAC</sgr:subProfileIdent>
+                <sgr:sgrLevelOfOperation>m</sgr:sgrLevelOfOperation>
+                <sgr:versionNumber>
+                    <sgr:primaryVersionNumber>1</sgr:primaryVersionNumber>
+                    <sgr:secondaryVersionNumber>0</sgr:secondaryVersionNumber>
+                    <sgr:subReleaseVersionNumber>0</sgr:subReleaseVersionNumber>
+                </sgr:versionNumber>
+            </sgr:profileNumber>
+        </sgr:functionalProfile>
+        <sgr:dpListElement>
+            <sgr:dataPoint datapointName="ActivePowerACtot" mroVisibilityIndicator="R" rwpDatadirection="R" unit="WATTS">
+                <sgr:basicDataType>
+                    <sgr:float32>0.0</sgr:float32>
+                </sgr:basicDataType>
+            </sgr:dataPoint>
+            <sgr:genAttribute>
+                <sgr:valueSource>measuredValue</sgr:valueSource>
+                <sgr:sampleRate>10</sgr:sampleRate>
+            </sgr:genAttribute>
+            <sgr:restAPIDataPoint dataType="JSON_number">
+                <sgr:restServiceCall>
+                    <sgr:requestHeader>
+                        <sgr:header headerName="Accept" value="application/json" />
+                    </sgr:requestHeader>
+                    <sgr:requestMethod>GET</sgr:requestMethod>
+                    <sgr:requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</sgr:requestPath>
+                    <sgr:responseQuery>
+                        <sgr:queryType>JMESPathExpression</sgr:queryType>
+                        <sgr:query>sum([activePower.l1,activePower.l2,activePower.l3])</sgr:query>
+                    </sgr:responseQuery>
+                </sgr:restServiceCall>
+            </sgr:restAPIDataPoint>
+        </sgr:dpListElement>
+        <sgr:dpListElement>
+            <sgr:dataPoint datapointName="ActivePowerACL1" mroVisibilityIndicator="R" rwpDatadirection="R" unit="WATTS">
+                <sgr:basicDataType>
+                    <sgr:float32>0.0</sgr:float32>
+                </sgr:basicDataType>
+            </sgr:dataPoint>
+            <sgr:genAttribute>
+                <sgr:valueSource>measuredValue</sgr:valueSource>
+                <sgr:sampleRate>10</sgr:sampleRate>
+            </sgr:genAttribute>
+            <sgr:restAPIDataPoint dataType="JSON_number">
+                <sgr:restServiceCall>
+                    <sgr:requestHeader>
+                        <sgr:header headerName="Accept" value="application/json" />
+                    </sgr:requestHeader>
+                    <sgr:requestMethod>GET</sgr:requestMethod>
+                    <sgr:requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</sgr:requestPath>
+                    <sgr:responseQuery>
+                        <sgr:queryType>JMESPathExpression</sgr:queryType>
+                        <sgr:query>activePower.l1</sgr:query>
+                    </sgr:responseQuery>
+                </sgr:restServiceCall>
+            </sgr:restAPIDataPoint>
+        </sgr:dpListElement>
+        <sgr:dpListElement>
+            <sgr:dataPoint datapointName="ActivePowerACL2" mroVisibilityIndicator="R" rwpDatadirection="R" unit="WATTS">
+                <sgr:basicDataType>
+                    <sgr:float32>0.0</sgr:float32>
+                </sgr:basicDataType>
+            </sgr:dataPoint>
+            <sgr:genAttribute>
+                <sgr:valueSource>measuredValue</sgr:valueSource>
+                <sgr:sampleRate>10</sgr:sampleRate>
+            </sgr:genAttribute>
+            <sgr:restAPIDataPoint dataType="JSON_number">
+                <sgr:restServiceCall>
+                    <sgr:requestHeader>
+                        <sgr:header headerName="Accept" value="application/json" />
+                    </sgr:requestHeader>
+                    <sgr:requestMethod>GET</sgr:requestMethod>
+                    <sgr:requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</sgr:requestPath>
+                    <sgr:responseQuery>
+                        <sgr:queryType>JMESPathExpression</sgr:queryType>
+                        <sgr:query>activePower.l2</sgr:query>
+                    </sgr:responseQuery>
+                </sgr:restServiceCall>
+            </sgr:restAPIDataPoint>
+        </sgr:dpListElement>
+        <sgr:dpListElement>
+            <sgr:dataPoint datapointName="ActivePowerACL3" mroVisibilityIndicator="R" rwpDatadirection="R" unit="WATTS">
+                <sgr:basicDataType>
+                    <sgr:float32>0.0</sgr:float32>
+                </sgr:basicDataType>
+            </sgr:dataPoint>
+            <sgr:genAttribute>
+                <sgr:valueSource>measuredValue</sgr:valueSource>
+                <sgr:sampleRate>10</sgr:sampleRate>
+            </sgr:genAttribute>
+            <sgr:restAPIDataPoint dataType="JSON_number">
+                <sgr:restServiceCall>
+                    <sgr:requestHeader>
+                        <sgr:header headerName="Accept" value="application/json" />
+                    </sgr:requestHeader>
+                    <sgr:requestMethod>GET</sgr:requestMethod>
+                    <sgr:requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</sgr:requestPath>
+                    <sgr:responseQuery>
+                        <sgr:queryType>JMESPathExpression</sgr:queryType>
+                        <sgr:query>activePower.l3</sgr:query>
+                    </sgr:responseQuery>
+                </sgr:restServiceCall>
+            </sgr:restAPIDataPoint>
+        </sgr:dpListElement>
+    </sgr:fpListElement>
+    <sgr:fpListElement>
+        <sgr:functionalProfile profileName="VoltageAC">
+            <sgr:profileNumber>
+                <sgr:specsOwnerId>0</sgr:specsOwnerId>
+                <sgr:profileIdentification>NonSpecific</sgr:profileIdentification>
+                <sgr:subProfileIdent>VoltageAC</sgr:subProfileIdent>
+                <sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+                <sgr:versionNumber>
+                    <sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+                    <sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+                    <sgr:subReleaseVersionNumber>1</sgr:subReleaseVersionNumber>
+                </sgr:versionNumber>
+            </sgr:profileNumber>
+        </sgr:functionalProfile>
+        <sgr:dpListElement>
+            <sgr:dataPoint datapointName="VoltageACL1_N" mroVisibilityIndicator="R" rwpDatadirection="R" unit="VOLTS">
+                <sgr:basicDataType>
+                    <sgr:float32>0.0</sgr:float32>
+                </sgr:basicDataType>
+            </sgr:dataPoint>
+            <sgr:genAttribute>
+                <sgr:valueSource>measuredValue</sgr:valueSource>
+                <sgr:sampleRate>10</sgr:sampleRate>
+            </sgr:genAttribute>
+            <sgr:restAPIDataPoint dataType="JSON_number">
+                <sgr:restServiceCall>
+                    <sgr:requestHeader>
+                        <sgr:header headerName="Accept" value="application/json" />
+                    </sgr:requestHeader>
+                    <sgr:requestMethod>GET</sgr:requestMethod>
+                    <sgr:requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</sgr:requestPath>
+                    <sgr:responseQuery>
+                        <sgr:queryType>JMESPathExpression</sgr:queryType>
+                        <sgr:query>voltage.l1</sgr:query>
+                    </sgr:responseQuery>
+                </sgr:restServiceCall>
+            </sgr:restAPIDataPoint>
+        </sgr:dpListElement>
+        <sgr:dpListElement>
+            <sgr:dataPoint datapointName="VoltageACL2_N" mroVisibilityIndicator="R" rwpDatadirection="R" unit="VOLTS">
+                <sgr:basicDataType>
+                    <sgr:float32>0.0</sgr:float32>
+                </sgr:basicDataType>
+            </sgr:dataPoint>
+            <sgr:genAttribute>
+                <sgr:valueSource>measuredValue</sgr:valueSource>
+                <sgr:sampleRate>10</sgr:sampleRate>
+            </sgr:genAttribute>
+            <sgr:restAPIDataPoint dataType="JSON_number">
+                <sgr:restServiceCall>
+                    <sgr:requestHeader>
+                        <sgr:header headerName="Accept" value="application/json" />
+                    </sgr:requestHeader>
+                    <sgr:requestMethod>GET</sgr:requestMethod>
+                    <sgr:requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</sgr:requestPath>
+                    <sgr:responseQuery>
+                        <sgr:queryType>JMESPathExpression</sgr:queryType>
+                        <sgr:query>voltage.l2</sgr:query>
+                    </sgr:responseQuery>
+                </sgr:restServiceCall>
+            </sgr:restAPIDataPoint>
+        </sgr:dpListElement>
+        <sgr:dpListElement>
+            <sgr:dataPoint datapointName="VoltageACL3_N" mroVisibilityIndicator="R" rwpDatadirection="R" unit="VOLTS">
+                <sgr:basicDataType>
+                    <sgr:float32>0.0</sgr:float32>
+                </sgr:basicDataType>
+            </sgr:dataPoint>
+            <sgr:genAttribute>
+                <sgr:valueSource>measuredValue</sgr:valueSource>
+                <sgr:sampleRate>10</sgr:sampleRate>
+            </sgr:genAttribute>
+            <sgr:restAPIDataPoint dataType="JSON_number">
+                <sgr:restServiceCall>
+                    <sgr:requestHeader>
+                        <sgr:header headerName="Accept" value="application/json" />
+                    </sgr:requestHeader>
+                    <sgr:requestMethod>GET</sgr:requestMethod>
+                    <sgr:requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</sgr:requestPath>
+                    <sgr:responseQuery>
+                        <sgr:queryType>JMESPathExpression</sgr:queryType>
+                        <sgr:query>voltage.l3</sgr:query>
+                    </sgr:responseQuery>
+                </sgr:restServiceCall>
+            </sgr:restAPIDataPoint>
+        </sgr:dpListElement>
+    </sgr:fpListElement>
+    <sgr:fpListElement>
+        <sgr:functionalProfile profileName="CurrentAC">
+            <sgr:profileNumber>
+                <sgr:specsOwnerId>0</sgr:specsOwnerId>
+                <sgr:profileIdentification>NonSpecific</sgr:profileIdentification>
+                <sgr:subProfileIdent>CurrentAC</sgr:subProfileIdent>
+                <sgr:sgrLevelOfOperation>m</sgr:sgrLevelOfOperation>
+                <sgr:versionNumber>
+                    <sgr:primaryVersionNumber>1</sgr:primaryVersionNumber>
+                    <sgr:secondaryVersionNumber>0</sgr:secondaryVersionNumber>
+                    <sgr:subReleaseVersionNumber>0</sgr:subReleaseVersionNumber>
+                </sgr:versionNumber>
+            </sgr:profileNumber>
+        </sgr:functionalProfile>
+        <sgr:dpListElement>
+            <sgr:dataPoint datapointName="CurrentACL1" mroVisibilityIndicator="M" rwpDatadirection="R" unit="AMPERES">
+                <sgr:basicDataType>
+                    <sgr:float32>0.0</sgr:float32>
+                </sgr:basicDataType>
+            </sgr:dataPoint>
+            <sgr:genAttribute>
+                <sgr:valueSource>measuredValue</sgr:valueSource>
+                <sgr:sampleRate>10</sgr:sampleRate>
+            </sgr:genAttribute>
+            <sgr:restAPIDataPoint dataType="JSON_number">
+                <sgr:restServiceCall>
+                    <sgr:requestHeader>
+                        <sgr:header headerName="Accept" value="application/json" />
+                    </sgr:requestHeader>
+                    <sgr:requestMethod>GET</sgr:requestMethod>
+                    <sgr:requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</sgr:requestPath>
+                    <sgr:responseQuery>
+                        <sgr:queryType>JMESPathExpression</sgr:queryType>
+                        <sgr:query>current.l1</sgr:query>
+                    </sgr:responseQuery>
+                </sgr:restServiceCall>
+            </sgr:restAPIDataPoint>
+        </sgr:dpListElement>
+        <sgr:dpListElement>
+            <sgr:dataPoint datapointName="CurrentACL2" mroVisibilityIndicator="R" rwpDatadirection="R" unit="AMPERES">
+                <sgr:basicDataType>
+                    <sgr:float32>0.0</sgr:float32>
+                </sgr:basicDataType>
+            </sgr:dataPoint>
+            <sgr:genAttribute>
+                <sgr:valueSource>measuredValue</sgr:valueSource>
+                <sgr:sampleRate>10</sgr:sampleRate>
+            </sgr:genAttribute>
+            <sgr:restAPIDataPoint dataType="JSON_number">
+                <sgr:restServiceCall>
+                    <sgr:requestHeader>
+                        <sgr:header headerName="Accept" value="application/json" />
+                    </sgr:requestHeader>
+                    <sgr:requestMethod>GET</sgr:requestMethod>
+                    <sgr:requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</sgr:requestPath>
+                    <sgr:responseQuery>
+                        <sgr:queryType>JMESPathExpression</sgr:queryType>
+                        <sgr:query>current.l2</sgr:query>
+                    </sgr:responseQuery>
+                </sgr:restServiceCall>
+            </sgr:restAPIDataPoint>
+        </sgr:dpListElement>
+        <sgr:dpListElement>
+            <sgr:dataPoint datapointName="CurrentACL3" mroVisibilityIndicator="R" rwpDatadirection="R" unit="AMPERES">
+                <sgr:basicDataType>
+                    <sgr:float32>0.0</sgr:float32>
+                </sgr:basicDataType>
+            </sgr:dataPoint>
+            <sgr:genAttribute>
+                <sgr:valueSource>measuredValue</sgr:valueSource>
+                <sgr:sampleRate>10</sgr:sampleRate>
+            </sgr:genAttribute>
+            <sgr:restAPIDataPoint dataType="JSON_number">
+                <sgr:restServiceCall>
+                    <sgr:requestHeader>
+                        <sgr:header headerName="Accept" value="application/json" />
+                    </sgr:requestHeader>
+                    <sgr:requestMethod>GET</sgr:requestMethod>
+                    <sgr:requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</sgr:requestPath>
+                    <sgr:responseQuery>
+                        <sgr:queryType>JMESPathExpression</sgr:queryType>
+                        <sgr:query>current.l3</sgr:query>
+                    </sgr:responseQuery>
+                </sgr:restServiceCall>
+            </sgr:restAPIDataPoint>
+        </sgr:dpListElement>
+    </sgr:fpListElement>
+</sgr:SGrRestAPIDeviceFrame>

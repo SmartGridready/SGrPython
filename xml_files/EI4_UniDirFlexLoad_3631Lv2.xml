@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<sgr:SGrContactAPIDeviceFrame
+	xmlns:sgr="http://www.smartgridready.com/ns/V0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/EI-Contacts/SGrContactsDeviceFrame.xsd "
+	deviceName="TODO: Gerätenamen einfügen" isLocalControl="true"
+	manufacturerID="SolarManager" manufacturerName="Solar Manager AG">
+	<sgr:releaseNotes>
+		<sgr:state>Draft</sgr:state>
+	</sgr:releaseNotes>
+	<sgr:deviceProfile>
+		<sgr:devLegibDesc>
+			<sgr:textElement>TODO: Bescchreibungstext einfügen (opt)</sgr:textElement>
+			<sgr:language>de</sgr:language>
+		</sgr:devLegibDesc>
+		<sgr:transportService>Contacts</sgr:transportService>
+		<sgr:deviceKind>SGCP</sgr:deviceKind>
+		<sgr:serialNumber>0</sgr:serialNumber>
+		<!--TODO: Produktions-Losnummer einfügen (opt)-->
+		<sgr:softwareRevision>
+			<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+			<sgr:secondaryVersionNumber>0</sgr:secondaryVersionNumber>
+			<sgr:subReleaseVersionNumber>0</sgr:subReleaseVersionNumber>
+		</sgr:softwareRevision>
+		<sgr:hardwareRevision>
+			<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+			<sgr:secondaryVersionNumber>0</sgr:secondaryVersionNumber>
+			<sgr:subReleaseVersionNumber>0</sgr:subReleaseVersionNumber>
+		</sgr:hardwareRevision><sgr:brandName>TODO: Markenname einfügen (opt)</sgr:brandName>
+		<sgr:powerSource>mains1Phase</sgr:powerSource>
+		<sgr:nominalPower>TODO: Nennleistung des Gerätes einfügen (opt)</sgr:nominalPower>
+		<sgr:manufSpecIdent>TODO: Identfikationscode einfügen (opt)</sgr:manufSpecIdent>
+		<sgr:manufacturerLabel>TODO: herstellerspezifischen Label einfügen  (opt)</sgr:manufacturerLabel>
+		<sgr:remAuthorID>TODO: verantwortlicher für dieses File einfügen</sgr:remAuthorID>
+		<sgr:devLevelofOperation>2</sgr:devLevelofOperation>
+	</sgr:deviceProfile>
+	<sgr:contactApiInterfaceDesc>
+		<sgr:numContacts>2</sgr:numContacts>
+		<sgr:contactStabilisationTimeMs>1000</sgr:contactStabilisationTimeMs>
+	</sgr:contactApiInterfaceDesc>
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="SGCPFlexLoad">
+    <sgr:profileNumber>
+      <sgr:specsOwnerId>0</sgr:specsOwnerId>
+      <sgr:profileIdentification>SGCP</sgr:profileIdentification>
+      <sgr:subProfileIdent>UniDirFlexLoadMgmt</sgr:subProfileIdent>
+      <sgr:sgrLevelOfOperation>2</sgr:sgrLevelOfOperation>
+      <sgr:versionNumber>
+        <sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+        <sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+        <sgr:subReleaseVersionNumber>2</sgr:subReleaseVersionNumber>
+      </sgr:versionNumber>
+    </sgr:profileNumber>
+    <sgr:fpLegibDesc>
+      <sgr:textElement>Anlagen, welche dieses Funktionsprofil nutzen verfügen in der Regel über einen CEM (Customer Energy Manager). Diese Software stellt sicher, dass der Energiebezug der Geräte entsprechend den Betriebsmodi beim Moduswechsel neu aufeinander abgestimmt wird. Beim Wechsel reagiert eine Anlage gemäss den in SGr-Attribut b) vereinbarten Parametern. </sgr:textElement>
+      <sgr:language>de</sgr:language>
+    </sgr:fpLegibDesc>
+  	</sgr:functionalProfile>
+  	<sgr:genAttribute>
+  		<sgr:smoothTransition>
+  			<sgr:winTms>0</sgr:winTms>
+  			<sgr:rvrtTms>0</sgr:rvrtTms>
+  			<sgr:rmpTms>0</sgr:rmpTms></sgr:smoothTransition>
+  		<sgr:curtailment>30</sgr:curtailment>
+  		<sgr:minLoad>0.0</sgr:minLoad>
+  		<sgr:maxLockTimeMinutes>0.0</sgr:maxLockTimeMinutes></sgr:genAttribute>
+  	<sgr:dpListElement>
+  		<sgr:dataPoint datapointName="SGCP_FeedInStateLv2"
+  			mroVisibilityIndicator="M" rwpDatadirection="R"
+  			unit="NONE">
+  			<sgr:basicDataType>
+  				<sgr:enum>
+  					<sgr:sgrSGCPLoadStateLv2>LD_NORMAL</sgr:sgrSGCPLoadStateLv2>
+  				</sgr:enum>
+  			</sgr:basicDataType>
+  		</sgr:dataPoint>
+  	</sgr:dpListElement>
+	</sgr:fpListElement>
+</sgr:SGrContactAPIDeviceFrame>

@@ -259,10 +259,4 @@
       <element name="serialInterfaceCapability" type="sgr:SGrSerialInterfaceCapabilityType"/>
     </sequence>
   </complexType>
-  <complexType name="timeSyncBlockNotificationType">
-    <sequence>
-      <element name="blockNumber" type="int"/>
-      <element name="timeoutMs" type="int"/>
-    </sequence>
-  </complexType>
 </schema>

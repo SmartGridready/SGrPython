@@ -406,6 +406,101 @@
           <documentation>79:</documentation>
         </annotation>
       </enumeration>
+      <enumeration value="SunspCommon001">
+        <annotation>
+          <documentation>80 Sunspec: All SunSpec compliant devices must include this as the first model </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspInverter101">
+        <annotation>
+          <documentation>81 Sunspec: model for single phase inverter monitoring (Int and SF) </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspInverter102">
+        <annotation>
+          <documentation>82 Sunspec: model for split phase inverter monitoring (Int and SF) </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspInverter103">
+        <annotation>
+          <documentation>83 Sunspec: model for 3 phase inverter monitoring (Int and SF)  </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspInverter111">
+        <annotation>
+          <documentation>84 Sunspec: model for single phase inverter monitoring using float values </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspInverter112">
+        <annotation>
+          <documentation>85 Sunspec: model for split phase inverter monitoring using float values </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspInverter113">
+        <annotation>
+          <documentation>86 Sunspec: model for s3 phase inverter monitoring using float values </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspNameplate120">
+        <annotation>
+          <documentation>87 Sunspec: Inverter Controls Nameplate Ratings  </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspBasicSettings121">
+        <annotation>
+          <documentation>88 Sunspec: Inverter Controls Basic Settings </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspMeasurementStatus122">
+        <annotation>
+          <documentation> 89 Sunspec: Inverter Controls Extended Measurements and Status  </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspImmControl123">
+        <annotation>
+          <documentation>90 Sunspec: Immediate Inverter Controls  </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspBasicStorage124">
+        <annotation>
+          <documentation>91 Sunspec: SunspBasicStorage124 </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspMultMPP160">
+        <annotation>
+          <documentation>92 Sunspec: Model for multiple Maximum Power Point Trackers</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspStaticVoltVar126">
+        <annotation>
+          <documentation>93 Sunspec: Static Volt-VAR Arrays for Q = f (U/Uref) </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspFreqWattParam127">
+        <annotation>
+          <documentation>94 Sunspec: Parameterized Frequency-Watt compensation </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspWattPF131">
+        <annotation>
+          <documentation>95 Sunspec: Parameterized Watt-Power Factor Crv   PF = f (P/Pmax) </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspVoltWatt132">
+        <annotation>
+          <documentation>96 Sunspec: Parameterized Voltage-Power Factor Crv   P = f (U/Uref) </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspFreqWattCrv134">
+        <annotation>
+          <documentation>97 Sunspec: Curve-Based Frequency-Watt curve P =  f (F/Fref)  </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SunspBatteryBaseModel802">
+        <annotation>
+          <documentation>98 Sunspec: Battery SOC management </documentation>
+        </annotation>
+      </enumeration>
     </restriction>
   </simpleType>
 </schema>

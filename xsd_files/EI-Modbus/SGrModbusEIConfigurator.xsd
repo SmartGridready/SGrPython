@@ -40,15 +40,6 @@
     			</documentation>
 				</annotation>
 			</element>
-			<element maxOccurs="1" minOccurs="0" name="timeSyncBlockNotification" type="sgr:timeSyncBlockNotificationType">
-				<annotation>
-					<documentation>
-    				a transaction number for a sequence of Regsisteres
-    				(usually transmitted by Blocktransfers) to be
-    				transferred together
-    			</documentation>
-				</annotation>
-			</element>
 			<element name="accessProtection" type="sgr:SGrAccessProtectionEnabledType" maxOccurs="1" minOccurs="0"></element>
 			<element name="layer6Deviation" type="sgr:SGrModbusLayer6DeviationType" maxOccurs="1" minOccurs="0"></element>
 		</all>
@@ -76,10 +67,9 @@
   <element name="ModbusFunctionCodesSupported" type="string"/>
   <complexType name="SGrModbusDataPointDescriptionType">
     <sequence>
-    	<element maxOccurs="1" minOccurs="0" name="modbusDataType"
-    		type="sgr:SGrBasicGenDataPointTypeType" />
-
-    	<element name="modbusArrayDataType" type="sgr:SGrBasicGenArrayDPTypeType" maxOccurs="1" minOccurs="0"></element>
+    	<element maxOccurs="1" minOccurs="1" name="modbusDataType"
+    		type="sgr:SGrBasicGenDataPointTypeType" />    		
+        <element name="arrLen" type="int" maxOccurs="1" minOccurs="0"/>
     	<element maxOccurs="1" minOccurs="1"
     		name="modbusFirstRegisterReference"
     		type="sgr:tSGrModbus_RegisterRef" />
@@ -284,48 +274,19 @@
           <documentation>
           <documentation>2 Registers show a combined value, as example in kWh and MWh beginning with lower range @ higher address</documentation></documentation>
         </annotation>
-      </enumeration>      
-    </restriction>
-  </simpleType>     
-  
-  <simpleType name="SGrModbusReg2BoolArrayType">     
+      </enumeration>  
+      <enumeration value="SGReadyEnum2IO_H2L">       
       <annotation>
-          <documentation>this type is used to manage thetypical Buit level Status Flags being allocated to Registers for bitmap to boolean array</documentation>
+          <documentation>
+          <documentation>2 Registers combine SGready IO1 and IO2 into the sgreadyStateLv2 enum  beginning with IO1 @ higher address</documentation></documentation>
         </annotation>
-    <restriction base="string">
-      <enumeration value="Register2Boolean_B0"/> 
-      <enumeration value="Register2Boolean_B1"/> 
-      <enumeration value="Register2Boolean_B2"/> 
-      <enumeration value="Register2Boolean_B3"/> 
-      <enumeration value="Register2Boolean_B4"/> 
-      <enumeration value="Register2Boolean_B5"/> 
-      <enumeration value="Register2Boolean_B6"/> 
-      <enumeration value="Register2Boolean_B7"/> 
-      <enumeration value="Register2Boolean_B8"/> 
-      <enumeration value="Register2Boolean_B9"/> 
-      <enumeration value="Register2Boolean_B10"/> 
-      <enumeration value="Register2Boolean_B11"/> 
-      <enumeration value="Register2Boolean_B12"/> 
-      <enumeration value="Register2Boolean_B13"/> 
-      <enumeration value="Register2Boolean_B14"/> 
-      <enumeration value="Register2Boolean_B15"/> 
-      <enumeration value="Register2Boolean_B16"/> 
-      <enumeration value="Register2Boolean_B27"/> 
-      <enumeration value="Register2Boolean_B18"/> 
-      <enumeration value="Register2Boolean_B19"/> 
-      <enumeration value="Register2Boolean_B20"/> 
-      <enumeration value="Register2Boolean_B21"/> 
-      <enumeration value="Register2Boolean_B22"/> 
-      <enumeration value="Register2Boolean_B23"/> 
-      <enumeration value="Register2Boolean_B24"/> 
-      <enumeration value="Register2Boolean_B25"/> 
-      <enumeration value="Register2Boolean_B26"/> 
-      <enumeration value="Register2Boolean_B27"/> 
-      <enumeration value="Register2Boolean_B28"/> 
-      <enumeration value="Register2Boolean_B29"/> 
-      <enumeration value="Register2Boolean_B30"/> 
-      <enumeration value="Register2Boolean_B31"/> 
+      </enumeration>  
+      <enumeration value="SGReadyEnum2IO_L2H">       
+      <annotation>
+          <documentation>
+          <documentation>2 Registers combine SGready IO1 and IO2 into the sgreadyStateLv2 enum  beginning with IO1 @ lower address</documentation></documentation>
+        </annotation>
+      </enumeration>              
     </restriction>
-  </simpleType>
-  
+  </simpleType>       
 </schema>

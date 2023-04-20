@@ -14,7 +14,7 @@
     <sequence>
       <element maxOccurs="1" minOccurs="1" name="state" type="sgr:SGrReleaseState" />
       <element maxOccurs="1" minOccurs="0" name="remarks" type="string" />
-      <element maxOccurs="unbounded" minOccurs="1" name="changelog" type="sgr:SGrChangeLog" />
+      <element maxOccurs="unbounded" minOccurs="0" name="changelog" type="sgr:SGrChangeLog" />
     </sequence>
   </complexType>
   <simpleType name="SGrReleaseState">
@@ -77,52 +77,77 @@
 			</documentation>
     </annotation>
     <sequence maxOccurs="1" minOccurs="1">
-      <element maxOccurs="1" minOccurs="0" name="sLV1Name" type="string">
-        <annotation>
-          <documentation>names used for SGr label V1 used to secure legacy
-						compatibility
-					</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="1" minOccurs="0" name="sWorkName" type="string">
-        <annotation>
-          <documentation>work names for temporary use</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="1" minOccurs="0" name="sManufName" type="string">
-        <annotation>
-          <documentation>manufacturers may use an internal wording
-					</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="1" minOccurs="0" name="sIEC61850Name" type="string">
-        <annotation>
-          <documentation>IEC 61850 termonoligy place to add the 61850
-						abreviatuions if an overlap exists
-					</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="1" minOccurs="0" name="sSAREFName" type="string">
-        <annotation>
-          <documentation>SAREF for ENER termonoligy place to add the SAREF
-						abreviations if an overlap exists
-					</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="1" minOccurs="0" name="sEEBUSName" type="string">
-        <annotation>
-          <documentation>EEBUS for terminology place to add the EEBUS
-						abreviations if an overlap exists
-					</documentation>
-        </annotation>
-      </element>
-      <element maxOccurs="1" minOccurs="0" name="sHPbwpName" type="string">
-        <annotation>
-          <documentation>bwp (German Heat Pump Association) for terminology place to add the bwp
-						naming for HVAC if an overlap exists
-		  </documentation>
-        </annotation>
-      </element>
+    	<element maxOccurs="1" minOccurs="0" name="sLV1Name"
+    		type="string">
+    		<annotation>
+    			<documentation>
+            Currently not used. Reserved for the future to secure legacy compatibility one we start renaming in future SGr label versions
+    			</documentation>
+    		</annotation>
+    	</element>
+    	<element maxOccurs="1" minOccurs="0" name="sWorkName"
+    		type="string">
+    		<annotation>
+    			<documentation>
+    				work names for temporary use
+    			</documentation>
+    		</annotation>
+    	</element>
+    	<element maxOccurs="1" minOccurs="0" name="sManufName"
+    		type="string">
+    		<annotation>
+    			<documentation>
+    				manufacturers may use an internal wording
+    			</documentation>
+    		</annotation>
+    	</element>
+    	<element maxOccurs="1" minOccurs="0" name="sIEC61850Name"
+    		type="string">
+    		<annotation>
+    			<documentation>
+    				IEC 61850 termonoligy place to add the 61850
+    				abreviatuions if an overlap exists
+    			</documentation>
+    		</annotation>
+    	</element>
+    	<element maxOccurs="1" minOccurs="0" name="sSAREFName"
+    		type="string">
+    		<annotation>
+    			<documentation>
+    				SAREF for ENER termonoligy place to add the SAREF
+    				abreviations if an overlap exists
+    			</documentation>
+    		</annotation>
+    	</element>
+    	<element maxOccurs="1" minOccurs="0" name="sEEBUSName"
+    		type="string">
+    		<annotation>
+    			<documentation>
+    				EEBUS for terminology place to add the EEBUS
+    				abreviations if an overlap exists
+    			</documentation>
+    		</annotation>
+    	</element>
+    	<element maxOccurs="1" minOccurs="0" name="sSUNSPECName"
+    		type="string">
+    		<annotation>
+    			<documentation>
+    				sSUNSPEC for terminology place to add the
+    				www.sunspec.org abreviations if an overlap exists
+    			</documentation>
+    		</annotation>
+    	</element>
+    	<element maxOccurs="1" minOccurs="0" name="sHPbwpName"
+    		type="string">
+    		<annotation>
+    			<documentation>
+    				bwp (German Heat Pump Association) for terminology
+    				place to add the bwp naming for HVAC if an overlap
+    				exists
+    			</documentation>
+    		</annotation>
+    	</element>
+    	<element name="sEN17609Name" type="string" maxOccurs="1" minOccurs="0"></element>
     </sequence>
   </complexType>
 
@@ -138,50 +163,52 @@
       <documentation />
     </annotation>
     <choice>
-      <element maxOccurs="1" minOccurs="1" name="boolean" type="boolean" />
-      <element maxOccurs="1" minOccurs="1" name="int8" type="byte" />
-      <element maxOccurs="1" minOccurs="1" name="int16" type="short" />
-      <element maxOccurs="1" minOccurs="1" name="int32" type="integer" />
-      <element maxOccurs="1" minOccurs="1" name="int64" type="long" />
-      <element maxOccurs="1" minOccurs="1" name="int8U" type="unsignedByte" />
-      <element maxOccurs="1" minOccurs="1" name="int16U" type="unsignedShort" />
-      <element maxOccurs="1" minOccurs="1" name="int32U" type="unsignedInt" />
-      <element maxOccurs="1" minOccurs="1" name="int64U" type="unsignedLong" />
-      <element maxOccurs="1" minOccurs="1" name="float32" type="float" />
-      <element maxOccurs="1" minOccurs="1" name="float64" type="double" />
-      <element maxOccurs="1" minOccurs="1" name="enum" type="sgr:SGrEnumListType" />
-      <element maxOccurs="1" minOccurs="1" name="dateTime" type="dateTime" />
-      <element maxOccurs="1" minOccurs="1" name="string" type="string" />
-      <!-- weitere aus IEC61850 übertragbare Datentypen: Achtung: Elemente müssen ohne "_" sein und mit Kleinbuschtsaben beginnen
-        		     <enumeration value="Dbpos"/> 
-					<enumeration value="Tcmd"/> <enumeration value="Quality"/> <enumeration value="VisString32"/> 
-					<enumeration value="VisString64"/> <enumeration value="VisString65"/> <enumeration 
-					value="VisString129"/> <enumeration value="VisString255"/> <enumeration value="Octet64"/> 
-					<enumeration value="Unicode255"/> <enumeration value="Struct"/> <enumeration 
-					value="EntryTime"/> <enumeration value="Check"/> <enumeration value="ObjRef"/> 
-					<enumeration value="Currency"/> <enumeration value="PhyComAddr"/> <enumeration 
-					value="TrgOps"/> <enumeration value="OptFlds"/> <enumeration value="SvOptFlds"/> 
-					<enumeration value="LogOptFlds"/> <enumeration value="EntryID"/> <enumeration 
-					value="Octet6"/> <enumeration value="Octet16"/> -->
+    	<element maxOccurs="1" minOccurs="1" name="enum2bitmapIndex" type= "sgr:SGrBitmapperListType">
+    	  <annotation>
+          <documentation>bitmap for Registers (typical: Status Bits). For to be visible as generic boolean array or unsigned integer mapped in parallel towards one data single point definition. Depending on the TransportService,  this requires specialized sw coding.
+          </documentation>
+        </annotation>
+    	</element>
+    	<element maxOccurs="1" minOccurs="1" name="boolean"
+    		type="boolean" />
+    	<element maxOccurs="1" minOccurs="1" name="int8" type="byte" />
+    	<element maxOccurs="1" minOccurs="1" name="int16" type="short" />
+    	<element maxOccurs="1" minOccurs="1" name="int32"
+    		type="integer" />
+    	<element maxOccurs="1" minOccurs="1" name="int64" type="long" />
+    	<element maxOccurs="1" minOccurs="1" name="int8U"
+    		type="unsignedByte" />
+    	<element maxOccurs="1" minOccurs="1" name="int16U"
+    		type="unsignedShort" />
+    	<element maxOccurs="1" minOccurs="1" name="int32U"
+    		type="unsignedInt" />
+    	<element maxOccurs="1" minOccurs="1" name="int64U"
+    		type="unsignedLong" />
+    	<element maxOccurs="1" minOccurs="1" name="float32"
+    		type="float" />
+    	<element maxOccurs="1" minOccurs="1" name="float64"
+    		type="double" />
+    	<element maxOccurs="1" minOccurs="1" name="enum"
+    		type="sgr:SGrEnumListType" />
+    	<element maxOccurs="1" minOccurs="1" name="dateTime"
+    		type="dateTime" />
+    	<element maxOccurs="1" minOccurs="1" name="string"
+    		type="string" />
+    	<!-- weitere aus IEC61850 übertragbare Datentypen: Achtung: Elemente müssen ohne "_" sein und mit Kleinbuschtsaben beginnen
+    		<enumeration value="Dbpos"/> 
+    		<enumeration value="Tcmd"/> <enumeration value="Quality"/> <enumeration value="VisString32"/> 
+    		<enumeration value="VisString64"/> <enumeration value="VisString65"/> <enumeration 
+    		value="VisString129"/> <enumeration value="VisString255"/> <enumeration value="Octet64"/> 
+    		<enumeration value="Unicode255"/> <enumeration value="Struct"/> <enumeration 
+    		value="EntryTime"/> <enumeration value="Check"/> <enumeration value="ObjRef"/> 
+    		<enumeration value="Currency"/> <enumeration value="PhyComAddr"/> <enumeration 
+    		value="TrgOps"/> <enumeration value="OptFlds"/> <enumeration value="SvOptFlds"/> 
+    		<enumeration value="LogOptFlds"/> <enumeration value="EntryID"/> <enumeration 
+    		value="Octet6"/> <enumeration value="Octet16"/> -->
     </choice>
   </complexType>
 
-  <complexType name="SGrBasicGenArrayDPTypeType">
 
-    <annotation>
-      <documentation xml:lang="en"> These are the basic generic
-				data array  types must remain high level definitions for to be supported.
-				The definition focuses on the programming languages used at the
-				level of the communicators. So far Java and Python.
-			</documentation>
-      <documentation xml:lang="de" />
-      <documentation />
-    </annotation>
-    <sequence>
-      <element name="type" type="sgr:SGrBasicGenDataPointTypeType" />
-      <element name="lenght" type="integer" />
-    </sequence>
-  </complexType>
   <!-- enumeration to select mandatory, optional or recommended use of elements -->
   <simpleType name="SGrMROPresenceLevelIndicationType">
     <annotation>
@@ -427,7 +454,9 @@
       <enumeration value="KILOMETERS_PER_HOUR" />
       <enumeration value="KILOPASCALS" />
       <enumeration value="KILOVOLT_AMPERES" />
+      <enumeration value="KILOVOLT_AMPERE_HOURS" />
       <enumeration value="KILOVOLT_AMPERES_REACTIVE" />
+      <enumeration value="KILOVOLT_AMPERES_REACTIVE_HOURS" />
       <enumeration value="KILOVOLTS" />
       <enumeration value="KILOWATT_HOURS" />
       <enumeration value="KILOWATTS" />
@@ -763,7 +792,7 @@
   <simpleType name="SGReadyStateLv2Type">
     <annotation>
       <documentation>E0005 SG-Ready states according the German heatpump
-				association bwp normal, intensivied, EVU_LOCK, forced
+				association bwp normal, intensified, EVU_LOCK, forced
 				https://www.waermepumpe.de/normen-technik/sg-ready/
 			</documentation>
     </annotation>
@@ -775,7 +804,7 @@
 					</documentation>
         </annotation>
       </enumeration>
-      <enumeration value="HP_INTENSIVIED">
+      <enumeration value="HP_INTENSIFIED">
         <annotation>
           <documentation>Increased operation</documentation>
         </annotation>
@@ -1024,6 +1053,54 @@
       <enumeration value="WP_COMFORT_OP" />
       <enumeration value="WP_ECO_OP" />
       <enumeration value="WP_DOM_WATER_OP" />
+      <enumeration value="WP_COOL_ACTIVE_OP" />
+      <enumeration value="WP_COOL_PASSIVE_OP" />
+    </restriction>
+  </simpleType>
+  <simpleType name="SGrHCOpModeType">
+    <annotation>
+      <documentation>E0017:
+     Basic operation type of a heat cool valve operation mode
+     Bereitschaft, Programm, Komfort, Eco, Warmwasser, Kühlen     
+	</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="HC_OFF" />				
+      <enumeration value="HC_READY" />
+      <enumeration value="HC_PROG_OP" />
+      <enumeration value="HC_COMFORT_OP" />
+      <enumeration value="HC_ECO_OP" />
+    </restriction>
+  </simpleType>
+  <simpleType name="SGrDHWOpModeType">
+    <annotation>
+      <documentation>E0018:
+     Basic operation type of a Domestic Hot Water Heat Pump operation mode
+     Standby	week 1 	week 2		Constant		Eco mode    
+	</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="DHW_STANDBY" />
+      <enumeration value="DHW_SCHEDULE_1_OP" />
+      <enumeration value="DHW_SCHEDULE_2_OP" />
+      <enumeration value="DHW_CONST_OP" />
+      <enumeration value="DHW_ECO_OP" />
+    </restriction>
+  </simpleType>
+  <simpleType name="ctaDHWOpModeType">
+    <annotation>
+      <documentation>E0019:
+     Basic operation type of CTA Domestic Hot Water Heat Pump operation mode
+      	ON OFF Push  temporary-off emergency-op      
+	</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="DHW_UNDEF" />
+      <enumeration value="DHW_ON" />
+      <enumeration value="DHW_OFF" />
+      <enumeration value="DHW_PUSH" />
+      <enumeration value="DHW_TMP_OFF" />
+      <enumeration value="DHW_EMERGENCY" />
     </restriction>
   </simpleType>
 
@@ -1044,8 +1121,170 @@
       <element maxOccurs="1" minOccurs="1" name="sgrObligLvl" type="sgr:SGrObligLvlType" />
       <element maxOccurs="1" minOccurs="1" name="sgrOCPPState" type="sgr:SGrOCPPStateType" />
       <element maxOccurs="1" minOccurs="1" name="sgrHPOpMode" type="sgr:SGrHPOpModeType" />
+      <element maxOccurs="1" minOccurs="1" name="sgrHCOpMode" type="sgr:SGrHCOpModeType" />
+      <element maxOccurs="1" minOccurs="1" name="sgrDHWOpMode" type="sgr:SGrDHWOpModeType" />
+      <element maxOccurs="1" minOccurs="1" name="ctaDHWOpMode" type="sgr:ctaDHWOpModeType" />
     </choice>
   </complexType>
 
-
+  <simpleType name="SGrBool2BitRankType">
+    <annotation>
+      <documentation>BM0001:
+     BitRank map for bitfiedl32
+	</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="Bit0" />
+      <enumeration value="Bit1" />
+      <enumeration value="Bit2" />
+      <enumeration value="Bit3" />
+      <enumeration value="Bit4" />
+      <enumeration value="Bit5" />
+      <enumeration value="Bit6" />
+      <enumeration value="Bit7" />
+      <enumeration value="Bit8" />
+      <enumeration value="Bit9" />
+      <enumeration value="Bit10" />
+      <enumeration value="Bit11" />
+      <enumeration value="Bit12" />
+      <enumeration value="Bit13" />
+      <enumeration value="Bit14" />
+      <enumeration value="Bit15" />
+      <enumeration value="Bit16" />
+      <enumeration value="Bit17" />
+      <enumeration value="Bit18" />
+      <enumeration value="Bit19" />
+      <enumeration value="Bit20" />
+      <enumeration value="Bit21" />
+      <enumeration value="Bit22" />
+      <enumeration value="Bit23" />
+      <enumeration value="Bit24" />
+      <enumeration value="Bit25" />
+      <enumeration value="Bit26" />
+      <enumeration value="Bit27" />
+      <enumeration value="Bit28" />
+      <enumeration value="Bit29" />
+      <enumeration value="Bit30" />
+      <enumeration value="Bit31" />
+    </restriction>
+  </simpleType>  
+  <simpleType name="SGrHPOpstateType">
+    <annotation>
+      <documentation>BM0002:
+     BitRank map for interoperable Heat Pump 
+	</documentation>
+	</annotation>
+    <restriction base="string">
+      <enumeration value="HP_PUMP_ON" />
+      <enumeration value="HP_IN_HEATING_MODE" />
+      <enumeration value="HP_IN_DHW_MODE" />
+      <enumeration value="COMPRESSOR_RUNNING" />
+      <enumeration value="SUMMER_MODE_ACTIVE" />
+      <enumeration value="COOLING_MODE_ACTIVE" />
+      <enumeration value="IN_DEFROST_MODE" />
+    </restriction>
+  </simpleType>   
+  <simpleType name="stiHPOpstateStiebelType">
+    <annotation>
+      <documentation>BM0003:
+     BitRank map for Heat Pump Stiebel-Eltron
+	</documentation>
+	</annotation>
+    <restriction base="string">
+      <enumeration value="HP_1_PUMP_ON" />
+      <enumeration value="HP_2_PUMP_ON" />
+      <enumeration value="HEATUP_PROGRAM" />
+      <enumeration value="NHZ_STAGES_RUNNING" />
+      <enumeration value="HP_IN_HEATING_MODE" />
+      <enumeration value="HP_IN_DHW_MODE" />
+      <enumeration value="COMPRESSOR_RUNNING" />
+      <enumeration value="SUMMER_MODE_ACTIVE" />
+      <enumeration value="COOLING_MODE_ACTIVE" />
+      <enumeration value="MIN_ONE_IWS_IN_DEFROST_MODE" />
+      <enumeration value="SILENT_MODE_1_ACTIVE" />
+      <enumeration value="SILENT_MODE_2_ACTIVE" />
+    </restriction>
+  </simpleType>  
+  
+  <simpleType name="sgrHCOpStateType">
+    <annotation>
+      <documentation>BM0004:
+     BitRank map for HeatPump HeatCoolState
+	</documentation>
+	</annotation>
+    <restriction base="string">
+      <enumeration value="HC_OFF" />
+		<enumeration value="HC_HEAT" />
+		<enumeration value="HC_HEAT_COMFORT" />
+		<enumeration value="HC_HEAT_ECO" />
+		<enumeration value="HC_DEFROST" />
+		<enumeration value="HC_INTESIVIED_50p" />
+		<enumeration value="HC_REDUCED_50p" />
+		<enumeration value="HC_HOLIDAY" />
+		<enumeration value="HC_PARTY_HEAT" />
+		<enumeration value="HC_COOL" />
+		<enumeration value="HC_COOL_COMFORT" />
+		<enumeration value="HC_COOL_ECO" />
+		<enumeration value="HC_ERROR" />
+		<enumeration value="HC_MANUAL" />
+		<enumeration value="HC_PROT_COOL" />
+		<enumeration value="HC_PARTY_COOL" />
+		<enumeration value="HC_DRYING_HEAT_UP" />
+		<enumeration value="HC_DRYING_STATIONARY" />
+		<enumeration value="HC_DRYING_COOL_DOWN" />
+		<enumeration value="HC_DRYING_FINAL" />
+		<enumeration value="HC_COOL_EXTERNAL_CMD" />
+		<enumeration value="HC_HEAT_EXTERNAL_CMD" />
+		<enumeration value="HC_SGRID_INTENSIVIED"/>
+    </restriction>
+  </simpleType>    
+  <simpleType name="SGrHPActBufferStateType">
+    <annotation>
+      <documentation>BM0005:
+     BitRank map for Heat Pump Buffer state 
+     source: Hoval  (ER) means "Entladeregelung"
+     Bit0 = keine Anforderung, AUS
+     Bit0 = (ER) keine Anforderung (WEZ-Freigabe)
+     Bit1 = Anforderung, Temp. tief, PLP aus (Entladeschutz)
+     Bit2 = Anforderung, Ladung läuft
+     Bit2 = (ER) Anforderung, Sollwert nicht erfüllt, UPE steht Richtung WEZ bzw. YPEL regelt stetig auf PEF
+     Bit3 = Anforderung, Sollwert erfüllt, Nachlauf aktiv
+     Bit3 = (ER) Anforderung UPE-Umschaltverzögerung, UPE/YPEL steht Richtung WEZ
+     Bit4 = Anforderung, Sollwert erfüllt
+     Bit4 = (ER) Anforderung, Sollwert erfüllt, UPE/YPEL steht Richtung Puffer
+     Bit6 = Energiezwang
+     Bit7=  Abschöpffunktion
+     Bit8 = (ER)Vorzugsbetrieb SmartGrid
+     Bit9 = (ER)Abnahmezwang Smart Grid
+	</documentation>
+	</annotation>
+    <restriction base="string">
+      <enumeration value="HPB_OFF" />
+      <enumeration value="HPB_TEMP_LOW" />
+      <enumeration value="HPB_RUNNING" />
+      <enumeration value="HPB_RUN_HOLD" />
+      <enumeration value="HPB_ON_TARGET" />
+      <enumeration value="HPB_RESERVE" />
+      <enumeration value="HPB_ENER_COMPULSION" />
+      <enumeration value="HPB_SKIMMING" />
+      <enumeration value="HPB_SGR_INTENSIVIED" />
+      <enumeration value="HPB_SGR_FORCED_" />
+    </restriction>
+  </simpleType>   
+  
+  <complexType name="SGrBitmapperListType">
+    <annotation>
+      <documentation>BMxxxx:
+     Field of enumeration where endum index is used as bitmap flag
+     Unsigned int value  [and]  ( 1 [2 *  shift left] enum_index_value means bit is set
+	</documentation>
+	</annotation>
+    <choice>
+      <element maxOccurs="1" minOccurs="1" name="sgrBool2BitRank" type="sgr:SGrBool2BitRankType" />
+      <element maxOccurs="1" minOccurs="1" name="sgrHPOpstate" type="sgr:SGrHPOpstateType" />
+      <element maxOccurs="1" minOccurs="1" name="stiHPOpstateStiebel" type="sgr:stiHPOpstateStiebelType" />
+      <element maxOccurs="1" minOccurs="1" name="sgrHCOpstate" type="sgr:sgrHCOpStateType" />
+      <element maxOccurs="1" minOccurs="1" name="sgrHPActBufferState" type="sgr:SGrHPActBufferStateType" />
+    </choice>
+  </complexType>
 </schema>

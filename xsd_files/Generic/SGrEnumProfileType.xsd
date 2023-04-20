@@ -276,6 +276,6 @@
           <documentation>50: Reserve</documentation>
         </annotation>
       </enumeration>
-    </restriction>
+      </restriction>
   </simpleType>
 </schema>

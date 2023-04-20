@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<sgr:SGrContactAPIDeviceFrame deviceName="PICO Wallbox" isLocalControl="true" manufacturerID="eCarUp" manufacturerName="eCarUp AG, CH-6343 Rotkreuz " xmlns:sgr="http://www.smartgridready.com/ns/V0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/EI-Contacts/SGrContactsDeviceFrame.xsd ">
+<sgr:releaseNotes>
+  <sgr:state>Draft</sgr:state>
+</sgr:releaseNotes>
+<sgr:deviceProfile>
+    <sgr:devLegibDesc>
+      <sgr:textElement>Pico verbindet sich über das lokale WLAN oder Mobilfunk mit der Cloud. Damit stehen Kunden, und Stationsbetreibern Echtzeitdaten zur Verfügung um Energie zu optimieren, Ladungen transparent abzurechnen und Lasten clever zu verteilen.</sgr:textElement>
+      <sgr:language>de</sgr:language>
+      <sgr:uri>https://web.ecarup.com/e-ladestation/</sgr:uri>
+    </sgr:devLegibDesc>
+    <sgr:devLegibDesc>
+    	<sgr:textElement>Pico connects to the cloud via local WiFi or mobile communications. This means that customers and station operators have real-time data available to optimize energy, bill charges transparently and distribute loads intelligently.</sgr:textElement>
+    	<sgr:language>en</sgr:language>
+    	<sgr:uri>https://web.ecarup.com/en/ev-charging-station-pico/</sgr:uri>
+    </sgr:devLegibDesc>
+    <sgr:transportService>generic</sgr:transportService>
+    <sgr:deviceKind>ChargingStation</sgr:deviceKind>
+    <sgr:serialNumber>0</sgr:serialNumber>
+    <sgr:softwareRevision>
+      <sgr:primaryVersionNumber>1</sgr:primaryVersionNumber>
+      <sgr:secondaryVersionNumber>0</sgr:secondaryVersionNumber>
+      <sgr:subReleaseVersionNumber>0</sgr:subReleaseVersionNumber>
+    </sgr:softwareRevision>
+    <sgr:hardwareRevision>
+      <sgr:primaryVersionNumber>1</sgr:primaryVersionNumber>
+      <sgr:secondaryVersionNumber>0</sgr:secondaryVersionNumber>
+      <sgr:subReleaseVersionNumber>0</sgr:subReleaseVersionNumber>
+    </sgr:hardwareRevision>
+    <sgr:brandName>PICO</sgr:brandName>
+    <sgr:powerSource>mains3Phase</sgr:powerSource>
+    <sgr:nominalPower>22000</sgr:nominalPower>
+    <sgr:manufSpecIdent>212070</sgr:manufSpecIdent>
+    <sgr:manufacturerLabel>smart-me</sgr:manufacturerLabel>
+    <sgr:remAuthorID>IBT for eCarup</sgr:remAuthorID>
+    <sgr:devLevelofOperation>2</sgr:devLevelofOperation>
+  </sgr:deviceProfile>
+  <sgr:contactApiInterfaceDesc>
+    <sgr:numContacts>2</sgr:numContacts>
+    <sgr:contactStabilisationTimeMs>500</sgr:contactStabilisationTimeMs>
+  </sgr:contactApiInterfaceDesc>
+  <sgr:fpListElement>
+  	<sgr:functionalProfile profileName="EVSE">
+    <sgr:profileNumber>
+      <sgr:specsOwnerId>0</sgr:specsOwnerId>
+      <sgr:profileIdentification>EVSE</sgr:profileIdentification>
+      <sgr:subProfileIdent>DynamicCtrl</sgr:subProfileIdent>
+      <sgr:sgrLevelOfOperation>1</sgr:sgrLevelOfOperation>
+      <sgr:versionNumber>
+        <sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+        <sgr:secondaryVersionNumber>2</sgr:secondaryVersionNumber>
+        <sgr:subReleaseVersionNumber>1</sgr:subReleaseVersionNumber>
+      </sgr:versionNumber>
+    </sgr:profileNumber>
+    <sgr:fpLegibDesc>
+      <sgr:textElement>Wallboxen (ElectricVehicleSupplyEquipment «EVSE») müssen über einen Regler verfügen, welcher vier Betriebszustände abdeckt: 
+(0:0): Normalbetrieb  uneingeschränkt entsprechend der konfigurierten Anschlussleistung Laden;
+(0:1): Reduziert Laden z.B. 50% der minimalen Ladeleistung, jedoch min 6 A; 
+(1:0): Minimale Ladung  AC Ladung 6A, DC Ladung 10kW, Bidirektionale Lader Max feed-in für Vehicle to Infrastructurev2X); 
+(1:1): Ladung unterbrochen, bidirektionale Lader mx feed-in für V2X = maximale Entladung bei V2X)</sgr:textElement>
+      <sgr:language>de</sgr:language>
+    </sgr:fpLegibDesc>
+  	</sgr:functionalProfile>
+  	<sgr:dpListElement>
+  		<sgr:dataPoint datapointName="EVSE_StateLv1"
+  			mroVisibilityIndicator="M" rwpDatadirection="R"
+  			unit="NONE">
+  			<sgr:basicDataType>
+  				<sgr:enum>
+  					<sgr:sgrEVSEStateLv1>EV_NORMAL</sgr:sgrEVSEStateLv1></sgr:enum></sgr:basicDataType>
+  		</sgr:dataPoint>
+  	</sgr:dpListElement>
+  </sgr:fpListElement>
+</sgr:SGrContactAPIDeviceFrame>

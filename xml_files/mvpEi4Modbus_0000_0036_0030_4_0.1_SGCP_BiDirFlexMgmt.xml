@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<sgr:SGrModbusDeviceFrame
+	deviceName="Template fuer SGCP Minimal valid Product" isLocalControl="true"
+	manufacturerID="thirdPartySrcInfo"
+	manufacturerName="Template SGr: hier Neme des Herstellers eintragen"
+	xmlns:sgr="http://www.smartgridready.com/ns/V0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/EI-Modbus/SGrModbusEIDeviceFrame.xsd ">
+	<sgr:releaseNotes>
+		<sgr:state>Draft</sgr:state>
+	</sgr:releaseNotes>
+	<sgr:deviceProfile>
+		<sgr:devLegibDesc>
+			<sgr:textElement>Gerätebeschreibung einfügen</sgr:textElement>
+			<sgr:language>de</sgr:language>
+		</sgr:devLegibDesc>
+		<sgr:transportService>Modbus</sgr:transportService>
+		<sgr:deviceKind>SGCP</sgr:deviceKind>
+		<sgr:serialNumber>0</sgr:serialNumber>
+		<sgr:softwareRevision>
+			<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+			<sgr:secondaryVersionNumber>0</sgr:secondaryVersionNumber>
+			<sgr:subReleaseVersionNumber>0</sgr:subReleaseVersionNumber>
+		</sgr:softwareRevision>
+		<sgr:hardwareRevision>
+			<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+			<sgr:secondaryVersionNumber>0</sgr:secondaryVersionNumber>
+			<sgr:subReleaseVersionNumber>0</sgr:subReleaseVersionNumber>
+		</sgr:hardwareRevision>
+		<sgr:brandName>gibt es einen Markennamen?</sgr:brandName>
+		<sgr:powerSource>unknown</sgr:powerSource>
+		<sgr:nominalPower>Referenzleistung in kW</sgr:nominalPower>
+		<sgr:manufSpecIdent>gibt es eine herstellersoezifischen Identifikation z.B. Gerätetypnummer)</sgr:manufSpecIdent>
+		<sgr:manufacturerLabel>gibt es ein Label fuer eine Systemlösung</sgr:manufacturerLabel>
+		<sgr:remAuthorID>Ersteller dieses Templates: SGr/cb</sgr:remAuthorID>
+		<sgr:devLevelofOperation>4</sgr:devLevelofOperation>
+	</sgr:deviceProfile>
+	<sgr:modbusAttr>
+		<sgr:pollLatencyMS>150</sgr:pollLatencyMS>
+	</sgr:modbusAttr>
+	<sgr:modbusInterfaceDesc>
+		<sgr:modbusInterfaceSelection>TCP/IP</sgr:modbusInterfaceSelection>
+		<sgr:trspSrvModbusTCPoutOfBox>
+			<sgr:port>512</sgr:port>
+			<sgr:address>
+				<sgr:ipV4n1>192</sgr:ipV4n1>
+				<sgr:ipV4n2>168</sgr:ipV4n2>
+				<sgr:ipV4n3>1</sgr:ipV4n3>
+				<sgr:ipV4n4>155</sgr:ipV4n4>
+			</sgr:address>
+			<sgr:slaveID>0</sgr:slaveID>
+		</sgr:trspSrvModbusTCPoutOfBox>
+		<sgr:trspSrvModbusRTUoutOfBox>
+			<sgr:slaveAddr>10</sgr:slaveAddr>
+			<sgr:baudRateSelected>19200</sgr:baudRateSelected>
+			<sgr:byteLenSelected>8</sgr:byteLenSelected>
+			<sgr:paritySelected>EVEN</sgr:paritySelected>
+			<sgr:stopBitLenSelected>1</sgr:stopBitLenSelected>
+			<sgr:serialInterfaceCapability>
+				<sgr:baudRatesSupported>1200</sgr:baudRatesSupported>
+				<sgr:baudRatesSupported>2400</sgr:baudRatesSupported>
+				<sgr:baudRatesSupported>4800</sgr:baudRatesSupported>
+				<sgr:baudRatesSupported>9600</sgr:baudRatesSupported>
+				<sgr:baudRatesSupported>19200</sgr:baudRatesSupported>
+				<sgr:baudRatesSupported>38400</sgr:baudRatesSupported>
+				<sgr:baudRatesSupported>57600</sgr:baudRatesSupported>
+				<sgr:baudRatesSupported>115200</sgr:baudRatesSupported>
+				<sgr:byteLenSupported>8</sgr:byteLenSupported>
+				<sgr:byteLenSupported>7</sgr:byteLenSupported>
+				<sgr:paritySupported>EVEN</sgr:paritySupported>
+				<sgr:paritySupported>NONE</sgr:paritySupported>
+				<sgr:paritySupported>ODD</sgr:paritySupported>
+				<sgr:stopBitLenSupported>0</sgr:stopBitLenSupported>
+				<sgr:stopBitLenSupported>1</sgr:stopBitLenSupported>
+			</sgr:serialInterfaceCapability>
+		</sgr:trspSrvModbusRTUoutOfBox>
+		<sgr:firstRegisterAddressIsOne>true</sgr:firstRegisterAddressIsOne>
+		<sgr:conversionScheme>BigEndian</sgr:conversionScheme>
+	</sgr:modbusInterfaceDesc>
+	<sgr:fpListElement>
+		<sgr:functionalProfile profileName="SGCPbiDirFlexMgmt">
+			<sgr:profileNumber>
+				<sgr:specsOwnerId>0</sgr:specsOwnerId>
+				<sgr:profileIdentification>SGCP</sgr:profileIdentification>
+				<sgr:subProfileIdent>BiDirFlexMgmt</sgr:subProfileIdent>
+				<sgr:sgrLevelOfOperation>4</sgr:sgrLevelOfOperation>
+				<sgr:versionNumber>
+					<sgr:primaryVersionNumber>0</sgr:primaryVersionNumber>
+					<sgr:secondaryVersionNumber>1</sgr:secondaryVersionNumber>
+					<sgr:subReleaseVersionNumber>2</sgr:subReleaseVersionNumber>
+				</sgr:versionNumber>
+			</sgr:profileNumber>
+			<sgr:fpNameList>
+				<sgr:sWorkName>BiDirFlexMgmt</sgr:sWorkName>
+				<sgr:sManufName>gibt es eigenen Namen?</sgr:sManufName>
+			</sgr:fpNameList>
+			<sgr:fpLegibDesc>
+				<sgr:textElement>Der Grid seitige Flex Manager steuert die Anlage über die Datenpunkte ReadinessState, ActivePowerActivation und RunState und liest ActualActivePower. </sgr:textElement>
+				<sgr:language>de</sgr:language>
+			</sgr:fpLegibDesc>
+		</sgr:functionalProfile>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ActivePowerActivation"
+				mroVisibilityIndicator="M" rwpDatadirection="W" unit="NONE">
+				<sgr:basicDataType>
+					<sgr:boolean>false</sgr:boolean>
+				</sgr:basicDataType>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>On Off Befehl, Wirkleistung Flexibilität liefern ja/nein
+-Activation = true: Die Latenzeit beginnt mit dem Empfang dieses Befehls (WinTms)  
+-Activation= false: Die Leistungsanpassung wird über eine definierte Rampe zurückgenommen (RmpTms)</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference
+					addr="0" bitRank="0" registerType="HoldRegister" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+				<sgr:timeSyncBlockNotification>
+					<sgr:blockNumber>0</sgr:blockNumber>
+					<sgr:timeoutMs>0</sgr:timeoutMs>
+				</sgr:timeSyncBlockNotification>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ReadinessState"
+				mroVisibilityIndicator="M" rwpDatadirection="R" unit="NONE">
+				<sgr:basicDataType>
+					<sgr:boolean>false</sgr:boolean>
+				</sgr:basicDataType>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Status ready for flexibility. True wenn Anlage für den nächsten Flexibilitäts-Event bereit ist.</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16></sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference
+					addr="0" bitRank="0" registerType="HoldRegister" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+				<sgr:timeSyncBlockNotification>
+					<sgr:blockNumber>0</sgr:blockNumber>
+					<sgr:timeoutMs>0</sgr:timeoutMs>
+				</sgr:timeSyncBlockNotification>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="RunState"
+				mroVisibilityIndicator="M" rwpDatadirection="R" unit="NONE">
+				<sgr:basicDataType>
+					<sgr:boolean>false</sgr:boolean>
+				</sgr:basicDataType>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Status running for flexibility. True wenn Anlage läuft für Flexibilität.</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:int16>0</sgr:int16></sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference
+					addr="0" bitRank="0" registerType="HoldRegister" />
+				<sgr:dpSizeNrRegisters>1</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>0</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+				<sgr:timeSyncBlockNotification>
+					<sgr:blockNumber>0</sgr:blockNumber>
+					<sgr:timeoutMs>0</sgr:timeoutMs>
+				</sgr:timeSyncBlockNotification>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+		<sgr:dpListElement>
+			<sgr:dataPoint datapointName="ActualActivePower"
+				mroVisibilityIndicator="M" rwpDatadirection="R" unit="KILOWATTS">
+				<sgr:basicDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:basicDataType>
+				<sgr:dpLegibDesc>
+					<sgr:textElement>Momentane Leistung. Betrag und Richtung des Energieflusses.
++ entspricht Energiebezug aus dem Netz oder Erhöhung des Bezugs</sgr:textElement>
+					<sgr:language>de</sgr:language>
+				</sgr:dpLegibDesc>
+			</sgr:dataPoint>
+			<sgr:modbusDataPoint>
+				<sgr:modbusDataType>
+					<sgr:float32>0.0</sgr:float32>
+				</sgr:modbusDataType>
+				<sgr:modbusFirstRegisterReference
+					addr="0" bitRank="0" registerType="HoldRegister" />
+				<sgr:dpSizeNrRegisters>2</sgr:dpSizeNrRegisters>
+				<sgr:masterFunctionsSupported>Primitives</sgr:masterFunctionsSupported>
+			</sgr:modbusDataPoint>
+			<sgr:modbusAttr>
+				<sgr:scalingByMulPwr>
+					<sgr:multiplicator>1</sgr:multiplicator>
+					<sgr:powerof10>-1</sgr:powerof10>
+				</sgr:scalingByMulPwr>
+				<sgr:timeSyncBlockNotification>
+					<sgr:blockNumber>0</sgr:blockNumber>
+					<sgr:timeoutMs>0</sgr:timeoutMs>
+				</sgr:timeSyncBlockNotification>
+			</sgr:modbusAttr>
+		</sgr:dpListElement>
+	</sgr:fpListElement>
+</sgr:SGrModbusDeviceFrame >
