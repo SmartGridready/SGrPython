@@ -35,7 +35,6 @@ if __name__ == "__main__":
     async def test_loop():
 
         print('start loop')
-
         # We instanciate one interface object with a modbus xml.
         interface_file_modbus = 'SGr_04_0016_xxxx_ABBMeterV0.2.1.xml'
         modbus_component = GenericInterface(interface_file_modbus)
@@ -45,18 +44,19 @@ if __name__ == "__main__":
 
         # We instanciate a second interface object with a restapi xml.
         config_file_rest = 'config_CLEMAPEnMon_ressource_default.ini'
-        interface_file_rest = 'SGr_04_0018_CLEMAP_EIcloudEnergyMonitorV0.2.1.xml'
+        #interface_file_rest = 'SGr_04_0018_CLEMAP_EIcloudEnergyMonitorV0.2.1.xml'
+        interface_file_rest = 'SGr_EI_CLEMAPCloudV1.0.0.xml'
         restapi_component = GenericInterface(interface_file_rest, config_file_rest)
         await restapi_component.authenticate()
 
         # We create a loop where we request a datapoint with a getval of our restapi 
         # component and a datapoint with a getval of our modbus component.
         while True:
-            
-            getval = await modbus_component.getval('ActiveEnerBalanceAC', 'ActiveImportAC')
-            print(getval)
+            #getval = await modbus_component.getval('ActiveEnerBalanceAC', 'ActiveImportAC')
+            #print(getval)
             value = await restapi_component.getval('ActivePowerAC', 'ActivePowerACtot')
             print(value)
+
             await asyncio.sleep(10)
 
             #you could do the same funciton with a asyncio gather functions if you 
