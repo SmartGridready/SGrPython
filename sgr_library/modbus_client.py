@@ -2,7 +2,7 @@ from sgr_library.payload_decoder import PayloadDecoder, PayloadBuilder
 from pymodbus.constants import Endian
 from pymodbus.client import AsyncModbusTcpClient
 from typing import Optional, Tuple, Dict, Any, Iterable
-from exceptions import RegisterError
+from sgr_library.exceptions import RegisterError
 import asyncio
 import logging
 

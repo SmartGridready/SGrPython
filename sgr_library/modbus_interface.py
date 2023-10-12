@@ -1,8 +1,7 @@
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
 import time
-from exceptions import DataPointException, FunctionalProfileException, DataProcessingError, DeviceInformationError
-from exceptions import InvalidEndianType
+from sgr_library.exceptions import DataPointException, FunctionalProfileException, DataProcessingError, DeviceInformationError, InvalidEndianType
 from pymodbus.exceptions import ConnectionException
 from aiohttp import ClientError
 

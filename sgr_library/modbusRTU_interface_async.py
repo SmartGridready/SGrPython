@@ -8,10 +8,9 @@ import time
 from sgr_library.auxiliary_functions import find_dp
 
 #from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
-from sgr_library.data_classes.ei_modbus import SgrModbusDeviceFrame
+from sgr_library.data_classes.product import DeviceFrame
 #from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointsFrameType
 from sgr_library.modbusRTU_client_async import SGrModbusRTUClient
-from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointType
 
 
 def get_port(root) -> str:
@@ -66,7 +65,7 @@ class SgrModbusRtuInterface:
         """
         interface_file = xml_file
         parser = XmlParser(context=XmlContext())
-        self.root = parser.parse(interface_file, SgrModbusDeviceFrame)
+        self.root = parser.parse(interface_file, DeviceFrame)
         #self.root = parser.parse(interface_file, SgrModbusDeviceDescriptionType)
         self.port = get_port(self.root) #TODO überlegungen machen wo Port untergebracht wird
         self.baudrate = get_baudrate(self.root)
@@ -162,7 +161,7 @@ class SgrModbusRtuInterface:
         print(f"Level of Operation: {self.root.device_profile.dev_levelof_operation}")
         return (self.root.device_profile)
 
-    def get_register_type(self, dp: SgrModbusDataPointType) -> str:
+    def get_register_type(self, dp) -> str:
         """
         Returns register type E.g. "HoldRegister"
         :param fp_name: The name of the functional profile
@@ -172,39 +171,39 @@ class SgrModbusRtuInterface:
         register_type = dp.modbus_data_point[0].modbus_first_register_reference.register_type.value
         return register_type
 
-    def get_datatype(self, dp: SgrModbusDataPointType) -> str:
+    def get_datatype(self, dp) -> str:
         datatype = dp.modbus_data_point[0].modbus_data_type.__dict__
         for key in datatype:
             if datatype[key] != None:
                 return key
         print('data_type not available')
     
-    def get_bit_rank(self, dp: SgrModbusDataPointType):
+    def get_bit_rank(self, dp):
         bitrank = dp.modbus_data_point[0].modbus_first_register_reference.bit_rank
         return bitrank
 
-    def get_address(self, dp: SgrModbusDataPointType):
+    def get_address(self, dp):
         address = dp.modbus_data_point[0].modbus_first_register_reference.addr
         return address
 
 
-    def get_size(self, dp: SgrModbusDataPointType):
+    def get_size(self, dp):
         size = dp.modbus_data_point[0].dp_size_nr_registers
         return size
 
-    def get_multiplicator(self, dp: SgrModbusDataPointType)->int:
+    def get_multiplicator(self, dp)->int:
         multiplicator = dp.modbus_attr[0].scaling_by_mul_pwr.multiplicator
         return multiplicator
 
-    def get_power_10(self, dp: SgrModbusDataPointType)->int:
+    def get_power_10(self, dp)->int:
         power_10 = dp.modbus_attr[0].scaling_by_mul_pwr.powerof10
         return power_10
 
-    def get_unit(self, dp: SgrModbusDataPointType):
+    def get_unit(self, dp):
         unit = dp.data_point.unit.value
         return unit
 
-    def get_name(self, dp: SgrModbusDataPointType):
+    def get_name(self, dp):
         name = dp.data_point[0].datapoint_name
         return name
 
@@ -226,7 +225,7 @@ class SgrModbusRtuInterface:
         return None
     """
 
-    def find_dp(self, fp_name: str, dp_name: str) -> SgrModbusDataPointType:
+    def find_dp(self, fp_name: str, dp_name: str):
         """
         Searches the datapoint in the root element.
         :param root: The root element created with the xsdata parser

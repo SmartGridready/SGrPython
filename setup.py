@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 import codecs
 import os
 
-VERSION = '0.0.1'
+VERSION = '0.0.18'
 DESCRIPTION = 'SGr demo'
 
 # Setting up
@@ -20,7 +20,8 @@ setup(
         'numpy==1.20.3',
         'pymodbus==3.0.2',
         'setuptools==58.0.4',
-        'xsdata==22.5'
+        'xsdata==22.5',
+        'aiohttp==3.8.3'
 ],
     keywords=['python', 'SGr'],
     classifiers=[

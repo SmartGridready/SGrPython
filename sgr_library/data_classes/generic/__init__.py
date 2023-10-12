@@ -1,7 +1,7 @@
-from data_classes.generic.base_type_functional_profile_category import FunctionalProfileCategory
-from data_classes.generic.base_type_functional_profile_type import FunctionalProfileType
-from data_classes.generic.base_type_level_of_operation_type import LevelOfOperation
-from data_classes.generic.base_types import (
+from sgr_library.data_classes.generic.base_type_functional_profile_category import FunctionalProfileCategory
+from sgr_library.data_classes.generic.base_type_functional_profile_type import FunctionalProfileType
+from sgr_library.data_classes.generic.base_type_level_of_operation_type import LevelOfOperation
+from sgr_library.data_classes.generic.base_types import (
     AlternativeNames,
     BitmapEntryFunctionalProfile,
     BitmapEntryProduct,
@@ -38,15 +38,15 @@ from data_classes.generic.base_types import (
     EnumEntryProductRecord,
     EnumEntryRecordFunctionalProfile,
 )
-from data_classes.generic.data_point import (
+from sgr_library.data_classes.generic.data_point import (
     DataPointBase,
     DataPointDescription,
 )
-from data_classes.generic.functional_profile import (
+from sgr_library.data_classes.generic.functional_profile import (
     FunctionalProfileBase,
     FunctionalProfileDescription,
 )
-from data_classes.generic.sgr_serial_int_capability import (
+from sgr_library.data_classes.generic.sgr_serial_int_capability import (
     BaudRate,
     ByteLength,
     Parity,

@@ -2,7 +2,7 @@ from pymodbus.constants import Endian
 
 from sgr_library.data_classes.product import DeviceFrame
 
-from exceptions import DataPointException, FunctionalProfileException, InvalidEndianType
+from sgr_library.exceptions import DataPointException, FunctionalProfileException, InvalidEndianType
 
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
@@ -55,7 +55,7 @@ def get_modbusInterfaceSelection(xml_file: str) -> str:
         parser = XmlParser(context=XmlContext())
         root = parser.parse(xml_file, DeviceFrame)
         interface_selection = root.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection.value
-        if interface_selection not in ['RTU', 'TCP/IP', 'UDP/IP', 'RTU-ASCII', 'TCP/IP-ASCII', 'UDP/IP-ASCII']:
+        if interface_selection not in ['RTU', 'TCPIP', 'UDPIP', 'RTU-ASCII', 'TCPIP-ASCII', 'UDPIP-ASCII']:
             raise ValueError('Invalid Modbus interface selection found.')
         return interface_selection
     except Exception as e:

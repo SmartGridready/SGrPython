@@ -3,9 +3,9 @@ from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
 from xsdata.models.datatype import XmlDate
-from data_classes.generic.base_type_functional_profile_category import FunctionalProfileCategory
-from data_classes.generic.base_type_functional_profile_type import FunctionalProfileType
-from data_classes.generic.base_type_level_of_operation_type import LevelOfOperation
+from sgr_library.data_classes.generic.base_type_functional_profile_category import FunctionalProfileCategory
+from sgr_library.data_classes.generic.base_type_functional_profile_type import FunctionalProfileType
+from sgr_library.data_classes.generic.base_type_level_of_operation_type import LevelOfOperation
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 

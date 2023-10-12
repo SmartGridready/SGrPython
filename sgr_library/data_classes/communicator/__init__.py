@@ -1,9 +1,9 @@
-from data_classes.communicator.communicator_frame import (
+from sgr_library.data_classes.communicator.communicator_frame import (
     CommunicatorFrame1,
     CommunicatorFunctionalProfile,
     CommunicatorFrame,
 )
-from data_classes.communicator.communicator_types import (
+from sgr_library.data_classes.communicator.communicator_types import (
     CommunicatorBase,
     CommunicatorCategory,
     CommunicatorInformation,

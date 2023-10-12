@@ -11,7 +11,6 @@ import logging
 
 from sgr_library.data_classes.product import DeviceFrame
 
-from typing import Any, Optional
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -21,8 +20,8 @@ class SgrRestInterface():
     SmartGrid ready External Interface Class for Rest API
     """
 
-    def __init__(self, xml_file, config_file):
-        #session
+    def __init__(self, xml_file, config_file_path):
+        # session
         self.session = aiohttp.ClientSession()
         self.token = None
 
@@ -31,17 +30,20 @@ class SgrRestInterface():
             parser = XmlParser(context=XmlContext())
             self.root = parser.parse(xml_file, DeviceFrame)
 
-            # Config file
-            config_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), config_file)
             parser = configparser.ConfigParser()
-            parser.read(config_file_path)
+            if not parser.read(config_file_path):  # It returns an empty list if the file cannot be read or parsed
+                raise configparser.ParsingError(f"Cannot read or parse the configuration file: {config_file_path}")
 
             user = parser.get('AUTHENTICATION', 'username', fallback=None)
             password = parser.get('AUTHENTICATION', 'password', fallback=None)
             self.sensor_id = parser.get('RESSOURCE', 'sensor_id', fallback=None)
 
-            if not user or not password or not self.sensor_id:
-                raise ValueError("Missing required configuration values")
+            if not user:
+                raise ValueError("Missing username in the configuration file")
+            if not password:
+                raise ValueError("Missing password in the configuration file")
+            if not self.sensor_id:
+                raise ValueError("Missing sensor ID in the configuration file")
 
             description = self.root.interface_list.rest_api_interface.rest_api_interface_description
 
@@ -50,7 +52,7 @@ class SgrRestInterface():
             data['email'] = user
             data['password'] = password
             self.data = json.dumps(data)
-            
+
             self.base_url = str(description.rest_api_uri)
             request_path = str(description.rest_api_bearer.rest_api_service_call.request_path)
             self.authentication_url = f'https://{self.base_url}{request_path}'
@@ -60,13 +62,23 @@ class SgrRestInterface():
             self.headers = {header_entry.header_name: header_entry.value for header_entry in self.call.request_header.header}
 
         except FileNotFoundError:
-            logging.error(f"File not found: {xml_file} or {config_file}")
+            logging.exception(f"File not found: {xml_file} or {config_file_path}")
+            raise
         except json.JSONDecodeError:
-            logging.error("Error parsing JSON from the XML file")
+            logging.exception("Error parsing JSON from the XML file")
+            raise
+        except configparser.ParsingError:
+            logging.exception("Error parsing the configuration file")
+            raise
         except configparser.Error:
-            logging.error("Error reading configuration file")
+            logging.exception("General error reading configuration file")
+            raise
+        except ValueError as e:
+            logging.exception(str(e))
+            raise
         except Exception as e:
-            logging.error(str(e))
+            logging.exception("An unexpected error occurred")
+            raise
 
     async def authenticate(self):
         try:

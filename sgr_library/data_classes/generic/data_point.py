@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
-from data_classes.generic.base_types import (
+from sgr_library.data_classes.generic.base_types import (
     AlternativeNames,
     DataDirection,
     DataTypeProduct,

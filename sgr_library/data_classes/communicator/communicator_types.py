@@ -1,15 +1,15 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional
-from data_classes.generic.base_type_level_of_operation_type import LevelOfOperation
-from data_classes.generic.base_types import (
+from sgr_library.data_classes.generic.base_type_level_of_operation_type import LevelOfOperation
+from sgr_library.data_classes.generic.base_types import (
     AlternativeNames,
     GenericAttributes,
     LegibleDescription,
     ReleaseNotes,
 )
-from data_classes.product.modbus_types import ModbusInterfaceSelection
-from data_classes.product.rest_api_types import RestApiInterfaceSelection
+from sgr_library.data_classes.product.modbus_types import ModbusInterfaceSelection
+from sgr_library.data_classes.product.rest_api_types import RestApiInterfaceSelection
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 

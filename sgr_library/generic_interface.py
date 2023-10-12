@@ -1,9 +1,9 @@
-from modbus_interface import SgrModbusInterface
-from restapi_client_async import SgrRestInterface
+from sgr_library.modbus_interface import SgrModbusInterface
+from sgr_library.restapi_client_async import SgrRestInterface
 import os
 
 import asyncio
-from auxiliary_functions import get_protocol, get_modbusInterfaceSelection
+from sgr_library.auxiliary_functions import get_protocol, get_modbusInterfaceSelection
 from sgr_library.modbusRTU_interface_async import SgrModbusRtuInterface
 
 
@@ -58,10 +58,11 @@ if __name__ == "__main__":
 
         # We instanciate a second interface object with a restapi xml.
         config_file_rest = 'config_CLEMAPEnMon_ressource_default.ini'
+        config_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), config_file_rest)
 
         #interface_file_rest = 'SGr_04_0018_CLEMAP_EIcloudEnergyMonitorV0.2.1.xml'
         interface_file_rest = 'SGr_04_mmmm_dddd_CLEMAPEnergyMonitorEIV0.2.1.xml'
-        restapi_component = GenericInterface(interface_file_rest, config_file_rest)
+        restapi_component = GenericInterface(interface_file_rest, config_file_path)
 
         # We authentificate the restapi conneciton
         await restapi_component.authenticate()

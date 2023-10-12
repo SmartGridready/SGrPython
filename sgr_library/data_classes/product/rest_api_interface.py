@@ -1,8 +1,8 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
-from data_classes.generic.data_point import DataPointBase
-from data_classes.generic.functional_profile import FunctionalProfileBase
-from data_classes.product.rest_api_types import (
+from sgr_library.data_classes.generic.data_point import DataPointBase
+from sgr_library.data_classes.generic.functional_profile import FunctionalProfileBase
+from sgr_library.data_classes.product.rest_api_types import (
     RestApiDataPointConfiguration,
     RestApiInterfaceDescription,
 )

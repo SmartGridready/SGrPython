@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
-from data_classes.generic.data_point import DataPointBase
-from data_classes.generic.functional_profile import FunctionalProfileBase
+from sgr_library.data_classes.generic.data_point import DataPointBase
+from sgr_library.data_classes.generic.functional_profile import FunctionalProfileBase
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 
