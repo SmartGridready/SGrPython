@@ -6,25 +6,15 @@ import jmespath
 import os
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
+from aiohttp import ClientResponseError, ClientConnectionError
+import logging
 
-from sgr_library.data_classes.ei_rest_api import SgrRestApidataPointType, SgrRestApideviceFrame
+from sgr_library.data_classes.product import DeviceFrame
 
 from typing import Any, Optional
 
-def find_dp(root, fp_name: str, dp_name: str) -> Optional[SgrRestApidataPointType]:
-    """
-    Searches the datapoint in the root element.
-    :param root: The root element created with the xsdata parser
-    :param fp_name: The name of the funcitonal profile in which the datapoint resides
-    :param dp_name: The name of the datapoint
-    :returns: The datapoint element found in root, if not, returns None.
-    """
+logging.basicConfig(level=logging.DEBUG)
 
-    fp = next(filter(lambda x: x.functional_profile.profile_name == fp_name, root.fp_list_element), None)
-    if fp:
-        dp = next(filter(lambda x: x.data_point.datapoint_name == dp_name, fp.dp_list_element), None)
-        if dp:
-            return dp
 
 class SgrRestInterface():
     """
@@ -36,79 +26,176 @@ class SgrRestInterface():
         self.session = aiohttp.ClientSession()
         self.token = None
 
-        #xsd parser and file directory
-        parser = XmlParser(context=XmlContext())
-        interface_file = xml_file
-        self.root = parser.parse(interface_file, SgrRestApideviceFrame)
+        try:
+            # xsd parser and file directory
+            parser = XmlParser(context=XmlContext())
+            self.root = parser.parse(xml_file, DeviceFrame)
 
-        #config file
-        private_config = config_file
-        config_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), private_config)
-        parser = configparser.ConfigParser()
-        parser.read(config_file_path)
-        user = parser.get('AUTHENTICATION', 'username', fallback=None)
-        password = parser.get('AUTHENTICATION', 'password', fallback=None)
-        self.sensor_id = parser.get('RESSOURCE', 'sensor_id', fallback=None)
+            # Config file
+            config_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), config_file)
+            parser = configparser.ConfigParser()
+            parser.read(config_file_path)
 
-        #TODO this one can be formulated more elegantly with a format() method.
-        request_body = str(self.root.rest_apiinterface_desc.rest_apibearer.service_call.request_body)
-        data = json.loads(request_body)
-        data['email'] = user
-        data['password'] = password
-        self.data = json.dumps(data)
+            user = parser.get('AUTHENTICATION', 'username', fallback=None)
+            password = parser.get('AUTHENTICATION', 'password', fallback=None)
+            self.sensor_id = parser.get('RESSOURCE', 'sensor_id', fallback=None)
 
-        #authentication url
-        self.base_url = str(self.root.rest_apiinterface_desc.trsp_srv_rest_uriout_of_box)
-        request_path = str(self.root.rest_apiinterface_desc.rest_apibearer.service_call.request_path) #/authentication
-        self.authentication_url = 'https://' + self.base_url + request_path 
-        print(self.authentication_url)
+            if not user or not password or not self.sensor_id:
+                raise ValueError("Missing required configuration values")
 
-        #headers
-        self.call = self.root.rest_apiinterface_desc.rest_apibearer.service_call
-        self.content = self.call.request_header.header[0].value
+            description = self.root.interface_list.rest_api_interface.rest_api_interface_description
 
-        # We add all the headers in the xml file using dictionary comprehension
-        self.headers = {header_entry.header_name: header_entry.value for header_entry in self.call.request_header.header}
+            request_body = str(description.rest_api_bearer.rest_api_service_call.request_body)
+            data = json.loads(request_body)
+            data['email'] = user
+            data['password'] = password
+            self.data = json.dumps(data)
+            
+            self.base_url = str(description.rest_api_uri)
+            request_path = str(description.rest_api_bearer.rest_api_service_call.request_path)
+            self.authentication_url = f'https://{self.base_url}{request_path}'
+            logging.info(f"Authentication URL: {self.authentication_url}")
+
+            self.call = self.root.interface_list.rest_api_interface.rest_api_interface_description.rest_api_bearer.rest_api_service_call
+            self.headers = {header_entry.header_name: header_entry.value for header_entry in self.call.request_header.header}
+
+        except FileNotFoundError:
+            logging.error(f"File not found: {xml_file} or {config_file}")
+        except json.JSONDecodeError:
+            logging.error("Error parsing JSON from the XML file")
+        except configparser.Error:
+            logging.error("Error reading configuration file")
+        except Exception as e:
+            logging.error(str(e))
 
     async def authenticate(self):
-        async with self.session.post(url=self.authentication_url, headers=self.headers, data =self.data) as res:
-            if res.status == 201:
-                print(f"AUTHENTICATION: {res.status}")
-                response = await res.text()
-                token = jmespath.search('accessToken', json.loads(response))
-                self.token = str(token)
-            else:
-                print(f"AUTHENTICATION: {res.status}")
-                print(f"RESPONSE: {res}")
+        try:
+            async with self.session.post(url=self.authentication_url, headers=self.headers, data=self.data) as res:
+                if 200 <= res.status < 300:
+                    logging.info(f"Authentication successful: Status {res.status}")
+                    try:
+                        response = await res.text()
+                        token = jmespath.search('accessToken', json.loads(response))
+                        if token:
+                            self.token = str(token)
+                            logging.info("Token retrieved successfully")
+                        else:
+                            logging.warning("Token not found in the response")
+                    except json.JSONDecodeError:
+                        logging.error("Failed to decode JSON response")
+                    except jmespath.exceptions.JMESPathError:
+                        logging.error("Failed to search JSON data using JMESPath")
+                else:
+                    logging.warning(f"Authentication failed: Status {res.status}")
+                    logging.info(f"Response: {await res.text()}")
 
+        except aiohttp.ClientError as e:
+            logging.error(f"Network error occurred: {e}")
+        except Exception as e:
+            logging.error(f"An unexpected error occurred: {e}")
+
+    async def close(self):
+        await self.session.close()
+    
+    def find_dp(self, root, fp_name: str, dp_name: str):
+        """
+        Searches the datapoint in the root element.
+        :param root: The root element created with the xsdata parser
+        :param fp_name: The name of the functional profile in which the datapoint resides
+        :param dp_name: The name of the datapoint
+        :returns: The datapoint element found in root, if not, returns None.
+        """
+
+        if not fp_name or not dp_name:
+            raise ValueError("fp_name and dp_name cannot be None or empty")
+
+        try:
+            fp = next(
+                filter(
+                    lambda x: x.functional_profile.functional_profile_name == fp_name, 
+                    root.interface_list.rest_api_interface.functional_profile_list.functional_profile_list_element
+                ), 
+                None
+            )
+        except AttributeError as e:
+            logging.error(f"Attribute error encountered: {e}")
+            return None
+
+        if fp:
+            try:
+                dp = next(
+                    filter(
+                        lambda x: x.data_point.data_point_name == dp_name, 
+                        fp.data_point_list.data_point_list_element
+                    ), 
+                    None
+                )
+            except AttributeError as e:
+                logging.error(f"Attribute error encountered: {e}")
+                return None
+            
+            if dp:
+                return dp
+            else:
+                logging.error(f"Datapoint '{dp_name}' not found in functional profile '{fp_name}'.")
+                return None
+        else:
+            logging.error(f"Functional profile '{fp_name}' not found.")
+            return None
 
     async def getval(self, fp_name, dp_name):
-        dp = find_dp(self.root, fp_name, dp_name)
-        request_path = dp.rest_apidata_point[0].rest_service_call.request_path
-        url = 'https://' + str(self.base_url) + str(request_path)
-        url = url.format(sensor_id=self.sensor_id)
-        #TODO add the queryType into an if statement...
-        query = str(dp.rest_apidata_point[0].rest_service_call.response_query.query)
+        try:
+            dp = self.find_dp(self.root, fp_name, dp_name)
+            if not dp:
+                raise ValueError(f"Data point for {fp_name}, {dp_name} not found")
 
-        # Headers dictionary
-        headers = {header_entry.header_name: header_entry.value for header_entry in dp.rest_apidata_point[0].rest_service_call.request_header.header}     
-        #TODO fix reeplacement of bearerToken variable
-        headers['Authorization'] = 'Bearer ' + self.token
+            # Dataclass parsing
+            service_call = dp.rest_api_data_point_configuration.rest_api_service_call
+            request_path = service_call.request_path.format(sensor_id=self.sensor_id)
 
-        async with self.session.get(url=url, headers=headers) as res:
-            print(f"GETVAL: {res.status}")
-            response = await res.json()
-            response = json.dumps(response)
-            value = jmespath.search(query, json.loads(response))
-            return value
+            # Urls string
+            url = f'https://{self.base_url}{request_path}'
+            
+            query = str(service_call.response_query.query)
+
+            # All headers into dicitonary
+            headers = {
+                header_entry.header_name: header_entry.value
+                for header_entry in service_call.request_header.header
+            }
+            headers['Authorization'] = f'Bearer {self.token}'
+
+            async with self.session.get(url=url, headers=headers) as res:
+                res.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
+                
+                response = await res.json()
+                logging.info(f"Getval Status: {res.status}")
+
+                response = json.dumps(response)
+                value = jmespath.search(query, json.loads(response))
+                return value
+
+        except ClientResponseError as e:
+            logging.error(f"HTTP error occurred: {e}")
+        except ClientConnectionError as e:
+            logging.error(f"Connection error occurred: {e}")
+        except json.JSONDecodeError as e:
+            logging.error(f"Failed to decode JSON: {e}")
+        except Exception as e:
+            logging.error(f"An unexpected error occurred: {e}")
+
+        return None  # Return None or an appropriate default/fallback value in case of error
 
 async def test():
-    interface_file = "SGr_04_0018_CLEMAP_EIcloudEnergyMonitorV0.2.1.xml"
+
+    interface_file = "SGr_04_mmmm_dddd_CLEMAPEnergyMonitorEIV0.2.1.xml"
     private_config = "config_CLEMAPEnMon_ressource_default.ini"
+
     client = SgrRestInterface(interface_file, private_config)
     token = await client.authenticate()
-    a = await asyncio.gather(client.getval('ActivePowerAC', 'ActivePowerACL1'))
-    print(a)
+    value = await asyncio.gather(client.getval('ActivePowerAC', 'ActivePowerACL1'))
+    
+    print(value)
     await asyncio.sleep(1)
     print('1')
     await asyncio.sleep(1)

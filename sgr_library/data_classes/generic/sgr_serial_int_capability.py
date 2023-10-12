@@ -1,11 +1,11 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Optional
+from typing import List
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 
 
-class EBaudRateType(Enum):
+class BaudRate(Enum):
     VALUE_300 = "300"
     VALUE_600 = "600"
     VALUE_1200 = "1200"
@@ -23,18 +23,18 @@ class EBaudRateType(Enum):
     VALUE_256000 = "256000"
 
 
-class EByteLenType(Enum):
+class ByteLength(Enum):
     VALUE_7 = "7"
     VALUE_8 = "8"
 
 
-class EParityType(Enum):
+class Parity(Enum):
     EVEN = "EVEN"
     ODD = "ODD"
     NONE = "NONE"
 
 
-class EStopBitLenType(Enum):
+class StopBitLength(Enum):
     VALUE_0 = "0"
     VALUE_1 = "1"
     VALUE_1_5 = "1.5"
@@ -42,11 +42,8 @@ class EStopBitLenType(Enum):
 
 
 @dataclass
-class SgrSerialInterfaceCapabilityType:
-    class Meta:
-        name = "SGrSerialInterfaceCapabilityType"
-
-    baud_rates_supported: List[EBaudRateType] = field(
+class SerialInterfaceCapability:
+    baud_rates_supported: List[BaudRate] = field(
         default_factory=list,
         metadata={
             "name": "baudRatesSupported",
@@ -55,7 +52,7 @@ class SgrSerialInterfaceCapabilityType:
             "min_occurs": 1,
         }
     )
-    byte_len_supported: List[EByteLenType] = field(
+    byte_len_supported: List[ByteLength] = field(
         default_factory=list,
         metadata={
             "name": "byteLenSupported",
@@ -64,7 +61,7 @@ class SgrSerialInterfaceCapabilityType:
             "min_occurs": 1,
         }
     )
-    parity_supported: List[EParityType] = field(
+    parity_supported: List[Parity] = field(
         default_factory=list,
         metadata={
             "name": "paritySupported",
@@ -73,7 +70,7 @@ class SgrSerialInterfaceCapabilityType:
             "min_occurs": 1,
         }
     )
-    stop_bit_len_supported: List[EStopBitLenType] = field(
+    stop_bit_len_supported: List[StopBitLength] = field(
         default_factory=list,
         metadata={
             "name": "stopBitLenSupported",
@@ -82,66 +79,3 @@ class SgrSerialInterfaceCapabilityType:
             "min_occurs": 1,
         }
     )
-
-
-@dataclass
-class BaudRatesSupported:
-    class Meta:
-        name = "baudRatesSupported"
-        namespace = "http://www.smartgridready.com/ns/V0/"
-
-    value: Optional[EBaudRateType] = field(
-        default=None,
-        metadata={
-            "required": True,
-        }
-    )
-
-
-@dataclass
-class ByteLenSupported:
-    class Meta:
-        name = "byteLenSupported"
-        namespace = "http://www.smartgridready.com/ns/V0/"
-
-    value: Optional[EByteLenType] = field(
-        default=None,
-        metadata={
-            "required": True,
-        }
-    )
-
-
-@dataclass
-class ParitySupported:
-    class Meta:
-        name = "paritySupported"
-        namespace = "http://www.smartgridready.com/ns/V0/"
-
-    value: Optional[EParityType] = field(
-        default=None,
-        metadata={
-            "required": True,
-        }
-    )
-
-
-@dataclass
-class StopBitLenSupported:
-    class Meta:
-        name = "stopBitLenSupported"
-        namespace = "http://www.smartgridready.com/ns/V0/"
-
-    value: Optional[EStopBitLenType] = field(
-        default=None,
-        metadata={
-            "required": True,
-        }
-    )
-
-
-@dataclass
-class SgrSerialInterfaceCapability(SgrSerialInterfaceCapabilityType):
-    class Meta:
-        name = "SGrSerialInterfaceCapability"
-        namespace = "http://www.smartgridready.com/ns/V0/"
