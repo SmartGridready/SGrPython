@@ -14,8 +14,6 @@ from sgr_library.auxiliary_functions import get_port, get_endian, find_dp, get_b
 
 
 
-
-
 class SgrModbusRtuInterface:
     # a global Modbus client
     globalModbusRTUClient = None

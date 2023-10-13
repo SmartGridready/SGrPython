@@ -12,7 +12,7 @@ import logging
 from sgr_library.data_classes.product import DeviceFrame
 
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.ERROR)
 
 
 class SgrRestInterface():

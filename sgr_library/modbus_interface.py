@@ -17,10 +17,7 @@ import asyncio
 
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
-
-
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
 class SgrModbusInterface: 
@@ -300,6 +297,7 @@ async def test_loop():
         getval = await sgr_modbus.getval('CurrentAC', 'CurrentACL1')
         print(getval)
         await asyncio.sleep(10)
+
 
 if __name__ == "__main__":
     starting_time = time.time()

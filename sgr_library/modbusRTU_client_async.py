@@ -66,25 +66,3 @@ if __name__ == "__main__":
 
     asyncio.run(run())
 
-"""
-    #Build Connection
-    myRTUModbus = SGrModbusRTUClient("COM7", "E", 19200)
-
-    #int16_u --> 16bit pro register, signedvalue
-    Power = myRTUModbus.value_decoder(0x5B14,2,"int32","HoldingRegister",1,Endian.Big)
-
-    print(str(Power*0.01) + "W")
-
-    myRTUModbus.client.close()
-    print("finished")
-
-    
-    # Create interface instance
-    interface_file = '../xml_files/SGr_04_0016_xxxx_ABBMeterV0.2.1_edited_S.Ferreira.xml'
-    sgr_component = SgrModbusInterface(interface_file)
-
-    x = sgr_component.getval("ActiveEnerBalanceAC","ActiveImportAC")
-
-    print(x)
-    
-"""

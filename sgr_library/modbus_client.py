@@ -39,18 +39,20 @@ class SGrModbusClient:
         :param order: The endian order
         :returns: Decoded float
         """
-        try:   
+        try:
             if register_type == "HoldRegister":
-                reg = await self.client.read_holding_registers(addr, size, unit=slave_id)
+                reg = await self.client.read_holding_registers(addr, size, slave=slave_id)
             elif register_type == "InputRegister":
-                reg = await self.client.read_input_registers(addr, count=size, unit=slave_id)
+                reg = await self.client.read_input_registers(addr, count=size, slave=slave_id)
             else:
                 raise ValueError(f"Invalid register type: {register_type}")
 
             if reg.isError():
                 raise RegisterError(f"Error reading register: {reg}")
 
+
             decoder = PayloadDecoder.fromRegisters(reg.registers, byteorder=order, wordorder=order)
+            return decoder.decode(data_type, 0)
             # TODO: Add code to decode and return the float value based on the data type
         except asyncio.TimeoutError:
             logging.exception(f"Timeout reading register at address {addr} with slave ID {slave_id}")
@@ -74,7 +76,7 @@ class SGrModbusClient:
         if register_type == "HoldRegister":
             reg = await self.client.read_holding_registers(addr, size, slave=slave_id) #TODO add slave id?
         else:
-            reg = await self.client.read_input_registers(addr, count=size, unit=slave_id)
+            reg = await self.client.read_input_registers(addr, count=size, slave=slave_id)
         decoder = PayloadDecoder.fromRegisters(reg.registers, byteorder=order, wordorder=order)
         #print(decoder.decode('float32', 0))
         if not reg.isError():

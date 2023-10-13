@@ -19,9 +19,9 @@
       <modbusInterfaceDescription>
         <modbusInterfaceSelection>TCPIP</modbusInterfaceSelection>
         <modbusTcp>
-          <port>502</port>
-          <address>1.1.1.1</address>
-          <slaveId>1</slaveId>
+          <port>5002</port>
+          <address>127.0.0.1</address>
+          <slaveId>0</slaveId>
         </modbusTcp>
         <firstRegisterAddressIsOne>true</firstRegisterAddressIsOne>
         <bitOrder>BigEndian</bitOrder>
@@ -150,14 +150,14 @@
                 <modbusDataType>
                   <int32U />
                 </modbusDataType>
-                <address>16400</address>
+                <address>19014</address>
                 <registerType>HoldRegister</registerType>
                 <numberOfRegisters>2</numberOfRegisters>
               </modbusDataPointConfiguration>
               <modbusAttributes>
                 <scalingFactor>
                   <multiplicator>1</multiplicator>
-                  <powerof10>-3</powerof10>
+                  <powerof10>0</powerof10>
                 </scalingFactor>
               </modbusAttributes>
             </dataPointListElement>
