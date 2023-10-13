@@ -43,7 +43,7 @@ Pip install -e is extremely useful when simultaneously developing a product and 
 
 ### DEPRECATED Pip Install from pypi testing server (user).
 
-I uploaded the library as "sgr-demo-v0.0.4" for now.
+Uploaded the library as "sgr-demo-v0.0.4" for now.
 You can download it with the following command.
 
     pip install --index-url https://test.pypi.org/simple/ sgr-demo-v0.0.4
