@@ -42,14 +42,15 @@ The code looks cleaner and is easier to handle. The disadvantage is that you hav
 
 		from  xsdata.formats.dataclass.parsers  import  XmlParser 
 		from  xsdata.formats.dataclass.context  import  XmlContext
-	import  data_info.test
 
-2) We create a root element with xsdata parser: (lines 19 and 20 in smartGridReadyPythonLibrary_xsdata.py)
+		from sgr_library.data_classes.product import DeviceFrame
+
+3) We create a root element with xsdata parser: (lines 19 and 20 in smartGridReadyPythonLibrary_xsdata.py)
 
 You can use the generated classes I created, they are in the data_info directory in the test.py file.
 
 	parser = XmlParser(context=XmlContext())
-	root = parser.parse(interface_file_path_default, data_info.test.SgrRestApideviceFrame)
+	root = parser.parse(interface_file_path_default, DeviceFrame)
 
 # 3) Directory documentation
 
