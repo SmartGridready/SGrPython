@@ -20,23 +20,17 @@ class SgrRestInterface():
     SmartGrid ready External Interface Class for Rest API
     """
 
-    def __init__(self, xml_file, config_file_path):
+    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
         # session
         self.session = aiohttp.ClientSession()
         self.token = None
 
         try:
-            # xsd parser and file directory
-            parser = XmlParser(context=XmlContext())
-            self.root = parser.parse(xml_file, DeviceFrame)
+            self.root = frame
 
-            parser = configparser.ConfigParser()
-            if not parser.read(config_file_path):  # It returns an empty list if the file cannot be read or parsed
-                raise configparser.ParsingError(f"Cannot read or parse the configuration file: {config_file_path}")
-
-            user = parser.get('AUTHENTICATION', 'username', fallback=None)
-            password = parser.get('AUTHENTICATION', 'password', fallback=None)
-            self.sensor_id = parser.get('RESSOURCE', 'sensor_id', fallback=None)
+            user = configuration.get('AUTHENTICATION', 'username', fallback=None)
+            password = configuration.get('AUTHENTICATION', 'password', fallback=None)
+            self.sensor_id = configuration.get('RESSOURCE', 'sensor_id', fallback=None)
 
             if not user:
                 raise ValueError("Missing username in the configuration file")
@@ -61,9 +55,6 @@ class SgrRestInterface():
             self.call = self.root.interface_list.rest_api_interface.rest_api_interface_description.rest_api_bearer.rest_api_service_call
             self.headers = {header_entry.header_name: header_entry.value for header_entry in self.call.request_header.header}
 
-        except FileNotFoundError:
-            logging.exception(f"File not found: {xml_file} or {config_file_path}")
-            raise
         except json.JSONDecodeError:
             logging.exception("Error parsing JSON from the XML file")
             raise

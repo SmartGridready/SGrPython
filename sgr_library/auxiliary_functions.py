@@ -1,6 +1,6 @@
 from pymodbus.constants import Endian
 
-from sgr_library.data_classes.product import DeviceFrame
+from sgr_library.data_classes.product import DeviceFrame, BitOrder
 
 from sgr_library.exceptions import DataPointException, FunctionalProfileException, InvalidEndianType
 
@@ -87,13 +87,13 @@ def get_slave_rtu(root) -> int:
 
 def get_endian(root) -> str:
     try:
-        endian_str = str(root.interface_list.modbus_interface.modbus_interface_description.bit_order.value)
-        if endian_str == "BigEndian":
-            return Endian.Big
-        elif endian_str == "LittleEndian":
-            return Endian.Little
-        else:
-            raise InvalidEndianType(f'received invalid endian type: "{endian_str}"')
+        match root.interface_list.modbus_interface.modbus_interface_description.bit_order:
+            case BitOrder.BIG_ENDIAN:
+                return Endian.BIG
+            case _:
+                return Endian.LITTLE
+        raise InvalidEndianType(f'received invalid endian type: "{endian_str}"')
+
     except AttributeError:
         raise ValueError("Endian type not found in XML file.")
 
@@ -112,4 +112,3 @@ def get_parity(root) -> str:
             raise NotImplementedError(f'Parity type "{parity_string}" not supported.')
     except AttributeError:
         raise ValueError("Parity type not found in XML file.")
-    

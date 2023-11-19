@@ -22,15 +22,13 @@ logger = logging.getLogger(__name__)
 
 class SgrModbusInterface: 
 
-    def __init__(self, xml_file: str) -> None:
+    def __init__(self, frame: DeviceFrame) -> None:
         """
         Creates a connection from xml file data.
         Parses the xml file with xsdata library.
         :param xml_file: Name of the xml file to parse
         """
-        print('I Have been created!')
-        self.parser = XmlParser(context=XmlContext())
-        self.root = self.parser.parse(xml_file, DeviceFrame)
+        self.root = frame
         self.ip = get_address(self.root)
         self.port = get_port(self.root)
         self.client = SGrModbusClient(self.ip, self.port)
@@ -306,4 +304,3 @@ if __name__ == "__main__":
         asyncio.run(test_loop())
     except KeyboardInterrupt:
         print("done")
-
