@@ -1,3 +1,6 @@
+import configparser
+import re
+
 from pymodbus.constants import Endian
 
 from sgr_library.data_classes.product import DeviceFrame
@@ -112,4 +115,29 @@ def get_parity(root) -> str:
             raise NotImplementedError(f'Parity type "{parity_string}" not supported.')
     except AttributeError:
         raise ValueError("Parity type not found in XML file.")
-    
+
+# Read XML file, replace variables form config file and return xml as string
+def xml_variable_substitution(xml_file:str, config_file:str):
+    try:
+        xml_string = ""
+        with open(xml_file, 'r') as file:
+            xml_string = file.read()
+
+        parser = configparser.ConfigParser()
+        parser.read(config_file)
+        for section in parser.sections():
+            for(key, val) in parser.items(section):
+                pattern = re.compile(r'\{\{\s*' + re.escape(key) + r'\s*\}\}', re.IGNORECASE)
+                if(re.search(pattern, xml_string) == None):
+                    raise Exception(f"Variable {key} not found in XML file.")
+                xml_string = re.sub(pattern, val, xml_string)
+
+        # # check if there are still variables left
+        # pattern = re.compile(r'\{\{.*\}\}')
+        # left_overs = re.findall(pattern, xml_string)
+        # if(len(left_overs) > 0):
+        #     raise Exception(f"Variables {left_overs} not found in config file.")
+
+        return xml_string
+    except Exception as e:
+        raise Exception(f"Error in XML variable substitution: {e}")

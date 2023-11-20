@@ -1,5 +1,4 @@
 import aiohttp
-import configparser
 import asyncio
 import json
 import jmespath
@@ -20,7 +19,7 @@ class SgrRestInterface():
     SmartGrid ready External Interface Class for Rest API
     """
 
-    def __init__(self, xml_file, config_file_path):
+    def __init__(self, xml_string):
         # session
         self.session = aiohttp.ClientSession()
         self.token = None
@@ -28,30 +27,11 @@ class SgrRestInterface():
         try:
             # xsd parser and file directory
             parser = XmlParser(context=XmlContext())
-            self.root = parser.parse(xml_file, DeviceFrame)
-
-            parser = configparser.ConfigParser()
-            if not parser.read(config_file_path):  # It returns an empty list if the file cannot be read or parsed
-                raise configparser.ParsingError(f"Cannot read or parse the configuration file: {config_file_path}")
-
-            user = parser.get('AUTHENTICATION', 'username', fallback=None)
-            password = parser.get('AUTHENTICATION', 'password', fallback=None)
-            self.sensor_id = parser.get('RESSOURCE', 'sensor_id', fallback=None)
-
-            if not user:
-                raise ValueError("Missing username in the configuration file")
-            if not password:
-                raise ValueError("Missing password in the configuration file")
-            if not self.sensor_id:
-                raise ValueError("Missing sensor ID in the configuration file")
+            self.root = parser.from_string(xml_string)
 
             description = self.root.interface_list.rest_api_interface.rest_api_interface_description
 
-            request_body = str(description.rest_api_bearer.rest_api_service_call.request_body)
-            data = json.loads(request_body)
-            data['email'] = user
-            data['password'] = password
-            self.data = json.dumps(data)
+            self.data = str(description.rest_api_bearer.rest_api_service_call.request_body)
 
             self.base_url = str(description.rest_api_uri)
             request_path = str(description.rest_api_bearer.rest_api_service_call.request_path)
@@ -62,16 +42,10 @@ class SgrRestInterface():
             self.headers = {header_entry.header_name: header_entry.value for header_entry in self.call.request_header.header}
 
         except FileNotFoundError:
-            logging.exception(f"File not found: {xml_file} or {config_file_path}")
+            logging.exception(f"File not found: {xml_file}")
             raise
         except json.JSONDecodeError:
             logging.exception("Error parsing JSON from the XML file")
-            raise
-        except configparser.ParsingError:
-            logging.exception("Error parsing the configuration file")
-            raise
-        except configparser.Error:
-            logging.exception("General error reading configuration file")
             raise
         except ValueError as e:
             logging.exception(str(e))
@@ -163,7 +137,7 @@ class SgrRestInterface():
 
             # Dataclass parsing
             service_call = dp.rest_api_data_point_configuration.rest_api_service_call
-            request_path = service_call.request_path.format(sensor_id=self.sensor_id)
+            request_path = service_call.request_path
 
             # Urls string
             url = f'https://{self.base_url}{request_path}'

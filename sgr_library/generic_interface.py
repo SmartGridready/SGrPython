@@ -3,7 +3,7 @@ from sgr_library.restapi_client_async import SgrRestInterface
 import os
 
 import asyncio
-from sgr_library.auxiliary_functions import get_protocol, get_modbusInterfaceSelection
+from sgr_library.auxiliary_functions import get_protocol, get_modbusInterfaceSelection, xml_variable_substitution
 from sgr_library.modbusRTU_interface_async import SgrModbusRtuInterface
 
 
@@ -36,7 +36,7 @@ class GenericInterface:
             
         elif protocol_type == "restapi":
             obj = object.__new__(SgrRestInterface)
-            obj.__init__(xml_file, config_file)
+            obj.__init__(xml_variable_substitution(xml_file, config_file))
             return obj
             
         else:
