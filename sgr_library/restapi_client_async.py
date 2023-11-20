@@ -11,6 +11,8 @@ import logging
 
 from sgr_library.data_classes.product import DeviceFrame
 
+import ssl
+import certifi
 
 logging.basicConfig(level=logging.ERROR)
 
@@ -22,7 +24,9 @@ class SgrRestInterface():
 
     def __init__(self, xml_file, config_file_path):
         # session
-        self.session = aiohttp.ClientSession()
+        self.ssl_context = ssl.create_default_context(cafile=certifi.where())
+        self.connector = aiohttp.TCPConnector(ssl=self.ssl_context)
+        self.session = aiohttp.ClientSession(connector=self.connector)
         self.token = None
 
         try:
