@@ -132,11 +132,11 @@ def xml_variable_substitution(xml_file:str, config_file:str):
                     raise Exception(f"Variable {key} not found in XML file.")
                 xml_string = re.sub(pattern, val, xml_string)
 
-        # # check if there are still variables left
-        # pattern = re.compile(r'\{\{.*\}\}')
-        # left_overs = re.findall(pattern, xml_string)
-        # if(len(left_overs) > 0):
-        #     raise Exception(f"Variables {left_overs} not found in config file.")
+        # check if there are still variables left
+        pattern = re.compile(r'\{\{.*\}\}')
+        left_overs = re.findall(pattern, xml_string)
+        if(len(left_overs) > 0):
+            raise Exception(f"Variables {left_overs} not found in config file.")
 
         return xml_string
     except Exception as e:
