@@ -49,8 +49,8 @@ class SGrModbusRTUClient:
         builder.encode(value, data_type, rounding="floor")
         self.client.write_registers(address=addr, values=builder.to_registers(), unit=slave_id)
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
 
     #Build Connection
     myRTUModbus = SGrModbusRTUClient("COM7", "E", 19200)
@@ -62,13 +62,3 @@ if __name__ == "__main__":
 
     myRTUModbus.client.close()
     print("finished")
-
-    """
-    # Create interface instance
-    interface_file = '../xml_files/SGr_04_0016_xxxx_ABBMeterV0.2.1_edited_S.Ferreira.xml'
-    sgr_component = SgrModbusInterface(interface_file)
-
-    x = sgr_component.getval("ActiveEnerBalanceAC","ActiveImportAC")
-
-    print(x)
-    """

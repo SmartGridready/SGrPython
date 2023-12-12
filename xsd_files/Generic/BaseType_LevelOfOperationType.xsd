@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Copyright (c) 2023, SmartGridready, Switzerland. All rights reserved. Source
+https://github.com/SmartgridReady/SGrSpecifications  -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/"
+  attributeFormDefault="unqualified" elementFormDefault="qualified"
+  targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
+  <simpleType name="LevelOfOperation">
+    <annotation>
+      <documentation>maturity level concerning SmartGridread functionality</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="m">
+        <annotation>
+          <documentation>m: monitoring only</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="1">
+        <annotation>
+          <documentation>1: binary writable data points</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="2">
+        <annotation>
+          <documentation>2: discrete writable data points</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="3">
+        <annotation>
+          <documentation>3: fixed set of characteristic curves</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="4">
+        <annotation>
+          <documentation>4: dynamic set values</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="5">
+        <annotation>
+          <documentation>5: dynamic characteristic curves</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="6">
+        <annotation>
+          <documentation>6: predictive</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="1m">
+        <annotation>
+          <documentation>1m: binary writable data points plus monitoring</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="2m">
+        <annotation>
+          <documentation>2m: discrete writable data points plus monitoring</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="3m">
+        <annotation>
+          <documentation>3m: fixed set of characteristic curves plus monitoring</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="4m">
+        <annotation>
+          <documentation>4m: dynamic set values plus monitoring</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="5m">
+        <annotation>
+          <documentation>5m: dynamic characteristic curves plus monitoring</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="6m">
+        <annotation>
+          <documentation>6m: predictive plus monitoring</documentation>
+        </annotation>
+      </enumeration>
+    </restriction>
+  </simpleType>
+</schema>
