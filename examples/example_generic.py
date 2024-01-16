@@ -9,7 +9,7 @@ if __name__ == "__main__":
         print('start loop')
 
         # We instanciate one interface object with a modbus xml.
-        interface_file_modbus = 'abb_terra_01.xml'
+        interface_file_modbus = 'xml/abb_terra_01.xml'
         builder = GenericSGrDeviceBuilder()
         modbus_component = builder \
                             .xml_file_path(interface_file_modbus) \
@@ -25,7 +25,7 @@ if __name__ == "__main__":
         config_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), config_file_rest)
 
         # We instanciate a second interface object with a modbusTCP xml.
-        interface_file_rest = 'SGr_04_mmmm_dddd_CLEMAPEnergyMonitorEIV0.2.1.xml'
+        interface_file_rest = 'xml/SGr_04_mmmm_dddd_CLEMAPEnergyMonitorEIV0.2.1.xml'
         restapi_component = GenericInterface(interface_file_rest, config_file_path)
 
         # We authentificate the restapi conneciton

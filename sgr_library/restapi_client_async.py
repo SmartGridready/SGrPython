@@ -1,36 +1,103 @@
-import aiohttp
-import configparser
 import asyncio
+import configparser
 import json
-import jmespath
-import os
-from xsdata.formats.dataclass.parsers import XmlParser
-from xsdata.formats.dataclass.context import XmlContext
-from aiohttp import ClientResponseError, ClientConnectionError
 import logging
+from typing import Any
 
-from sgr_library.data_classes.product import DeviceFrame
+import aiohttp
+import jmespath
+from aiohttp import ClientResponseError, ClientConnectionError
 
+from sgr_library.api import BaseSGrInterface, FunctionProfile, DataPoint, DataPointProtocol, DeviceInformation
+from sgr_library.converters import build_converter
+from sgr_library.data_classes.generic import DataDirection
+from sgr_library.data_classes.product import DeviceFrame, RestApiFunctionalProfile, RestApiDataPoint
+from sgr_library.validators import build_validator
 
 logging.basicConfig(level=logging.ERROR)
 
 
-class SgrRestInterface():
+def build_rest_data_point(data_point: RestApiDataPoint, function_profile: RestApiFunctionalProfile,
+                          interface: 'SgrRestInterface') -> DataPoint:
+    protocol = RestDataPoint(data_point, function_profile, interface)
+    converter = build_converter(data_point.data_point.unit)
+    validator = build_validator(data_point.data_point.data_type)
+    return DataPoint(protocol, converter, validator)
+
+
+class RestDataPoint(DataPointProtocol):
+
+    def __init__(self, rest_api_dp: RestApiDataPoint, rest_api_fp: RestApiFunctionalProfile,
+                 interface: 'SgrRestInterface'):
+        self._dp = rest_api_dp
+        self._fp = rest_api_fp
+        self._interface = interface
+
+    def name(self) -> tuple[str, str]:
+        return self._fp.functional_profile.functional_profile_name, self._dp.data_point.data_point_name
+
+    def read(self):
+        return 100.0
+
+    def write(self, data: Any):
+        pass
+
+    def direction(self) -> DataDirection:
+        return self._dp.data_point.data_direction
+
+
+class RestFunctionProfile(FunctionProfile):
+
+    def __init__(self, rest_api_fp: RestApiFunctionalProfile, interface: 'SgrRestInterface'):
+        self._fp = rest_api_fp
+        self._interface = interface
+
+        dps = [build_rest_data_point(dp, self._fp, self._interface) for dp in
+               self._fp.data_point_list.data_point_list_element]
+        self._data_points = {dp.name(): dp for dp in dps}
+
+    def name(self) -> str:
+        return self._fp.functional_profile.functional_profile_name
+
+    def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
+        return self._data_points
+
+
+class SgrRestInterface(BaseSGrInterface):
     """
     SmartGrid ready External Interface Class for Rest API
     """
 
+    async def connect(self):
+        await self.authenticate()
+
+    def get_function_profiles(self) -> dict[str, FunctionProfile]:
+        return self._function_profiles
+
+    def device_information(self) -> DeviceInformation:
+        return self._device_information
+
     def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
         # session
+        self._device_information = DeviceInformation(
+            name=frame.device_name,
+            manufacture=frame.manufacturer_name,
+            software_revision=frame.device_information.software_revision,
+            hardware_revision=frame.device_information.hardware_revision,
+            device_category=frame.device_information.device_category,
+            is_local=frame.device_information.is_local_control
+        )
         self.session = aiohttp.ClientSession()
         self.token = None
+        self.sensor_id = "adf"
+        self.root = frame
 
+        fps = [RestFunctionProfile(profile, self) for profile in
+               self.root.interface_list.rest_api_interface.functional_profile_list.functional_profile_list_element]
+        self._function_profiles = {fp.name(): fp for fp in fps}
         try:
-            self.root = frame
-
-            user = configuration.get('AUTHENTICATION', 'username', fallback=None)
-            password = configuration.get('AUTHENTICATION', 'password', fallback=None)
-            self.sensor_id = configuration.get('RESSOURCE', 'sensor_id', fallback=None)
+            user = configuration.get('AUTHENTICATION', 'username', fallback="test_user")
+            password = configuration.get('AUTHENTICATION', 'password', fallback="test_pw")
 
             if not user:
                 raise ValueError("Missing username in the configuration file")
@@ -53,7 +120,8 @@ class SgrRestInterface():
             logging.info(f"Authentication URL: {self.authentication_url}")
 
             self.call = self.root.interface_list.rest_api_interface.rest_api_interface_description.rest_api_bearer.rest_api_service_call
-            self.headers = {header_entry.header_name: header_entry.value for header_entry in self.call.request_header.header}
+            self.headers = {header_entry.header_name: header_entry.value for header_entry in
+                            self.call.request_header.header}
 
         except json.JSONDecodeError:
             logging.exception("Error parsing JSON from the XML file")
@@ -99,7 +167,7 @@ class SgrRestInterface():
 
     async def close(self):
         await self.session.close()
-    
+
     def find_dp(self, root, fp_name: str, dp_name: str):
         """
         Searches the datapoint in the root element.
@@ -115,9 +183,9 @@ class SgrRestInterface():
         try:
             fp = next(
                 filter(
-                    lambda x: x.functional_profile.functional_profile_name == fp_name, 
+                    lambda x: x.functional_profile.functional_profile_name == fp_name,
                     root.interface_list.rest_api_interface.functional_profile_list.functional_profile_list_element
-                ), 
+                ),
                 None
             )
         except AttributeError as e:
@@ -128,15 +196,15 @@ class SgrRestInterface():
             try:
                 dp = next(
                     filter(
-                        lambda x: x.data_point.data_point_name == dp_name, 
+                        lambda x: x.data_point.data_point_name == dp_name,
                         fp.data_point_list.data_point_list_element
-                    ), 
+                    ),
                     None
                 )
             except AttributeError as e:
                 logging.error(f"Attribute error encountered: {e}")
                 return None
-            
+
             if dp:
                 return dp
             else:
@@ -158,7 +226,7 @@ class SgrRestInterface():
 
             # Urls string
             url = f'https://{self.base_url}{request_path}'
-            
+
             query = str(service_call.response_query.query)
 
             # All headers into dicitonary
@@ -170,7 +238,7 @@ class SgrRestInterface():
 
             async with self.session.get(url=url, headers=headers) as res:
                 res.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
-                
+
                 response = await res.json()
                 logging.info(f"Getval Status: {res.status}")
 
@@ -189,15 +257,15 @@ class SgrRestInterface():
 
         return None  # Return None or an appropriate default/fallback value in case of error
 
-async def test():
 
+async def test():
     interface_file = "SGr_04_mmmm_dddd_CLEMAPEnergyMonitorEIV0.2.1.xml"
     private_config = "config_CLEMAPEnMon_ressource_default.ini"
 
     client = SgrRestInterface(interface_file, private_config)
     token = await client.authenticate()
     value = await asyncio.gather(client.getval('ActivePowerAC', 'ActivePowerACL1'))
-    
+
     print(value)
     await asyncio.sleep(1)
     print('1')
@@ -206,9 +274,9 @@ async def test():
     await asyncio.sleep(1)
     print('3')
 
-    #print(find_dp(client.root, 'ActivePowerAC', 'ActivePowerACL1').rest_apidata_point[0].rest_service_call.request_path)
+    # print(find_dp(client.root, 'ActivePowerAC', 'ActivePowerACL1').rest_apidata_point[0].rest_service_call.request_path)
     await client.session.close()
 
+
 if __name__ == "__main__":
-    
     asyncio.run(test())

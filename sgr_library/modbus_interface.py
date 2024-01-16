@@ -1,14 +1,22 @@
+from typing import Any
+
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
 import time
-from sgr_library.exceptions import DataPointException, FunctionalProfileException, DataProcessingError, DeviceInformationError, InvalidEndianType
+
+from sgr_library.api import DeviceInformation, FunctionProfile, DataPointProtocol, DataPoint
+from sgr_library.api.device_api import BaseSGrInterface
+from sgr_library.converters import build_converter
+from sgr_library.data_classes.generic import DataDirection
+from sgr_library.exceptions import DataPointException, FunctionalProfileException, DataProcessingError, \
+    DeviceInformationError, InvalidEndianType
 from pymodbus.exceptions import ConnectionException
 from aiohttp import ClientError
 
-#from sgr_library.data_classes.ei_modbus import SgrModbusDeviceFrame
-#from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointType
+# from sgr_library.data_classes.ei_modbus import SgrModbusDeviceFrame
+# from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointType
 
-from sgr_library.data_classes.product import DeviceFrame
+from sgr_library.data_classes.product import DeviceFrame, ModbusDataPoint, ModbusFunctionalProfile
 from sgr_library.auxiliary_functions import get_address, get_endian, get_port, get_slave
 
 from sgr_library.modbus_client import SGrModbusClient
@@ -17,10 +25,58 @@ import asyncio
 
 import logging
 
+from sgr_library.validators import build_validator
+
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
-class SgrModbusInterface: 
+
+class ModBusTCPDataPoint(DataPointProtocol):
+
+    def __init__(self, modbus_api_dp: ModbusDataPoint, modbus_api_fp: ModbusFunctionalProfile,
+                 interface: 'SgrModbusInterface'):
+        self._dp = modbus_api_dp
+        self._fp = modbus_api_fp
+        self._interface = interface
+
+    def write(self, data: Any):
+        pass
+
+    def read(self) -> Any:
+        return 300.0
+
+    def name(self) -> tuple[str, str]:
+        return self._fp.functional_profile.functional_profile_name, self._dp.data_point.data_point_name
+
+    def direction(self) -> DataDirection:
+        return self._dp.data_point.data_direction
+
+
+def build_modbus_tcp_data_point(dp: ModbusDataPoint, fp: ModbusFunctionalProfile,
+                                interface: 'SgrModbusInterface') -> DataPoint:
+    protocol = ModBusTCPDataPoint(dp, fp, interface)
+    converter = build_converter(dp.data_point.unit)
+    validator = build_validator(dp.data_point.data_type)
+    return DataPoint(protocol, converter, validator)
+
+
+class ModBusTCPFunctionProfile(FunctionProfile):
+
+    def __init__(self, modbus_api_fp: ModbusFunctionalProfile, interface: 'SgrModbusInterface'):
+        self._fp = modbus_api_fp
+        self._interface = interface
+        dps = [build_modbus_tcp_data_point(dp, self._fp, self._interface) for dp in
+               self._fp.data_point_list.data_point_list_element]
+        self._data_points = {dp.name(): dp for dp in dps}
+
+    def name(self) -> str:
+        return self._fp.functional_profile.functional_profile_name
+
+    def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
+        return self._data_points
+
+
+class SgrModbusInterface(BaseSGrInterface):
 
     def __init__(self, frame: DeviceFrame) -> None:
         """
@@ -36,7 +92,18 @@ class SgrModbusInterface:
         self.byte_order = get_endian(self.root)
         # A dictionary where we cash the value of the datapoint. With name, value, timestamp and alive_time? ;)
         self.cash_dict = {}
-        
+        fps = [ModBusTCPFunctionProfile(profile, self) for profile in
+               self.root.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element]
+        self._function_profiles = {fp.name(): fp for fp in fps}
+        self._device_information = DeviceInformation(
+            name=frame.device_name,
+            manufacture=frame.manufacturer_name,
+            software_revision=frame.device_information.software_revision,
+            hardware_revision=frame.device_information.hardware_revision,
+            device_category=frame.device_information.device_category,
+            is_local=frame.device_information.is_local_control
+        )
+
     async def connect(self):
         try:
             await self.client.client.connect()
@@ -48,6 +115,11 @@ class SgrModbusInterface:
         except Exception as e:
             logger.exception(f"An unexpected error occurred during the connection: {e}")
 
+    def get_function_profiles(self) -> dict[str, FunctionProfile]:
+        pass
+
+    def device_information(self) -> DeviceInformation:
+        pass
 
     async def getval(self, fp_name, dp_name) -> float:
         """
@@ -61,7 +133,7 @@ class SgrModbusInterface:
 
         :returns: The current decoded value in the datapoint register.
         """
-            
+
         try:
             dp = self.find_dp(self.root, fp_name, dp_name)
         except DataPointException as e:
@@ -83,7 +155,6 @@ class SgrModbusInterface:
         except ClientError as e:
             logger.exception(e)
             return float('nan')
-
 
     # TODO under construction
     async def getval_block(self, fp_name: str, dp_name: str):
@@ -112,7 +183,6 @@ class SgrModbusInterface:
             logger.exception(f"An unexpected error occurred: {e}")
             return None
 
-
     async def setval(self, fp_name: str, dp_name: str, value: float) -> None:
         try:
             dp = self.find_dp(self.root, fp_name, dp_name)
@@ -136,23 +206,22 @@ class SgrModbusInterface:
             logger.error(f"ValueError: Invalid value or datatype {e}")
         except Exception as e:
             logger.exception(f"An unexpected error occurred: {e}")
-    
-    
+
     def get_device_profile(self):
         try:
             brand_name = self.root.device_information.brand_name
             nominal_power = self.root.device_information.nominal_power
             level_of_operation = self.root.device_information.legible_description
-            
+
             if None in [brand_name, nominal_power, level_of_operation]:
                 raise DeviceInformationError("Incomplete device information")
-            
+
             logger.info(f"Brand Name: {brand_name}")
             logger.info(f"Nominal Power: {nominal_power}")
             logger.info(f"Level of Operation: {level_of_operation}")
 
             return self.root.device_information
-            
+
         except AttributeError as e:
             logger.error(f"AttributeError: {e}")
             return None
@@ -165,7 +234,7 @@ class SgrModbusInterface:
         Returns register type E.g. "HoldRegister"
         :param fp_name: The name of the functional profile
         :param dp_name: The name of the data point.
-        :returns: The type of the register 
+        :returns: The type of the register
         """
         try:
             register_type = dp.modbus_data_point_configuration.register_type.value
@@ -186,7 +255,7 @@ class SgrModbusInterface:
         except AttributeError as e:
             logger.error(f"AttributeError: {e}")
             return None
-    
+
     def get_bit_rank(self, dp):
         try:
             bitrank = dp.modbus_data_point_configuration.bit_rank
@@ -206,7 +275,6 @@ class SgrModbusInterface:
         except AttributeError as e:
             logger.error(f"AttributeError: {e}")
             return None
-
 
     def get_size(self, dp):
         try:
@@ -266,9 +334,13 @@ class SgrModbusInterface:
         :param dp_name: The name of the datapoint
         :returns: The datapoint element found in root, if not, returns None.
         """
-        fp = next(filter(lambda x: x.functional_profile.functional_profile_name == fp_name, root.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element), None)
+        fp = next(filter(lambda x: x.functional_profile.functional_profile_name == fp_name,
+                         root.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element),
+                  None)
         if fp:
-            dp = next(filter(lambda x: x.data_point.data_point_name == dp_name, fp.data_point_list.data_point_list_element), None)
+            dp = next(
+                filter(lambda x: x.data_point.data_point_name == dp_name, fp.data_point_list.data_point_list_element),
+                None)
             if dp:
                 return dp
             raise DataPointException(f"Datapoint {dp_name} not found in functional profile {fp_name}.")
@@ -276,15 +348,16 @@ class SgrModbusInterface:
 
     # TODO a getval for L1, L2 and L3 at the same time
 
-    #TODO
+    # TODO
     def get_dp_attribute(self, datapoint: str, attribute: str):
         """
         Searches for a specific attribute in the datapoint via a key.
         :param attribute"address", "size", "bitrank", "data_type", "register_type", "unit", "multiplicator", "power_of", "name"
         :returns: The chosen attribute.
         """
-        #TODO
+        # TODO
         ...
+
 
 async def test_loop():
     while True:

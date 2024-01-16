@@ -1,4 +1,5 @@
 import configparser
+import re
 from enum import Enum
 from typing import Callable
 
@@ -8,10 +9,7 @@ from xsdata.formats.dataclass.parsers import XmlParser
 from sgr_library.data_classes.product import DeviceFrame
 from sgr_library.modbus_interface import SgrModbusInterface
 from sgr_library.restapi_client_async import SgrRestInterface
-import os
 
-import asyncio
-from sgr_library.auxiliary_functions import get_protocol, get_modbusInterfaceSelection
 from sgr_library.modbusRTU_interface_async import SgrModbusRtuInterface
 
 
@@ -74,6 +72,15 @@ class GenericSGrDeviceBuilder:
         self._type: SGrConfiguration = SGrConfiguration.UNKNOWN
         self._config_type: SGrConfiguration = SGrConfiguration.UNKNOWN
 
+    def get_spec_content(self) -> str:
+        if self._type == SGrConfiguration.FILE:
+            with open(self._value) as input_file:
+                return input_file.read()
+        elif self._type == SGrConfiguration.STRING:
+            return self._value
+        else:
+            return ""
+
     def xml_file_path(self, file_path: str):
         self._value = file_path
         self._type = SGrConfiguration.FILE
@@ -94,15 +101,26 @@ class GenericSGrDeviceBuilder:
         self._config_value = config
         return self
 
-    def build(self) -> SgrRestInterface | SgrModbusInterface | SgrModbusRtuInterface:
-        if self._type not in loaders:
-            raise Exception('unsupported loader configuration')
-
-        xml = loaders[self._type](self._value)
-        protocol = resolve_protocol(xml)
+    def replace_variables(self) -> tuple[str, configparser.ConfigParser]:
         config = configparser.ConfigParser()
         if self._config_type is SGrConfiguration.FILE:
             config.read(self._config_value)
         elif self._config_type is SGrConfiguration.STRING:
             config.read_dict(self._config_value)
+        spec = self.get_spec_content()
+        for section_name, section in config.items():
+            for param_name in section:
+                pattern = re.compile(r'{{' + param_name + r'}}')
+                spec = pattern.sub(config.get(section_name, param_name), spec)
+
+        return spec, config
+
+    def build(self) -> SgrRestInterface | SgrModbusInterface | SgrModbusRtuInterface:
+        if self._type not in loaders:
+            raise Exception(f'unsupported loader configuration, {self._type}')
+
+        spec, config = self.replace_variables()
+        xml = loaders[SGrConfiguration.STRING](spec)
+        protocol = resolve_protocol(xml)
+
         return device_builders[protocol](xml, config)
