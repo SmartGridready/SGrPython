@@ -36,10 +36,10 @@ class RestDataPoint(DataPointProtocol):
     def name(self) -> tuple[str, str]:
         return self._fp.functional_profile.functional_profile_name, self._dp.data_point.data_point_name
 
-    def read(self):
-        return 100.0
+    async def read(self):
+        return self._interface.getval(self.name()[0], self.name()[1])
 
-    def write(self, data: Any):
+    async def write(self, data: Any):
         pass
 
     def direction(self) -> DataDirection:

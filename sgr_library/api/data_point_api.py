@@ -37,11 +37,11 @@ class DataPointValidator(ABC):
 class DataPointProtocol(ABC):
 
     @abstractmethod
-    def write(self, data: Any):
+    async def write(self, data: Any):
         pass
 
     @abstractmethod
-    def read(self) -> Any:
+    async def read(self) -> Any:
         pass
 
     @abstractmethod
