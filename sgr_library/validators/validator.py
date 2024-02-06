@@ -19,7 +19,7 @@ class EnumValidator(DataPointValidator):
         literals = {entry.literal for entry in type.enum_entry}
         ordinals = {entry.ordinal for entry in type.enum_entry}
         literals.union(ordinals)
-        literals.remove(None)
+        literals.discard(None)
         self._valid_entries = literals
 
     def validate(self, value: Any) -> bool:

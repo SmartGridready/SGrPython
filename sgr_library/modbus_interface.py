@@ -116,10 +116,10 @@ class SgrModbusInterface(BaseSGrInterface):
             logger.exception(f"An unexpected error occurred during the connection: {e}")
 
     def get_function_profiles(self) -> dict[str, FunctionProfile]:
-        pass
+        return self._function_profiles
 
     def device_information(self) -> DeviceInformation:
-        pass
+        return self._device_information
 
     async def getval(self, fp_name, dp_name) -> float:
         """

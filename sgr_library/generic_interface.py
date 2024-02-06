@@ -47,16 +47,18 @@ device_builders: dict[SGrDeviceProtocol, Callable[
 ] = {
     SGrDeviceProtocol.MODBUS_TPC: lambda frame, _: SgrModbusInterface(frame),
     SGrDeviceProtocol.MODBUS_RTU: lambda frame, _: SgrModbusRtuInterface(frame),
-    SGrDeviceProtocol.RESTAPI: lambda frame, config: SgrRestInterface(frame, config)
+    SGrDeviceProtocol.RESTAPI: lambda frame, config: SgrRestInterface(frame, config),
+    #SGrDeviceProtocol.GENERIC: lambda frame, config: SgrModbusInterface(frame),
+    #SGrDeviceProtocol.CONTACT: lambda frame, config: SgrModbusInterface(frame)
 }
 
 
 def resolve_protocol(frame: DeviceFrame) -> SGrDeviceProtocol:
     if frame.interface_list.rest_api_interface:
         return SGrDeviceProtocol.RESTAPI
-    elif frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu:
+    elif frame.interface_list.modbus_interface is not None and frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu:
         return SGrDeviceProtocol.MODBUS_RTU
-    elif frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp:
+    elif frame.interface_list.modbus_interface is not None and frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp:
         return SGrDeviceProtocol.MODBUS_TPC
     elif frame.interface_list.contact_interface:
         return SGrDeviceProtocol.CONTACT
