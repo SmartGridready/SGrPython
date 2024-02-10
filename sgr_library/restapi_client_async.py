@@ -37,7 +37,7 @@ class RestDataPoint(DataPointProtocol):
         return self._fp.functional_profile.functional_profile_name, self._dp.data_point.data_point_name
 
     async def read(self):
-        return self._interface.getval(self.name()[0], self.name()[1])
+        return await self._interface.getval(self.name()[0], self.name()[1])
 
     async def write(self, data: Any):
         pass
@@ -89,7 +89,7 @@ class SgrRestInterface(BaseSGrInterface):
         )
         self.session = aiohttp.ClientSession()
         self.token = None
-        self.sensor_id = "adf"
+        self.sensor_id = "5e8c91ce9e720119f94d0249"
         self.root = frame
 
         fps = [RestFunctionProfile(profile, self) for profile in
@@ -122,7 +122,6 @@ class SgrRestInterface(BaseSGrInterface):
             self.call = self.root.interface_list.rest_api_interface.rest_api_interface_description.rest_api_bearer.rest_api_service_call
             self.headers = {header_entry.header_name: header_entry.value for header_entry in
                             self.call.request_header.header}
-
         except json.JSONDecodeError:
             logging.exception("Error parsing JSON from the XML file")
             raise

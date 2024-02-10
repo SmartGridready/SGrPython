@@ -16,5 +16,5 @@ class FunctionProfile(ABC):
     def get_data_point(self, dp_name: str) -> DataPoint:
         return self.get_data_points()[(self.name(), dp_name)]
 
-    def read(self) -> dict[tuple[str, str], DataPoint]:
-        return {key: dp.read() for key, dp in self.get_data_points().items()}
+    async def read(self) -> dict[tuple[str, str], DataPoint]:
+        return {key: await dp.read() for key, dp in self.get_data_points().items()}

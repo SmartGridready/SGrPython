@@ -63,16 +63,16 @@ class DataPoint(Generic[T]):
     def name(self) -> tuple[str, str]:
         return self._protocol.name()
 
-    def read(self) -> T:
-        value = self._protocol.read()
+    async def read(self) -> T:
+        value = await self._protocol.read()
         if self._validator.validate(value):
             return self._converter.from_device(value)
         raise Exception(f"invalid value read from device, {value}, validator: {self._validator.data_type()}")
 
-    def write(self, data: T):
+    async def write(self, data: T):
         value = self._converter.to_device(data)
         if self._validator.validate(value):
-            self._protocol.write(value)
+            await self._protocol.write(value)
         raise Exception("invalid data to write to device")
 
     def unit(self) -> SubSetUnits:

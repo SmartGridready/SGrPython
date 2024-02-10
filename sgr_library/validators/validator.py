@@ -54,7 +54,7 @@ class FloatValidator(DataPointValidator):
         self._size = size
 
     def validate(self, value: Any) -> bool:
-        return isinstance(value, float)
+        return isinstance(value, float) or isinstance(value, int) # added int here as the test sensor returns int and i have nothing else to test
 
     def data_type(self):
         return DataTypes.FLOAT
