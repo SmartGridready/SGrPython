@@ -46,5 +46,5 @@ class BaseSGrInterface(ABC):
     async def read_data(self) -> dict[tuple[str, str], Any]:
         data = {}
         for fp in self.get_function_profiles().values():
-            data.update(await fp.read())
+            data.update({(fp.name(), key): value for key, value in (await fp.read()).items()})
         return data
