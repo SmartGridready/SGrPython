@@ -84,5 +84,5 @@ class DataPoint(Generic[T]):
     def data_type(self) -> DataTypes:
         return self._validator.data_type()
 
-    def info(self) -> tuple[tuple[str, str], DataDirection, DataTypes]:
+    def describe(self) -> tuple[tuple[str, str], DataDirection, DataTypes]:
         return self.name(), self.direction(), self.data_type()

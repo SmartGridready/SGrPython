@@ -50,10 +50,10 @@ class BaseSGrInterface(ABC):
             data.update({(fp.name(), key): value for key, value in (await fp.read()).items()})
         return data
 
-    def info(self) -> tuple[str, dict[str, dict[str, tuple[DataDirection, DataTypes]]]]:
+    def describe(self) -> tuple[str, dict[str, dict[str, tuple[DataDirection, DataTypes]]]]:
 
         data = {}
         for fp in self.get_function_profiles().values():
-            key, dps = fp.info()
+            key, dps = fp.describe()
             data[key] = dps
         return self.device_information().name, data
