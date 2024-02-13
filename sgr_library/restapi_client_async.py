@@ -13,6 +13,10 @@ from sgr_library.converters import build_converter
 from sgr_library.data_classes.generic import DataDirection
 from sgr_library.data_classes.product import DeviceFrame, RestApiFunctionalProfile, RestApiDataPoint
 from sgr_library.validators import build_validator
+from sgr_library.data_classes.product import DeviceFrame
+
+import ssl
+import certifi
 
 logging.basicConfig(level=logging.ERROR)
 

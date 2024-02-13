@@ -9,7 +9,6 @@ from xsdata.formats.dataclass.parsers import XmlParser
 from sgr_library.data_classes.product import DeviceFrame
 from sgr_library.modbus_interface import SgrModbusInterface
 from sgr_library.restapi_client_async import SgrRestInterface
-
 from sgr_library.modbusRTU_interface_async import SgrModbusRtuInterface
 
 
