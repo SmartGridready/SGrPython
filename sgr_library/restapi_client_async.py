@@ -1,22 +1,20 @@
-import asyncio
 import configparser
 import json
 import logging
+import ssl
 from typing import Any
 
 import aiohttp
+import certifi
 import jmespath
 from aiohttp import ClientResponseError, ClientConnectionError
 
 from sgr_library.api import BaseSGrInterface, FunctionProfile, DataPoint, DataPointProtocol, DeviceInformation
 from sgr_library.converters import build_converter
 from sgr_library.data_classes.generic import DataDirection
-from sgr_library.data_classes.product import DeviceFrame, RestApiFunctionalProfile, RestApiDataPoint
-from sgr_library.validators import build_validator
 from sgr_library.data_classes.product import DeviceFrame
-
-import ssl
-import certifi
+from sgr_library.data_classes.product import RestApiFunctionalProfile, RestApiDataPoint
+from sgr_library.validators import build_validator
 
 logging.basicConfig(level=logging.ERROR)
 
@@ -91,7 +89,9 @@ class SgrRestInterface(BaseSGrInterface):
             device_category=frame.device_information.device_category,
             is_local=frame.device_information.is_local_control
         )
-        self.session = aiohttp.ClientSession()
+        self.ssl_context = ssl.create_default_context(cafile=certifi.where())
+        self.connector = aiohttp.TCPConnector(ssl=self.ssl_context)
+        self.session = aiohttp.ClientSession(connector=self.connector)
         self.token = None
         self.sensor_id = "5e8c91ce9e720119f94d0249"
         self.root = frame
@@ -102,6 +102,7 @@ class SgrRestInterface(BaseSGrInterface):
         try:
             user = configuration.get('AUTHENTICATION', 'username', fallback="test_user")
             password = configuration.get('AUTHENTICATION', 'password', fallback="test_pw")
+            self.sensor_id = configuration.get('RESSOURCE', 'sensor_id', fallback="5e8c91ce9e720119f94d0249")
 
             if not user:
                 raise ValueError("Missing username in the configuration file")
@@ -259,27 +260,3 @@ class SgrRestInterface(BaseSGrInterface):
             logging.error(f"An unexpected error occurred: {e}")
 
         return None  # Return None or an appropriate default/fallback value in case of error
-
-
-async def test():
-    interface_file = "SGr_04_mmmm_dddd_CLEMAPEnergyMonitorEIV0.2.1.xml"
-    private_config = "config_CLEMAPEnMon_ressource_default.ini"
-
-    client = SgrRestInterface(interface_file, private_config)
-    token = await client.authenticate()
-    value = await asyncio.gather(client.getval('ActivePowerAC', 'ActivePowerACL1'))
-
-    print(value)
-    await asyncio.sleep(1)
-    print('1')
-    await asyncio.sleep(1)
-    print('2')
-    await asyncio.sleep(1)
-    print('3')
-
-    # print(find_dp(client.root, 'ActivePowerAC', 'ActivePowerACL1').rest_apidata_point[0].rest_service_call.request_path)
-    await client.session.close()
-
-
-if __name__ == "__main__":
-    asyncio.run(test())

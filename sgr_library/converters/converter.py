@@ -157,7 +157,7 @@ class PercentConverter(DataPointConverter[int]):
         return SubSetUnits.PERCENT
 
 
-class NoneConverter(VoltDataPointConverter[None]):
+class NoneConverter(DataPointConverter[None]):
 
     def __init__(self, unit: Units):
         self._unit = unit

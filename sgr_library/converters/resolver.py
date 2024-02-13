@@ -11,6 +11,7 @@ converter_lookup: dict[Units, Callable[[Units], DataPointConverter]] = {
     Units.VOLTS: lambda x: VoltDataPointConverter(x),
     Units.AMPERES: lambda x: CurrentConverter(x),
     Units.KILOVOLT_AMPERES_REACTIVE: lambda x: ReactiveEnergyConverter(x),
+    Units.KILOVOLT_AMPERES: lambda x: ReactiveEnergyConverter(x),
     Units.KILOWATT_HOURS: lambda x: PowerOverTimeConverter(x),
     Units.KILOVOLT_AMPERES_REACTIVE_HOURS: lambda x: ReactiveEnergyConverter(x),
 
