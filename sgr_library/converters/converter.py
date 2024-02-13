@@ -86,6 +86,61 @@ class PowerConverter(DataPointConverter[int]):
     def converted_unit(self) -> SubSetUnits:
         pass
 
+class TemperatureConverter(DataPointConverter[int]):
+
+    def __init__(self, unit: Units) -> None:
+        self._unit = unit
+
+    def to_device(self, value: T) -> Any:
+        return value
+
+    def from_device(self, value: Any) -> T:
+        return value
+
+    def converted_unit(self) -> SubSetUnits:
+        return SubSetUnits.DEGREES_CELSIUS
+
+class HoursConverter(DataPointConverter[int]):
+
+    def __init__(self, unit: Units) -> None:
+        self._unit = unit
+
+    def to_device(self, value: T) -> Any:
+        return value
+
+    def from_device(self, value: Any) -> T:
+        return value
+
+    def converted_unit(self) -> SubSetUnits:
+        return SubSetUnits.HOURS
+
+class MinutesConverter(DataPointConverter[int]):
+
+    def __init__(self, unit: Units) -> None:
+        self._unit = unit
+
+    def to_device(self, value: T) -> Any:
+        return value
+
+    def from_device(self, value: Any) -> T:
+        return value
+
+    def converted_unit(self) -> SubSetUnits:
+        return SubSetUnits.MINUTES
+
+class SecondsConverter(DataPointConverter[int]):
+
+    def __init__(self, unit: Units) -> None:
+        self._unit = unit
+
+    def to_device(self, value: T) -> Any:
+        return value
+
+    def from_device(self, value: Any) -> T:
+        return value
+
+    def converted_unit(self) -> SubSetUnits:
+        return SubSetUnits.SECONDS
 
 class PercentConverter(DataPointConverter[int]):
 
@@ -99,8 +154,22 @@ class PercentConverter(DataPointConverter[int]):
         return value
 
     def converted_unit(self) -> SubSetUnits:
-        pass
+        return SubSetUnits.PERCENT
 
+
+class NoneConverter(VoltDataPointConverter[None]):
+
+    def __init__(self, unit: Units):
+        self._unit = unit
+
+    def to_device(self, value: T) -> Any:
+        return None
+
+    def from_device(self, value: Any) -> None:
+        return None
+
+    def converted_unit(self) -> SubSetUnits:
+        return SubSetUnits.NONE
 
 class UnsupportedConverter(DataPointConverter[Any]):
 
