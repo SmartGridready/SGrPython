@@ -20,7 +20,7 @@ class EnumValidator(DataPointValidator):
         ordinals = {entry.ordinal for entry in type.enum_entry}
         literals.union(ordinals)
         literals.discard(None)
-        self._valid_entries = literals
+        self._valid_entries: list[str] = literals
 
     def validate(self, value: Any) -> bool:
         return value in self._valid_entries
@@ -28,6 +28,8 @@ class EnumValidator(DataPointValidator):
     def data_type(self):
         return DataTypes.ENUM
 
+    def options(self) -> list[str] | None:
+        return self._valid_entries
 
 class IntValidator(DataPointValidator):
 

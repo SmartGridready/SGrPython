@@ -30,9 +30,11 @@ class DataPointValidator(ABC):
         pass
 
     @abstractmethod
-    def data_type(self):
+    def data_type(self) -> SubSetUnits:
         pass
 
+    def options(self) -> list[str] | None:
+        return None
 
 class DataPointProtocol(ABC):
 
@@ -86,3 +88,8 @@ class DataPoint(Generic[T]):
 
     def describe(self) -> tuple[tuple[str, str], DataDirection, DataTypes]:
         return self.name(), self.direction(), self.data_type()
+
+    def options(self) -> list[str]:
+        if self._validator.options() == None:
+            return []
+        return  self._validator.options()

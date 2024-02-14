@@ -47,8 +47,8 @@ device_builders: dict[SGrDeviceProtocol, Callable[
     SGrDeviceProtocol.MODBUS_TPC: lambda frame, _: SgrModbusInterface(frame),
     SGrDeviceProtocol.MODBUS_RTU: lambda frame, _: SgrModbusRtuInterface(frame),
     SGrDeviceProtocol.RESTAPI: lambda frame, config: SgrRestInterface(frame, config),
-    #SGrDeviceProtocol.GENERIC: lambda frame, config: SgrModbusInterface(frame),
-    #SGrDeviceProtocol.CONTACT: lambda frame, config: SgrModbusInterface(frame)
+    # SGrDeviceProtocol.GENERIC: lambda frame, config: SgrModbusInterface(frame),
+    # SGrDeviceProtocol.CONTACT: lambda frame, config: SgrModbusInterface(frame)
 }
 
 
@@ -75,12 +75,14 @@ class GenericSGrDeviceBuilder:
 
     def get_spec_content(self) -> str:
         if self._type == SGrConfiguration.FILE:
-            with open(self._value) as input_file:
+            try:
+                input_file = open(self._value)
                 return input_file.read()
+            except:
+                raise Exception("Invalid spec file path")
         elif self._type == SGrConfiguration.STRING:
             return self._value
-        else:
-            return ""
+        return ""
 
     def xml_file_path(self, file_path: str):
         self._value = file_path
