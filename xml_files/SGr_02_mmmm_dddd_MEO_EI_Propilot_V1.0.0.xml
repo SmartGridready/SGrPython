@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<DeviceFrame xmlns="http://www.smartgridready.com/ns/V0/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/Product/Product.xsd">
+  <deviceName>meoEnergy PROPILOT</deviceName>
+  <manufacturerName>meoEnergy</manufacturerName>
+  <specificationOwnerIdentification>4346239420</specificationOwnerIdentification>
+  <releaseNotes>
+    <state>Published</state>
+    <changeLog>
+      <version>0.2.2</version>
+      <date>2023-01-16</date>
+      <author>Martin Zwinz, Meo Energy</author>
+      <comment>Creation based on input from meoEnergy</comment>
+    </changeLog>
+    <changeLog>
+      <version>1.0.0</version>
+      <date>2024-01-24</date>
+      <author>Arnd Gerns, Ergonomics</author>
+      <comment>Published</comment>
+    </changeLog>
+  </releaseNotes>
+  <deviceInformation>
+    <legibleDescription>
+      <textElement>
+        <![CDATA[ 
+          Der PROPILOT ist das derzeit einzige IoT-System für Bestandsgebäude, das herstellerunabhängig die gesamte energietechnische Gebäudeausrüstung
+          in einer zentralen CLOUD-Plattform mit entsprechenden Schnittstellen vernetzt.
+          Permanente und gebäudeübergreifende Betriebsüberwachung hilft dann, Fehlfunktionen frühzeitig zu erkennen.
+          </p>
+          Insbesondere die Effizienzoptimierung von bis zu 20 % bei älteren Heizungen und Transparenz bei den laufenden Stromverbräuchen
+          stellen einen grossen Mehrwert für grössere Immobilienbestandshalter dar. Weiter unterstützt die Software mit Analysen und Simulationen
+          die Gebäudemodernisierung mit erneuerbaren Energiequellen. Dies bildet die Grundlage für die datengesteuerte Optimierung der Energieeffizienz ganzer Immobilienportfolios.
+          </p>
+          Neben markanten Soforteinsparungen wird so langfristig der Gebäudewert gesichert.
+        ]]>
+        </textElement>
+      <language>de</language>
+      <uri>https://www.meo-energy.com/produkte/</uri>
+    </legibleDescription>
+    <deviceCategory>SubMeterElectricity</deviceCategory>
+    <isLocalControl>false</isLocalControl>
+    <softwareRevision>1.0.0</softwareRevision>
+    <hardwareRevision>1.0.0</hardwareRevision>
+    <levelOfOperation>m</levelOfOperation>
+  </deviceInformation>
+  <interfaceList>
+    <restApiInterface>
+      <restApiInterfaceDescription>
+        <restApiInterfaceSelection>URI</restApiInterfaceSelection>
+        <restApiUri>https://my.meo-energy.com/meoApplicationServer</restApiUri>
+        <restApiAuthenticationMethod>BearerSecurityScheme</restApiAuthenticationMethod>
+        <restApiBearer>
+          <restApiServiceCall>
+            <requestHeader>
+              <header>
+                <headerName>Accept</headerName>
+                <value>application/json</value>
+              </header>
+            </requestHeader>
+            <requestMethod>POST</requestMethod>
+            <requestPath>/authentication</requestPath>
+            <requestBody>{"email": "{{username}}", "password": "{{password}}"}</requestBody>
+            <responseQuery>
+              <queryType>JMESPathExpression</queryType>
+              <query>accessToken</query>
+            </responseQuery>
+          </restApiServiceCall>
+        </restApiBearer>
+      </restApiInterfaceDescription>
+      <functionalProfileList>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>ActivePowerAC</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ActivePowerAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[	
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Messung der Wirkleistung</strong><br>
+                  Monitoring Funktionsprofil für Stromerzeuger und Stromverbraucher zur Kontrolle der Systemlast und/oder für regeltechnische 
+                  Zwecke.
+                  
+                  <p>Für Regelzwecke ist die Kenntnissder Messgenauigkeit zwingend und wird daher pro Datenpunkt als obligatorisches
+                     Attribut angegeben. Somit ist es möglich unterschiedliche Messgenauigkeiten für die Datenpunkte
+                     zu definieren.</p>
+                  
+                  <p>Dieses Funktionsprofil erlaubt sowohl die Messung der Totalleistung wie auch die Leistung der drei
+                     einzelnen Phasen. Eine der folgenden Varianten muss bei der Implementierung des Funktionsprofiles
+                     umgesetzt werden:
+                  <ul>
+                    <li>Einphasige Geräte geben die Totalleistung an (ActivePowerACtot)</li>
+                    <li>3-phasige Geräte ohne Totalleistungsmessung geben die Leistung pro Phase an (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
+                    <li>3-phasige Geräte mit Einzelphasen- und Totalleistungsmessung geben alle Datenpunkte an</li>
+                  </ul>
+                  </p>
+                ]]>
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[	
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Active Power Measurement</strong><br>
+                  Monitoring functional profile for power generators and consumers for reflecting the active power.
+                  
+                  <p>Knowing the precisionPercent of measurements is necessary and therefore specified as a mandatory attribute
+                     per data point. Thus, different measurement precisions can be defined for the data points.</p>
+                  
+                  <p>With this functional profile you can measure the total active power as well as the active power of
+                     the three individual phases. One of the following options must be implemented for fulfilling the functional profile:
+                  <ul>
+                    <li>Single-phase devices use the total active power data point (ActivePowerACtot)</li>
+                    <li>Three-phase devices without measurement of the total active power use the data points per phase (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
+                    <li>Three-phase devices with measurement of the total active power use all data points</li>
+                  </ul>
+                  </p>
+                ]]>			
+              </textElement>
+              <language>en</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActivePowerACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der gesamten Wirkleistung</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Total active power measurement</textElement>
+                  <language>en</language>
+                </legibleDescription>
+              </dataPoint>
+              <restApiDataPointConfiguration>
+                <dataType>JSON_number</dataType>
+                <restApiServiceCall>
+                  <requestHeader>
+                    <header>
+                      <headerName>Accept</headerName>
+                      <value>application/json</value>
+                    </header>
+                  </requestHeader>
+                  <requestMethod>GET</requestMethod>
+                  <requestPath>/sgr/cem/measurements?serialNo={{serialNo}}</requestPath>
+                  <responseQuery>
+                    <queryType>JMESPathExpression</queryType>
+                    <query>activePowerACtot</query>
+                  </responseQuery>
+                </restApiServiceCall>
+              </restApiDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+      </functionalProfileList>
+    </restApiInterface>
+  </interfaceList>
+</DeviceFrame>

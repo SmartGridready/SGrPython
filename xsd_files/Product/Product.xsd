@@ -55,7 +55,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       </element>
       <element name="manufacturerSpecificationIdentification" type="string" minOccurs="0">
         <annotation>
-          <documentation>manufacurers specification identifier</documentation>
+          <documentation>manufacturers specification identifier</documentation>
         </annotation>
       </element>
       <element name="manufacturerLabel" type="string" minOccurs="0">
@@ -90,7 +90,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <element name="modbusInterface" type="sgr:ModbusInterface" />
       <element name="restApiInterface" type="sgr:RestApiInterface" />
       <element name="contactInterface" type="sgr:ContactInterface" />
-      <element name="genericInterface" type="sgr:GenericInterface " />
+      <element name="genericInterface" type="sgr:GenericInterface" />
     </choice>
   </complexType>
 
@@ -109,7 +109,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <element name="specificationOwnerIdentification" type="sgr:SpecificationOwnerIdentification" />
       <element name="releaseNotes" type="sgr:ReleaseNotes" />
       <element name="deviceInformation" type="sgr:DeviceInformation" />
-      <element name="genericAttributes" type="sgr:GenericAttributes" minOccurs="0" />
+      <element name="genericAttributeList" type="sgr:GenericAttributeListProduct" minOccurs="0" />
       <element name="interfaceList" type="sgr:InterfaceList" />
     </sequence>
   </complexType>

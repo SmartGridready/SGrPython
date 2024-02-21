@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<DeviceFrame xmlns="http://www.smartgridready.com/ns/V0/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/Product/Product.xsd">
+  <deviceName>Smart Charge Controller</deviceName>
+  <manufacturerName>A. Lehmann Elektro AG</manufacturerName>
+  <specificationOwnerIdentification>0</specificationOwnerIdentification>
+  <releaseNotes>
+    <state>Published</state>
+    <changeLog>
+      <version>1.0.0</version>
+      <date>2024-01-24</date>
+      <author>Arnd Gerns, Ergonomics</author>
+      <comment>Published</comment>
+    </changeLog>
+  </releaseNotes>
+  <deviceInformation>
+    <legibleDescription>
+      <textElement>
+        <![CDATA[ 
+          Der Smart Charge Controller ist ein intelligentes Lastmanagement-System, welches das Auslesen der integrierten Leistungsmessung (Spannung, Storm, Leistung) erlaubt.
+          </p>
+          Das System besteht aus autonomen Edge-Devices (SCC-Edge), die zusätzlich die Vorteile der SCC-Cloud nutzen und somit eine skalierbare Lösung mit tiefen Hardwarekosten aufweist.
+          </p>
+          Der Smart Charge Controller bietet ein hohes Mass an Kontrolle, Transparenz und Flexibilität.
+        ]]>
+        </textElement>
+      <language>de</language>
+      <uri>https://lehmann.ch/smart-charge-controller/</uri>
+    </legibleDescription>
+    <deviceCategory>SubMeterElectricity</deviceCategory>
+    <isLocalControl>true</isLocalControl>
+    <softwareRevision>1.0.0</softwareRevision>
+    <hardwareRevision>1.0.0</hardwareRevision>
+    <levelOfOperation>m</levelOfOperation>
+  </deviceInformation>
+  <interfaceList>
+    <restApiInterface>
+      <restApiInterfaceDescription>
+        <restApiInterfaceSelection>URI</restApiInterfaceSelection>
+        <restApiUri>https://api.smartchargecontroller.ch:3000</restApiUri>
+        <restApiAuthenticationMethod>BearerSecurityScheme</restApiAuthenticationMethod>
+        <restApiBearer>
+          <restApiServiceCall>
+            <requestHeader>
+              <header>
+                <headerName>Accept</headerName>
+                <value>application/json</value>
+              </header>
+            </requestHeader>
+            <requestMethod>POST</requestMethod>
+            <requestPath>/auth/login</requestPath>
+            <requestBody>{"username": "{{username}}", "password": "{{password}}" }</requestBody>
+            <responseQuery>
+              <queryType>JMESPathExpression</queryType>
+              <query>accessToken</query>
+            </responseQuery>
+          </restApiServiceCall>
+        </restApiBearer>
+      </restApiInterfaceDescription>
+      <functionalProfileList>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>ActivePowerAC</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ActivePowerAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[	
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Messung der Wirkleistung</strong><br>
+                  Monitoring Funktionsprofil für Stromerzeuger und Stromverbraucher zur Kontrolle der Systemlast und/oder für regeltechnische 
+                  Zwecke.
+                  
+                  <p>Für Regelzwecke ist die Kenntnissder Messgenauigkeit zwingend und wird daher pro Datenpunkt als obligatorisches
+                     Attribut angegeben. Somit ist es möglich unterschiedliche Messgenauigkeiten für die Datenpunkte
+                     zu definieren.</p>
+                  
+                  <p>Dieses Funktionsprofil erlaubt sowohl die Messung der Totalleistung wie auch die Leistung der drei
+                     einzelnen Phasen. Eine der folgenden Varianten muss bei der Implementierung des Funktionsprofiles
+                     umgesetzt werden:
+                  <ul>
+                    <li>Einphasige Geräte geben die Totalleistung an (ActivePowerACtot)</li>
+                    <li>3-phasige Geräte ohne Totalleistungsmessung geben die Leistung pro Phase an (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
+                    <li>3-phasige Geräte mit Einzelphasen- und Totalleistungsmessung geben alle Datenpunkte an</li>
+                  </ul>
+                  </p>
+                ]]>
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[	
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Active Power Measurement</strong><br>
+                  Monitoring functional profile for power generators and consumers for reflecting the active power.
+                  
+                  <p>Knowing the precisionPercent of measurements is necessary and therefore specified as a mandatory attribute
+                     per data point. Thus, different measurement precisions can be defined for the data points.</p>
+                  
+                  <p>With this functional profile you can measure the total active power as well as the active power of
+                     the three individual phases. One of the following options must be implemented for fulfilling the functional profile:
+                  <ul>
+                    <li>Single-phase devices use the total active power data point (ActivePowerACtot)</li>
+                    <li>Three-phase devices without measurement of the total active power use the data points per phase (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
+                    <li>Three-phase devices with measurement of the total active power use all data points</li>
+                  </ul>
+                  </p>
+                ]]>			
+              </textElement>
+              <language>en</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActivePowerACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der gesamten Wirkleistung</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Total active power measurement</textElement>
+                  <language>en</language>
+                </legibleDescription>
+              </dataPoint>
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>SampleRate</name>
+                  <dataType>
+                    <int64U/>
+                  </dataType>
+                  <value>10</value>
+                  <unit>HERTZ</unit>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              <restApiDataPointConfiguration>
+                <dataType>JSON_number</dataType>
+                <restApiServiceCall>
+                  <requestHeader>
+                    <header>
+                      <headerName>Accept</headerName>
+                      <value>application/json</value>
+                    </header>
+                  </requestHeader>
+                  <requestMethod>GET</requestMethod>
+                  <requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</requestPath>
+                  <responseQuery>
+                    <queryType>JMESPathExpression</queryType>
+                    <query>multiply(`0.001`,sum([activePower.l1,activePower.l2,activePower.l3]))</query>
+                  </responseQuery>
+                </restApiServiceCall>
+              </restApiDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActivePowerACL1</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Wirkleistung Phase 1</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Active power measurement of phase 1</textElement>
+                  <language>en</language>
+                </legibleDescription>
+              </dataPoint>
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>SampleRate</name>
+                  <dataType>
+                    <int64U/>
+                  </dataType>
+                  <value>10</value>
+                  <unit>HERTZ</unit>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              <restApiDataPointConfiguration>
+                <dataType>JSON_number</dataType>
+                <restApiServiceCall>
+                  <requestHeader>
+                    <header>
+                      <headerName>Accept</headerName>
+                      <value>application/json</value>
+                    </header>
+                  </requestHeader>
+                  <requestMethod>GET</requestMethod>
+                  <requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</requestPath>
+                  <responseQuery>
+                    <queryType>JMESPathExpression</queryType>
+                    <query>multiply(`0.001`,activePower.l1)</query>
+                  </responseQuery>
+                </restApiServiceCall>
+              </restApiDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActivePowerACL2</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Wirkleistung Phase 2</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Active power measurement of phase 2</textElement>
+                  <language>en</language>
+                </legibleDescription>
+              </dataPoint>
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>SampleRate</name>
+                  <dataType>
+                    <int64U/>
+                  </dataType>
+                  <value>10</value>
+                  <unit>HERTZ</unit>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              <restApiDataPointConfiguration>
+                <dataType>JSON_number</dataType>
+                <restApiServiceCall>
+                  <requestHeader>
+                    <header>
+                      <headerName>Accept</headerName>
+                      <value>application/json</value>
+                    </header>
+                  </requestHeader>
+                  <requestMethod>GET</requestMethod>
+                  <requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</requestPath>
+                  <responseQuery>
+                    <queryType>JMESPathExpression</queryType>
+                    <query>multiply(`0.001`,activePower.l2)</query>
+                  </responseQuery>
+                </restApiServiceCall>
+              </restApiDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActivePowerACL3</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Wirkleistung Phase 3</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Active power measurement of phase 3</textElement>
+                  <language>en</language>
+                </legibleDescription>
+              </dataPoint>
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>SampleRate</name>
+                  <dataType>
+                    <int64U/>
+                  </dataType>
+                  <value>10</value>
+                  <unit>HERTZ</unit>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              <restApiDataPointConfiguration>
+                <dataType>JSON_number</dataType>
+                <restApiServiceCall>
+                  <requestHeader>
+                    <header>
+                      <headerName>Accept</headerName>
+                      <value>application/json</value>
+                    </header>
+                  </requestHeader>
+                  <requestMethod>GET</requestMethod>
+                  <requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</requestPath>
+                  <responseQuery>
+                    <queryType>JMESPathExpression</queryType>
+                    <query>multiply(`0.001`,activePower.l3)</query>
+                  </responseQuery>
+                </restApiServiceCall>
+              </restApiDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>VoltageAC</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>VoltageAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
+                <subReleaseVersionNumber>2</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>
+                Die Messung der Spannung pro Phase und Nullleiter. Typische Nachbarprofile sind Controller für Wallbox, Communicator.
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>VoltageACL1_N</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>VOLTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Spannung im Nullleiter Phase 1</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>SampleRate</name>
+                  <dataType>
+                    <int64U/>
+                  </dataType>
+                  <value>10</value>
+                  <unit>HERTZ</unit>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              <restApiDataPointConfiguration>
+                <dataType>JSON_number</dataType>
+                <restApiServiceCall>
+                  <requestHeader>
+                    <header>
+                      <headerName>Accept</headerName>
+                      <value>application/json</value>
+                    </header>
+                  </requestHeader>
+                  <requestMethod>GET</requestMethod>
+                  <requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</requestPath>
+                  <responseQuery>
+                    <queryType>JMESPathExpression</queryType>
+                    <query>voltage.l1</query>
+                  </responseQuery>
+                </restApiServiceCall>
+              </restApiDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>VoltageACL2_N</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>VOLTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Spannung im Nullleiter Phase 2</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>SampleRate</name>
+                  <dataType>
+                    <int64U/>
+                  </dataType>
+                  <value>10</value>
+                  <unit>HERTZ</unit>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              <restApiDataPointConfiguration>
+                <dataType>JSON_number</dataType>
+                <restApiServiceCall>
+                  <requestHeader>
+                    <header>
+                      <headerName>Accept</headerName>
+                      <value>application/json</value>
+                    </header>
+                  </requestHeader>
+                  <requestMethod>GET</requestMethod>
+                  <requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</requestPath>
+                  <responseQuery>
+                    <queryType>JMESPathExpression</queryType>
+                    <query>voltage.l2</query>
+                  </responseQuery>
+                </restApiServiceCall>
+              </restApiDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>VoltageACL3_N</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>VOLTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Spannung im Nullleiter Phase 3</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>SampleRate</name>
+                  <dataType>
+                    <int64U/>
+                  </dataType>
+                  <value>10</value>
+                  <unit>HERTZ</unit>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              <restApiDataPointConfiguration>
+                <dataType>JSON_number</dataType>
+                <restApiServiceCall>
+                  <requestHeader>
+                    <header>
+                      <headerName>Accept</headerName>
+                      <value>application/json</value>
+                    </header>
+                  </requestHeader>
+                  <requestMethod>GET</requestMethod>
+                  <requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</requestPath>
+                  <responseQuery>
+                    <queryType>JMESPathExpression</queryType>
+                    <query>voltage.l3</query>
+                  </responseQuery>
+                </restApiServiceCall>
+              </restApiDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>CurrentAC</functionalProfileName>
+              <functionalProfileIdentification>
+                <specificationOwnerIdentification>0</specificationOwnerIdentification>
+                <functionalProfileCategory>Metering</functionalProfileCategory>
+                <functionalProfileType>CurrentAC</functionalProfileType>
+                <levelOfOperation>m</levelOfOperation>
+                <versionNumber>
+                  <primaryVersionNumber>1</primaryVersionNumber>
+                  <secondaryVersionNumber>0</secondaryVersionNumber>
+                  <subReleaseVersionNumber>0</subReleaseVersionNumber>
+                </versionNumber>
+              </functionalProfileIdentification>
+              <legibleDescription>
+                <textElement>
+                  <![CDATA[	
+                    <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                    <strong>Messung der Stromstärke</strong><br>
+                    Monitoring Funktionsprofil für Stromerzeuger und Stromverbraucher zur Kontrolle der Systemlast und/oder für regeltechnische 
+                    Zwecke.
+                    
+                    <p>Für Regelzwecke ist die Kenntnissder Messgenauigkeit zwingend und wird daher pro Datenpunkt als obligatorisches
+                       Attribut angegeben. Somit ist es möglich unterschiedliche Messgenauigkeiten für die Datenpunkte
+                       zu definieren.</p>
+                    
+                    <p>Dieses Funktionsprofil erlaubt sowohl die Messung der Stromstärke auf einer Phase wie auch auf drei Phasen.
+                       Eine der folgenden Varianten muss bei der Implementierung des Funktionsprofiles umgesetzt werden:
+                    <ul>
+                      <li>Einphasige Geräte geben die Stromstärke über die erste Phase an (CurrentAC1)</li>
+                      <li>3-phasige Geräte geben die Stromstärke pro Phase an (CurrentAC1, CurrentAC2, CurrentAC3)</li>
+                    </ul>
+                    Die Implementierung der Messung der Stromstärke auf dem Nulleiter (CurrentACN) ist optional möglich.
+                    </p>
+                  ]]>	
+                </textElement>
+                <language>de</language>
+              </legibleDescription>
+              <legibleDescription>
+                <textElement>
+                  <![CDATA[	
+                    <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                    <strong>Current measurement</strong><br>
+                    Monitoring functional profile for power generators and consumers for reflecting the current. 
+                    
+                    <p>Knowing the precisionPercent of measurements is necessary and therefore specified as a mandatory attribute per data point.
+                       Thus, different measurement precisions can be defined for the data points. </p>
+                    
+                    <p>Dieses Funktionsprofil erlaubt sowohl die Messung der Stromstärke auf einer Phase wie auch auf drei Phasen.
+                       Eine der folgenden Varianten muss bei der Implementierung des Funktionsprofiles umgesetzt werden:
+                    <ul>
+                      <li>Single-phase devices use the total current with the first data point (CurrentAC1)</li>
+                      <li>Three-phase devices give the current per phase  using three data points (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
+                    </ul>
+                    
+                    <p>The implementation of a datapoint measuring the current on the neutral conductor is optional (via datapoint CurrentACN).</p>
+                  ]]>	
+                </textElement>
+                <language>en</language>
+              </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>CurrentACL1</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>AMPERES</unit>
+                <legibleDescription>
+                  <textElement>Erfassung des Stromes in Phase 1</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Current measurement of phase 1</textElement>
+                  <language>en</language>
+                </legibleDescription>
+              </dataPoint>
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>SampleRate</name>
+                  <dataType>
+                    <int64U/>
+                  </dataType>
+                  <value>10</value>
+                  <unit>HERTZ</unit>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              <restApiDataPointConfiguration>
+                <dataType>JSON_number</dataType>
+                <restApiServiceCall>
+                  <requestHeader>
+                    <header>
+                      <headerName>Accept</headerName>
+                      <value>application/json</value>
+                    </header>
+                  </requestHeader>
+                  <requestMethod>GET</requestMethod>
+                  <requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</requestPath>
+                  <responseQuery>
+                    <queryType>JMESPathExpression</queryType>
+                    <query>current.l1</query>
+                  </responseQuery>
+                </restApiServiceCall>
+              </restApiDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>CurrentACL2</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>AMPERES</unit>
+                <legibleDescription>
+                  <textElement>Erfassung des Stromes in Phase 2</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Current measurement of phase 2</textElement>
+                  <language>en</language>
+                </legibleDescription>
+              </dataPoint>
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>SampleRate</name>
+                  <dataType>
+                    <int64U/>
+                  </dataType>
+                  <value>10</value>
+                  <unit>HERTZ</unit>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              <restApiDataPointConfiguration>
+                <dataType>JSON_number</dataType>
+                <restApiServiceCall>
+                  <requestHeader>
+                    <header>
+                      <headerName>Accept</headerName>
+                      <value>application/json</value>
+                    </header>
+                  </requestHeader>
+                  <requestMethod>GET</requestMethod>
+                  <requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</requestPath>
+                  <responseQuery>
+                    <queryType>JMESPathExpression</queryType>
+                    <query>current.l2</query>
+                  </responseQuery>
+                </restApiServiceCall>
+              </restApiDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>CurrentACL3</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>AMPERES</unit>
+                <legibleDescription>
+                  <textElement>Erfassung des Stromes in Phase 3</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Current measurement of phase 3</textElement>
+                  <language>en</language>
+                </legibleDescription>
+              </dataPoint>
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>SampleRate</name>
+                  <dataType>
+                    <int64U/>
+                  </dataType>
+                  <value>10</value>
+                  <unit>HERTZ</unit>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              <restApiDataPointConfiguration>
+                <dataType>JSON_number</dataType>
+                <restApiServiceCall>
+                  <requestHeader>
+                    <header>
+                      <headerName>Accept</headerName>
+                      <value>application/json</value>
+                    </header>
+                  </requestHeader>
+                  <requestMethod>GET</requestMethod>
+                  <requestPath>/edges/{{edgeid}}/metrics/momentaryMeterValues</requestPath>
+                  <responseQuery>
+                    <queryType>JMESPathExpression</queryType>
+                    <query>current.l3</query>
+                  </responseQuery>
+                </restApiServiceCall>
+              </restApiDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+      </functionalProfileList>
+    </restApiInterface>
+  </interfaceList>
+</DeviceFrame>

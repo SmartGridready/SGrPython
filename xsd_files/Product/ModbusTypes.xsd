@@ -38,10 +38,6 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       </element>
       <element name="accessProtection" type="sgr:AccessProtectionEnabled" minOccurs="0" />
       <element name="layer6Deviation" type="sgr:ModbusLayer6Deviation" minOccurs="0" />
-      <!-- TODO: to be removed by #111 -->
-      <element name="iopEnumMapper" type="sgr:ModbusEnumMapper" minOccurs="0" />
-      <element name="iopBitmapMapper" type="sgr:ModbusBitmapMapper" minOccurs="0" />
-      <element name="iopBooleanMapper" type="sgr:ModbusBooleanMapper" minOccurs="0" />
     </all>
   </complexType>
   <complexType name="TimeSyncBlockNotification">
@@ -291,66 +287,8 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
             lower range @ higher address</documentation>
         </annotation>
       </enumeration>
-      <enumeration value="SGReadyEnum2IO_H2L">
-        <annotation>
-          <documentation>2 Registers combine SGready IO1 and IO2 into the sgreadyStateLv2 enum
-            beginning with IO1 @ higher address</documentation>
-        </annotation>
-      </enumeration>
-      <enumeration value="SGReadyEnum2IO_L2H">
-        <annotation>
-          <documentation>2 Registers combine SGready IO1 and IO2 into the sgreadyStateLv2 enum
-            beginning with IO1 @ lower address</documentation>
-        </annotation>
-      </enumeration>
     </restriction>
   </simpleType>
-  <complexType name="ModbusEnumMapper">
-    <annotation>
-      <documentation> Enumerations typically define operation modes or singlular states. Devices use
-        different control schemes, SmartGridrady defines a commmon information model for
-        interoperable behaviour. At interface class level, enums may use different binary values. </documentation>
-    </annotation>
-    <sequence>
-      <annotation>
-        <documentation> modbusEnumMapper uses indexes as the value of the generic definition, the
-          value of shows the proprietary value. (Write data direction) genEnumMapper uses indexes as
-          the value of the proprietary definition, the value shows the generic value (Read data
-          direction) This value is index of the enum list representation of the bit 0 means BIT0
-          65535 means DO NOT MAP, UNKNOWN </documentation>
-      </annotation>
-      <element name="modbusEnumMapper" type="unsignedInt" maxOccurs="unbounded" />
-      <element name="genEnumMapper" type="unsignedInt" maxOccurs="unbounded" />
-    </sequence>
-  </complexType>
-  <complexType name="ModbusBitmapMapper">
-    <annotation>
-      <documentation> Bitmaps typically define operation modes or parallel active states. Devices
-        use different control schemes, SmartGridrady defines a commmon information model for
-        interoperable behaviour. At interface class level, Bitmaps may use different binary values. </documentation>
-    </annotation>
-    <sequence>
-      <annotation>
-        <documentation> modbusBitMapper uses indexes as the value of the generic definition, the
-          value of shows the proprietary value. (Write data direction) genericBitMapper uses indexes
-          as the value of the proprietary definition, the value shows the generic value (Read data
-          direction) </documentation>
-      </annotation>
-      <element name="modbusBitMapper" type="unsignedInt" maxOccurs="unbounded" />
-      <element name="genericBitMapper" type="unsignedInt" maxOccurs="unbounded" />
-    </sequence>
-  </complexType>
-  <complexType name="ModbusBooleanMapper">
-    <annotation>
-      <documentation> Booleans at modbus level may be true if 1, 0, 0xff, -1 , all but not a certain
-        value . isPositiveLogic is true if a number must contain a specific value to be valid
-        isPositiveLogic is false if a number must contain any but NOT a specific value to be valid </documentation>
-    </annotation>
-    <sequence>
-      <element name="isPositiveLogic" type="boolean" />
-      <element name="value" type="unsignedInt" />
-    </sequence>
-  </complexType>
   <complexType name="ModbusTcp">
     <annotation>
       <documentation> Modbus IP address:Specific P elements for Modbus over IP protocol. This
@@ -368,7 +306,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <documentation>Modbus device address</documentation>
     </annotation>
     <restriction base="string">
-      <pattern value="\d+\.\d+\.\d+\.\d+"></pattern>
+      <pattern value="\d+\.\d+\.\d+\.\d+|\{\{.*\}\}"></pattern>
     </restriction>
   </simpleType>
    <simpleType name="BitOrder">
@@ -493,12 +431,21 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
     </sequence>
   </complexType>
   <!-- modbus data types -->
+  <complexType name="ModbusBoolean">
+    <annotation>
+      <documentation>Modbus specific boolean definition</documentation>
+    </annotation>
+    <choice>
+      <element name="trueValue" type="unsignedShort" minOccurs="0" />
+      <element name="falseValue" type="unsignedShort"  minOccurs="0" />
+    </choice>
+  </complexType>
   <complexType name="ModbusDataType">
     <annotation>
       <documentation>Modbus specific data types</documentation>
     </annotation>
     <choice>
-      <element name="boolean" type="sgr:EmptyType" />
+      <element name="boolean" type="sgr:ModbusBoolean" />
       <element name="int8" type="sgr:EmptyType" />
       <element name="int16" type="sgr:EmptyType" />
       <element name="int32" type="sgr:EmptyType" />
@@ -514,5 +461,5 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <element name="enum" type="sgr:Enum" />
       <element name="bitmap" type="sgr:BitmapProduct" />
     </choice>
-  </complexType>  
+  </complexType>
 </schema>

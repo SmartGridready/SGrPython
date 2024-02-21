@@ -19,21 +19,19 @@
     </legibleDescription>
     <deviceCategory>HeatPumpAppliance</deviceCategory>
     <isLocalControl>true</isLocalControl>
-    <softwareRevision>2.1.0</softwareRevision>
+    <softwareRevision>0.5.0 / 4m</softwareRevision>
     <hardwareRevision>1.1.0</hardwareRevision>
     <brandName>OptiHeat Inverta</brandName>
     <powerSource>mains3Phase</powerSource>
     <nominalPower>5 - 35 kW</nominalPower>
-    <manufacturerLabel>
-			CTA OH Inverta Wärmepumpen
-		</manufacturerLabel>
+    <manufacturerLabel>CTA OH Inverta Wärmepumpen</manufacturerLabel>
     <generalRemarks>CTA/mz  IBT/cb</generalRemarks>
     <levelOfOperation>4m</levelOfOperation>
     <programmerHints>
       <textElement>
-          This Gateway offers manufacturer specific control modes for HeatCoolCtrl and DomHotWaterCtrl.  
-          Manufacurer specific data points use the preamble cta.
-          Some data points support persistent memory functionality  (RWP) and limit data write operations to a couple 10'000 write cycles.
+        This Gateway offers manufacturer specific control modes for HeatCoolCtrl and DomHotWaterCtrl.  
+        Manufacurer specific data points use the preamble cta.
+        Some data points support persistent memory functionality  (RWP) and limit data write operations to a couple 10'000 write cycles.
       </textElement>
       <language>en</language>
       <uri>https://cta.ch/privatkunden/produkte/oh-i-eco-sw</uri>
@@ -93,10 +91,11 @@
                   <language>de</language>
                 </legibleDescription>
                 <programmerHints>
-                  <textElement>remoteCtrlTimeSec is valid for external HeatCoolCtrl commands. It must be > 0 for keeping the external command / Setpoint valid.
+                  <textElement>
+                    remoteCtrlTimeSec is valid for external HeatCoolCtrl commands. It must be > 0 for keeping the external command / Setpoint valid.
                     CTA_Ext_Heating_Setpoints and / or  CTA_Ext_Cooling_Setpoints must be set t true that the appropriate setpoint can be set. 
-                     Check the datapoints ctaRemoteHCTempSetptEnable within the HeatCoolCtrl functional profiles for further information.
-                     </textElement>
+                    Check the datapoints ctaRemoteHCTempSetptEnable within the HeatCoolCtrl functional profiles for further information.
+                  </textElement>
                   <language>en</language>
                 </programmerHints>
               </dataPoint>
@@ -318,8 +317,7 @@
                   <manufName>GlbAl</manufName>
                 </alternativeNames>
                 <legibleDescription>
-                  <textElement>Statusanzeige Aktiver Alarm 1=Aktiv (zeitverzögert 90s od. gemäss
-                    Einstellung)</textElement>
+                  <textElement>Statusanzeige Aktiver Alarm 1=Aktiv (zeitverzögert 90s od. gemäss Einstellung)</textElement>
                   <language>de</language>
                 </legibleDescription>
               </dataPoint>
@@ -405,8 +403,10 @@
                   <manufName>CTA_B71_Temp</manufName>
                 </alternativeNames>
                 <legibleDescription>
-                  <textElement>Auslesen der aktuellen aktuellen-Temperatur des Rücklaufs. Hz
-                    Rücklauftemperatur in °C</textElement>
+                  <textElement>
+                    Auslesen der aktuellen aktuellen-Temperatur des Rücklaufs. Hz
+                    Rücklauftemperatur in °C
+                  </textElement>
                   <language>de</language>
                 </legibleDescription>
               </dataPoint>
@@ -432,8 +432,7 @@
                   <manufName>CTA_B91_Temp</manufName>
                 </alternativeNames>
                 <legibleDescription>
-                  <textElement>Auslesen der aktuellen Temperaturen der WP-Quelle (SoleWasser oder
-                    Luft)</textElement>
+                  <textElement>Auslesen der aktuellen Temperaturen der WP-Quelle (SoleWasser oder Luft)</textElement>
                   <language>de</language>
                 </legibleDescription>
               </dataPoint>
@@ -463,8 +462,10 @@
               </versionNumber>
             </functionalProfileIdentification>
             <legibleDescription>
-              <textElement>Die Leistungssteuerung steuert die Verdichterdrehzahl. Dieser Sollwert wird nur bei Trink-Warmwasserbedarf berücksichtigt.
-              Der Bedarf kann durch die Erhöhung des DomHotWTempStpt-Wertes erzeugt werden.</textElement>              
+              <textElement>
+                Die Leistungssteuerung steuert die Verdichterdrehzahl. Dieser Sollwert wird nur bei Trink-Warmwasserbedarf berücksichtigt.
+                Der Bedarf kann durch die Erhöhung des DomHotWTempStpt-Wertes erzeugt werden.
+              </textElement>              
               <language>de</language>
             </legibleDescription>
           </functionalProfile>
@@ -509,8 +510,8 @@
                 <unit>REVOLUTIONS_PER_MINUTE</unit>
                 <unitConversionMultiplicator>60.0</unitConversionMultiplicator>
                 <alternativeNames>
-                	<sLV1Name>ActSpeed</sLV1Name>
-                	<manufName>State_CompRPS</manufName></alternativeNames>
+                    <sLV1Name>ActSpeed</sLV1Name>
+                    <manufName>State_CompRPS</manufName></alternativeNames>
                 <legibleDescription>
                   <textElement>
                     Effektive Drehzahl des Verdichters
@@ -536,8 +537,8 @@
                 </dataType>
                 <unit>KILOWATT_HOURS</unit>
                 <alternativeNames>
-                	<sLV1Name>ActPowerACtot</sLV1Name>
-                	<manufName>State_CompPower</manufName></alternativeNames>
+                    <sLV1Name>ActPowerACtot</sLV1Name>
+                    <manufName>State_CompPower</manufName></alternativeNames>
                 <legibleDescription>
                   <textElement>
                     Effektive elektrischen Aufnahmeleistung des Verdichters
@@ -758,15 +759,17 @@
                 </dataType>
                 <unit>NONE</unit>
                 <alternativeNames>
-                	<sLV1Name>ctaRemoteHCTempSetptEnable</sLV1Name>
-                	<manufName>CTA_Ext_Heating_Command</manufName></alternativeNames>
+                  <sLV1Name>ctaRemoteHCTempSetptEnable</sLV1Name>
+                  <manufName>CTA_Ext_Heating_Command</manufName></alternativeNames>
                 <legibleDescription>
                   <textElement>true um den Datenpunkt HeatCoolCtrl.SupplyWaterTempStpt zu aktvieren</textElement>
                   <language>de</language>
                 </legibleDescription>
                 <programmerHints>
-                  <textElement>true sets the CTA_Ext_Heating_Setpoint to active AND forces the ctaHCOpModeCmd into HC_COMFORT mode as long ctaRemoteCtrlTimeSec > 0
-                  when the ctaRemoteHCTempSetptEnable becomes 0, HeatCoolCtrl will stay in comfort mode until a new ctaHCOpModeCmd is set</textElement>
+                  <textElement>
+                    true sets the CTA_Ext_Heating_Setpoint to active AND forces the ctaHCOpModeCmd into HC_COMFORT mode as long ctaRemoteCtrlTimeSec > 0
+                    when the ctaRemoteHCTempSetptEnable becomes 0, HeatCoolCtrl will stay in comfort mode until a new ctaHCOpModeCmd is set
+                  </textElement>
                   <language>en</language>
                 </programmerHints>
               </dataPoint>
@@ -807,8 +810,6 @@
             </dataPointListElement>
           </dataPointList>
         </functionalProfileListElement>
-        
-        
         <functionalProfileListElement>
           <functionalProfile>
             <functionalProfileName>HeatCoolCtrl_2</functionalProfileName>
@@ -1011,15 +1012,17 @@
                 </dataType>
                 <unit>NONE</unit>
                 <alternativeNames>
-                	<sLV1Name>ctaRemoteHCTempSetptEnable</sLV1Name>
-                	<manufName>CTA_Ext_Heating_Command_2 (?Reserve)</manufName></alternativeNames>
+                  <sLV1Name>ctaRemoteHCTempSetptEnable</sLV1Name>
+                  <manufName>CTA_Ext_Heating_Command_2 (?Reserve)</manufName></alternativeNames>
                 <legibleDescription>
                   <textElement>true um den Datenpunkt HeatCoolCtrl.SupplyWaterTempStpt zu aktvieren</textElement>
                   <language>de</language>
                 </legibleDescription>
                 <programmerHints>
-                  <textElement>true sets the CTA_Ext_Heating_Setpoint to active AND forces the ctaHCOpModeCmd into HC_COMFORT mode as long ctaRemoteCtrlTimeSec > 0
-                  when the ctaRemoteHCTempSetptEnable becomes 0, HeatCoolCtrl will stay in comfort mode until a new ctaHCOpModeCmd is set</textElement>
+                  <textElement>
+                    true sets the CTA_Ext_Heating_Setpoint to active AND forces the ctaHCOpModeCmd into HC_COMFORT mode as long ctaRemoteCtrlTimeSec > 0
+                    when the ctaRemoteHCTempSetptEnable becomes 0, HeatCoolCtrl will stay in comfort mode until a new ctaHCOpModeCmd is set
+                  </textElement>
                   <language>en</language>
                 </programmerHints>
               </dataPoint>
@@ -1060,8 +1063,6 @@
             </dataPointListElement>
           </dataPointList>
         </functionalProfileListElement>
-        
-        
         <functionalProfileListElement>
           <functionalProfile>
             <functionalProfileName>DomHotWaterCtrl</functionalProfileName>
@@ -1282,8 +1283,10 @@
                   <manufName>CTA_CFG_Buffer_Overcharge_dT</manufName>
                 </alternativeNames>
                 <legibleDescription>
-                  <textElement>Relative Anhebung/Absenkung der Solltemperatur (+/-) für den
-                    Heiz-Pufferspeicher.</textElement>
+                  <textElement>
+                    Relative Anhebung/Absenkung der Solltemperatur (+/-) für den
+                    Heiz-Pufferspeicher.
+                  </textElement>
                   <language>de</language>
                 </legibleDescription>
               </dataPoint>
@@ -1305,11 +1308,10 @@
                 </dataType>
                 <unit>DEGREES_CELSIUS</unit>
                 <alternativeNames>
-                	<sLV1Name>ActHeatBufferTemp</sLV1Name>
-                	<manufName>CTA_B4_Temp</manufName></alternativeNames>
+                    <sLV1Name>ActHeatBufferTemp</sLV1Name>
+                    <manufName>CTA_B4_Temp</manufName></alternativeNames>
                 <legibleDescription>
-                  <textElement>Aktuelle Ist-Temperatur des
-                    Heiz-Pufferspeichers oben</textElement>
+                  <textElement>Aktuelle Ist-Temperatur des Heiz-Pufferspeichers oben</textElement>
                   <language>de</language>
                 </legibleDescription>
               </dataPoint>
@@ -1331,8 +1333,8 @@
                 </dataType>
                 <unit>DEGREES_CELSIUS</unit>
                 <alternativeNames>
-                	<sLV1Name>ActHeatBufferTempLower</sLV1Name>
-                	<manufName>CTA_B41_Temp</manufName></alternativeNames>
+                  <sLV1Name>ActHeatBufferTempLower</sLV1Name>
+                  <manufName>CTA_B41_Temp</manufName></alternativeNames>
                 <legibleDescription>
                   <textElement>Aktuelle Ist-Temperatur des Heiz-Pufferspeichers unten</textElement>
                   <language>de</language>
@@ -1349,14 +1351,13 @@
             </dataPointListElement>
           </dataPointList>
         </functionalProfileListElement>
-             
         <functionalProfileListElement>
           <functionalProfile>
-            <functionalProfileName>SG-ReadyStates_bwp</functionalProfileName>
+            <functionalProfileName>SG-ReadyStates</functionalProfileName>
             <functionalProfileIdentification>
               <specificationOwnerIdentification>0</specificationOwnerIdentification>
               <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
-              <functionalProfileType>SG-ReadyStates_bwp</functionalProfileType>
+              <functionalProfileType>SG-ReadyStates</functionalProfileType>
               <levelOfOperation>2m</levelOfOperation>
               <versionNumber>
                 <primaryVersionNumber>1</primaryVersionNumber>
@@ -1365,22 +1366,73 @@
               </versionNumber>
             </functionalProfileIdentification>
             <legibleDescription>
+              <textElement>
+                <![CDATA[
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <h4>Heat pump with 4 operation modes</h4>
+                  <p>Level 2m functional profile for heat pumps with 4 operation modes (SG Ready heat pumps) which can be set via 
+                  Modbus or RestAPI. In addition, the current operation status of the heat pump can be read. The operating states are
+                   defined from SG ready - "Bundesverband Wärmepumpe e.V. (bwp)". </p>
+                   
+                  <p> This functional profile can be used in two ways: </p>
+                   
+                  <ul>
+                    <li> The operating modes are written and read directly via Modbus or RestAPI. </li>
+                    <li> The relay contacts are mapped and implemented via Modbus or RestAPI for reading the operation mode, 
+                    but the mode is set via the relay contacts as in the standard application of SG Ready heat pumps.</li>        
+                  </ul>
+                       
+                  <p> The following operation modes can be written and read via the defined data point "SGReadyOpModeCmd": </p>
+                  
+                  <ul>
+                    <li><strong>HP_LOCKED</strong>: Heat pump blocked - for example fixed blocking by time.</li>
+                    <li><strong>HP_NORMAL</strong>: Heat pump in normal operation. </li>
+                    <li><strong>HP_INTENSIFIED</strong>: Switch-on recommendations for increased operation.  </li>
+                    <li><strong>HP_FORCED</strong>: Forced start-up command (as far as this is possible within the control settings of the heat pump).  </li>
+                  </ul>
+                  
+                  <p> Via the datapoint SGReadyState it is possible to check the currently running operation mode of the heat pump. </p>
+                  
+                  <p> The communicator (e.g. central energy management system) takes into account the unit specifications for the switching 
+                    frequency (attributes maxLockTimeMinutes and minRunTimeMinutes). The values can be set during declaration of the 
+                        heat pump. The standard values for SG Ready heat pumps are "Max. Lock Time" 120 minutes and "Min. Run Time" 20 minutes. </p>
+                  
+                  <p> "SG Ready" is a trademark of the German Heat Pump Association. Further information at <a href="https://www.waermepumpe.de/normen-technik/sg-ready/">https://www.waermepumpe.de/normen-technik/sg-ready/</a>. </p>
+                ]]>
+              </textElement>
+              <language>en</language>
+            </legibleDescription>
+            <legibleDescription>
               <textElement>                
-            <![CDATA[	
-              <h4>Wärmepumpen mit 4 Betriebszuständen</h4>
-              <p>Stufe 2m Funktionsprofil mit Rücklesefunktion für Wärmepumpen mit 4 Betriebszuständen (SG Ready Wärmepumpen)</p>
-              <p>Dieses Funktionsprofil bildet die beiden SG-Ready Klemmenkontakte auf einen maschinenlesbaren Zustand ab</p>
-              <ul>
-                <li><strong>HP_LOCKED</strong>: EVU-Sperre und umfasst im Normalfall maximal 2 Stunden „harte“ Sperrzeit </li>
-                <li><strong>HP_NORMAL</strong>: Wärmepumpe im Normalbetrieb</li>
-                <li><strong>HP_INTENSIFIED</strong>: Einschaltempfehlung mit Anhebung</li>
-                <li><strong>HP_FORCED</strong>: Definitiver Anlaufbefehl (insofern dieser im Rahmen der Regeleinstellungen möglich ist)</li>  				
-              </ul>
-              <p>Der Communicator (z.B. CEM) berücksichtigt die Gerätevorgaben zur Schaltfrequenz (Attribute maxLockTimeMintues und minRunTimeMinutes).</p>
-              <p>„SG Ready“ ist ein Markenzeichen des Bundesverbands Wärmepumpe e. V.<br/>
-                 Weiterführende Informationen unter <a href="https://www.waermepumpe.de/normen-technik/sg-ready/">https://www.waermepumpe.de/normen-technik/sg-ready/</a>).</p>
-            ]]>
-          </textElement>
+                <![CDATA[    
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <h4>Wärmepumpen mit 4 Betriebszuständen</h4>
+                  <p>Stufe 2m Funktionsprofil für Wärmepumpen mit 4 Betriebszuständen (SG Ready Wärmepumpen), die über Modbus oder RestAPI gesetzt werden können. 
+                  Zusätzlich kann der aktuelle Betriebszustand der Wärmepumpe ausgelesen werden. Die Betriebszustände werden über SG Ready - Bundesverband Wärmepumpe e.V. (bwp) definiert. </p>
+                  <p>Dieses Funktionsprofil kann auf zwei Arten genutzt werden: </p>
+                  
+                  <ul>
+                    <li> Die Betriebszustände werden direkt über Modbus oder RestAPI gesetzt und ausgelesen. </li>
+                    <li> Die Klemmkontakte werden gemappt und über Modbus oder RestAPI zum Auslesen des Betriebszustandes abgebildet. Der Zustand wird jedoch wie bei der Standard-Anwendung
+                    von SG Ready Wärmepumpen über die Klemmkontakte gesetzt. </li>        
+                  </ul>
+                  
+                 <p> Folgende Betriebszustände können über den Datenpunkt "SGReadyOpModeCmd" gesetzt und ausgelesen werden: </p>
+                  <ul>
+                    <li><strong>HP_LOCKED</strong>: Wärmepumpe gesperrt - zum Beispiel fixe Sperre nach Uhrzeit.</li>
+                    <li><strong>HP_NORMAL</strong>: Wärmepumpe im Normalbetrieb.</li>
+                    <li><strong>HP_INTENSIFIED</strong>: Einschaltempfehlung für verstärkten Betrieb.</li>
+                    <li><strong>HP_FORCED</strong>: Forcierter Anlaufbefehl (insofern dieser im Rahmen der Regeleinstellungen der Wärmepumpe möglich ist).</li>                  
+                  </ul>
+                  <p> Über den Datenpunkt "SGReadyState" kann der aktuelle Betriebsmodus der Wärmepumpe ausgelesen werden. </p>
+                  
+                  <p>Der Communicator (z.B. Energiemanagementsystem) berücksichtigt die Gerätevorgaben zur Schaltfrequenz (Attribute maxLockTimeMintues und minRunTimeMinutes.
+                  Der Wert der Attribute kann bei der Deklaration gesetzt werden. Standardeinstellung von SG Ready Wärmepumpen nach bwp ist 
+                  "Max. Lock Time" 120 Minuten und "Min. Run Time" 20 Minuten.</p>
+                  <p>„SG Ready“ ist ein Markenzeichen des Bundesverbands Wärmepumpe e. V.<br/>
+                     Weiterführende Informationen unter <a href="https://www.waermepumpe.de/normen-technik/sg-ready/">https://www.waermepumpe.de/normen-technik/sg-ready/</a>.</p>
+                ]]>
+              </textElement>
               <language>de</language>
             </legibleDescription>
           </functionalProfile>
@@ -1412,22 +1464,18 @@
                     <enumEntry>
                       <literal>HP_LOCKED</literal>
                       <ordinal>1</ordinal>
-                      <description>Gesperrt für maximal 2h</description>
                     </enumEntry>
                     <enumEntry>
                       <literal>HP_NORMAL</literal>
                       <ordinal>2</ordinal>
-                      <description>Normalbetrieb, optimiert auf den Kunden</description>
                     </enumEntry>
                     <enumEntry>
                       <literal>HP_INTENSIFIED</literal>
                       <ordinal>3</ordinal>
-                      <description>Verstärkter Betrieb</description>
                     </enumEntry>
                     <enumEntry>
                       <literal>HP_FORCED</literal>
                       <ordinal>4</ordinal>
-                      <description>Definitiver Anlaufbefehl</description>
                     </enumEntry>
                   </enum>
                 </dataType>
@@ -1438,9 +1486,12 @@
                   <hpBwpName>Betriebsmodus</hpBwpName>
                 </alternativeNames>
                 <legibleDescription>
-                  <textElement>this the command acccording the bwp SG-Ready definition
-                    https://www.waermepumpe.de/normen-technik/sg-ready/</textElement>
+                  <textElement>Sets the override possibilities of the heat pump </textElement>
                   <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Festlegen der Übersteuerungsmoeglichkeiten der Wärmepumpe</textElement>
+                  <language>de</language>
                 </legibleDescription>
                 <programmerHints>
                   <textElement>
@@ -1475,22 +1526,18 @@
                     <enumEntry>
                       <literal>HP_LOCKED</literal>
                       <ordinal>1</ordinal>
-                      <description>Gesperrt für maximal 2h</description>
                     </enumEntry>
                     <enumEntry>
                       <literal>HP_NORMAL</literal>
                       <ordinal>2</ordinal>
-                      <description>Normalbetrieb, optimiert auf den Kunden</description>
                     </enumEntry>
                     <enumEntry>
                       <literal>HP_INTENSIFIED</literal>
                       <ordinal>3</ordinal>
-                      <description>Verstärkter Betrieb</description>
                     </enumEntry>
                     <enumEntry>
                       <literal>HP_FORCED</literal>
                       <ordinal>4</ordinal>
-                      <description>Definitiver Anlaufbefehl</description>
                     </enumEntry>
                   </enum>
                 </dataType>
@@ -1501,8 +1548,11 @@
                   <hpBwpName>Statusmeldungen</hpBwpName>
                 </alternativeNames>
                 <legibleDescription>
-                  <textElement>Rückmeldung der aktuellen laufenden Übersteuerungsmoeglichkeit der
-                    Wärmepumpe</textElement>
+                  <textElement>Feedback of the current running override possibility of the heat pump </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Rückmeldung der aktuellen laufenden Übersteuerungsmoeglichkeit der Wärmepumpe</textElement>
                   <language>de</language>
                 </legibleDescription>
               </dataPoint>
@@ -1519,21 +1569,66 @@
         </functionalProfileListElement>
         <functionalProfileListElement>
           <functionalProfile>
-            <functionalProfileName>EnergyMonitor</functionalProfileName>
+            <functionalProfileName>ActiveEnergyACtot</functionalProfileName>
             <functionalProfileIdentification>
               <specificationOwnerIdentification>0</specificationOwnerIdentification>
-              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
-              <functionalProfileType>EnergyMonitor</functionalProfileType>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ActiveEnergyAC</functionalProfileType>
               <levelOfOperation>m</levelOfOperation>
               <versionNumber>
-                <primaryVersionNumber>0</primaryVersionNumber>
-                <secondaryVersionNumber>1</secondaryVersionNumber>
-                <subReleaseVersionNumber>2</subReleaseVersionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
               </versionNumber>
             </functionalProfileIdentification>
             <legibleDescription>
-              <textElement>Das Profil definiert den Monitoringbaustein zur Auswertung des Energieverbrauchs
-                der Wärmepumpe</textElement>
+              <textElement>
+                <![CDATA[
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Energy measurement</strong><br>
+                  Monitoring functional profile for power generators and consumers for reflecting the energy balance.
+                  
+                  <p>Data is typically recorded by an energy manager (or a billing software).</p>
+                  
+                  <p>Knowing the precisionPercent of measurements is necessary and therefore specified as a mandatory attribute per data point.
+                     Thus, different measurement precisions can be defined for the data points. </p>
+                  
+                  <p>With this functional profile you can measure the total energy as well as the energy of the three
+                     individual phases. One of the following options must be implemented for fulfilling the functional profile:
+                  <ul>
+                    <li>Single-phase devices use the total energy data point (ActiveEnergyACtot)</li>
+                    <li>Three-phase devices without measurement of the total energy use the data points per (ActiveEnergyACL1, ActiveEnergyACL2, ActiveEnergyACL3)</li>
+                    <li>Three-phase devices with measurement of the total energy all data points</li>
+                  </ul>
+                  </p>
+                ]]> 
+              </textElement>
+              <language>en</language>
+            </legibleDescription>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[ 
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Messung der Wirkenergie</strong><br>
+                  Monitoring Funktionsprofil für Stromerzeuger und Stromverbraucher zur Bilanzierung der Energiemenge.
+                  
+                  <p>Die Datenaufnahme erfolgt typischerweise durch einen Energiemanager (oder eine Abrechnungssoftware).</p>
+                  
+                  <p>Für Regelzwecke ist die Kenntnissder Messgenauigkeit zwingend und wird daher pro Datenpunkt als obligatorisches
+                     Attribut angegeben. Somit ist es möglich unterschiedliche Messgenauigkeiten für die Datenpunkte
+                     zu definieren.</p>
+                  
+                  <p>Dieses Funktionsprofil erlaubt sowohl die Messung der Gesamtenergie wie auch die Messung der Energie
+                     der drei einzelnen Phasen. Eine der folgenden Varianten muss bei der Implementierung des Funktionsprofiles
+                     umgesetzt werden:
+                  <ul>
+                    <li>1-phasige Geräte geben die Gesamtenergie an (ActiveEnergyACtot)</li>
+                    <li>3-phasige Geräte ohne Gesamtenergiemessung geben die Energiemenge pro Phase an (ActiveEnergyACL1, ActiveEnergyACL2, ActiveEnergyACL3)</li>
+                    <li>3-phasige Geräte mit Einzelphasen- und Gesamtenergiemessung geben alle Datenpunkte an</li>
+                  </ul>
+                  </p>
+                ]]> 
+              </textElement>
               <language>de</language>
             </legibleDescription>
           </functionalProfile>
@@ -1543,15 +1638,23 @@
                 <dataPointName>ActiveEnergyACtot</dataPointName>
                 <dataDirection>R</dataDirection>
                 <dataType>
-                  <float32 />
+                  <float64/>
                 </dataType>
                 <unit>KILOWATT_HOURS</unit>
                 <alternativeNames>
                   <manufName>CTA_Energy_El_Tot</manufName>
                 </alternativeNames>
                 <legibleDescription>
-                  <textElement>Summe der aufgenommenen elektrischen Energie des Verdichters inkl.
-                    Hilfsaggregate total.</textElement>
+                  <textElement>Total energy measurement</textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Erfassung der gesamten Wirkenergie</i>
+                      </p>Summe der aufgenommenen elektrischen Energie des Verdichters inkl. Hilfsaggregate total.
+                    ]]>
+                  </textElement>
                   <language>de</language>
                 </legibleDescription>
               </dataPoint>
@@ -1563,21 +1666,175 @@
                 <registerType>InputRegister</registerType>
                 <numberOfRegisters>2</numberOfRegisters>
               </modbusDataPointConfiguration>
+              <!-- defined in FP but not defined here
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>Precision</name>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              -->
             </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>ActPowerACtot</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ActivePowerAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[ 
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Messung der Wirkleistung</strong><br>
+                  Monitoring Funktionsprofil für Stromerzeuger und Stromverbraucher zur Kontrolle der Systemlast und/oder für regeltechnische 
+                  Zwecke.
+                  
+                  <p>Für Regelzwecke ist die Kenntnissder Messgenauigkeit zwingend und wird daher pro Datenpunkt als obligatorisches
+                     Attribut angegeben. Somit ist es möglich unterschiedliche Messgenauigkeiten für die Datenpunkte
+                     zu definieren.</p>
+                  
+                  <p>Dieses Funktionsprofil erlaubt sowohl die Messung der Totalleistung wie auch die Leistung der drei
+                     einzelnen Phasen. Eine der folgenden Varianten muss bei der Implementierung des Funktionsprofiles
+                     umgesetzt werden:
+                  <ul>
+                    <li>Einphasige Geräte geben die Totalleistung an (ActivePowerACtot)</li>
+                    <li>3-phasige Geräte ohne Totalleistungsmessung geben die Leistung pro Phase an (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
+                    <li>3-phasige Geräte mit Einzelphasen- und Totalleistungsmessung geben alle Datenpunkte an</li>
+                  </ul>
+                  </p>
+                ]]>
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[ 
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Active Power Measurement</strong><br>
+                  Monitoring functional profile for power generators and consumers for reflecting the active power.
+                  
+                  <p>Knowing the precisionPercent of measurements is necessary and therefore specified as a mandatory attribute
+                     per data point. Thus, different measurement precisions can be defined for the data points.</p>
+                  
+                  <p>With this functional profile you can measure the total active power as well as the active power of
+                     the three individual phases. One of the following options must be implemented for fulfilling the functional profile:
+                  <ul>
+                    <li>Single-phase devices use the total active power data point (ActivePowerACtot)</li>
+                    <li>Three-phase devices without measurement of the total active power use the data points per phase (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
+                    <li>Three-phase devices with measurement of the total active power use all data points</li>
+                  </ul>
+                  </p>
+                ]]>     
+              </textElement>
+              <language>en</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActivePowerACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATTS</unit>
+                <alternativeNames>
+                  <sLV1Name>ActPowerACtot</sLV1Name>
+                  <manufName>State_CompPower</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Erfassung der gesamten Wirkleistung</i>
+                      </p>Effektive elektrischen Aufnahmeleistung des Verdichters.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Total active power measurement</textElement>
+                  <language>en</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float32 />
+                </modbusDataType>
+                <address>2032</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <!-- defined in FP but not defined here
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>Precision</name>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              -->
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>EnergyMonitor</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
+              <functionalProfileType>EnergyMonitor</functionalProfileType>
+              <levelOfOperation>2m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>3</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <alternativeNames>
+              <sLV1Name>EnergyMonitor</sLV1Name>
+            </alternativeNames>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[ 
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <p>Aufzeichnen der Warmepumpen-Betriebsdaten durch den CEM.</p>
+                  
+                  <p>Bemerkungen:</p>
+                  <ol>
+                    <li>Energiewerte, Laufzeiten und Anzahl Starts werden typischerweise 1x täglich abgefragt. Die Leistungsmessungen
+                        werden häufiger abgefragt und können zur Regelung dienen. Deshalb die Anforderung einer maximalen Abtastzeit.</li>
+                    <li>Die intern ermittelten Energiewerte ersetzen externe Zähler für Monitoring-Zwecke. Es wird erwünscht,
+                        dass der Hersteller Genauigkeitsangaben zu seinen intern ermittelten Werten macht. Dies ist eine wichtige
+                        Information für Monitoring-Systeme, um die Fehlertoleranz der energetischen Auswertungen abzuschätzen</li>
+                  </ol>
+                ]]>
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
             <dataPointListElement>
               <dataPoint>
                 <dataPointName>ActiveEnergyACheat</dataPointName>
                 <dataDirection>R</dataDirection>
                 <dataType>
-                  <float32 />
+                  <float64/>
                 </dataType>
                 <unit>KILOWATT_HOURS</unit>
                 <alternativeNames>
                   <manufName>CTA_Energy_El_Heat</manufName>
                 </alternativeNames>
                 <legibleDescription>
-                  <textElement>Summe der aufgenommenen elektrischen Energie des Verdichters für das
-                    Heizen.</textElement>
+                  <textElement>
+                    Summe der aufgenommenen elektrischen Energie des Verdichters für das Heizen.
+                  </textElement>
                   <language>de</language>
                 </legibleDescription>
               </dataPoint>
@@ -1592,18 +1849,22 @@
             </dataPointListElement>
             <dataPointListElement>
               <dataPoint>
-                <dataPointName>ActiveEnergyACDomHotW</dataPointName>
+                <dataPointName>ActiveEnergyACDomHotWater</dataPointName>
                 <dataDirection>R</dataDirection>
                 <dataType>
-                  <float32 />
+                  <float64/>
                 </dataType>
                 <unit>KILOWATT_HOURS</unit>
                 <alternativeNames>
                   <manufName>CTA_Energy_El_DW</manufName>
                 </alternativeNames>
                 <legibleDescription>
-                  <textElement>Summe der aufgenommenen elektrischen Energie des Verdichters für das
-                    Kühlen (nur bei aktiver Kühlung über Verdichter).</textElement>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der aufgenommenen elektrischen Energie des Verdichters für die Brauchwarmwasser-Erwärmung.</i>
+                      </p>Summe der aufgenommenen elektrischen Energie des Verdichters für das Kühlen (nur bei aktiver Kühlung über Verdichter).
+                    ]]>
+                  </textElement>
                   <language>de</language>
                 </legibleDescription>
               </dataPoint>
@@ -1621,7 +1882,7 @@
                 <dataPointName>ThermalEnergyTot</dataPointName>
                 <dataDirection>R</dataDirection>
                 <dataType>
-                  <float32 />
+                  <float64/>
                 </dataType>
                 <unit>KILOWATT_HOURS</unit>
                 <alternativeNames>
@@ -1629,7 +1890,7 @@
                   <manufName>CTA_Energy_Q_Tot</manufName>
                 </alternativeNames>
                 <legibleDescription>
-                  <textElement>Summe der abgegebenen thermischen Energie total.</textElement>
+                  <textElement>Summe der abgegebenen thermischen Energie total</textElement>
                   <language>de</language>
                 </legibleDescription>
               </dataPoint>
@@ -1647,7 +1908,7 @@
                 <dataPointName>ThermalEnergyHeat</dataPointName>
                 <dataDirection>R</dataDirection>
                 <dataType>
-                  <float32 />
+                  <float64/>
                 </dataType>
                 <unit>KILOWATT_HOURS</unit>
                 <alternativeNames>
@@ -1673,7 +1934,7 @@
                 <dataPointName>ThermalEnergyDomHotWater</dataPointName>
                 <dataDirection>R</dataDirection>
                 <dataType>
-                  <float32 />
+                  <float64/>
                 </dataType>
                 <unit>KILOWATT_HOURS</unit>
                 <alternativeNames>
@@ -1681,8 +1942,12 @@
                   <manufName>CTA_Energy_Q_DW</manufName>
                 </alternativeNames>
                 <legibleDescription>
-                  <textElement>Summe der aufgenommenen thermischen Energie für das Kühlen (nur bei
-                    aktiver Kühlung über Verdichter).</textElement>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der abgegebenen thermischen Energie für die Brauchwarmwasser-Erwärmung.</i>
+                      </p>Summe der aufgenommenen thermischen Energie für das Kühlen (nur bei aktiver Kühlung über Verdichter).
+                    ]]>
+                  </textElement>
                   <language>de</language>
                 </legibleDescription>
               </dataPoint>
@@ -1697,36 +1962,10 @@
             </dataPointListElement>
             <dataPointListElement>
               <dataPoint>
-                <dataPointName>ActPowerACtot</dataPointName>
-                <dataDirection>R</dataDirection>
-                <dataType>
-                  <float32 />
-                </dataType>
-                <unit>KILOWATT_HOURS</unit>
-                  <alternativeNames>
-                    <sLV1Name>ActPowerACtot</sLV1Name>
-                    <manufName>State_CompPower</manufName>
-                  </alternativeNames>
-                <legibleDescription>
-                  <textElement>Effektive elektrischen Aufnahmeleistung des Verdichters</textElement>
-                  <language>de</language>
-                </legibleDescription>
-              </dataPoint>
-              <modbusDataPointConfiguration>
-                <modbusDataType>
-                  <float32 />
-                </modbusDataType>
-                <address>2032</address>
-                <registerType>InputRegister</registerType>
-                <numberOfRegisters>2</numberOfRegisters>
-              </modbusDataPointConfiguration>
-            </dataPointListElement>
-            <dataPointListElement>
-              <dataPoint>
                 <dataPointName>RuntimeHeating</dataPointName>
                 <dataDirection>R</dataDirection>
                 <dataType>
-                  <float32 />
+                  <float64/>
                 </dataType>
                 <unit>HOURS</unit>
                 <alternativeNames>
@@ -1734,7 +1973,12 @@
                   <manufName>CTA_OperTime_Total_h</manufName>
                 </alternativeNames>
                 <legibleDescription>
-                  <textElement>Summe der Laufzeit des Verdichters seit Inbetriebnahme.</textElement>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der Laufzeit in der Heizphase.</i>
+                      </p>Summe der Laufzeit des Verdichters seit Inbetriebnahme.
+                    ]]>
+                  </textElement>
                   <language>de</language>
                 </legibleDescription>
               </dataPoint>
@@ -1752,7 +1996,7 @@
                 <dataPointName>RuntimeCooling</dataPointName>
                 <dataDirection>R</dataDirection>
                 <dataType>
-                  <float32 />
+                  <float64/>
                 </dataType>
                 <unit>HOURS</unit>
                 <alternativeNames>
@@ -1778,7 +2022,701 @@
                 <dataPointName>NrOfStartupsCompressor</dataPointName>
                 <dataDirection>R</dataDirection>
                 <dataType>
+                  <float64/>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>NrOfStartupsCompressor</sLV1Name>
+                  <manufName>CTA_CompStartAttempts</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Anzahl Starts des Verdichters seit Inbetriebnahme.</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
                   <int32U />
+                </modbusDataType>
+                <address>2094</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>SG-ReadyStates</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
+              <functionalProfileType>SG-ReadyStates</functionalProfileType>
+              <levelOfOperation>2m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <h4>Heat pump with 4 operation modes</h4>
+                  <p>Level 2m functional profile for heat pumps with 4 operation modes (SG Ready heat pumps) which can be set via 
+                  Modbus or RestAPI. In addition, the current operation status of the heat pump can be read. The operating states are
+                   defined from SG ready - "Bundesverband Wärmepumpe e.V. (bwp)". </p>
+                   
+                  <p> This functional profile can be used in two ways: </p>
+                   
+                  <ul>
+                    <li> The operating modes are written and read directly via Modbus or RestAPI. </li>
+                    <li> The relay contacts are mapped and implemented via Modbus or RestAPI for reading the operation mode, 
+                    but the mode is set via the relay contacts as in the standard application of SG Ready heat pumps.</li>        
+                  </ul>
+                       
+                  <p> The following operation modes can be written and read via the defined data point "SGReadyOpModeCmd": </p>
+                  
+                  <ul>
+                    <li><strong>HP_LOCKED</strong>: Heat pump blocked - for example fixed blocking by time.</li>
+                    <li><strong>HP_NORMAL</strong>: Heat pump in normal operation. </li>
+                    <li><strong>HP_INTENSIFIED</strong>: Switch-on recommendations for increased operation.  </li>
+                    <li><strong>HP_FORCED</strong>: Forced start-up command (as far as this is possible within the control settings of the heat pump).  </li>
+                  </ul>
+                  
+                  <p> Via the datapoint SGReadyState it is possible to check the currently running operation mode of the heat pump. </p>
+                  
+                  <p> The communicator (e.g. central energy management system) takes into account the unit specifications for the switching 
+                    frequency (attributes maxLockTimeMinutes and minRunTimeMinutes). The values can be set during declaration of the 
+                        heat pump. The standard values for SG Ready heat pumps are "Max. Lock Time" 120 minutes and "Min. Run Time" 20 minutes. </p>
+                  
+                  <p> "SG Ready" is a trademark of the German Heat Pump Association. Further information at <a href="https://www.waermepumpe.de/normen-technik/sg-ready/">https://www.waermepumpe.de/normen-technik/sg-ready/</a>. </p>
+                ]]>
+              </textElement>
+              <language>en</language>
+            </legibleDescription>
+            <legibleDescription>
+              <textElement>                
+                <![CDATA[    
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <h4>Wärmepumpen mit 4 Betriebszuständen</h4>
+                  <p>Stufe 2m Funktionsprofil für Wärmepumpen mit 4 Betriebszuständen (SG Ready Wärmepumpen), die über Modbus oder RestAPI gesetzt werden können. 
+                  Zusätzlich kann der aktuelle Betriebszustand der Wärmepumpe ausgelesen werden. Die Betriebszustände werden über SG Ready - Bundesverband Wärmepumpe e.V. (bwp) definiert. </p>
+                  <p>Dieses Funktionsprofil kann auf zwei Arten genutzt werden: </p>
+                  
+                  <ul>
+                    <li> Die Betriebszustände werden direkt über Modbus oder RestAPI gesetzt und ausgelesen. </li>
+                    <li> Die Klemmkontakte werden gemappt und über Modbus oder RestAPI zum Auslesen des Betriebszustandes abgebildet. Der Zustand wird jedoch wie bei der Standard-Anwendung
+                    von SG Ready Wärmepumpen über die Klemmkontakte gesetzt. </li>        
+                  </ul>
+                  
+                 <p> Folgende Betriebszustände können über den Datenpunkt "SGReadyOpModeCmd" gesetzt und ausgelesen werden: </p>
+                  <ul>
+                    <li><strong>HP_LOCKED</strong>: Wärmepumpe gesperrt - zum Beispiel fixe Sperre nach Uhrzeit.</li>
+                    <li><strong>HP_NORMAL</strong>: Wärmepumpe im Normalbetrieb.</li>
+                    <li><strong>HP_INTENSIFIED</strong>: Einschaltempfehlung für verstärkten Betrieb.</li>
+                    <li><strong>HP_FORCED</strong>: Forcierter Anlaufbefehl (insofern dieser im Rahmen der Regeleinstellungen der Wärmepumpe möglich ist).</li>                  
+                  </ul>
+                  <p> Über den Datenpunkt "SGReadyState" kann der aktuelle Betriebsmodus der Wärmepumpe ausgelesen werden. </p>
+                  
+                  <p>Der Communicator (z.B. Energiemanagementsystem) berücksichtigt die Gerätevorgaben zur Schaltfrequenz (Attribute maxLockTimeMintues und minRunTimeMinutes.
+                  Der Wert der Attribute kann bei der Deklaration gesetzt werden. Standardeinstellung von SG Ready Wärmepumpen nach bwp ist 
+                  "Max. Lock Time" 120 Minuten und "Min. Run Time" 20 Minuten.</p>
+                  <p>„SG Ready“ ist ein Markenzeichen des Bundesverbands Wärmepumpe e. V.<br/>
+                     Weiterführende Informationen unter <a href="https://www.waermepumpe.de/normen-technik/sg-ready/">https://www.waermepumpe.de/normen-technik/sg-ready/</a>.</p>
+                ]]>
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <genericAttributeList>
+            <genericAttributeListElement>
+              <name>MaximumLockTime</name>
+              <dataType>
+                <float32/>
+              </dataType>
+              <value>120</value>
+              <unit>MINUTES</unit>
+            </genericAttributeListElement>
+            <genericAttributeListElement>
+              <name>MinimumRunTime</name>
+              <dataType>
+                <float32/>
+              </dataType>
+              <value>20</value>
+              <unit>MINUTES</unit>
+            </genericAttributeListElement>
+          </genericAttributeList>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SGReadyOpModeCmd</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>HP_LOCKED</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_NORMAL</literal>
+                      <ordinal>2</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_INTENSIFIED</literal>
+                      <ordinal>3</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_FORCED</literal>
+                      <ordinal>4</ordinal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>SGReadyOpModeCmd</sLV1Name>
+                  <manufName>CTA_Ext_SG</manufName>
+                  <hpBwpName>Betriebsmodus</hpBwpName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Sets the override possibilities of the heat pump </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Festlegen der Übersteuerungsmoeglichkeiten der Wärmepumpe</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <programmerHints>
+                  <textElement>
+                    SG READY BETRIEBSZUSTAND 1: Die Anlage darf
+                    nicht starten. Nur der Frostschutz wird
+                    gewährleistet. 2: Normaler Betrieb der Anlage.
+                    Automatik- / Programmbetrieb gemäß BI der
+                    angeschlossenen Wärmepumpe 3: Forcierter Betrieb
+                    der Anlage mit erhöhten Werten für Heiz-
+                    und/oder Warmwassertemperatur 4: Sofortige
+                    Ansteuerung der Maximalwerte für Heiz- und
+                    Warmwassertemperatur
+                  </textElement>
+                  <language>de</language>
+                </programmerHints>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U />
+                </modbusDataType>
+                <address>1054</address>
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SGReadyState</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>HP_LOCKED</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_NORMAL</literal>
+                      <ordinal>2</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_INTENSIFIED</literal>
+                      <ordinal>3</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_FORCED</literal>
+                      <ordinal>4</ordinal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>SGReadyState</sLV1Name>
+                  <manufName>CTA_Ext_SG</manufName>
+                  <hpBwpName>Statusmeldungen</hpBwpName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Feedback of the current running override possibility of the heat pump </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Rückmeldung der aktuellen laufenden Übersteuerungsmoeglichkeit der Wärmepumpe</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U />
+                </modbusDataType>
+                <address>1054</address>
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>ActiveEnergyACtot</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ActiveEnergyAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Energy measurement</strong><br>
+                  Monitoring functional profile for power generators and consumers for reflecting the energy balance.
+                  
+                  <p>Data is typically recorded by an energy manager (or a billing software).</p>
+                  
+                  <p>Knowing the precisionPercent of measurements is necessary and therefore specified as a mandatory attribute per data point.
+                     Thus, different measurement precisions can be defined for the data points. </p>
+                  
+                  <p>With this functional profile you can measure the total energy as well as the energy of the three
+                     individual phases. One of the following options must be implemented for fulfilling the functional profile:
+                  <ul>
+                    <li>Single-phase devices use the total energy data point (ActiveEnergyACtot)</li>
+                    <li>Three-phase devices without measurement of the total energy use the data points per (ActiveEnergyACL1, ActiveEnergyACL2, ActiveEnergyACL3)</li>
+                    <li>Three-phase devices with measurement of the total energy all data points</li>
+                  </ul>
+                  </p>
+                ]]> 
+              </textElement>
+              <language>en</language>
+            </legibleDescription>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[ 
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Messung der Wirkenergie</strong><br>
+                  Monitoring Funktionsprofil für Stromerzeuger und Stromverbraucher zur Bilanzierung der Energiemenge.
+                  
+                  <p>Die Datenaufnahme erfolgt typischerweise durch einen Energiemanager (oder eine Abrechnungssoftware).</p>
+                  
+                  <p>Für Regelzwecke ist die Kenntnissder Messgenauigkeit zwingend und wird daher pro Datenpunkt als obligatorisches
+                     Attribut angegeben. Somit ist es möglich unterschiedliche Messgenauigkeiten für die Datenpunkte
+                     zu definieren.</p>
+                  
+                  <p>Dieses Funktionsprofil erlaubt sowohl die Messung der Gesamtenergie wie auch die Messung der Energie
+                     der drei einzelnen Phasen. Eine der folgenden Varianten muss bei der Implementierung des Funktionsprofiles
+                     umgesetzt werden:
+                  <ul>
+                    <li>1-phasige Geräte geben die Gesamtenergie an (ActiveEnergyACtot)</li>
+                    <li>3-phasige Geräte ohne Gesamtenergiemessung geben die Energiemenge pro Phase an (ActiveEnergyACL1, ActiveEnergyACL2, ActiveEnergyACL3)</li>
+                    <li>3-phasige Geräte mit Einzelphasen- und Gesamtenergiemessung geben alle Datenpunkte an</li>
+                  </ul>
+                  </p>
+                ]]> 
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActiveEnergyACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>
+                  <manufName>CTA_Energy_El_Tot</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Total energy measurement</textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Erfassung der gesamten Wirkenergie</i>
+                      </p>Summe der aufgenommenen elektrischen Energie des Verdichters inkl. Hilfsaggregate total.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <!-- defined in FP but not defined here
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>Precision</name>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              -->
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U />
+                </modbusDataType>
+                <address>2074</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>ActPowerACtot</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ActivePowerAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[ 
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Messung der Wirkleistung</strong><br>
+                  Monitoring Funktionsprofil für Stromerzeuger und Stromverbraucher zur Kontrolle der Systemlast und/oder für regeltechnische 
+                  Zwecke.
+                  
+                  <p>Für Regelzwecke ist die Kenntnissder Messgenauigkeit zwingend und wird daher pro Datenpunkt als obligatorisches
+                     Attribut angegeben. Somit ist es möglich unterschiedliche Messgenauigkeiten für die Datenpunkte
+                     zu definieren.</p>
+                  
+                  <p>Dieses Funktionsprofil erlaubt sowohl die Messung der Totalleistung wie auch die Leistung der drei
+                     einzelnen Phasen. Eine der folgenden Varianten muss bei der Implementierung des Funktionsprofiles
+                     umgesetzt werden:
+                  <ul>
+                    <li>Einphasige Geräte geben die Totalleistung an (ActivePowerACtot)</li>
+                    <li>3-phasige Geräte ohne Totalleistungsmessung geben die Leistung pro Phase an (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
+                    <li>3-phasige Geräte mit Einzelphasen- und Totalleistungsmessung geben alle Datenpunkte an</li>
+                  </ul>
+                  </p>
+                ]]>
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[ 
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Active Power Measurement</strong><br>
+                  Monitoring functional profile for power generators and consumers for reflecting the active power.
+                  
+                  <p>Knowing the precisionPercent of measurements is necessary and therefore specified as a mandatory attribute
+                     per data point. Thus, different measurement precisions can be defined for the data points.</p>
+                  
+                  <p>With this functional profile you can measure the total active power as well as the active power of
+                     the three individual phases. One of the following options must be implemented for fulfilling the functional profile:
+                  <ul>
+                    <li>Single-phase devices use the total active power data point (ActivePowerACtot)</li>
+                    <li>Three-phase devices without measurement of the total active power use the data points per phase (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
+                    <li>Three-phase devices with measurement of the total active power use all data points</li>
+                  </ul>
+                  </p>
+                ]]>     
+              </textElement>
+              <language>en</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActivePowerACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATTS</unit>
+                <alternativeNames>
+                  <sLV1Name>ActPowerACtot</sLV1Name>
+                  <manufName>State_CompPower</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Erfassung der gesamten Wirkleistung</i>
+                      </p>Effektive elektrischen Aufnahmeleistung des Verdichters.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Total active power measurement</textElement>
+                  <language>en</language>
+                </legibleDescription>
+              </dataPoint>
+              <!-- defined in FP but not defined here
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>Precision</name>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              -->
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float32 />
+                </modbusDataType>
+                <address>2032</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>EnergyMonitor</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
+              <functionalProfileType>EnergyMonitor</functionalProfileType>
+              <levelOfOperation>2m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>3</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <alternativeNames>
+              <sLV1Name>EnergyMonitor</sLV1Name>
+            </alternativeNames>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[ 
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <p>Aufzeichnen der Warmepumpen-Betriebsdaten durch den CEM.</p>
+                  
+                  <p>Bemerkungen:</p>
+                  <ol>
+                    <li>Energiewerte, Laufzeiten und Anzahl Starts werden typischerweise 1x täglich abgefragt. Die Leistungsmessungen
+                        werden häufiger abgefragt und können zur Regelung dienen. Deshalb die Anforderung einer maximalen Abtastzeit.</li>
+                    <li>Die intern ermittelten Energiewerte ersetzen externe Zähler für Monitoring-Zwecke. Es wird erwünscht,
+                        dass der Hersteller Genauigkeitsangaben zu seinen intern ermittelten Werten macht. Dies ist eine wichtige
+                        Information für Monitoring-Systeme, um die Fehlertoleranz der energetischen Auswertungen abzuschätzen</li>
+                  </ol>
+                ]]>
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActiveEnergyACheat</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>
+                  <manufName>CTA_Energy_El_Heat</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    Summe der aufgenommenen elektrischen Energie des Verdichters für das Heizen.
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U />
+                </modbusDataType>
+                <address>2068</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActiveEnergyACDomHotWater</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>
+                  <manufName>CTA_Energy_El_DW</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der aufgenommenen elektrischen Energie des Verdichters für die Brauchwarmwasser-Erwärmung.</i>
+                      </p>Summe der aufgenommenen elektrischen Energie des Verdichters für das Kühlen (nur bei aktiver Kühlung über Verdichter).
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U />
+                </modbusDataType>
+                <address>2070</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ThermalEnergyTot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>
+                  <sLV1Name>ThermalEnergyTot</sLV1Name>
+                  <manufName>CTA_Energy_Q_Tot</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Summe der abgegebenen thermischen Energie total</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U />
+                </modbusDataType>
+                <address>2060</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ThermalEnergyHeat</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>
+                  <sLV1Name>ThermalEnergyHeat</sLV1Name>
+                  <manufName>CTA_Energy_Q_Heat</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Summe der abgegebenen thermischen Energie für das Heizen.</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U />
+                </modbusDataType>
+                <address>2054</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ThermalEnergyDomHotWater</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>
+                  <sLV1Name>ThermalEnergyDomHotWater</sLV1Name>
+                  <manufName>CTA_Energy_Q_DW</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der abgegebenen thermischen Energie für die Brauchwarmwasser-Erwärmung.</i>
+                      </p>Summe der aufgenommenen thermischen Energie für das Kühlen (nur bei aktiver Kühlung über Verdichter).
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U />
+                </modbusDataType>
+                <address>2056</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>RuntimeHeating</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>HOURS</unit>
+                <alternativeNames>
+                  <sLV1Name>RuntimeHeating</sLV1Name>
+                  <manufName>CTA_OperTime_Total_h</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der Laufzeit in der Heizphase.</i>
+                      </p>Summe der Laufzeit des Verdichters seit Inbetriebnahme.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float32 />
+                </modbusDataType>
+                <address>2090</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>RuntimeCooling</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>HOURS</unit>
+                <alternativeNames>
+                  <sLV1Name>RuntimeCooling</sLV1Name>
+                  <manufName>CTA_OperTime_Cooling_h</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Summe der Laufzeit in der Kühlphase.</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U />
+                </modbusDataType>
+                <address>2092</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>NrOfStartupsCompressor</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
                 </dataType>
                 <unit>NONE</unit>
                 <alternativeNames>

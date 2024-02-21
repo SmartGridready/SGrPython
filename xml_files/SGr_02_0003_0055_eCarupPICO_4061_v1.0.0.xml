@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<DeviceFrame xmlns="http://www.smartgridready.com/ns/V0/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/Product/Product.xsd">
+  <deviceName>PICO Ladestation</deviceName>
+  <manufacturerName>eCarUp AG, CH-6343 Rotkreuz</manufacturerName>
+  <specificationOwnerIdentification>0</specificationOwnerIdentification>
+  <releaseNotes>
+    <state>Published</state>
+    <changeLog>
+      <version>1.0.0</version>
+      <date>2024-01-24</date>
+      <author>Arnd Gerns, Ergonomics</author>
+      <comment>Published</comment>
+    </changeLog>
+  </releaseNotes>
+  <deviceInformation>
+    <legibleDescription>
+      <textElement>
+        Pico verbindet sich über das lokale WLAN oder Mobilfunk mit der Cloud. Damit
+        stehen Kunden, und Stationsbetreibern Echtzeitdaten zur Verfügung um Energie zu optimieren,
+        Ladungen transparent abzurechnen und Lasten clever zu verteilen.
+        </textElement>
+      <language>de</language>
+      <uri>https://web.ecarup.com/e-ladestation/</uri>
+    </legibleDescription>
+    <legibleDescription>
+      <textElement>
+        Pico connects to the cloud via local WiFi or mobile communications. This means
+        that customers and station operators have real-time data available to optimize energy, bill
+        charges transparently and distribute loads intelligently.
+      </textElement>
+      <language>en</language>
+      <uri>https://web.ecarup.com/en/ev-charging-station-pico/</uri>
+    </legibleDescription>
+    <deviceCategory>ChargingStation</deviceCategory>
+    <isLocalControl>true</isLocalControl>
+    <softwareRevision>1.0.0</softwareRevision>
+    <hardwareRevision>1.0.0</hardwareRevision>
+    <brandName>PICO</brandName>
+    <powerSource>mains3Phase</powerSource>
+    <nominalPower>22000</nominalPower>
+    <manufacturerSpecificationIdentification>212070</manufacturerSpecificationIdentification>
+    <manufacturerLabel>smart-me</manufacturerLabel>
+    <generalRemarks>IBT for eCarup</generalRemarks>
+    <levelOfOperation>2</levelOfOperation>
+  </deviceInformation>
+  <interfaceList>
+    <contactInterface>
+      <contactInterfaceDescription>
+        <numberOfContacts>2</numberOfContacts>
+        <contactStabilisationTimeMs>500</contactStabilisationTimeMs>
+      </contactInterfaceDescription>
+      <functionalProfileList>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>EVSE</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>EVSE</functionalProfileCategory>
+              <functionalProfileType>LoadReduction_EVSE</functionalProfileType>
+              <levelOfOperation>2</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+             <legibleDescription>
+              <textElement>
+                <![CDATA[    
+                  <img src="ressources/cem_to_evse.svg" style="float:left; padding:0.3em;"/>
+                  <p>Level 2 functional profile for wallboxes (Electric Vehicle Supply Equipment "EVSE") with two relay contacts. To implement the functional profile 
+        			Wallboxes must have a controller which covers the following four operating states:</p>
+                  <ol>
+                    <li><strong>Switching state 0,0 </strong>: Normal operation, charging according to the configured connection power without any restrictions.</li>
+                    <li><strong>Switching state 0,1</strong>: Reduced charging (e.g. 50 % of the maximum charging power, but never below 6 A).</li>
+                    <li><strong>Switching state 1,0</strong>: Minimum charging (e.g. AC charging at 6 A, DC charging at 10 kW).</li>
+                    <li><strong>Switching state 1,1</strong>: Charging paused (if bidirectional charging is supported maximum feed-in for Vehicle to Infrastructure V2X).</li>
+                  </ol>
+        		  <p> The parameters for the possible reduction of the charge and the minimum charge are configured manually on the device itself. The parameters are described 
+        		  below in the table of attributes.
+        		 
+                ]]>
+              </textElement>
+              <language>en</language>
+            </legibleDescription>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[    
+                  <img src="ressources/cem_to_evse.svg" style="float:left; padding:0.3em;"/>
+                  <p> Stufe 2 Funktionsprofil für Heim-Ladestationen (Wallboxen bzw. Electric Vehicle Supply Equipment «EVSE») mit zwei Relais-Kontakten. 
+        			Für die Umsetzung des Funktionsprofils müssen Ladestationen über einen Regler verfügen, welcher die folgenden vier Betriebszustände abdeckt:</p>
+                  <ol>
+                    <li><strong>Klemmzustand 0,0</strong>: Normalbetrieb, d.h. uneingeschränkes Laden entsprechend der konfigurierten Anschlussleistung.</li>
+                    <li><strong>Klemmzustand 0,1</strong>: Reduziertes Laden (z.B. 50 % der maximalen Ladeleistung, jedoch mindestens 6 A).</li>
+                    <li><strong>Klemmzustand 1,0</strong>: Minimales Laden (z.B. AC Ladung 6 A, DC Ladung 10 kW).</li>
+                    <li><strong>Klemmzustand 1,1</strong>: Ladung unterbrochen (Falls bidirektionales Laden möglich ist maximales Feed-In für Vehicle to Infrastructure V2X).</li>
+                  </ol>
+        		  <p> Die Parameter für die mögliche Reduktion der Ladung und die minimal-Ladung werden am Gerät selber manuell konfiguriert werden. 
+        		  Die Parameter sind untenstehend in der "Table of Attributes" beschrieben.
+                ]]>
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>EVSE_Inp1isON</dataPointName>
+                <dataDirection>W</dataDirection>
+                <dataType>
+                  <boolean/>
+                </dataType>
+                <unit>NONE</unit>
+                <legibleDescription>
+                  <textElement>Switching state first relay contact (0 or 1)</textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Schaltzustand erste Klemme (0 oder 1)</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>EVSE_Inp2isON</dataPointName>
+                <dataDirection>W</dataDirection>
+                <dataType>
+                  <boolean/>
+                </dataType>
+                <unit>NONE</unit>
+                <legibleDescription>
+                  <textElement>Switching state second relay contact (0 or 1)</textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Schaltzustand zweite Klemme (0 oder 1)</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+      </functionalProfileList>
+    </contactInterface>
+  </interfaceList>
+</DeviceFrame>

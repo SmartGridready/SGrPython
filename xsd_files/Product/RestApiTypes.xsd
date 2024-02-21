@@ -18,6 +18,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <element name="restApiBasic" type="sgr:RestApiBasic" minOccurs="0" />
     </sequence>
   </complexType>
+
   <simpleType name="RestApiInterfaceSelection">
     <annotation>
       <documentation>Type of Rest Api interface</documentation>
@@ -28,6 +29,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <enumeration value="URI" />
     </restriction>
   </simpleType>
+
   <complexType name="RestApiDataPointConfiguration">
     <annotation>
       <documentation>Detailed configuration for Rest api data point</documentation>
@@ -37,6 +39,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <element name="restApiServiceCall" type="sgr:RestApiServiceCall" />
     </sequence>
   </complexType>
+
   <simpleType name="RestApiDataType">
     <annotation>
       <documentation>Rest api specific data types</documentation>
@@ -50,6 +53,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <enumeration value="JSON_array" />
     </restriction>
   </simpleType>
+
   <complexType name="RestApiServiceCall">
     <sequence>
       <element name="requestHeader" type="sgr:HeaderList" minOccurs="0" />
@@ -59,6 +63,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <element name="responseQuery" type="sgr:ResponseQuery" minOccurs="0" />
     </sequence>
   </complexType>
+
   <simpleType name="RestApiAuthenticationMethod">
     <restriction base="string">
       <enumeration value="NoSecurityScheme" />
@@ -75,28 +80,33 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <enumeration value="AkamaiEdgeGridSecurityScheme" />
     </restriction>
   </simpleType>
+
   <complexType name="RestApiBearer">
     <sequence>
       <element name="restApiServiceCall" type="sgr:RestApiServiceCall" />
     </sequence>
   </complexType>
+
   <complexType name="RestApiBasic">
     <sequence>
       <element name="restBasicUsername" type="string" />
       <element name="restBasicPassword" type="string" />
     </sequence>
   </complexType>
+
   <complexType name="HeaderEntry">
     <sequence>
       <element name="headerName" type="string" />
       <element name="value" type="string" />
     </sequence>
   </complexType>
+
   <complexType name="HeaderList">
     <sequence>
       <element name="header" type="sgr:HeaderEntry" minOccurs="0" maxOccurs="unbounded" />
     </sequence>
   </complexType>
+
   <simpleType name="HttpMethod">
     <restriction base="string">
       <enumeration value="GET" />
@@ -106,6 +116,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <enumeration value="DELETE" />
     </restriction>
   </simpleType>
+
   <simpleType name="ResponseQueryType">
     <restriction base="string">
       <enumeration value="JMESPathExpression" />
@@ -113,10 +124,49 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <enumeration value="RegularExpression" />
     </restriction>
   </simpleType>
+
+  <simpleType name="RestApiEmptyValue">
+    <restriction base="string">
+      <enumeration value="" />
+    </restriction>
+  </simpleType>
+
+  <complexType name="JSonElemProduct">
+    <sequence>
+      <element name="key" type="string"/>
+      <choice>
+        <element name="date" type="sgr:RestApiEmptyValue"/>
+        <element name="string" type="sgr:RestApiEmptyValue"/>
+        <element name="number" type="sgr:RestApiEmptyValue"/>
+      </choice>
+      <element name="query" type="string"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="JSonArrayOutputProduct">
+    <sequence>
+      <element name="name" type="string" minOccurs="0" maxOccurs="1"/>
+      <choice minOccurs="0" maxOccurs="unbounded">
+        <element name="array" type="sgr:JSonArrayOutputProduct"/>
+        <element name="elem" type="sgr:JSonElemProduct"/>
+      </choice>
+    </sequence>
+  </complexType>
+
+  <complexType name="JSonOutputProduct">
+    <choice minOccurs="0" maxOccurs="unbounded">
+      <element name="array" type="sgr:JSonArrayOutputProduct"/>
+      <element name="elem" type="sgr:JSonElemProduct"/>
+    </choice>
+  </complexType>
+
   <complexType name="ResponseQuery">
     <sequence>
       <element name="queryType" type="sgr:ResponseQueryType" />
-      <element name="query" type="string" />
+      <choice>
+        <element name="query" type="string" />
+        <element name="json" type="sgr:JSonOutputProduct"/>
+      </choice>
     </sequence>
   </complexType>  
 </schema>
