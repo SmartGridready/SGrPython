@@ -1,0 +1,1236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<DeviceFrame xmlns="http://www.smartgridready.com/ns/V0/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/Product/Product.xsd">
+  <deviceName>SwiSBox</deviceName>
+  <manufacturerName>Swistec Systems AG</manufacturerName>
+  <specificationOwnerIdentification>0</specificationOwnerIdentification>
+  <releaseNotes>
+    <state>Draft</state>
+  </releaseNotes>
+  <deviceInformation>
+    <deviceCategory>Actuator</deviceCategory>
+    <isLocalControl>true</isLocalControl>
+    <softwareRevision>0.0.0</softwareRevision>
+    <hardwareRevision>0.0.0</hardwareRevision>
+    <generalRemarks>Initial setup</generalRemarks>
+  </deviceInformation>
+  <interfaceList>
+    <modbusInterface>
+      <modbusInterfaceDescription>
+        <modbusInterfaceSelection>TCPIP</modbusInterfaceSelection>
+        <modbusTcp>
+          <port>502</port>
+          <address>{{tcpAddress}}</address>
+          <slaveId>1</slaveId>
+        </modbusTcp>
+        <firstRegisterAddressIsOne>true</firstRegisterAddressIsOne>
+        <bitOrder>BigEndian</bitOrder>
+      </modbusInterfaceDescription>
+      <functionalProfileList>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>ActiveEnergyAC</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ActiveEnergyAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>Messung der Wirkenergie</textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActiveEnergyACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der gesamten Wirkenergie</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2300</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActiveEnergyACL1</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Wirkenergie Phase 1</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2304</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActiveEnergyACL2</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Wirkenergie Phase 2</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2308</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActiveEnergyACL3</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Wirkenergie Phase 3</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2412</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>ReactiveEnergyAC</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ReactiveEnergyAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
+                <subReleaseVersionNumber>2</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>Bilanzmessung Blindenergie</textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ReactiveEnergyACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOVOLT_AMPERES_REACTIVE_HOURS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der gesamten Blindenergie</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2316</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ReactiveEnergyACL1</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOVOLT_AMPERES_REACTIVE_HOURS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Blindenergie Phase 1</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2320</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ReactiveEnergyACL2</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOVOLT_AMPERES_REACTIVE_HOURS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Blindenergie Phase 2</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2324</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ReactiveEnergyACL3</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOVOLT_AMPERES_REACTIVE_HOURS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Blindenergie Phase 3</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2428</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>ApparentPowerAC</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ApparentPowerAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
+                <subReleaseVersionNumber>2</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>Bilanzmessung Blindenergie</textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der gesamten Scheinleistung</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2332</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACL1</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Scheinleistung Phase 1</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2336</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACL2</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Scheinleistung Phase 2</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2340</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACL3</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Scheinleistung Phase 3</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2444</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>ActivePowerAC</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ActivePowerAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>Messung der Wirkleistung</textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActivePowerACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der gesamten Wirkleistung</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2348</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActivePowerACL1</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Wirkleistung Phase 1</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2352</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActivePowerACL2</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Wirkleistung Phase 2</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2356</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActivePowerACL3</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Wirkleistung Phase 3</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2460</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>ActiveEnergyAC</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ActiveEnergyAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>Messung der Wirkenergie</textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActiveEnergyACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der gesamten Wirkenergie</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2364</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActiveEnergyACL1</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Wirkenergie Phase 1</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2368</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActiveEnergyACL2</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Wirkenergie Phase 2</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2372</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActiveEnergyACL3</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Wirkenergie Phase 3</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2476</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>ApparentPowerAC</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ApparentPowerAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
+                <subReleaseVersionNumber>2</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>Messung der Scheinleistung</textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der gesamten Scheinleistung</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2380</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACL1</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Scheinleistung Phase 1</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2384</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACL2</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Scheinleistung Phase 2</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2388</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACL3</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Scheinleistung Phase 3</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2492</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>Frequency</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>Frequency</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>Messung der Frequenz</textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>Frequency</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>HERTZ</unit>
+                <legibleDescription>
+                  <textElement>Erfassung des Frequenz</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2396</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>CurrentAC</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>CurrentAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>Messung der Stromstärke</textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACL1</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>AMPERES</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Stromstärke Phase 1</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2400</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACL2</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>AMPERES</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Stromstärke Phase 2</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2404</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACL3</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>AMPERES</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Stromstärke Phase 3</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2408</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>VoltageAC</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>VoltageAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
+                <subReleaseVersionNumber>2</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>Messung der Spannung pro Phase und Nullleiter</textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>VoltageACL1_N</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>VOLTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Spannung im Nullleiter für Phase 1</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2412</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>VoltageACL2_N</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>VOLTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Spannung im Nullleiter für Phase 2</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2416</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>VoltageACL3_N</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>VOLTS</unit>
+                <legibleDescription>
+                  <textElement>Erfassung der Spannung im Nullleiter für Phase 3</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2420</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>ApparentPowerAC</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ApparentPowerAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
+                <subReleaseVersionNumber>2</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>Der PowerFactor entspricht der Division der Wirkleistung durch die Scheinleistung</textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>PERCENT</unit>
+                <legibleDescription>
+                  <textElement>Erfassung des gesamten Powerfactors</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2424</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACL1</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>PERCENT</unit>
+                <legibleDescription>
+                  <textElement>Erfassung des Power Factors in Phase 1</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2428</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACL2</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>PERCENT</unit>
+                <legibleDescription>
+                  <textElement>Erfassung des Power Factors in Phase 2</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2432</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ApparentPowerACL3</dataPointName>
+                <dataDirection>R</dataDirection>
+                <presenceLevel>R</presenceLevel>
+                <dataType>
+                  <float64 />
+                </dataType>
+                <unit>PERCENT</unit>
+                <legibleDescription>
+                  <textElement>Erfassung des Power Factors in Phase A3</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <float64 />
+                </modbusDataType>
+                <address>2436</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>4</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>Relais1</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Actuator</functionalProfileCategory>
+              <functionalProfileType>Relais</functionalProfileType>
+              <levelOfOperation>2m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>1</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>Relais</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <presenceLevel>M</presenceLevel>
+                <dataType>
+                  <boolean />
+                </dataType>
+                <unit>NONE</unit>
+                <legibleDescription>
+                  <textElement>
+                    Relais 1.
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <boolean />
+                </modbusDataType>
+                <address>4612</address>
+                <bitRank>0</bitRank>
+                <registerType>Coil</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>Relais2</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Actuator</functionalProfileCategory>
+              <functionalProfileType>Relais</functionalProfileType>
+              <levelOfOperation>2m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>1</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>Relais</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <presenceLevel>M</presenceLevel>
+                <dataType>
+                  <boolean />
+                </dataType>
+                <unit>NONE</unit>
+                <legibleDescription>
+                  <textElement>
+                    Relais 2.
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <boolean />
+                </modbusDataType>
+                <address>4612</address>
+                <bitRank>1</bitRank>
+                <registerType>Coil</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>Relais3</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Actuator</functionalProfileCategory>
+              <functionalProfileType>Relais</functionalProfileType>
+              <levelOfOperation>2m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>1</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>Relais</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <presenceLevel>M</presenceLevel>
+                <dataType>
+                  <boolean />
+                </dataType>
+                <unit>NONE</unit>
+                <legibleDescription>
+                  <textElement>
+                    Relais 3.
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <boolean />
+                </modbusDataType>
+                <address>4612</address>
+                <bitRank>2</bitRank>
+                <registerType>Coil</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>Relais4</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Actuator</functionalProfileCategory>
+              <functionalProfileType>Relais</functionalProfileType>
+              <levelOfOperation>2m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>1</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>Relais</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <presenceLevel>M</presenceLevel>
+                <dataType>
+                  <boolean />
+                </dataType>
+                <unit>NONE</unit>
+                <legibleDescription>
+                  <textElement>
+                    Relais 4.
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <boolean />
+                </modbusDataType>
+                <address>4612</address>
+                <bitRank>3</bitRank>
+                <registerType>Coil</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+      </functionalProfileList>
+    </modbusInterface>
+  </interfaceList>
+</DeviceFrame>

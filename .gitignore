@@ -6,3 +6,6 @@ __pycache__
 old
 dist
 build
+examples/clemap_sensor/*
+.idea/*
+/SGrPython.iml

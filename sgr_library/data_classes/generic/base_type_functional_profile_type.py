@@ -123,6 +123,7 @@ class FunctionalProfileType(Enum):
         management
     """
     UNDEF = "UNDEF"
+    METERING = "Metering"
     ACTIVE_ENERGY_AC = "ActiveEnergyAC"
     REACTIVE_ENERGY_AC = "ReactiveEnergyAC"
     APPARENT_ENERGY_AC = "ApparentEnergyAC"

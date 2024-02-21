@@ -107,3 +107,4 @@ class FunctionalProfileCategory(Enum):
     R48 = "R48"
     R49 = "R49"
     R50 = "R50"
+    METERING = "Metering"

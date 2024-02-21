@@ -1,0 +1,28 @@
+from enum import Enum
+
+
+class SubSetUnits(Enum):
+
+    # Power
+    WATTS = 'WATTS',
+    KILOWATTS = 'KILOWATTS'
+    VOLTS = 'VOLTS',
+    AMPERES = 'AMPERES'
+    KILOVOLT_AMPERES_REACTIVE = 'KILOVOLT_AMPERES_REACTIVE'
+    KILOWATT_HOURS = 'KILOWATT_HOURS'
+    KILOVOLT_AMPERES_REACTIVE_HOURS = 'KILOVOLT_AMPERES_REACTIVE_HOURS'
+
+    # Cycle
+    HERTZ = 'HERTZ',
+
+    # Temperature
+    DEGREES_CELSIUS = 'DEGREES_CELSIUS'
+
+    # Time
+    HOURS = 'HOURS'
+    MINUTES = 'MINUTES'
+    SECONDS = 'SECONDS'
+
+    PERCENT = 'PERCENT'
+
+    NONE = 'NONE'
