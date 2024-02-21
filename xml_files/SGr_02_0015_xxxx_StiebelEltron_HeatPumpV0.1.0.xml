@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<DeviceFrame xmlns="http://www.smartgridready.com/ns/V0/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/Product/Product.xsd">
+  <deviceName>Internet Service Gateway ISG</deviceName>
+  <manufacturerName>Stiebel-Eltron</manufacturerName>
+  <specificationOwnerIdentification>0</specificationOwnerIdentification>
+  <releaseNotes>
+    <state>Review</state>
+  </releaseNotes>
+  <deviceInformation>
+    <legibleDescription>
+      <textElement>           
+        <![CDATA[
+          The internet service gateway (ISG) allows to control a heat pump using devices connected to a home network. 
+          It allows connectivity via PC, laptop, or tablet at will. It allows access to a Local ISG homepage that shows heat pump data, including average heating temperatures and hot water consumption.
+          <p>Benefits:</pl>
+          <li>Convenient and easy adjustment of the heat pump via PC, laptop, or tablet</li>
+          <li>User-friendly operation via standard browser</li>
+          <li>User-friendly interface</li>
+          <li>Control of important functions</li>
+          <li>Internet connection to the SERVICE WORLD portal</li>
+          <li>Fault message on the SERVICE WORLD Directory * via SMS or e -mail</li>
+          <li>Data security through encrypted data transmission</li>
+          <li>Software updates of the ISG about the SERVICE WORLD portal</li>
+        ]]>		
+      </textElement>
+      <language>en</language>
+    </legibleDescription>
+    <legibleDescription>
+      <textElement>
+      <![CDATA[
+          Das Internet Service Gateway ISG web ist der Eintritt in die Servicewelt von STIEBEL ELTRON. 
+          Über ein Tablet oder einen PC kann die Wärmepumpe bedient, Einstellungen
+          vorgenommen und der Zugang zur SERVICEWELT freigeschaltet werden.
+          Bei Bedarf kann über ein Smartphone auf die Heizungsanlage zugegriffen oder diese überprüft werden. 
+          <p>Die wichtigsten Merkmale</pl>
+          <li>Das Internet Service Gateway als Web-Schnittstelle</li>
+          <li>Anschließbar an den Router des Heimnetzwerks</li>
+          <li>Geräteeinstellung über eine integrierte Web-Oberfläche mit dem Standardbrowser</li>
+          <li>Kommunikation mit der STIEBEL ELTRON-Kundendienst-Zentrale</li>
+          <li>Möglichkeit zur Kontrolle der Anlage über eine Smartphone-„Web-App“</li>
+        ]]>   
+      </textElement>
+      <language>de</language>
+    </legibleDescription>
+    <deviceCategory>HeatPumpAppliance</deviceCategory>
+    <isLocalControl>true</isLocalControl>
+    <softwareRevision>0.1.0 / 2m</softwareRevision>
+    <hardwareRevision>1.1.0</hardwareRevision>
+    <brandName>ISG web</brandName>
+    <powerSource>dc</powerSource>
+    <manufacturerLabel>ISG web, Bestellnummer 229336</manufacturerLabel>
+    <generalRemarks>IBT/cb</generalRemarks>
+    <levelOfOperation>2m</levelOfOperation>
+  </deviceInformation>
+  <interfaceList>
+    <modbusInterface>
+      <modbusInterfaceDescription>
+        <modbusInterfaceSelection>TCPIP</modbusInterfaceSelection>
+        <modbusTcp>
+          <port>502</port>
+          <address>192.168.0.126</address>
+          <slaveId>1</slaveId>
+        </modbusTcp>
+        <firstRegisterAddressIsOne>true</firstRegisterAddressIsOne>
+        <bitOrder>BigEndian</bitOrder>
+      </modbusInterfaceDescription>
+      <modbusAttributes>
+        <pollingLatencyMs>500</pollingLatencyMs>
+        <accessProtection>
+          <modbusExceptionCode>IllegalFunction</modbusExceptionCode>
+          <modbusExceptionCode>IllegalAddress</modbusExceptionCode>
+          <isEnabled>true</isEnabled>
+        </accessProtection>
+      </modbusAttributes>
+      <functionalProfileList>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>SG-ReadyStates</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
+              <functionalProfileType>SG-ReadyStates</functionalProfileType>
+              <levelOfOperation>2m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <h4>Heat pump with 4 operation modes</h4>
+                  <p>Level 2m functional profile for heat pumps with 4 operation modes (SG Ready heat pumps) which can be set via 
+                  Modbus or RestAPI. In addition, the current operation status of the heat pump can be read. The operating states are
+                   defined from SG ready - "Bundesverband Wärmepumpe e.V. (bwp)". </p>
+                   
+                  <p> This functional profile can be used in two ways: </p>
+                   
+                  <ul>
+                    <li> The operating modes are written and read directly via Modbus or RestAPI. </li>
+                    <li> The relay contacts are mapped and implemented via Modbus or RestAPI for reading the operation mode, 
+                    but the mode is set via the relay contacts as in the standard application of SG Ready heat pumps.</li>        
+                  </ul>
+                       
+                  <p> The following operation modes can be written and read via the defined data point "SGReadyOpModeCmd": </p>
+                  
+                  <ul>
+                    <li><strong>HP_LOCKED</strong>: Heat pump blocked - for example fixed blocking by time.</li>
+                    <li><strong>HP_NORMAL</strong>: Heat pump in normal operation. </li>
+                    <li><strong>HP_INTENSIFIED</strong>: Switch-on recommendations for increased operation.  </li>
+                    <li><strong>HP_FORCED</strong>: Forced start-up command (as far as this is possible within the control settings of the heat pump).  </li>
+                  </ul>
+                  
+                  <p> Via the datapoint SGReadyState it is possible to check the currently running operation mode of the heat pump. </p>
+                  
+                  <p> The communicator (e.g. central energy management system) takes into account the unit specifications for the switching 
+                    frequency (attributes maxLockTimeMinutes and minRunTimeMinutes). The values can be set during declaration of the 
+                        heat pump. The standard values for SG Ready heat pumps are "Max. Lock Time" 120 minutes and "Min. Run Time" 20 minutes. </p>
+                  
+                  <p> "SG Ready" is a trademark of the German Heat Pump Association. Further information at <a href="https://www.waermepumpe.de/normen-technik/sg-ready/">https://www.waermepumpe.de/normen-technik/sg-ready/</a>. </p>
+                ]]>
+              </textElement>
+              <language>en</language>
+            </legibleDescription>
+            <legibleDescription>
+              <textElement>                
+                <![CDATA[    
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <h4>Wärmepumpen mit 4 Betriebszuständen</h4>
+                  <p>Stufe 2m Funktionsprofil für Wärmepumpen mit 4 Betriebszuständen (SG Ready Wärmepumpen), die über Modbus oder RestAPI gesetzt werden können. 
+                  Zusätzlich kann der aktuelle Betriebszustand der Wärmepumpe ausgelesen werden. Die Betriebszustände werden über SG Ready - Bundesverband Wärmepumpe e.V. (bwp) definiert. </p>
+                  <p>Dieses Funktionsprofil kann auf zwei Arten genutzt werden: </p>
+                  
+                  <ul>
+                    <li> Die Betriebszustände werden direkt über Modbus oder RestAPI gesetzt und ausgelesen. </li>
+                    <li> Die Klemmkontakte werden gemappt und über Modbus oder RestAPI zum Auslesen des Betriebszustandes abgebildet. Der Zustand wird jedoch wie bei der Standard-Anwendung
+                    von SG Ready Wärmepumpen über die Klemmkontakte gesetzt. </li>        
+                  </ul>
+                  
+                 <p> Folgende Betriebszustände können über den Datenpunkt "SGReadyOpModeCmd" gesetzt und ausgelesen werden: </p>
+                  <ul>
+                    <li><strong>HP_LOCKED</strong>: Wärmepumpe gesperrt - zum Beispiel fixe Sperre nach Uhrzeit.</li>
+                    <li><strong>HP_NORMAL</strong>: Wärmepumpe im Normalbetrieb.</li>
+                    <li><strong>HP_INTENSIFIED</strong>: Einschaltempfehlung für verstärkten Betrieb.</li>
+                    <li><strong>HP_FORCED</strong>: Forcierter Anlaufbefehl (insofern dieser im Rahmen der Regeleinstellungen der Wärmepumpe möglich ist).</li>                  
+                  </ul>
+                  <p> Über den Datenpunkt "SGReadyState" kann der aktuelle Betriebsmodus der Wärmepumpe ausgelesen werden. </p>
+                  
+                  <p>Der Communicator (z.B. Energiemanagementsystem) berücksichtigt die Gerätevorgaben zur Schaltfrequenz (Attribute maxLockTimeMintues und minRunTimeMinutes.
+                  Der Wert der Attribute kann bei der Deklaration gesetzt werden. Standardeinstellung von SG Ready Wärmepumpen nach bwp ist 
+                  "Max. Lock Time" 120 Minuten und "Min. Run Time" 20 Minuten.</p>
+                  <p>„SG Ready“ ist ein Markenzeichen des Bundesverbands Wärmepumpe e. V.<br/>
+                     Weiterführende Informationen unter <a href="https://www.waermepumpe.de/normen-technik/sg-ready/">https://www.waermepumpe.de/normen-technik/sg-ready/</a>.</p>
+                ]]>
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <genericAttributeList>
+            <genericAttributeListElement>
+              <name>MaximumLockTime</name>
+              <dataType>
+                <float32/>
+              </dataType>
+              <value>120</value>
+              <unit>MINUTES</unit>
+            </genericAttributeListElement>
+            <genericAttributeListElement>
+              <name>MinimumRunTime</name>
+              <dataType>
+                <float32/>
+              </dataType>
+              <value>20</value>
+              <unit>MINUTES</unit>
+            </genericAttributeListElement>
+          </genericAttributeList>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SGReadyEnabled</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <boolean/>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>            
+                  <sLV1Name></sLV1Name>
+                  <manufName>SGREADY EIN- UND AUSSCHALTEN</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Activation of the SG Ready functionality </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Aktivierung der SG-Ready Funktion</textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <boolean />
+                </modbusDataType>
+                <address>4001</address>
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SGReadyOpModeCmd</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>HP_LOCKED</literal>
+                      <ordinal>256</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_NORMAL</literal>
+                      <ordinal>0</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_INTENSIFIED</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_FORCED</literal>
+                      <ordinal>257</ordinal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>            
+                  <sLV1Name>SGReadyOpModeCmd</sLV1Name>
+                  <manufName>virtual, does not exist</manufName>
+                  <hpBwpName>Betriebsmodus</hpBwpName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Sets the override possibilities of the heat pump</i>
+                      </p>
+                      “SG Ready” is a trade make of Bundesverband Wärmepumpe e. V.
+                      It describes a feature on heat pumps with control technology that
+                      allows them to be connected to a smart grid.
+                      Operating states
+                      Depending on the switching, the appliance can execute the following
+                      operating modes:
+                      Operating state 1
+                      Switching (input 2/input 1): (1/0)
+                      - Lowest temperatures, cf. standby level (see operating and
+                      installation instructions for the connected appliance)
+                      - Frost protection is assured
+                      Operating state 2
+                      Switching (input 2/input 1): (0/0)
+                      -- Automatic / Programmed mode (see operating and installation
+                      instructions for the connected heat pump)
+                      Operating state 3 (accelerated mode)
+                      Switching (input 2/input 1): (0/1)
+                      -- Accelerated mode with increased values for heating and
+                      DHW temperature
+                      -- You can set the increased values for heating and DHW temperature
+                      mode under SETTINGS / ENERGY MANAGEMENT
+                      Operating state 4
+                      Switching (input 2/input 1): (1/1)
+                      -- Immediate switch to maximum heating and DHW temperature
+                      values
+                    ]]>
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Festlegen der Übersteuerungsmoeglichkeiten der Wärmepumpe</i>
+                      </p>
+                      „SG Ready“ ist ein Markenzeichen des Bundesverbands Wärmepumpe
+                      e. V.
+                      Es bezeichnet eine Eigenschaft von Wärmepumpen, deren Regelungstechnik
+                      die Einbindung in ein intelligentes Stromnetz
+  
+                      Betriebszustände
+                      Je nach Beschaltung kann das Gerät folgende Betriebsmodi ausführen:
+                      Betriebszustand 1
+                      Beschaltung (Eingang 2/Eingang 1): (1/0)
+                      -- niedrigste Temperaturen, vgl. Bereitschaftslevel (siehe Bedienungs-
+                      und Installationsanleitung des angeschlossenen
+                      Gerätes)
+                      -- Frostschutz wird gewährleistet
+                      Betriebszustand 2
+                      Beschaltung (Eingang 2/Eingang 1): (0/0)
+                      -- Automatik- / Programmbetrieb (siehe Bedienungs- und Installationsanleitung
+                      der angeschlossenen Wärmepumpe)
+                      Betriebszustand 3 (forcierter Betrieb)
+                      Beschaltung (Eingang 2/Eingang 1): (0/1)
+                      -- forcierter Betrieb mit erhöhten Werten für Heiz- und
+                      Warmwasser-Temperatur
+                      -- Unter EINSTELLUNGEN / ENERGIEMANAGEMENT können Sie
+                      die erhöhten Werte für Heiz- und Warmwasser-Temperatur
+                      Betrieb einstellen
+                      Betriebszustand 4
+                      Beschaltung (Eingang 2/Eingang 1): (1/1)
+                      -- sofortige Ansteuerung der Maximalwerte für Heiz- und
+                      Warmwasser-Temperatur(Smart Grid) ermöglicht.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <programmerHints>
+                  <textElement>
+                    this data point is mapped into the IO Registers via the mapping defined
+                    in ModbusAttributes layer6Deviation. The Register address given is the lower
+                    address of the IO registers.
+                  </textElement>
+                  <language>en</language>
+                </programmerHints>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U />
+                </modbusDataType>
+                <address>4002</address>
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SGReadyState</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>HP_LOCKED</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_NORMAL</literal>
+                      <ordinal>2</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_INTENSIFIED</literal>
+                      <ordinal>3</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_FORCED</literal>
+                      <ordinal>4</ordinal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>            
+                  <sLV1Name>SGReadyState</sLV1Name>
+                  <manufName>SG READY BETRIEBSZUSTAND</manufName>
+                  <hpBwpName>Statusmeldungen</hpBwpName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>SG-ReadyState of the current operation</i>
+                      </p>Rückmeldung der aktuellen laufenden Übersteuerungsmoeglichkeit der Wärmepumpe
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <programmerHints>
+                  <textElement>
+                    SG READY BETRIEBSZUSTAND 1: Die Anlage darf
+                    nicht starten. Nur der Frostschutz wird
+                    gewährleistet. 2: Normaler Betrieb der Anlage.
+                    Automatik- / Programmbetrieb gemäß BI der
+                    angeschlossenen Wärmepumpe 3: Forcierter Betrieb
+                    der Anlage mit erhöhten Werten für Heiz-
+                    und/oder Warmwassertemperatur 4: Sofortige
+                    Ansteuerung der Maximalwerte für Heiz- und
+                    Warmwassertemperatur
+                  </textElement>
+                  <language>de</language>
+                </programmerHints>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U />
+                </modbusDataType>
+                <address>5001</address>
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SGReadyInp1isON</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <boolean />
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>            
+                  <sLV1Name>SGReadyInp1isON</sLV1Name>
+                  <manufName>SG READY EINGANG 1</manufName>
+                </alternativeNames>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <boolean />
+                </modbusDataType>
+                <address>4002</address>
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SGReadyInp2isON</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <boolean />
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>            
+                  <sLV1Name>SGReadyInp2isON</sLV1Name>
+                  <manufName>SG READY EINGANG 2</manufName>
+                </alternativeNames>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <boolean />
+                </modbusDataType>
+                <address>4003</address>
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>EnergyMonitor</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
+              <functionalProfileType>EnergyMonitor</functionalProfileType>
+              <levelOfOperation>2m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>3</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <alternativeNames>
+              <sLV1Name>EnergyMonitor</sLV1Name>
+            </alternativeNames>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[ 
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <p>Aufzeichnen der Warmepumpen-Betriebsdaten durch den CEM.</p>
+                  
+                  <p>Bemerkungen:</p>
+                  <ol>
+                    <li>Energiewerte, Laufzeiten und Anzahl Starts werden typischerweise 1x täglich abgefragt. Die Leistungsmessungen
+                        werden häufiger abgefragt und können zur Regelung dienen. Deshalb die Anforderung einer maximalen Abtastzeit.</li>
+                    <li>Die intern ermittelten Energiewerte ersetzen externe Zähler für Monitoring-Zwecke. Es wird erwünscht,
+                        dass der Hersteller Genauigkeitsangaben zu seinen intern ermittelten Werten macht. Dies ist eine wichtige
+                        Information für Monitoring-Systeme, um die Fehlertoleranz der energetischen Auswertungen abzuschätzen</li>
+                  </ol>
+                ]]>
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+            <programmerHints>
+              <textElement>
+                Some configuration may not support parts or all of the datapoints of this
+                functional profile. Such data points report a value of -32768
+              </textElement>
+              <language>en</language>
+            </programmerHints>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActiveEnergyACheat</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>            
+                  <sLV1Name>ActiveEnergyACheat</sLV1Name>
+                  <manufName>VD HEIZEN SUMME alle WP</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der aufgenommenen elektrischen Energie des Verdichters für das Heizen.</i>
+                      </p>Summe der aufgenommenen elektrischen Energie für das Heizen.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <programmerHints>
+                  <textElement>
+                    Registers use decimal kWh and MWh values. Use layer6Deviation reading
+                    size 2 at once and multplicate / add values accordingly.
+                  </textElement>
+                  <language>en</language>
+                </programmerHints>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U />
+                </modbusDataType>
+                <address>3512</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <layer6Deviation>2RegBase1000_L2H</layer6Deviation>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActiveEnergyACDomHotWater</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>            
+                  <sLV1Name>ActivelEnergyACdomWater</sLV1Name>
+                  <manufName>VD WARMWASSER  SUMME alle WP</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der aufgenommenen elektrischen Energie des Verdichters für die Brauchwarmwasser-Erwärmung.</i>
+                      </p>Summe der aufgenommenen elektrischen Energie für die Warmwasseraufbereitung
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <programmerHints>
+                  <textElement>
+                    Registers use decimal kWh and MWh values. Use layer6Deviation reading
+                    size 2 at once and multplicate / add values accordingly.
+                  </textElement>
+                  <language>en</language>
+                </programmerHints>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U />
+                </modbusDataType>
+                <address>3515</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <layer6Deviation>2RegBase1000_L2H</layer6Deviation>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ThermalEnergyHeat</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>            
+                  <sLV1Name>ThermalEnergyHeat</sLV1Name>
+                  <manufName>VD HEIZEN SUMME alle WP</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Summe der abgegebenen thermischen Energie für das Heizen.</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <programmerHints>
+                  <textElement>
+                    Registers use decimal kWh and MWh values. Use layer6Deviation reading
+                    size 2 at once and multplicate / add values accordingly.
+                  </textElement>
+                  <language>en</language>
+                </programmerHints>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U />
+                </modbusDataType>
+                <address>3502</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <layer6Deviation>2RegBase1000_L2H</layer6Deviation>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ThermalEnergyDomHotWater</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>               
+                  <sLV1Name>ThermalEnergyDomHotWater</sLV1Name>
+                  <manufName>VD WARMWASSER SUMME alle WP</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der abgegebenen thermischen Energie für die Brauchwarmwasser-Erwärmung.</i>
+                      </p>Summe der abgegebenen thermischen Energie für die Warmwasseraufbereitung.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <programmerHints>
+                  <textElement>
+                    Registers use decimal kWh and MWh values. Use layer6Deviation reading
+                    size 2 at once and multplicate / add values accordingly.
+                  </textElement>
+                  <language>en</language>
+                </programmerHints>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U />
+                </modbusDataType>
+                <address>3505</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <layer6Deviation>2RegBase1000_L2H</layer6Deviation>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>RuntimeHeating</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>HOURS</unit>
+                <alternativeNames>            
+                  <sLV1Name>RuntimeHeating</sLV1Name>
+                  <manufName>VD HEIZEN Laufzeit WP 1</manufName>
+                  <hpBwpName>Betriebsstunden Heizen</hpBwpName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der Laufzeit in der Heizphase.</i>
+                      </p>Summe der Laufzeit des Verdichters seit Inbetriebnahme.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                  <uri>http://tempuri.org</uri>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U />
+                </modbusDataType>
+                <address>3539</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>RuntimeDomHotWater</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>HOURS</unit>
+                <alternativeNames>            
+                  <sLV1Name>RuntimeDomHotWater</sLV1Name>
+                  <manufName>VD WARMWASSER Laufzeit WP 1</manufName>
+                  <hpBwpName>Betriebsstunden Warmwasser</hpBwpName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der Laufzeit in der Brauchwarmwasser-Phase.</i>
+                      </p>Summe der Laufzeit des Verdichters seit Inbetriebnahme.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                  <uri>http://tempuri.org</uri>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U />
+                </modbusDataType>
+                <address>3542</address>
+                <registerType>InputRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+      </functionalProfileList>
+    </modbusInterface>
+  </interfaceList>
+</DeviceFrame>

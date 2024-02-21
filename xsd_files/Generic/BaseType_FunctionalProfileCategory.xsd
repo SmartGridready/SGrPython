@@ -56,7 +56,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
           <documentation>10: GasWärmeAnwendung</documentation>
         </annotation>
       </enumeration>
-      <enumeration value="NonSpecific">
+      <enumeration value="Metering">
         <annotation>
           <documentation>11: allgemein verwendbar</documentation>
         </annotation>
@@ -183,12 +183,12 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       </enumeration>
       <enumeration value="SGCP">
         <annotation>
-          <documentation> 31: GridConnectionPoint Nachbarschaft </documentation>
+          <documentation> 36: GridConnectionPoint Nachbarschaft </documentation>
         </annotation>
       </enumeration>
       <enumeration value="Household">
         <annotation>
-          <documentation>327: Haushalt</documentation>
+          <documentation>37: Haushalt</documentation>
         </annotation>
       </enumeration>
       <enumeration value="PVSystem">
@@ -241,14 +241,14 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
           <documentation>47: Gebäude und Campus.elektrische Flexibilität </documentation>
         </annotation>
       </enumeration>
-      <enumeration value="R48">
+      <enumeration value="Metering">
         <annotation>
-          <documentation>48: Reserve</documentation>
+          <documentation>48: Metering</documentation>
         </annotation>
       </enumeration>
-      <enumeration value="R49">
+      <enumeration value="DynamicTariff">
         <annotation>
-          <documentation>49: Reserve</documentation>
+          <documentation>49: Dynamic Tariff</documentation>
         </annotation>
       </enumeration>
       <enumeration value="R50">

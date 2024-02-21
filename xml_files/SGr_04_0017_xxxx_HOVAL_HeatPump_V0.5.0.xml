@@ -1,0 +1,3693 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<DeviceFrame xmlns="http://www.smartgridready.com/ns/V0/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/Product/Product.xsd">
+  <deviceName>HovalConnect WEZ</deviceName>
+  <manufacturerName>Hoval AG</manufacturerName>
+  <specificationOwnerIdentification>0</specificationOwnerIdentification>
+  <releaseNotes>
+    <state>Review</state>
+  </releaseNotes>
+  <deviceInformation>
+    <legibleDescription>
+      <textElement>
+        Hoval Wärmepumpen mit TopTronic(r) E in Kombination mit dem HovalConnect Modbus
+        Gateway und SmartGridready Anbindung ermöglichen umweltfreundliches Heizen und erfüllen bereits heute die
+        gesetzlichen Vorgaben von morgen.
+      </textElement>
+      <language>de</language>
+    </legibleDescription>
+    <legibleDescription>
+      <textElement>TODO: txt Hoval easy readible explanation in English</textElement>
+      <language>en</language>
+    </legibleDescription>
+    <legibleDescription>
+      <textElement>TODO: txt Hoval simple text en Francais</textElement>
+      <language>fr</language>
+    </legibleDescription>
+    <legibleDescription>
+      <textElement>TODO: txt Hoval Semplice descrizione in italiano</textElement>
+      <language>it</language>
+    </legibleDescription>
+    <deviceCategory>HeatPumpAppliance</deviceCategory>
+    <isLocalControl>true</isLocalControl>
+    <softwareRevision>0.5.0 / 4m</softwareRevision>
+    <hardwareRevision>1.0.0</hardwareRevision>
+    <brandName>TopTronic(r)</brandName>
+    <powerSource>mains3Phase</powerSource>
+    <nominalPower>nominalPower</nominalPower>
+    <manufacturerSpecificationIdentification>manufacturerSpecificationIdentification
+    </manufacturerSpecificationIdentification>
+    <manufacturerLabel>Hoval Wärmepumpen mit HovalConnect Modbus</manufacturerLabel>
+    <generalRemarks>generalRemarks</generalRemarks>
+    <levelOfOperation>4m</levelOfOperation>
+  </deviceInformation>
+  <interfaceList>
+    <modbusInterface>
+      <modbusInterfaceDescription>
+        <modbusInterfaceSelection>TCPIP</modbusInterfaceSelection>
+        <modbusTcp>
+          <port>502</port>
+          <address>192.168.1.51</address>
+          <slaveId>1</slaveId>
+        </modbusTcp>
+        <firstRegisterAddressIsOne>false</firstRegisterAddressIsOne>
+        <bitOrder>BigEndian</bitOrder>
+      </modbusInterfaceDescription>
+      <functionalProfileList>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>HeatPumpBase</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
+              <functionalProfileType>HeatPumpBase</functionalProfileType>
+              <levelOfOperation>4m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
+                <subReleaseVersionNumber>1</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <alternativeNames>
+              <sLV1Name>HeatPumpBase</sLV1Name>
+            </alternativeNames>
+            <legibleDescription>
+              <textElement>
+                Das Profil definiert den Grundbaustein zur dynamischen Ansteuerung von Wärmepumpen
+                über eine variable Beeinflussung der Sollwerte nach SGr Level 4. Der Betrieb der
+                Wärmepumpe muss in sich sicher sein, unabhängig von den äusseren Vorgaben. Dieses
+                Grundprofil definiert die Datenpunkte, welche zur Steuerung des Gerätes «Wärmepumpe»
+                auf Level 4 grundsätzlich zur Verfügung gestellt werden und stellen die Version
+                einer
+                typischen EInfamilienhauswärmepumpe mit Aussentemperaturfühler dar. Für die
+                einzelnen
+                Heizkreise, Warmwasser, Pufferspeicher und das Energie-Monitoring sowie eine
+                Verdichterdrehzahl / Leistungsregelung werden separate Profile zur Verfügung
+                gestellt.
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>hovHPOpModeCmd</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>HP_OFF</literal>
+                      <ordinal>0</ordinal>
+                      <description>Wärmeerzeuger aus</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_AUTOMATIC</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_RES1</literal>
+                      <ordinal>2</ordinal>
+                      <description>TODO: Wert 1 siehe Datenblatt</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_RES2</literal>
+                      <ordinal>3</ordinal>
+                      <description>TODO: Wert 2 siehe Datenblatt</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_MAN_HEAT</literal>
+                      <ordinal>4</ordinal>
+                      <description>Manueller Heizbetrieb</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_MAN_COOL</literal>
+                      <ordinal>5</ordinal>
+                      <description>Manueller Kühlbetrieb</description>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                    <sLV1Name>hovHPOpModeCmd</sLV1Name>
+                    <manufName>9075</manufName></alternativeNames>
+                <legibleDescription>
+                  <textElement>Betriebswahl Wärmeerzeuger
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Heat generator operation choice
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Sélection fonct. générateur de chaleur
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Selezione modo funz.to generatore calore
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U/>
+                </modbusDataType>
+                <address>1561</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>0</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>hovHPOpState</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>HP_OFF</literal>
+                      <ordinal>0</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_HEATING</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_PREHEAT</literal>
+                      <ordinal>2</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_LOCK_EXTERN</literal>
+                      <ordinal>3</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_COOLING</literal>
+                      <ordinal>4</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_PRECOOL</literal>
+                      <ordinal>5</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_ALARM</literal>
+                      <ordinal>15</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>EP_ERROR</literal>
+                      <ordinal>16</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_BLOCKING</literal>
+                      <ordinal>17</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_WFmax_SWITCHOFF</literal>
+                      <ordinal>21</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_WFset_SWITCHOFF</literal>
+                      <ordinal>22</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_BIVALENCE_SWITCHOFF</literal>
+                      <ordinal>26</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_MIN_OFF_TIME</literal>
+                      <ordinal>27</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_MIN_ON_TIME</literal>
+                      <ordinal>28</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_TRAILING</literal>
+                      <ordinal>32</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_DELAY_AFTER_WE</literal>
+                      <ordinal>33</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_TEMPERATURE_HIGH_OP</literal>
+                      <ordinal>34</ordinal>
+                    </enumEntry>
+                        <enumEntry>
+                      <literal>HP_MAN_OP_HEATING</literal>
+                      <ordinal>43</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_MAN_OP_DOM_HOT_WATER</literal>
+                      <ordinal>44</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_MAN_OP_COOLING</literal>
+                      <ordinal>45</ordinal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>HPOpState</sLV1Name>
+                  <manufName>2053</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Status Wärmeerzeugerregelung</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Status heat generator control
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Statut régulation générateur de chaleur
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Stato regolazione gen. di calore
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int8U/>
+                </modbusDataType>
+                <address>18722</address>
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>0</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ErrorNrSGr</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <int16U/>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>Fault_HP_SGr</sLV1Name>
+                  <manufName>27</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Fehlercode vom Automaten, reduziert auf Boolean: true = Fehler </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Error code from controller, reduced to boolean: true = error state
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Code erreur automate: true = condition d'erreur
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Codice errore da unità automatica: ridotto a booleano: true = condizione di errore
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                    <boolean>
+                        <falseValue>255</falseValue></boolean>                    
+                </modbusDataType>
+                <address>1534</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>OutsideAirTemp</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>OutsideAirTemp</sLV1Name>
+                  <manufName>0</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Aktuelle Aussentemperatur (gemessen über AF1 - Aussenfühler 1)</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>AF1 - outside sensor 1
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>AF 1 - sonde extérieure 1
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>AF1 - sensore esterno 1
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>1477</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SupplyWaterTemp</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                    <sLV1Name>SupplyWaterTemp</sLV1Name>
+                    <manufName>7</manufName></alternativeNames>
+                <legibleDescription>
+                    <textElement>Wärmeerzeuger-Ist</textElement>
+                    <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Heat generator actual
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Générateur de chaleur réel
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Generatore di calore-effettivo
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>18725</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SupplyWaterTempStpt</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>SupplyWaterTempStpt</sLV1Name>
+                  <manufName>9020</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Solltemperatur Handbetrieb: Setzen der aktuellen Soll-Temperatur des Vorlaufs (Grundwert).Wirkt nur für die OpMode "manuell"</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Manual mode set temperature
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Temp. consigne comm. man.
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Temperatura nominale modo manuale
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>1562</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ReturnSupplyWaterTemp</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>ReturnSupplyWaterTemp</sLV1Name>
+                  <manufName>29</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Auslesen der aktuellen aktuellen Rücklauftemperatur</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Return temperature
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Température de retour
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Temperatura di ritorno
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>1535</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SupplyWaterTempStptFb</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>SupplyWaterTempStptFb</sLV1Name>
+                  <manufName>1007</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Wärmeerzeuger-Soll (Rücklesewert)</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Manual mode set temperature (readback value)
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Temp. consigne comm. man. (valeur de relecture)
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Temperatura nominale modo manuale (valore di rilettura)
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>18724</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>PowerCtrl</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
+              <functionalProfileType>PowerCtrl</functionalProfileType>
+              <levelOfOperation>4m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
+                <subReleaseVersionNumber>1</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <alternativeNames>
+              <sLV1Name>PowerCtrl</sLV1Name>
+            </alternativeNames>
+            <legibleDescription>
+              <textElement>Die externe Steuerung über die Kompressorleistung braucht eine spezielle Konfiguration ab Werk. Kontaktieren sie den Hersteller für weitere Angaben.</textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>PowerCtrlStpt</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>
+                  <sLV1Name>PowerCtrlStpt</sLV1Name>
+                  <manufName>20069</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Verfügbare el. Leistung gedämpft</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Available electrical power, dampened</textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Puissance électrique disponible atténuée</textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Potenza elettrica disponibile attenuata</textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>27536</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>0</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActSpeed</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>PERCENT</unit>
+                <alternativeNames>
+                  <sLV1Name>ActSpeed</sLV1Name>
+                  <manufName>20052</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    Modulation
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    Modulation
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    Modulation
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    Modulazione
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>18726</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>0</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActPowerACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>KILOWATTS</unit>
+                <alternativeNames>
+                  <sLV1Name>ActPowerACtot</sLV1Name>
+                  <manufName>29051</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Aktuelle Leistung Heizen</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>actual power output heating</textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Puissance actuelle chauffage</textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Potenza attuale riscaldamento</textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U/>
+                </modbusDataType>
+                <address>18731</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>0</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>HeatCoolCtrl_1</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
+              <functionalProfileType>HeatCoolCtrl</functionalProfileType>
+              <levelOfOperation>4m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
+                <subReleaseVersionNumber>1</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <alternativeNames>
+              <sLV1Name>HeatCoolCtrl</sLV1Name>
+            </alternativeNames>
+            <legibleDescription>
+              <textElement>
+                Dieses Profil definiert die erweiterten Datenpunkte zum Grundprofil "HeatPumpBase", welche
+                zur Steuerung eines Heiz- oder Kühlkreises zur Verfügung gestellt werden. Derselbe physikalische
+                Kreislauf kann entweder für das Heizen oder das Kühlen verwendet werden. Das Heiz-/Kühlkreisprofil muss
+                immer in Kombination mit dem Grundprofil der Wärmepumpe bewirtschaftet werden. Es können mehrere
+                Heiz-/Kühlkreisprofile definiert werden.
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>hovHeatCoolCtrlOpModeCmd</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>HC_STANDBY</literal>
+                      <ordinal>0</ordinal>
+                      <description>Standbybetrieb</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_PLAN_W1</literal>
+                      <ordinal>1</ordinal>
+                      <description>Wochenplan 1</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_PLAN_W2</literal>
+                      <ordinal>2</ordinal>
+                      <description>Wochenplan 2</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_CONSTANT</literal>
+                      <ordinal>4</ordinal>
+                      <description>Konstanter Betrieb</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_ECO</literal>
+                      <ordinal>5</ordinal>
+                      <description>Sparbetrieb</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_MAN_HEAT</literal>
+                      <ordinal>7</ordinal>
+                      <description>Handbetrieb kühlen</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_MAN_COOL</literal>
+                      <ordinal>8</ordinal>
+                      <description>Handbetrieb heizen</description>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>HeatCoolCtrlOpModeCmd</sLV1Name>
+                  <manufName>3050</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Betriebswahl Heizung: Festlegen der Betriebsart des Heiz-/Kühlkreises </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Heating operation choice
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Sélection fonctionnement chauffage
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Selezione modo funzionam.to riscaldam.to
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U/>
+                </modbusDataType>
+                <address>1478</address>
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>0</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>hovHeatCoolOpState</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>HC_OFF</literal>
+                      <ordinal>0</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_NORMAL_HEAT_OP</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_COMFORT_HEAT_OP</literal>
+                      <ordinal>2</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_ECO_HEAT_OP</literal>
+                      <ordinal>3</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DEFROST</literal>
+                      <ordinal>4</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_FORCED_OP</literal>
+                      <ordinal>5</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_FORCE_CURTAIL</literal>
+                      <ordinal>6</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_VACATION_OP</literal>
+                      <ordinal>7</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_PARTY_OP</literal>
+                      <ordinal>8</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_NORMAL_COOL_OP</literal>
+                      <ordinal>9</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_COMFORT_COOL_OP</literal>
+                      <ordinal>10</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_ECO_COOL_OP</literal>
+                      <ordinal>11</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_ERROR</literal>
+                      <ordinal>12</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_MANUAL_OP</literal>
+                      <ordinal>13</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_COOL_PROT</literal>
+                      <ordinal>14</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_PARTY_COOL_OP</literal>
+                      <ordinal>15</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DRY_HEATING</literal>
+                      <ordinal>16</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DRY_STATIONARY</literal>
+                      <ordinal>17</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DRY_COOLING</literal>
+                      <ordinal>18</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DRY_FINALIZING</literal>
+                      <ordinal>19</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_COOLING_EXT_CMD</literal>
+                      <ordinal>22</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_HEATING_EXT_CMD</literal>
+                      <ordinal>23</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_INTENSIFIED_EXT</literal>
+                      <ordinal>24</ordinal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>HeatCoolOpState</sLV1Name>
+                  <manufName>2051</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Status Heizkreisregelung</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Status heating circuit control
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Statut régulation circuit de chauffage
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Stato regolazione circuito riscaldamento
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U/>
+                </modbusDataType>
+                <address>1501</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>0</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SupplyWaterTemp</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>SupplyWaterTemp</sLV1Name>
+                  <manufName>2</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Vorlauf-Ist: Auslesen der aktuellen Temperatur des Vorlaufs.</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Supply actual
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Aller réel
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Mandata-effettivo
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>1513</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SupplyWaterTempStpt</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>SupplyWaterTempStpt</sLV1Name>
+                  <manufName>9020</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    Setzen der aktuellen Soll-Temperatur des Vorlaufs (Grundwert)
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Manual mode set temperature
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Temp. consigne comm. man.
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Temperatura nominale modo manuale
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+                <programmerHints>
+                    <textElement>This data point does only work during operationModes manual (HC_MAN_HEAT ,HC_MAN_COOL )</textElement>
+                    <language>de</language>
+                </programmerHints>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>1487</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ReturnSupplyWaterTemp</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>ReturnSupplyWaterTemp</sLV1Name>
+                  <manufName>3</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Rücklauf-Ist: Auslesen der aktuellen Temperatur des Rücklaufs</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Return actual
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Retour réel
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Ritorno-effettivo
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>19610</address>
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>HeatCoolCtrl_2</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
+              <functionalProfileType>HeatCoolCtrl</functionalProfileType>
+              <levelOfOperation>4m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
+                <subReleaseVersionNumber>1</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <alternativeNames>
+              <sLV1Name>HeatCoolCtrl</sLV1Name>
+            </alternativeNames>
+            <legibleDescription>
+              <textElement>Dieses Profil definiert die erweiterten Datenpunkte zum Grundprofil "HeatPumpBase", welche
+                zur Steuerung eines Heiz- oder Kühlkreises zur Verfügung gestellt werden. Derselbe physikalische
+                Kreislauf kann entweder für das Heizen oder das Kühlen verwendet werden. Das Heiz-/Kühlkreisprofil muss
+                immer in Kombination mit dem Grundprofil der Wärmepumpe bewirtschaftet werden. Es können mehrere
+                Heiz-/Kühlkreisprofile definiert werden.
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>hovHeatCoolCtrlOpModeCmd</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>HC_STANDBY</literal>
+                      <ordinal>0</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_PLAN_W1</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_PLAN_W2</literal>
+                      <ordinal>2</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_CONSTANT</literal>
+                      <ordinal>4</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_ECO</literal>
+                      <ordinal>5</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_MAN_HEAT</literal>
+                      <ordinal>7</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_MAN_COOL</literal>
+                      <ordinal>8</ordinal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>HeatCoolCtrlOpModeCmd</sLV1Name>
+                  <manufName>3050</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Betriebswahl Heizung: Festlegen der Betriebsart des Heiz-/Kühlkreises </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Heating operation choice
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Sélection fonctionnement chauffage
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Selezione modo funzionam.to riscaldam.to
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U/>
+                </modbusDataType>
+                <address>1479</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>0</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>hovHeatCoolOpState</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>HC_OFF</literal>
+                      <ordinal>0</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_NORMAL_HEAT_OP</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_COMFORT_HEAT_OP</literal>
+                      <ordinal>2</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_ECO_HEAT_OP</literal>
+                      <ordinal>3</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DEFROST</literal>
+                      <ordinal>4</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_FORCED_OP</literal>
+                      <ordinal>5</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_FORCE_CURTAIL</literal>
+                      <ordinal>6</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_VACATION_OP</literal>
+                      <ordinal>7</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_PARTY_OP</literal>
+                      <ordinal>8</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_NORMAL_COOL_OP</literal>
+                      <ordinal>9</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_COMFORT_COOL_OP</literal>
+                      <ordinal>10</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_ECO_COOL_OP</literal>
+                      <ordinal>11</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_ERROR</literal>
+                      <ordinal>12</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_MANUAL_OP</literal>
+                      <ordinal>13</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_COOL_PROT</literal>
+                      <ordinal>14</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_PARTY_COOL_OP</literal>
+                      <ordinal>15</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DRY_HEATING</literal>
+                      <ordinal>16</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DRY_STATIONARY</literal>
+                      <ordinal>17</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DRY_COOLING</literal>
+                      <ordinal>18</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DRY_FINALIZING</literal>
+                      <ordinal>19</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_COOLING_EXT_CMD</literal>
+                      <ordinal>22</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_HEATING_EXT_CMD</literal>
+                      <ordinal>23</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_INTENSIFIED_EXT</literal>
+                      <ordinal>24</ordinal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>HeatCoolOpState</sLV1Name>
+                  <manufName>2051</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Status Heizkreisregelung</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Status heating circuit control
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Statut régulation circuit de chauffage
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Stato regolazione circuito riscaldamento
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U/>
+                </modbusDataType>
+                <address>1502</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>0</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SupplyWaterTemp</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                    <sLV1Name>SupplyWaterTemp</sLV1Name>
+                    <manufName>2</manufName></alternativeNames>
+                <legibleDescription>
+                  <textElement>Vorlauf-Ist: Auslesen der aktuellen Temperatur des Vorlaufs.</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Supply actual
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Aller réel
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Mandata-effettivo
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>1514</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SupplyWaterTempStpt</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>SupplyWaterTempStpt</sLV1Name>
+                  <manufName>9020</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Solltemperatur Handbetrieb: Setzen der aktuellen Soll-Temperatur des Vorlaufs (Grundwert). </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Manual mode set temperature
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Temp. consigne comm. man.
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Temperatura nominale modo manuale
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+                <programmerHints>
+                    <textElement>This data point does only work during operationModes manual (HC_MAN_HEAT ,HC_MAN_COOL )</textElement>
+                    <language>de</language>
+                </programmerHints>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>1488</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ReturnSupplyWaterTemp</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>ReturnSupplyWaterTemp</sLV1Name>
+                  <manufName>3</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Rücklauf-Ist: Auslesen der aktuellen Temperatur des Rücklaufs</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Return actual
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Retour réel
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Ritorno-effettivo
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>19611</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>HeatCoolCtrl_3</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
+              <functionalProfileType>HeatCoolCtrl</functionalProfileType>
+              <levelOfOperation>4m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
+                <subReleaseVersionNumber>1</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <alternativeNames>
+              <sLV1Name>HeatCoolCtrl</sLV1Name>
+            </alternativeNames>
+            <legibleDescription>
+              <textElement>
+                Dieses Profil definiert die erweiterten Datenpunkte zum Grundprofil "HeatPumpBase", welche
+                zur Steuerung eines Heiz- oder Kühlkreises zur Verfügung gestellt werden. Derselbe physikalische
+                Kreislauf kann entweder für das Heizen oder das Kühlen verwendet werden. Das Heiz-/Kühlkreisprofil muss
+                immer in Kombination mit dem Grundprofil der Wärmepumpe bewirtschaftet werden. Es können mehrere
+                Heiz-/Kühlkreisprofile definiert werden.
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>hovHeatCoolCtrlOpModeCmd</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>HC_STANDBY</literal>
+                      <ordinal>0</ordinal>
+                      <description>Standbybetrieb</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_PLAN_W1</literal>
+                      <ordinal>1</ordinal>
+                      <description>Wochenplan 1</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_PLAN_W2</literal>
+                      <ordinal>2</ordinal>
+                      <description>Wochenplan 2</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_CONSTANT</literal>
+                      <ordinal>4</ordinal>
+                      <description>Konstanter Betrieb</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_ECO</literal>
+                      <ordinal>5</ordinal>
+                      <description>Sparbetrieb</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_MAN_HEAT</literal>
+                      <ordinal>7</ordinal>
+                      <description>Handbetrieb kühlen</description>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_MAN_COOL</literal>
+                      <ordinal>8</ordinal>
+                      <description>Handbetrieb heizen</description>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>HeatCoolCtrlOpModeCmd</sLV1Name>
+                  <manufName>3050</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Betriebswahl Heizung: Festlegen der Betriebsart des Heiz-/Kühlkreises </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Heating operation choice
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Sélection fonctionnement chauffage
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Selezione modo funzionam.to riscaldam.to
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U/>
+                </modbusDataType>
+                <address>1480</address>
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>0</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>hovHeatCoolOpState</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>HC_OFF</literal>
+                      <ordinal>0</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_NORMAL_HEAT_OP</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_COMFORT_HEAT_OP</literal>
+                      <ordinal>2</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_ECO_HEAT_OP</literal>
+                      <ordinal>3</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DEFROST</literal>
+                      <ordinal>4</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_FORCED_OP</literal>
+                      <ordinal>5</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_FORCE_CURTAIL</literal>
+                      <ordinal>6</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_VACATION_OP</literal>
+                      <ordinal>7</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_PARTY_OP</literal>
+                      <ordinal>8</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_NORMAL_COOL_OP</literal>
+                      <ordinal>9</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_COMFORT_COOL_OP</literal>
+                      <ordinal>10</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_ECO_COOL_OP</literal>
+                      <ordinal>11</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_ERROR</literal>
+                      <ordinal>12</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_MANUAL_OP</literal>
+                      <ordinal>13</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_COOL_PROT</literal>
+                      <ordinal>14</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_PARTY_COOL_OP</literal>
+                      <ordinal>15</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DRY_HEATING</literal>
+                      <ordinal>16</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DRY_STATIONARY</literal>
+                      <ordinal>17</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DRY_COOLING</literal>
+                      <ordinal>18</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_DRY_FINALIZING</literal>
+                      <ordinal>19</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_COOLING_EXT_CMD</literal>
+                      <ordinal>22</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_HEATING_EXT_CMD</literal>
+                      <ordinal>23</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HC_INTENSIFIED_EXT</literal>
+                      <ordinal>24</ordinal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>HeatCoolOpState</sLV1Name>
+                  <manufName>2051</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Status Heizkreisregelung</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Status heating circuit control
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Statut régulation circuit de chauffage
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Stato regolazione circuito riscaldamento
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U/>
+                </modbusDataType>
+                <address>1503</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>0</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SupplyWaterTemp</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>SupplyWaterTemp</sLV1Name>
+                  <manufName>2</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Vorlauf-Ist: Auslesen der aktuellen Temperatur des Vorlaufs.</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Supply actual
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Aller réel
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Mandata-effettivo
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>1515</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SupplyWaterTempStpt</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>SupplyWaterTempStpt</sLV1Name>
+                  <manufName>9020</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Setzen der aktuellen Soll-Temperatur des Vorlaufs (Grundwert). 
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Manual mode set temperature
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Temp. consigne comm. man.
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Temperatura nominale modo manuale
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+                <programmerHints>
+                    <textElement>This data point does only work during operationModes manual (HC_MAN_HEAT ,HC_MAN_COOL )</textElement>
+                    <language>de</language>
+                </programmerHints>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>1489</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ReturnSupplyWaterTemp</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                    <sLV1Name>ReturnSupplyWaterTemp</sLV1Name>
+                    <manufName>3</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Rücklauf-Ist: Auslesen der aktuellen Temperatur des Rücklaufs.</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Return actual
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Retour réel
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Ritorno-effettivo
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>19612</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>DomHotWaterCtrl</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
+              <functionalProfileType>DomHotWaterCtrl</functionalProfileType>
+              <levelOfOperation>4m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
+                <subReleaseVersionNumber>1</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <alternativeNames>
+              <sLV1Name>DomHotWaterCtrl</sLV1Name>
+            </alternativeNames>
+            <legibleDescription>
+              <textElement>
+                Dieses Profil definiert die erweiterten Datenpunkte zum Grundprofil "HeatPumpBase",
+                welche zur Steuerung eines Brauchwarmwasserkreises zur Verfügung gestellt werden.
+                Das Brauchwarmwasser-Profil muss immer in Kombination mit dem Grundprofil der Wärmepumpe
+                bewirtschaftet werden. Es können mehrere Brauchwarmwasser-Profile definiert werden.
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>hovDomHotWOpModeCmd</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>DHW_STANDBY</literal>
+                      <ordinal>0</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>DHW_SCHEDULE_1_OP</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>DHW_SCHEDULE_2_OP</literal>
+                      <ordinal>2</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>DHW_CONST_OP</literal>
+                      <ordinal>3</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>DHW_ECO_OP</literal>
+                      <ordinal>4</ordinal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>DomHotWOpMode</sLV1Name>
+                  <manufName>5050</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Betriebswahl Warmwasser</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Hot water operation choice
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Sélection fonct. eau chaude
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Selezione modo funzionamento acqua calda
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U/>
+                </modbusDataType>
+                <address>1496</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>0</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>hovDomHotWState</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>DHW_OFF</literal>
+                      <ordinal>0</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>DHW_CHARGING</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>DHW_CHARGE_COMF</literal>
+                      <ordinal>2</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>DHW_FORCE_CURT_LOW</literal>
+                      <ordinal>3</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>DHW_FORCE_CURT_HIGH</literal>
+                      <ordinal>4</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>DHW_ERROR</literal>
+                      <ordinal>5</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>DHW_WITHDRAWING</literal>
+                      <ordinal>6</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>DHW_WARNING_ACTIVE</literal>
+                      <ordinal>7</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>DHW_REDUCED</literal>
+                      <ordinal>8</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>DHW_INTENSIFIED_EXT</literal>
+                      <ordinal>12</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>DHW_FORCED_EXT</literal>
+                      <ordinal>13</ordinal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>DomHotWState</sLV1Name>
+                  <manufName>2052</manufName>
+                  <hpBwpName>Warmwasserbereitung in Betrieb</hpBwpName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Status Warmwasserregelung</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Status domestic hot water control
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Statut régulation eau chaude
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Stato regolazione acqua calda
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U/>
+                </modbusDataType>
+                <address>1504</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>0</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>DomHotWTempStptOffs</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                    <sLV1Name>DomHotWTempStptOffs</sLV1Name>
+                    <manufName>5077</manufName></alternativeNames>
+                <legibleDescription>
+                    <textElement>Smart-Grid (Offset) WW-Sollwert</textElement>
+                    <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Smart grid (offset) DHW setpoint
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Consigne ECS Smart Grid (offset)
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Setpoint ACS Smart Grid (offset).
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>27509</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>DomHotWTempStptComf</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>DomHotWTempStptComf</sLV1Name>
+                  <manufName>5051</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    Normal-Warmwassertemperatur: Setzen des Wertes der Solltemperatur für den Brauchwarmwasserspeicher.
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Normal hot water temp.
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>température d'eau chaude normale
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Temperatura acqua calda normale
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+                <programmerHints>
+                    <textElement>This data point does only work during operation Mode constant (DHW_CONST_OP)</textElement>
+                    <language>de</language>
+                </programmerHints>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>1497</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>DomHotWTempStptEco</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>DomHotWTempStptEco</sLV1Name>
+                  <manufName>5086</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Spar-Warmwassertemperatur: Setzen des Wertes der Solltemperatur für den Brauchwarmwasserspeicher.</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Conservation hot water temp.
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>température eau chaude éco
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>iTemperatura di risparmio acqua calda
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+                <programmerHints>
+                    <textElement>This data point does only work during operation Mode constant (DHW_CONST_OP)</textElement>
+                    <language>de</language>
+                </programmerHints>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>1498</address>
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-2</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActDomHotWTemp</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>ActDomHotWTemp</sLV1Name>
+                  <manufName>4</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Warmwasser-Ist SF: Aktuelle Ist-Temperatur des Brauchwarmwasserspeichers</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Hot water actual DHW
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Eau chaude réelle ECS
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Acqua calda-effettivo ACS
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>1500</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>DomHotWTempStptFb</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>DomHotWTempStpFb</sLV1Name>
+                  <manufName>1004</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Warmwasser-Soll: Rückmeldung des aktuell gesetzten Wertes der Solltemperatur für den Brauchwarmwasserspeicher</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Hot water setpoint (readback value)
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Eau chaude consigne (Valeur de relecture)
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Acqua calda-nominale (Valore di rilettura)
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>1499</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>BufferStorageCtrl</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
+              <functionalProfileType>BufferStorageCtrl</functionalProfileType>
+              <levelOfOperation>4m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
+                <subReleaseVersionNumber>1</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <alternativeNames>
+              <sLV1Name>BufferStorageCtrl</sLV1Name>
+            </alternativeNames>
+            <legibleDescription>
+              <textElement>Der Wärmespeicher kann die Reserveenergie einer Anlage mit Temperaturoffsets (Wärme und Kälte) zeitlich verschieben.</textElement>
+              <language>de</language>
+            </legibleDescription>
+            <programmerHints>
+                <textElement>The selection of the data points used (Heating / Cooling)  at a certain time can be derived from the hovHPOpState within the HeatPumpBase functional profile.</textElement>
+                <language>en</language>
+            </programmerHints>
+          </functionalProfile>
+          <dataPointList>
+          <dataPointListElement>
+              <dataPoint>
+                <dataPointName>HeatBufferTempStptOffs</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>ActBufferTempStpt Offset</sLV1Name>
+                  <manufName>6050</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Smart-Grid (Offset) Puffer-Soll.Heizen</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>SmartGrid (offset) buffer stpt. heating
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Val cons acc chauff (offset) Smart-Grid
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Smart-Grid (offset) accumulo-nom risc
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>28839</address>
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor></modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>CoolBufferTempStptOffs</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>ActBufferTempStpt Offsetf</sLV1Name>
+                  <manufName>6051</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Smart-Grid (Offset) Puffer-Soll.Kühlen</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>SmartGrid (offset) buffer stpt. cooling
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Val cons acc refroid (offset) Smart-Grid
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Smart-Grid (offset) accumulo-nom raff
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>28840</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>              
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>hovActBufferState</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>BUF_OFF</literal>
+                      <ordinal>0</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>BUF_REQ_PROTECTED</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>BUF_REQ_ACTIVE</literal>
+                      <ordinal>2</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>BUF_REQ_FINALIZING</literal>
+                      <ordinal>3</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>BUF_REQ_DONE</literal>
+                      <ordinal>4</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>BUF_FORCED</literal>
+                      <ordinal>6</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>BUF_SKIMMING</literal>
+                      <ordinal>7</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>BUF_INTENSIFIED_EXT</literal>
+                      <ordinal>8</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>BUF_FORCED_EXT</literal>
+                      <ordinal>9</ordinal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>BufferState</sLV1Name>
+                  <manufName>23082</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Status Puffer</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Status buffer
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Statut accumulateur
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Stato accumulo
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U/>
+                </modbusDataType>
+                <address>17384</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>0</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActHeatBufferTemp</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>ActHeatBufferTemp</sLV1Name>
+                  <manufName>1570</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>WPF Wärmepumpenpufferfühler</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>HPBS heat pump buffer sensor
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Sonde accumulateur pompe à chaleur SAPAC
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Sensore accumulo pompe di calore WPF
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                    <int32 />                    
+                </modbusDataType>
+                <address>27493</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActHeatBufferTempUppper</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>ActHeatBufferTempUppper</sLV1Name>
+                  <manufName>15</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Puffer PF/KPF2 Ist</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Buffer PF/KPF2 actual
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Accumulateur PF/KPF2 réel
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Accumulo PF/KPF2 effettivo
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>17386</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActHeatBufferTempLower</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>ctHeatBufferTempLower</sLV1Name>
+                  <manufName>17</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Puffer PF2/KPF Ist</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Buffer PF2/KPF actual
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Accumulateur PF2/KPF réel
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Accumulo PF2/KPF effettivo
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>17387</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActCoolBufferTempUpper</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>ActCoolBufferTempUpper</sLV1Name>
+                  <manufName>15</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Puffer PF/KPF2 Ist</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Buffer PF/KPF2 actual
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Accumulateur PF/KPF2 réel
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Accumulo PF/KPF2 effettivo
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>17386</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>            
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActCoolBufferTempLower</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                  <sLV1Name>ActCoolBufferTempLower</sLV1Name>
+                  <manufName>17</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Puffer PF2/KPF Ist</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Buffer PF2/KPF actual
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Accumulateur PF2/KPF réel
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Accumulo PF2/KPF effettivo
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>17387</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActBufferTempStptFb</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float32/>
+                </dataType>
+                <unit>DEGREES_CELSIUS</unit>
+                <alternativeNames>
+                    <sLV1Name>ActBufferTempStptFb</sLV1Name>
+                    <manufName>1015</manufName></alternativeNames>
+                <legibleDescription>
+                  <textElement>Puffer-Soll: Vom System selbst vorgegebener Temperatur-Sollwert des Speichers.</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Buffer setpoint (readback value)
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Valeur consigne accumulateur (Valeur de relecture)
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Accumulo-nominale (Valore di rilettura)
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16/>
+                </modbusDataType>
+                <address>17385</address>
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-1</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>SG-ReadyStates</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
+              <functionalProfileType>SG-ReadyStates</functionalProfileType>
+              <levelOfOperation>2m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <alternativeNames>
+              <sLV1Name>SG-ReadyStates_bwp</sLV1Name>
+              <hpBwpName>sHPbwpName</hpBwpName>
+            </alternativeNames>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <h4>Heat pump with 4 operation modes</h4>
+                  <p>Level 2m functional profile for heat pumps with 4 operation modes (SG Ready heat pumps) which can be set via 
+                  Modbus or RestAPI. In addition, the current operation status of the heat pump can be read. The operating states are
+                   defined from SG ready - "Bundesverband Wärmepumpe e.V. (bwp)". </p>
+                   
+                  <p> This functional profile can be used in two ways: </p>
+                   
+                  <ul>
+                    <li> The operating modes are written and read directly via Modbus or RestAPI. </li>
+                    <li> The relay contacts are mapped and implemented via Modbus or RestAPI for reading the operation mode, 
+                    but the mode is set via the relay contacts as in the standard application of SG Ready heat pumps.</li>        
+                  </ul>
+                       
+                  <p> The following operation modes can be written and read via the defined data point "SGReadyOpModeCmd": </p>
+                  
+                  <ul>
+                    <li><strong>HP_LOCKED</strong>: Heat pump blocked - for example fixed blocking by time.</li>
+                    <li><strong>HP_NORMAL</strong>: Heat pump in normal operation. </li>
+                    <li><strong>HP_INTENSIFIED</strong>: Switch-on recommendations for increased operation.  </li>
+                    <li><strong>HP_FORCED</strong>: Forced start-up command (as far as this is possible within the control settings of the heat pump).  </li>
+                  </ul>
+                  
+                  <p> Via the datapoint SGReadyState it is possible to check the currently running operation mode of the heat pump. </p>
+                  
+                  <p> The communicator (e.g. central energy management system) takes into account the unit specifications for the switching 
+                    frequency (attributes maxLockTimeMinutes and minRunTimeMinutes). The values can be set during declaration of the 
+                        heat pump. The standard values for SG Ready heat pumps are "Max. Lock Time" 120 minutes and "Min. Run Time" 20 minutes. </p>
+                  
+                  <p> "SG Ready" is a trademark of the German Heat Pump Association. Further information at <a href="https://www.waermepumpe.de/normen-technik/sg-ready/">https://www.waermepumpe.de/normen-technik/sg-ready/</a>. </p>
+                ]]>
+              </textElement>
+              <language>en</language>
+            </legibleDescription>
+            <legibleDescription>
+              <textElement>                
+                <![CDATA[    
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <h4>Wärmepumpen mit 4 Betriebszuständen</h4>
+                  <p>Stufe 2m Funktionsprofil für Wärmepumpen mit 4 Betriebszuständen (SG Ready Wärmepumpen), die über Modbus oder RestAPI gesetzt werden können. 
+                  Zusätzlich kann der aktuelle Betriebszustand der Wärmepumpe ausgelesen werden. Die Betriebszustände werden über SG Ready - Bundesverband Wärmepumpe e.V. (bwp) definiert. </p>
+                  <p>Dieses Funktionsprofil kann auf zwei Arten genutzt werden: </p>
+                  
+                  <ul>
+                    <li> Die Betriebszustände werden direkt über Modbus oder RestAPI gesetzt und ausgelesen. </li>
+                    <li> Die Klemmkontakte werden gemappt und über Modbus oder RestAPI zum Auslesen des Betriebszustandes abgebildet. Der Zustand wird jedoch wie bei der Standard-Anwendung
+                    von SG Ready Wärmepumpen über die Klemmkontakte gesetzt. </li>        
+                  </ul>
+                  
+                 <p> Folgende Betriebszustände können über den Datenpunkt "SGReadyOpModeCmd" gesetzt und ausgelesen werden: </p>
+                  <ul>
+                    <li><strong>HP_LOCKED</strong>: Wärmepumpe gesperrt - zum Beispiel fixe Sperre nach Uhrzeit.</li>
+                    <li><strong>HP_NORMAL</strong>: Wärmepumpe im Normalbetrieb.</li>
+                    <li><strong>HP_INTENSIFIED</strong>: Einschaltempfehlung für verstärkten Betrieb.</li>
+                    <li><strong>HP_FORCED</strong>: Forcierter Anlaufbefehl (insofern dieser im Rahmen der Regeleinstellungen der Wärmepumpe möglich ist).</li>                  
+                  </ul>
+                  <p> Über den Datenpunkt "SGReadyState" kann der aktuelle Betriebsmodus der Wärmepumpe ausgelesen werden. </p>
+                  
+                  <p>Der Communicator (z.B. Energiemanagementsystem) berücksichtigt die Gerätevorgaben zur Schaltfrequenz (Attribute maxLockTimeMintues und minRunTimeMinutes.
+                  Der Wert der Attribute kann bei der Deklaration gesetzt werden. Standardeinstellung von SG Ready Wärmepumpen nach bwp ist 
+                  "Max. Lock Time" 120 Minuten und "Min. Run Time" 20 Minuten.</p>
+                  <p>„SG Ready“ ist ein Markenzeichen des Bundesverbands Wärmepumpe e. V.<br/>
+                     Weiterführende Informationen unter <a href="https://www.waermepumpe.de/normen-technik/sg-ready/">https://www.waermepumpe.de/normen-technik/sg-ready/</a>.</p>
+                ]]>
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <genericAttributeList>
+            <genericAttributeListElement>
+              <name>MaximumLockTime</name>
+              <dataType>
+                <float32/>
+              </dataType>
+              <value>120</value>
+              <unit>MINUTES</unit>
+            </genericAttributeListElement>
+            <genericAttributeListElement>
+              <name>MinimumRunTime</name>
+              <dataType>
+                <float32/>
+              </dataType>
+              <value>20</value>
+              <unit>MINUTES</unit>
+            </genericAttributeListElement>
+          </genericAttributeList>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SGReadyOpModeCmd</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>HP_LOCKED</literal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_NORMAL</literal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_INTENSIFIED</literal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_FORCED</literal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>SGReadyOpModeCmd</sLV1Name>
+                  <manufName>38012</manufName>
+                  <hpBwpName>Betriebsmodus</hpBwpName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Festlegen der Übersteuerungsmoeglichkeiten der Wärmepumpe</i>
+                      </p>Smart Grid via system bus
+                    ]]>
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Sets the override possibilities of the heat pump</i>
+                      </p>Smart Grid über Systembus
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Smart Grid via bus de données
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Smart Grid tramite bus di sistema
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U/>
+                </modbusDataType>
+                <address>27545</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SGReadyState</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>HP_LOCKED</literal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_NORMAL</literal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_INTENSIFIED</literal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>HP_FORCED</literal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>SG-ReadyState</sLV1Name>
+                  <manufName>38012</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Feedback of the current running override possibility of the heat pump</i>
+                      </p>Smart Grid via system bus (Rücklesung)
+                    ]]>
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Rückmeldung der aktuellen laufenden Übersteuerungsmoeglichkeit der Wärmepumpe</i>
+                      </p>Smart Grid über Systembus
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Smart Grid via bus de données (Valeur de relecture)
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Smart Grid tramite bus di sistema (Valore di rilettura)
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U/>
+                </modbusDataType>
+                <address>27545</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>hovSGReadySrcSelect</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>SGR_src_OFF</literal>
+                      <ordinal>0</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>SRC_src_CONTACTS</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>SRC_src_SysBUS</literal>
+                      <ordinal>2</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>SRC_src_DAMPED</literal>
+                      <ordinal>3</ordinal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>hovSGReadySrcSelect</sLV1Name>
+                  <manufName>38013</manufName></alternativeNames>
+                <legibleDescription>
+                  <textElement>Smart Grid function trigger
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Auslöser Smart Grid Funktion</textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Déclencheur fonction Smart Grid
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Dispositivo attivaz. funzione Smart Grid
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int16U/>
+                </modbusDataType>
+                <address>27546</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>1</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>ActiveEnergyACtot</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ActiveEnergyAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[ 
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Energy measurement</strong><br>
+                  Monitoring functional profile for power generators and consumers for reflecting the energy balance.
+                  
+                  <p>Data is typically recorded by an energy manager (or a billing software).</p>
+                  
+                  <p>Knowing the precisionPercent of measurements is necessary and therefore specified as a mandatory attribute per data point.
+                     Thus, different measurement precisions can be defined for the data points. </p>
+                  
+                  <p>With this functional profile you can measure the total energy as well as the energy of the three
+                     individual phases. One of the following options must be implemented for fulfilling the functional profile:
+                  <ul>
+                    <li>Single-phase devices use the total energy data point (ActiveEnergyACtot)</li>
+                    <li>Three-phase devices without measurement of the total energy use the data points per (ActiveEnergyACL1, ActiveEnergyACL2, ActiveEnergyACL3)</li>
+                    <li>Three-phase devices with measurement of the total energy all data points</li>
+                  </ul>
+                  </p>
+                ]]> 
+              </textElement>
+              <language>en</language>
+            </legibleDescription>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[ 
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Messung der Wirkenergie</strong><br>
+                  Monitoring Funktionsprofil für Stromerzeuger und Stromverbraucher zur Bilanzierung der Energiemenge.
+                  
+                  <p>Die Datenaufnahme erfolgt typischerweise durch einen Energiemanager (oder eine Abrechnungssoftware).</p>
+                  
+                  <p>Für Regelzwecke ist die Kenntnissder Messgenauigkeit zwingend und wird daher pro Datenpunkt als obligatorisches
+                     Attribut angegeben. Somit ist es möglich unterschiedliche Messgenauigkeiten für die Datenpunkte
+                     zu definieren.</p>
+                  
+                  <p>Dieses Funktionsprofil erlaubt sowohl die Messung der Gesamtenergie wie auch die Messung der Energie
+                     der drei einzelnen Phasen. Eine der folgenden Varianten muss bei der Implementierung des Funktionsprofiles
+                     umgesetzt werden:
+                  <ul>
+                    <li>1-phasige Geräte geben die Gesamtenergie an (ActiveEnergyACtot)</li>
+                    <li>3-phasige Geräte ohne Gesamtenergiemessung geben die Energiemenge pro Phase an (ActiveEnergyACL1, ActiveEnergyACL2, ActiveEnergyACL3)</li>
+                    <li>3-phasige Geräte mit Einzelphasen- und Gesamtenergiemessung geben alle Datenpunkte an</li>
+                  </ul>
+                  </p>
+                ]]> 
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActiveEnergyACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>
+                  <sLV1Name>ActiveEnergyACtot</sLV1Name>
+                  <manufName>23009</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Total energy measurement</i>
+                      </p>Eletrical energy WEZ kWh.
+                    ]]>
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Erfassung der gesamten Wirkenergie</i>
+                      </p>Elektrische Gesamtenergie WEZ kWh.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Énergie électrique GdC kWh</textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Energia elettrica kWh</textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <!-- defined in FP but not defined here
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>Precision</name>
+                  <value>10</value>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              -->
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U/>
+                </modbusDataType>
+                <address>25613</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>AcivePowerACtot</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
+              <functionalProfileType>ActivePowerAC</functionalProfileType>
+              <levelOfOperation>m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>1</primaryVersionNumber>
+                <secondaryVersionNumber>0</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[ 
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Messung der Wirkleistung</strong><br>
+                  Monitoring Funktionsprofil für Stromerzeuger und Stromverbraucher zur Kontrolle der Systemlast und/oder für regeltechnische 
+                  Zwecke.
+                  
+                  <p>Für Regelzwecke ist die Kenntnissder Messgenauigkeit zwingend und wird daher pro Datenpunkt als obligatorisches
+                     Attribut angegeben. Somit ist es möglich unterschiedliche Messgenauigkeiten für die Datenpunkte
+                     zu definieren.</p>
+                  
+                  <p>Dieses Funktionsprofil erlaubt sowohl die Messung der Totalleistung wie auch die Leistung der drei
+                     einzelnen Phasen. Eine der folgenden Varianten muss bei der Implementierung des Funktionsprofiles
+                     umgesetzt werden:
+                  <ul>
+                    <li>Einphasige Geräte geben die Totalleistung an (ActivePowerACtot)</li>
+                    <li>3-phasige Geräte ohne Totalleistungsmessung geben die Leistung pro Phase an (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
+                    <li>3-phasige Geräte mit Einzelphasen- und Totalleistungsmessung geben alle Datenpunkte an</li>
+                  </ul>
+                  </p>
+                ]]>
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[ 
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Active Power Measurement</strong><br>
+                  Monitoring functional profile for power generators and consumers for reflecting the active power.
+                  
+                  <p>Knowing the precisionPercent of measurements is necessary and therefore specified as a mandatory attribute
+                     per data point. Thus, different measurement precisions can be defined for the data points.</p>
+                  
+                  <p>With this functional profile you can measure the total active power as well as the active power of
+                     the three individual phases. One of the following options must be implemented for fulfilling the functional profile:
+                  <ul>
+                    <li>Single-phase devices use the total active power data point (ActivePowerACtot)</li>
+                    <li>Three-phase devices without measurement of the total active power use the data points per phase (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
+                    <li>Three-phase devices with measurement of the total active power use all data points</li>
+                  </ul>
+                  </p>
+                ]]>     
+              </textElement>
+              <language>en</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ActivePowerACtot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATTS</unit>
+                <alternativeNames>
+                  <sLV1Name>ActivePowerACtot</sLV1Name>
+                  <manufName>23002</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Total active power measurement</i>
+                      </p>Eletrical power WEZ.
+                    ]]>
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Erfassung der gesamten Wirkleistung</i>
+                      </p>Aktuelle elektr. Leistungsaufnahme WEZ.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Puissance électrique</textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Potenza elettrica</textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <!-- defined in FP but not defined here
+              <genericAttributeList>
+                <genericAttributeListElement>
+                  <name>Precision</name>
+                  <value>10</value>
+                </genericAttributeListElement>
+              </genericAttributeList>
+              -->
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32 />
+                </modbusDataType>
+                <address>25611</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+              <modbusAttributes>
+                <scalingFactor>
+                  <multiplicator>1</multiplicator>
+                  <powerof10>-2</powerof10>
+                </scalingFactor>
+              </modbusAttributes>
+            </dataPointListElement>
+          </dataPointList>
+       </functionalProfileListElement>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>EnergyMonitor</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>HeatPumpControl</functionalProfileCategory>
+              <functionalProfileType>EnergyMonitor</functionalProfileType>
+              <levelOfOperation>2m</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>3</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <alternativeNames>
+              <sLV1Name>EnergyMonitor</sLV1Name>
+            </alternativeNames>
+            <legibleDescription>
+              <textElement>
+                <![CDATA[ 
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <p>Aufzeichnen der Warmepumpen-Betriebsdaten durch den CEM.</p>
+                  
+                  <p>Bemerkungen:</p>
+                  <ol>
+                    <li>Energiewerte, Laufzeiten und Anzahl Starts werden typischerweise 1x täglich abgefragt. Die Leistungsmessungen
+                        werden häufiger abgefragt und können zur Regelung dienen. Deshalb die Anforderung einer maximalen Abtastzeit.</li>
+                    <li>Die intern ermittelten Energiewerte ersetzen externe Zähler für Monitoring-Zwecke. Es wird erwünscht,
+                        dass der Hersteller Genauigkeitsangaben zu seinen intern ermittelten Werten macht. Dies ist eine wichtige
+                        Information für Monitoring-Systeme, um die Fehlertoleranz der energetischen Auswertungen abzuschätzen</li>
+                  </ol>
+                ]]>
+              </textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ThermalEnergyTot</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>
+                  <sLV1Name>ThermalEnergyTot</sLV1Name>
+                  <manufName>29050</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Quantité de chaleur chauffage
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der abgegebenen thermischen Energie total</i>
+                      </p>Wärmemenge Heizen.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Heat quantity heating
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Quantità di calore riscaldamento
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U/>
+                </modbusDataType>
+                <address>1505</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ThermalEnergyHeat</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>
+                  <sLV1Name>ThermalEnergyHeat</sLV1Name>
+                  <manufName>47</manufName></alternativeNames>
+                <legibleDescription>
+                  <textElement>Heat quantity heating</textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der abgegebenen thermischen Energie für das Heizen.</i>
+                      </p>Wärmemenge Heizen.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Quantité de chaleur chauffage</textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Quantità di calore riscaldamento</textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U/>
+                </modbusDataType>
+                <address>27484</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ThermalEnergyCool</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>
+                  <sLV1Name>ThermalEnergyCool</sLV1Name>
+                  <manufName>29052</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Cooling quantity
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der aufgenommenen thermischen Energie für das Kühlen (nur bei aktiver Kühlung über Verdichter).</i>
+                      </p>Kältemenge Kühlen: Summe der aufgenommenen thermischen Energie für das Kühlen (nur bei aktiver Kühlung über Verdichter)
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Quant. refroid. Froid
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Quantità di freddo raffrescamento
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U/>
+                </modbusDataType>
+                <address>18733</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>ThermalEnergyDomHotWater</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>KILOWATT_HOURS</unit>
+                <alternativeNames>
+                  <sLV1Name>ThermalEnergyDomHotWater</sLV1Name>
+                  <manufName>55</manufName></alternativeNames>
+                <legibleDescription>
+                  <textElement>Heat quantity DHW
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der abgegebenen thermischen Energie für die Brauchwarmwasser-Erwärmung.</i>
+                      </p>Wärmemenge WW
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Quantité chaleur EC
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Quantità di calore acqua calda
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U/>
+                </modbusDataType>
+                <address>27488</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>RuntimeCompressor</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>HOURS</unit>
+                <alternativeNames>
+                  <sLV1Name>RuntimeCompressor</sLV1Name>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Summe der Laufzeit des Verdichters seit Inbetriebnahme.</i>
+                      </p>Betriebsstunden Wärmeerzeuger: Summe der Laufzeit des Verdichters seit Inbetriebnahme.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U/>
+                </modbusDataType>
+                <address>1516</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>NrOfStartupsCompressor</dataPointName>
+                <dataDirection>R</dataDirection>
+                <dataType>
+                  <float64/>
+                </dataType>
+                <unit>NONE</unit>
+                <alternativeNames>
+                  <sLV1Name>NrOfStartupsCompressor</sLV1Name>
+                  <manufName>2080</manufName>
+                </alternativeNames>
+                <legibleDescription>
+                  <textElement>Switching cycles heat generator
+                  </textElement>
+                  <language>en</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>
+                    <![CDATA[
+                      <i>Anzahl Starts des Verdichters seit Inbetriebnahme.</i>
+                      </p>Schaltzyklen Wärmeerzeuger: Anzahl Starts des Verdichters seit Inbetriebnahme.
+                    ]]>
+                  </textElement>
+                  <language>de</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Cycles commutation générateur de chaleur
+                  </textElement>
+                  <language>fr</language>
+                </legibleDescription>
+                <legibleDescription>
+                  <textElement>Cicli di attivazione gen. di calore
+                  </textElement>
+                  <language>it</language>
+                </legibleDescription>
+              </dataPoint>
+              <modbusDataPointConfiguration>
+                <modbusDataType>
+                  <int32U/>
+                </modbusDataType>
+                <address>1518</address>                
+                <registerType>HoldRegister</registerType>
+                <numberOfRegisters>2</numberOfRegisters>
+              </modbusDataPointConfiguration>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+      </functionalProfileList>
+    </modbusInterface>
+  </interfaceList>
+</DeviceFrame>

@@ -29,12 +29,12 @@
             </element>
             <element name="dataDirection" type="sgr:DataDirection" />
             <element name="presenceLevel" type="sgr:PresenceLevel" />
+            <element name="requestParams" type="sgr:RequestParam" minOccurs="0" maxOccurs="1"/>
             <element name="dataType" type="sgr:DataTypeFunctionalProfile" />
             <element name="unit" type="sgr:Units" />
             <element name="arrayLength" type="int" minOccurs="0" />
             <element name="alternativeNames" type="sgr:AlternativeNames" minOccurs="0" />
-            <element name="legibleDescription" type="sgr:LegibleDescription" maxOccurs="4"
-              minOccurs="0">
+            <element name="legibleDescription" type="sgr:LegibleDescription" maxOccurs="4" minOccurs="0">
               <annotation>
                 <documentation>Published and printable information related to this datapoint</documentation>
               </annotation>
@@ -42,7 +42,7 @@
           </sequence>
         </complexType>
       </element>
-      <element name="genericAttributes" type="sgr:GenericAttributes" minOccurs="0" />
+      <element name="genericAttributeList" type="sgr:GenericAttributeListFunctionalProfile" minOccurs="0" />
     </sequence>
   </complexType>
   <complexType name="FunctionalProfileDataPointList">
@@ -81,8 +81,7 @@
             </sequence>
           </complexType>
         </element>
-        <element name="genericAttributes" type="sgr:GenericAttributes" maxOccurs="unbounded"
-          minOccurs="0" />
+        <element name="genericAttributeList" type="sgr:GenericAttributeListFunctionalProfile" minOccurs="0" />
         <element name="dataPointList" type="sgr:FunctionalProfileDataPointList" />
       </sequence>
     </complexType>

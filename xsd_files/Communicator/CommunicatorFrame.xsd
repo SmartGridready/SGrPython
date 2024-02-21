@@ -15,8 +15,9 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <documentation>Extends the base functional profile type with generic data points</documentation>
     </annotation>
     <complexContent>
-      <extension base="sgr:FunctionalProfileBase">
+      <extension base="sgr:FunctionalProfileDescription">
         <sequence>
+          <element name="genericAttributeList" type="sgr:GenericAttributeListFunctionalProfile" minOccurs="0" />
           <element name="dataPointListElement" type="sgr:DataPointBase" maxOccurs="unbounded" />
         </sequence>
       </extension>
