@@ -102,9 +102,16 @@ class SgrRestInterface(BaseSGrInterface):
                self.root.interface_list.rest_api_interface.functional_profile_list.functional_profile_list_element]
         self._function_profiles = {fp.name(): fp for fp in fps}
         try:
-            user = configuration.get('AUTHENTICATION', 'username', fallback="test_user")
-            password = configuration.get('AUTHENTICATION', 'password', fallback="test_pw")
-            self.sensor_id = configuration.get('RESSOURCE', 'sensor_id', fallback="5e8c91ce9e720119f94d0249")
+            user, password = 'test', 'test_pw'
+            for section_name, section in configuration.items():
+                for param_name in section:
+                    if param_name == 'username':
+                        user = configuration.get(section_name, param_name)
+                    if param_name == 'password':
+                        password = configuration.get(section_name, param_name)
+
+                    if param_name == 'sensor_id':
+                        self.sensor_id = configuration.get(section_name, param_name)
 
             if not user:
                 raise ValueError("Missing username in the configuration file")
