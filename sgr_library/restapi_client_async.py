@@ -8,6 +8,7 @@ import aiohttp
 import certifi
 import jmespath
 from aiohttp import ClientResponseError, ClientConnectionError
+from cachetools import TTLCache
 
 from sgr_library.api import BaseSGrInterface, FunctionProfile, DataPoint, DataPointProtocol, DeviceInformation
 from sgr_library.converters import build_converter
@@ -95,14 +96,22 @@ class SgrRestInterface(BaseSGrInterface):
         self.token = None
         self.sensor_id = "5e8c91ce9e720119f94d0249"
         self.root = frame
+        self._cache = TTLCache(maxsize=100, ttl=5)
 
         fps = [RestFunctionProfile(profile, self) for profile in
                self.root.interface_list.rest_api_interface.functional_profile_list.functional_profile_list_element]
         self._function_profiles = {fp.name(): fp for fp in fps}
         try:
-            user = configuration.get('AUTHENTICATION', 'username', fallback="test_user")
-            password = configuration.get('AUTHENTICATION', 'password', fallback="test_pw")
-            self.sensor_id = configuration.get('RESSOURCE', 'sensor_id', fallback="5e8c91ce9e720119f94d0249")
+            user, password = 'test', 'test_pw'
+            for section_name, section in configuration.items():
+                for param_name in section:
+                    if param_name == 'username':
+                        user = configuration.get(section_name, param_name)
+                    if param_name == 'password':
+                        password = configuration.get(section_name, param_name)
+
+                    if param_name == 'sensor_id':
+                        self.sensor_id = configuration.get(section_name, param_name)
 
             if not user:
                 raise ValueError("Missing username in the configuration file")
@@ -240,15 +249,21 @@ class SgrRestInterface(BaseSGrInterface):
             }
             headers['Authorization'] = f'Bearer {self.token}'
 
-            async with self.session.get(url=url, headers=headers) as res:
-                res.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
+            cache_key = (frozenset(headers), url)
 
-                response = await res.json()
-                logging.info(f"Getval Status: {res.status}")
+            if cache_key in self._cache:
+                response = self._cache.get(cache_key)
+            else:
+                async with self.session.get(url=url, headers=headers) as res:
+                    res.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
+                    response = await res.json()
+                    logging.info(f"Getval Status: {res.status}")
 
-                response = json.dumps(response)
-                value = jmespath.search(query, json.loads(response))
-                return value
+                    response = json.dumps(response)
+                    self._cache[cache_key] = response
+
+            value = jmespath.search(query, json.loads(response))
+            return value
 
         except ClientResponseError as e:
             logging.error(f"HTTP error occurred: {e}")
