@@ -6,11 +6,12 @@ from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
 import time
 
+from sgr_library.api import build_configurations_parameters
 #from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
-from sgr_library.data_classes.product import DeviceFrame
+from sgr_library.generated.product import DeviceFrame
 #from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointsFrameType
 from sgr_library.modbusRTU_client import SGrModbusRTUClient
-from sgr_library.auxiliary_functions import get_port, get_endian, find_dp, get_baudrate, get_slave_rtu, get_parity 
+from sgr_library.auxiliary_functions import get_port, get_endian, find_dp, get_baudrate, get_slave_rtu, get_parity
 
 
 
@@ -27,6 +28,7 @@ class SgrModbusRtuInterface:
 
         self.root = frame
         #self.root = parser.parse(interface_file, SgrModbusDeviceDescriptionType)
+        self._configuration_params = build_configurations_parameters(frame.configuration_list)
         self.port = get_port(self.root) #TODO überlegungen machen wo Port untergebracht wird
         self.baudrate = get_baudrate(self.root)
         self.parity = get_parity(self.root)
@@ -113,7 +115,7 @@ class SgrModbusRtuInterface:
         slave_id = self.slave_id
         order = self.byte_order
         self.client.value_encoder(address, value, data_type, slave_id, order)
-    
+
     def get_device_profile(self):
         print(f"Brand Name: {self.root.device_profile.brand_name}")
         print(f"Nominal Power: {self.root.device_profile.nominal_power}")
@@ -125,7 +127,7 @@ class SgrModbusRtuInterface:
         Returns register type E.g. "HoldRegister"
         :param fp_name: The name of the functional profile
         :param dp_name: The name of the data point.
-        :returns: The type of the register 
+        :returns: The type of the register
         """
         register_type = dp.modbus_data_point[0].modbus_first_register_reference.register_type.value
         return register_type
@@ -136,7 +138,7 @@ class SgrModbusRtuInterface:
             if datatype[key] != None:
                 return key
         print('data_type not available')
-    
+
     def get_bit_rank(self, dp):
         bitrank = dp.modbus_data_point[0].modbus_first_register_reference.bit_rank
         return bitrank

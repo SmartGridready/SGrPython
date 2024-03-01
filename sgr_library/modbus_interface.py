@@ -4,10 +4,11 @@ from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
 import time
 
-from sgr_library.api import DeviceInformation, FunctionProfile, DataPointProtocol, DataPoint
+from sgr_library.api import DeviceInformation, FunctionProfile, DataPointProtocol, DataPoint, ConfigurationParameter, \
+    build_configurations_parameters
 from sgr_library.api.device_api import BaseSGrInterface
 from sgr_library.converters import build_converter
-from sgr_library.data_classes.generic import DataDirection
+from sgr_library.generated.generic import DataDirectionProduct
 from sgr_library.exceptions import DataPointException, FunctionalProfileException, DataProcessingError, \
     DeviceInformationError, InvalidEndianType
 from pymodbus.exceptions import ConnectionException
@@ -16,8 +17,9 @@ from aiohttp import ClientError
 # from sgr_library.data_classes.ei_modbus import SgrModbusDeviceFrame
 # from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointType
 
-from sgr_library.data_classes.product import DeviceFrame, ModbusDataPoint, ModbusFunctionalProfile
+from sgr_library.generated.product import DeviceFrame, ModbusDataPoint, ModbusFunctionalProfile
 from sgr_library.auxiliary_functions import get_address, get_endian, get_port, get_slave
+from sgr_library.generated.generic import DataDirectionProduct
 
 from sgr_library.modbus_client import SGrModbusClient
 # from auxiliary_functions import find_dp
@@ -48,7 +50,7 @@ class ModBusTCPDataPoint(DataPointProtocol):
     def name(self) -> tuple[str, str]:
         return self._fp.functional_profile.functional_profile_name, self._dp.data_point.data_point_name
 
-    def direction(self) -> DataDirection:
+    def direction(self) -> DataDirectionProduct:
         return self._dp.data_point.data_direction
 
 
@@ -90,6 +92,7 @@ class SgrModbusInterface(BaseSGrInterface):
         self.client = SGrModbusClient(self.ip, self.port)
         self.slave_id = get_slave(self.root)
         self.byte_order = get_endian(self.root)
+        self._configuration_params = build_configurations_parameters(frame.configuration_list)
         # A dictionary where we cash the value of the datapoint. With name, value, timestamp and alive_time? ;)
         self.cash_dict = {}
         fps = [ModBusTCPFunctionProfile(profile, self) for profile in
@@ -103,6 +106,9 @@ class SgrModbusInterface(BaseSGrInterface):
             device_category=frame.device_information.device_category,
             is_local=frame.device_information.is_local_control
         )
+
+    def configuration_parameter(self) -> list[ConfigurationParameter]:
+        return self.configuration_parameter()
 
     async def connect(self):
         try:

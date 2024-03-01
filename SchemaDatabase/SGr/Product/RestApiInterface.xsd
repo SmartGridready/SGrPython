@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Copyright (c) 2023, SmartGridready, Switzerland. All rights reserved. Source
+https://github.com/SmartgridReady/SGrSpecifications  -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/"
+  attributeFormDefault="unqualified" elementFormDefault="qualified"
+  targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
+
+  <include schemaLocation="../Generic/DataPoint.xsd" />
+  <include schemaLocation="../Generic/FunctionalProfile.xsd" />
+  <include schemaLocation="RestApiTypes.xsd" />
+
+  <complexType name="RestApiDataPoint">
+    <complexContent>
+      <extension base="sgr:DataPointBase">
+        <sequence>
+          <element name="restApiDataPointConfiguration" type="sgr:RestApiDataPointConfiguration" minOccurs="0" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="RestApiDataPointList">
+    <annotation>
+      <documentation>List of data points</documentation>
+    </annotation>
+    <sequence>
+      <element name="dataPointListElement" type="sgr:RestApiDataPoint" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <complexType name="RestApiFunctionalProfile">
+    <complexContent>
+      <extension base="sgr:FunctionalProfileBase">
+        <sequence>
+          <element name="dataPointList" type="sgr:RestApiDataPointList" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="RestApiFunctionalProfileList">
+    <annotation>
+      <documentation>List of functional profiles</documentation>
+    </annotation>
+    <sequence>
+      <element name="functionalProfileListElement" type="sgr:RestApiFunctionalProfile"
+        maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <complexType name="RestApiInterface">
+    <annotation>
+      <documentation>Container for a rest api device</documentation>
+    </annotation>
+    <sequence>
+      <element name="restApiInterfaceDescription" type="sgr:RestApiInterfaceDescription" />
+      <element name="functionalProfileList" type="sgr:RestApiFunctionalProfileList" />
+    </sequence>
+  </complexType>
+</schema>
