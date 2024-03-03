@@ -5,7 +5,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
   attributeFormDefault="unqualified" elementFormDefault="qualified"
   targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
 
-  <include schemaLocation="BaseTypes.xsd" />
+  <include schemaLocation="../Generic/BaseTypes.xsd" />
 
   <!-- Data point base types -->
   <complexType name="DataPointBase">

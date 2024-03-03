@@ -4,7 +4,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/"
   attributeFormDefault="unqualified" elementFormDefault="qualified"
   targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
-
+  
   <include schemaLocation="../Generic/BaseTypes.xsd" />
 
   <include schemaLocation="GenericInterface.xsd" />
@@ -12,11 +12,21 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
   <include schemaLocation="ModbusInterface.xsd" />
   <include schemaLocation="RestApiInterface.xsd" />
 
+  <complexType name="ConfigurationDescription">
+    <complexContent>
+      <extension base="sgr:LegibleDescription">
+        <sequence>
+          <element name="label" type="string" minOccurs="0" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
   <complexType name="ConfigurationListElement">
     <sequence>
       <element name="name" type="string" />
       <element name="dataType" type="sgr:DataTypeProduct" />
-      <element name="legibleDescription" type="sgr:LegibleDescription" minOccurs="0" maxOccurs="4" />
+      <element name="configurationDescription" type="sgr:ConfigurationDescription" minOccurs="0" maxOccurs="4" />
     </sequence>
   </complexType>
 
@@ -41,7 +51,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
             is based on cloud. "True" indicates that services are provided within the range of the
             local area.</documentation>
         </annotation>
-      </element>
+      </element>      
       <element name="softwareRevision" type="string" minOccurs="0">
         <annotation>
           <documentation>software version information for this product declaration</documentation>
@@ -92,7 +102,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
         <annotation>
           <documentation>additional device-specific implementation hints for this device</documentation>
         </annotation>
-      </element>
+      </element>      
     </sequence>
   </complexType>
 

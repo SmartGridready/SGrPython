@@ -115,7 +115,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       </element>
     </sequence>
   </complexType>
-
+  
   <complexType name="FunctionalProfileIdentification">
     <annotation>
       <documentation> Specification of design source 0 means: specified by SmartGridready, the
@@ -244,7 +244,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
         <element name="description" type="string"/>
       </choice>
     </sequence>
-  </complexType>
+  </complexType>  
 
   <!-- defines a single mapping record -->
   <complexType name="BitmapEntryFunctionalProfile">
@@ -257,7 +257,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
         <element name="description" type="string"/>
       </choice>
     </sequence>
-  </complexType>
+  </complexType>  
 
   <!-- the basic data based used für the generic level of a communicator -->
   <group name="DataType">
@@ -357,7 +357,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
     </restriction>
   </simpleType>
 
-  <!-- enumeration to select data direction (Read Write) and persistent storage
+  <!-- enumeration to select data direction (Read Write) and persistent storage 
 		use of elements -->
   <simpleType name="DataDirectionFunctionalProfile">
     <annotation>

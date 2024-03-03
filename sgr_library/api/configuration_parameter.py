@@ -8,8 +8,8 @@ def build_configurations_parameters(params: ConfigurationList):
 class ConfigurationParameter:
 
     def __init__(self, parameter: ConfigurationListElement):
-        self.label = parameter.name
+        translation = parameter.configuration_description
+        self.label = translation[0].label
         self.match = parameter.name
         self.type = parameter.data_type
-        self.description = parameter.legible_description
-        x = self.description[0].text_element
+        self.description = translation[0].text_element

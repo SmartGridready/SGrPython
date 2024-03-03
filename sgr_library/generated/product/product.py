@@ -19,31 +19,12 @@ __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 
 
 @dataclass
-class ConfigurationListElement:
-    name: Optional[str] = field(
+class ConfigurationDescription(LegibleDescription):
+    label: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
-        }
-    )
-    data_type: Optional[DataTypeProduct] = field(
-        default=None,
-        metadata={
-            "name": "dataType",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
-        }
-    )
-    legible_description: List[LegibleDescription] = field(
-        default_factory=list,
-        metadata={
-            "name": "legibleDescription",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "max_occurs": 4,
         }
     )
 
@@ -229,6 +210,36 @@ class InterfaceList:
             "name": "genericInterface",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+
+
+@dataclass
+class ConfigurationListElement:
+    name: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "required": True,
+        }
+    )
+    data_type: Optional[DataTypeProduct] = field(
+        default=None,
+        metadata={
+            "name": "dataType",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "required": True,
+        }
+    )
+    configuration_description: List[ConfigurationDescription] = field(
+        default_factory=list,
+        metadata={
+            "name": "configurationDescription",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "max_occurs": 4,
         }
     )
 

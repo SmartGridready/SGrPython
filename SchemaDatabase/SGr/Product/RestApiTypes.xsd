@@ -8,7 +8,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
   <complexType name="RestApiInterfaceDescription">
     <annotation>
       <documentation>Modbus interface properties</documentation>
-    </annotation>
+    </annotation>    
     <sequence>
       <element name="restApiInterfaceSelection" type="sgr:RestApiInterfaceSelection" />
       <element name="restApiUri" type="anyURI" minOccurs="1" />
@@ -22,7 +22,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
   <simpleType name="RestApiInterfaceSelection">
     <annotation>
       <documentation>Type of Rest Api interface</documentation>
-    </annotation>
+    </annotation>    
     <restriction base="string">
       <enumeration value="TCPV4" />
       <enumeration value="TCPV6" />
@@ -33,7 +33,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
   <complexType name="RestApiDataPointConfiguration">
     <annotation>
       <documentation>Detailed configuration for Rest api data point</documentation>
-    </annotation>
+    </annotation>    
     <sequence>
       <element name="dataType" type="sgr:RestApiDataType" />
       <element name="restApiServiceCall" type="sgr:RestApiServiceCall" />
@@ -148,5 +148,5 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
         <element name="jmesPathMappings" type="sgr:JMESPathMapping" />
       </choice>
     </sequence>
-  </complexType>
+  </complexType>  
 </schema>

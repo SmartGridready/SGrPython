@@ -59,7 +59,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
     <sequence>
       <sequence>
         <element name="modbusInterfaceDescription" type="sgr:ModbusInterfaceDescription" />
-        <element name="modbusAttributes" type="sgr:ModbusAttributes" minOccurs="0" />
+        <element name="modbusAttributes" type="sgr:ModbusAttributes" minOccurs="0" />          
         <element name="functionalProfileList" type="sgr:ModbusFunctionalProfileList" />
         <element name="timeSyncBlockNotification" type="sgr:TimeSyncBlockNotification"
           maxOccurs="unbounded" minOccurs="0" />

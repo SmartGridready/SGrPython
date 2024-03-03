@@ -1,7 +1,16 @@
-from sgr_library.generated.product.contact_interface import ContactFunctionalProfile, ContactFunctionalProfileList, \
-    ContactInterface, ContactInterfaceDescription, ContactsDataPointList
-from sgr_library.generated.product.generic_interface import GenericDataPointList, GenericFunctionalProfile, \
-    GenericFunctionalProfileList, GenericInterface
+from sgr_library.generated.product.contact_interface import (
+    ContactFunctionalProfile,
+    ContactFunctionalProfileList,
+    ContactInterface,
+    ContactInterfaceDescription,
+    ContactsDataPointList,
+)
+from sgr_library.generated.product.generic_interface import (
+    GenericDataPointList,
+    GenericFunctionalProfile,
+    GenericFunctionalProfileList,
+    GenericInterface,
+)
 from sgr_library.generated.product.modbus_interface import (
     ModbusDataPoint,
     ModbusDataPointList,
@@ -9,14 +18,39 @@ from sgr_library.generated.product.modbus_interface import (
     ModbusFunctionalProfileList,
     ModbusInterface,
 )
-from sgr_library.generated.product.modbus_types import TimeSyncBlockNotification, AccessProtectionEnabled, BitOrder, \
-    MasterFunctionsSupported, MasterFunctionsSupportedList, ModbusAttributes, ModbusBoolean, \
-    ModbusDataPointConfiguration, ModbusDataType, ModbusExceptionCode, ModbusInterfaceDescription, \
-    ModbusInterfaceSelection, ModbusLayer6Deviation, ModbusRtu, ModbusTcp, RegisterType
-from sgr_library.generated.product.product import ConfigurationListElement, DeviceFrame, DeviceInformation, \
-    InterfaceList, ConfigurationList
-from sgr_library.generated.product.rest_api_interface import RestApiDataPoint, RestApiDataPointList, \
-    RestApiFunctionalProfile, RestApiFunctionalProfileList, RestApiInterface
+from sgr_library.generated.product.modbus_types import (
+    AccessProtectionEnabled,
+    BitOrder,
+    MasterFunctionsSupported,
+    MasterFunctionsSupportedList,
+    ModbusAttributes,
+    ModbusBoolean,
+    ModbusDataPointConfiguration,
+    ModbusDataType,
+    ModbusExceptionCode,
+    ModbusInterfaceDescription,
+    ModbusInterfaceSelection,
+    ModbusLayer6Deviation,
+    ModbusRtu,
+    ModbusTcp,
+    RegisterType,
+    TimeSyncBlockNotification,
+)
+from sgr_library.generated.product.product import (
+    ConfigurationDescription,
+    ConfigurationList,
+    ConfigurationListElement,
+    DeviceFrame,
+    DeviceInformation,
+    InterfaceList,
+)
+from sgr_library.generated.product.rest_api_interface import (
+    RestApiDataPoint,
+    RestApiDataPointList,
+    RestApiFunctionalProfile,
+    RestApiFunctionalProfileList,
+    RestApiInterface,
+)
 from sgr_library.generated.product.rest_api_types import (
     HeaderEntry,
     HeaderList,
@@ -66,6 +100,7 @@ __all__ = [
     "ModbusTcp",
     "RegisterType",
     "TimeSyncBlockNotification",
+    "ConfigurationDescription",
     "ConfigurationList",
     "ConfigurationListElement",
     "DeviceFrame",
