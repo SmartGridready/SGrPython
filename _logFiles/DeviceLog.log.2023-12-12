@@ -1,0 +1,501 @@
+timestamp;OpenCEM-id;name;connected;power;energy_import;energy_export;room_temp;storage_temp;mode;channel_values;consumption_price;production_price;scaled_output
+12.12.23 08:25:44;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.07;0;0;;;0;
+12.12.23 08:25:44;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.07;0;0;;;0;
+12.12.23 08:25:44;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:44;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:44;;consumption_price_Elektroheizung;;;;;;;;;13.65;15.0;-0.09890109890109887
+12.12.23 08:25:44;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.75;;0;
+12.12.23 08:25:44;;global_total_consumption;;0.07;;;;;;
+12.12.23 08:25:44;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:44;;global_total_consumption_plus_reserved;;0.07;;;;;;
+12.12.23 08:25:44;;global_total_production;;0;;;;;;
+12.12.23 08:25:45;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.08;0;0;;;0;
+12.12.23 08:25:45;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.08;0;0;;;0;
+12.12.23 08:25:45;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:45;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:45;;consumption_price_Elektroheizung;;;;;;;;;13.776;15.0;-0.0888501742160279
+12.12.23 08:25:45;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.68;;0;
+12.12.23 08:25:45;;global_total_consumption;;0.08;;;;;;
+12.12.23 08:25:45;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:45;;global_total_consumption_plus_reserved;;0.08;;;;;;
+12.12.23 08:25:45;;global_total_production;;0;;;;;;
+12.12.23 08:25:46;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.02;0;0;;;0;
+12.12.23 08:25:46;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.02;0;0;;;0;
+12.12.23 08:25:46;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:46;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:46;;consumption_price_Elektroheizung;;;;;;;;;13.883999999999999;15.0;-0.08038029386344005
+12.12.23 08:25:46;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.62;;0;
+12.12.23 08:25:46;;global_total_consumption;;0.02;;;;;;
+12.12.23 08:25:46;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:46;;global_total_consumption_plus_reserved;;0.02;;;;;;
+12.12.23 08:25:46;;global_total_production;;0;;;;;;
+12.12.23 08:25:47;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.04;0;0;;;0;
+12.12.23 08:25:47;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.04;0;0;;;0;
+12.12.23 08:25:47;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:47;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:47;;consumption_price_Elektroheizung;;;;;;;;;13.974;15.0;-0.07342206955775009
+12.12.23 08:25:47;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.57;;0;
+12.12.23 08:25:47;;global_total_consumption;;0.04;;;;;;
+12.12.23 08:25:47;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:47;;global_total_consumption_plus_reserved;;0.04;;;;;;
+12.12.23 08:25:47;;global_total_production;;0;;;;;;
+12.12.23 08:25:48;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.05;0;0;;;0;
+12.12.23 08:25:48;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.05;0;0;;;0;
+12.12.23 08:25:48;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:48;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:48;;consumption_price_Elektroheizung;;;;;;;;;14.1;15.0;-0.06382978723404258
+12.12.23 08:25:48;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.5;;0;
+12.12.23 08:25:48;;global_total_consumption;;0.05;;;;;;
+12.12.23 08:25:48;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:48;;global_total_consumption_plus_reserved;;0.05;;;;;;
+12.12.23 08:25:48;;global_total_production;;0;;;;;;
+12.12.23 08:25:49;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.04;0;0;;;0;
+12.12.23 08:25:49;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.04;0;0;;;0;
+12.12.23 08:25:49;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:49;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:49;;consumption_price_Elektroheizung;;;;;;;;;14.207999999999998;15.0;-0.05574324324324336
+12.12.23 08:25:49;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.44;;0;
+12.12.23 08:25:49;;global_total_consumption;;0.04;;;;;;
+12.12.23 08:25:49;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:49;;global_total_consumption_plus_reserved;;0.04;;;;;;
+12.12.23 08:25:49;;global_total_production;;0;;;;;;
+12.12.23 08:25:50;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.06;0;0;;;0;
+12.12.23 08:25:50;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.06;0;0;;;0;
+12.12.23 08:25:50;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:50;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:50;;consumption_price_Elektroheizung;;;;;;;;;14.333999999999998;15.0;-0.04646295521138567
+12.12.23 08:25:50;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.37;;0;
+12.12.23 08:25:50;;global_total_consumption;;0.06;;;;;;
+12.12.23 08:25:50;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:50;;global_total_consumption_plus_reserved;;0.06;;;;;;
+12.12.23 08:25:50;;global_total_production;;0;;;;;;
+12.12.23 08:25:51;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.03;0;0;;;0;
+12.12.23 08:25:51;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.03;0;0;;;0;
+12.12.23 08:25:51;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:51;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:51;;consumption_price_Elektroheizung;;;;;;;;;14.442000000000002;15.0;-0.03863730785209791
+12.12.23 08:25:51;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.31;;0;
+12.12.23 08:25:51;;global_total_consumption;;0.03;;;;;;
+12.12.23 08:25:51;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:51;;global_total_consumption_plus_reserved;;0.03;;;;;;
+12.12.23 08:25:51;;global_total_production;;0;;;;;;
+12.12.23 08:25:52;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.06;0;0;;;0;
+12.12.23 08:25:52;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.06;0;0;;;0;
+12.12.23 08:25:52;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:52;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:52;;consumption_price_Elektroheizung;;;;;;;;;14.55;15.0;-0.03092783505154634
+12.12.23 08:25:52;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.25;;0;
+12.12.23 08:25:52;;global_total_consumption;;0.06;;;;;;
+12.12.23 08:25:52;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:52;;global_total_consumption_plus_reserved;;0.06;;;;;;
+12.12.23 08:25:52;;global_total_production;;0;;;;;;
+12.12.23 08:25:53;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.06;0;0;;;0;
+12.12.23 08:25:53;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.06;0;0;;;0;
+12.12.23 08:25:53;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:53;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:53;;consumption_price_Elektroheizung;;;;;;;;;14.657999999999998;15.0;-0.023331968890708307
+12.12.23 08:25:53;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.19;;0;
+12.12.23 08:25:53;;global_total_consumption;;0.06;;;;;;
+12.12.23 08:25:53;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:53;;global_total_consumption_plus_reserved;;0.06;;;;;;
+12.12.23 08:25:53;;global_total_production;;0;;;;;;
+12.12.23 08:25:54;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.08;0;0;;;0;
+12.12.23 08:25:54;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.08;0;0;;;0;
+12.12.23 08:25:54;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:54;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:54;;consumption_price_Elektroheizung;;;;;;;;;14.766000000000002;15.0;-0.015847216578626453
+12.12.23 08:25:54;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.13;;0;
+12.12.23 08:25:54;;global_total_consumption;;0.08;;;;;;
+12.12.23 08:25:54;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:54;;global_total_consumption_plus_reserved;;0.08;;;;;;
+12.12.23 08:25:54;;global_total_production;;0;;;;;;
+12.12.23 08:25:55;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.02;0;0;;;0;
+12.12.23 08:25:55;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.02;0;0;;;0;
+12.12.23 08:25:55;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:55;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:55;;consumption_price_Elektroheizung;;;;;;;;;14.856000000000003;15.0;-0.009693053311792982
+12.12.23 08:25:55;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.08;;0;
+12.12.23 08:25:55;;global_total_consumption;;0.02;;;;;;
+12.12.23 08:25:55;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:55;;global_total_consumption_plus_reserved;;0.02;;;;;;
+12.12.23 08:25:55;;global_total_production;;0;;;;;;
+12.12.23 08:25:56;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.01;0;0;;;0;
+12.12.23 08:25:56;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.01;0;0;;;0;
+12.12.23 08:25:56;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:56;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:56;;consumption_price_Elektroheizung;;;;;;;;;14.964;15.0;-0.00240577385725739
+12.12.23 08:25:56;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.02;;0;
+12.12.23 08:25:56;;global_total_consumption;;0.01;;;;;;
+12.12.23 08:25:56;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:56;;global_total_consumption_plus_reserved;;0.01;;;;;;
+12.12.23 08:25:56;;global_total_production;;0;;;;;;
+12.12.23 08:25:57;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.03;0;0;;;0;
+12.12.23 08:25:58;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.03;0;0;;;0;
+12.12.23 08:25:58;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:58;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:58;;consumption_price_Elektroheizung;;;;;;;;;15.054000000000002;15.0;0.0035870864886410284
+12.12.23 08:25:58;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;19.97;;1;
+12.12.23 08:25:58;;global_total_consumption;;0.03;;;;;;
+12.12.23 08:25:58;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:58;;global_total_consumption_plus_reserved;;0.03;;;;;;
+12.12.23 08:25:58;;global_total_production;;0;;;;;;
+12.12.23 08:25:59;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.06;0;0;;;0;
+12.12.23 08:25:59;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.06;0;0;;;0;
+12.12.23 08:25:59;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:25:59;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:25:59;;consumption_price_Elektroheizung;;;;;;;;;15.161999999999999;15.0;0.010684606252473226
+12.12.23 08:25:59;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.91;;1;
+12.12.23 08:25:59;;global_total_consumption;;1.06;;;;;;
+12.12.23 08:25:59;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:25:59;;global_total_consumption_plus_reserved;;1.06;;;;;;
+12.12.23 08:25:59;;global_total_production;;0;;;;;;
+12.12.23 08:26:00;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.08;0;0;;;0;
+12.12.23 08:26:00;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.08;0;0;;;0;
+12.12.23 08:26:00;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:00;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:00;;consumption_price_Elektroheizung;;;;;;;;;15.252;15.0;0.01652242328874906
+12.12.23 08:26:00;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.86;;1;
+12.12.23 08:26:00;;global_total_consumption;;1.08;;;;;;
+12.12.23 08:26:00;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:00;;global_total_consumption_plus_reserved;;1.08;;;;;;
+12.12.23 08:26:00;;global_total_production;;0;;;;;;
+12.12.23 08:26:01;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.01;0;0;;;0;
+12.12.23 08:26:01;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.01;0;0;;;0;
+12.12.23 08:26:01;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:01;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:01;;consumption_price_Elektroheizung;;;;;;;;;15.342000000000002;15.0;0.02229174814235447
+12.12.23 08:26:01;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.81;;1;
+12.12.23 08:26:01;;global_total_consumption;;1.01;;;;;;
+12.12.23 08:26:01;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:01;;global_total_consumption_plus_reserved;;1.01;;;;;;
+12.12.23 08:26:01;;global_total_production;;0;;;;;;
+12.12.23 08:26:02;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.04;0;0;;;0;
+12.12.23 08:26:02;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.04;0;0;;;0;
+12.12.23 08:26:02;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:02;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:02;;consumption_price_Elektroheizung;;;;;;;;;15.431999999999997;15.0;0.027993779160186427
+12.12.23 08:26:02;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.76;;1;
+12.12.23 08:26:02;;global_total_consumption;;1.04;;;;;;
+12.12.23 08:26:02;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:02;;global_total_consumption_plus_reserved;;1.04;;;;;;
+12.12.23 08:26:02;;global_total_production;;0;;;;;;
+12.12.23 08:26:03;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.01;0;0;;;0;
+12.12.23 08:26:03;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.01;0;0;;;0;
+12.12.23 08:26:03;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:03;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:03;;consumption_price_Elektroheizung;;;;;;;;;15.521999999999998;15.0;0.03362968689601846
+12.12.23 08:26:03;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.71;;1;
+12.12.23 08:26:03;;global_total_consumption;;1.01;;;;;;
+12.12.23 08:26:03;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:03;;global_total_consumption_plus_reserved;;1.01;;;;;;
+12.12.23 08:26:03;;global_total_production;;0;;;;;;
+12.12.23 08:26:04;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.02;0;0;;;0;
+12.12.23 08:26:04;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.02;0;0;;;0;
+12.12.23 08:26:04;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:04;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:04;;consumption_price_Elektroheizung;;;;;;;;;15.612;15.0;0.039200614911606466
+12.12.23 08:26:04;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.66;;1;
+12.12.23 08:26:04;;global_total_consumption;;1.02;;;;;;
+12.12.23 08:26:04;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:04;;global_total_consumption_plus_reserved;;1.02;;;;;;
+12.12.23 08:26:04;;global_total_production;;0;;;;;;
+12.12.23 08:26:05;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.02;0;0;;;0;
+12.12.23 08:26:05;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.02;0;0;;;0;
+12.12.23 08:26:05;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:05;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:05;;consumption_price_Elektroheizung;;;;;;;;;15.683999999999997;15.0;0.04361132364192793
+12.12.23 08:26:05;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.62;;1;
+12.12.23 08:26:05;;global_total_consumption;;1.02;;;;;;
+12.12.23 08:26:05;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:05;;global_total_consumption_plus_reserved;;1.02;;;;;;
+12.12.23 08:26:05;;global_total_production;;0;;;;;;
+12.12.23 08:26:06;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.03;0;0;;;0;
+12.12.23 08:26:06;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.03;0;0;;;0;
+12.12.23 08:26:06;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:06;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:06;;consumption_price_Elektroheizung;;;;;;;;;15.756000000000004;15.0;0.04798172124904821
+12.12.23 08:26:06;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.58;;1;
+12.12.23 08:26:06;;global_total_consumption;;1.03;;;;;;
+12.12.23 08:26:06;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:06;;global_total_consumption_plus_reserved;;1.03;;;;;;
+12.12.23 08:26:06;;global_total_production;;0;;;;;;
+12.12.23 08:26:07;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.04;0;0;;;0;
+12.12.23 08:26:07;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.04;0;0;;;0;
+12.12.23 08:26:07;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:07;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:07;;consumption_price_Elektroheizung;;;;;;;;;15.845999999999998;15.0;0.05338886785308585
+12.12.23 08:26:07;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.53;;1;
+12.12.23 08:26:07;;global_total_consumption;;1.04;;;;;;
+12.12.23 08:26:07;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:07;;global_total_consumption_plus_reserved;;1.04;;;;;;
+12.12.23 08:26:07;;global_total_production;;0;;;;;;
+12.12.23 08:26:08;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.01;0;0;;;0;
+12.12.23 08:26:08;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.01;0;0;;;0;
+12.12.23 08:26:08;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:08;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:08;;consumption_price_Elektroheizung;;;;;;;;;15.918000000000003;15.0;0.05767056162834543
+12.12.23 08:26:08;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.49;;1;
+12.12.23 08:26:08;;global_total_consumption;;1.01;;;;;;
+12.12.23 08:26:08;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:08;;global_total_consumption_plus_reserved;;1.01;;;;;;
+12.12.23 08:26:08;;global_total_production;;0;;;;;;
+12.12.23 08:26:09;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.02;0;0;;;0;
+12.12.23 08:26:09;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.02;0;0;;;0;
+12.12.23 08:26:09;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:09;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:09;;consumption_price_Elektroheizung;;;;;;;;;15.990000000000002;15.0;0.06191369606003764
+12.12.23 08:26:09;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.45;;1;
+12.12.23 08:26:09;;global_total_consumption;;1.02;;;;;;
+12.12.23 08:26:09;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:09;;global_total_consumption_plus_reserved;;1.02;;;;;;
+12.12.23 08:26:09;;global_total_production;;0;;;;;;
+12.12.23 08:26:10;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.06;0;0;;;0;
+12.12.23 08:26:10;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.06;0;0;;;0;
+12.12.23 08:26:10;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:10;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:10;;consumption_price_Elektroheizung;;;;;;;;;16.043999999999997;15.0;0.06507105459985023
+12.12.23 08:26:10;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.42;;1;
+12.12.23 08:26:10;;global_total_consumption;;1.06;;;;;;
+12.12.23 08:26:10;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:10;;global_total_consumption_plus_reserved;;1.06;;;;;;
+12.12.23 08:26:10;;global_total_production;;0;;;;;;
+12.12.23 08:26:11;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.03;0;0;;;0;
+12.12.23 08:26:11;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.03;0;0;;;0;
+12.12.23 08:26:11;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:11;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:11;;consumption_price_Elektroheizung;;;;;;;;;16.116000000000003;15.0;0.06924795234549534
+12.12.23 08:26:11;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.38;;1;
+12.12.23 08:26:11;;global_total_consumption;;1.03;;;;;;
+12.12.23 08:26:11;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:11;;global_total_consumption_plus_reserved;;1.03;;;;;;
+12.12.23 08:26:11;;global_total_production;;0;;;;;;
+12.12.23 08:26:12;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.1;0;0;;;0;
+12.12.23 08:26:12;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.1;0;0;;;0;
+12.12.23 08:26:12;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:12;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:12;;consumption_price_Elektroheizung;;;;;;;;;16.188;15.0;0.07338769458858407
+12.12.23 08:26:12;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.34;;1;
+12.12.23 08:26:12;;global_total_consumption;;1.1;;;;;;
+12.12.23 08:26:12;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:12;;global_total_consumption_plus_reserved;;1.1;;;;;;
+12.12.23 08:26:12;;global_total_production;;0;;;;;;
+12.12.23 08:26:14;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.01;0;0;;;0;
+12.12.23 08:26:14;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.01;0;0;;;0;
+12.12.23 08:26:14;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:14;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:14;;consumption_price_Elektroheizung;;;;;;;;;16.242;15.0;0.07646841521980056
+12.12.23 08:26:14;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.31;;1;
+12.12.23 08:26:14;;global_total_consumption;;1.01;;;;;;
+12.12.23 08:26:14;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:14;;global_total_consumption_plus_reserved;;1.01;;;;;;
+12.12.23 08:26:14;;global_total_production;;0;;;;;;
+12.12.23 08:26:15;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.07;0;0;;;0;
+12.12.23 08:26:15;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.07;0;0;;;0;
+12.12.23 08:26:15;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:15;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:15;;consumption_price_Elektroheizung;;;;;;;;;16.296;15.0;0.0795287187039764
+12.12.23 08:26:15;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.28;;1;
+12.12.23 08:26:15;;global_total_consumption;;1.07;;;;;;
+12.12.23 08:26:15;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:15;;global_total_consumption_plus_reserved;;1.07;;;;;;
+12.12.23 08:26:15;;global_total_production;;0;;;;;;
+12.12.23 08:26:16;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.07;0;0;;;0;
+12.12.23 08:26:16;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.07;0;0;;;0;
+12.12.23 08:26:16;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:16;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:16;;consumption_price_Elektroheizung;;;;;;;;;16.35;15.0;0.08256880733944962
+12.12.23 08:26:16;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.25;;1;
+12.12.23 08:26:16;;global_total_consumption;;1.07;;;;;;
+12.12.23 08:26:16;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:16;;global_total_consumption_plus_reserved;;1.07;;;;;;
+12.12.23 08:26:16;;global_total_production;;0;;;;;;
+12.12.23 08:26:17;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.06;0;0;;;0;
+12.12.23 08:26:17;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.06;0;0;;;0;
+12.12.23 08:26:17;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:17;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:17;;consumption_price_Elektroheizung;;;;;;;;;16.404000000000003;15.0;0.08558888076079024
+12.12.23 08:26:17;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.22;;1;
+12.12.23 08:26:17;;global_total_consumption;;1.06;;;;;;
+12.12.23 08:26:17;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:17;;global_total_consumption_plus_reserved;;1.06;;;;;;
+12.12.23 08:26:17;;global_total_production;;0;;;;;;
+12.12.23 08:26:18;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.01;0;0;;;0;
+12.12.23 08:26:18;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.01;0;0;;;0;
+12.12.23 08:26:18;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:18;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:18;;consumption_price_Elektroheizung;;;;;;;;;16.458;15.0;0.08858913598250083
+12.12.23 08:26:18;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.19;;1;
+12.12.23 08:26:18;;global_total_consumption;;1.01;;;;;;
+12.12.23 08:26:18;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:18;;global_total_consumption_plus_reserved;;1.01;;;;;;
+12.12.23 08:26:18;;global_total_production;;0;;;;;;
+12.12.23 08:26:19;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.01;0;0;;;0;
+12.12.23 08:26:19;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.01;0;0;;;0;
+12.12.23 08:26:19;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:19;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:19;;consumption_price_Elektroheizung;;;;;;;;;16.493999999999996;15.0;0.0905783921425971
+12.12.23 08:26:19;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.17;;1;
+12.12.23 08:26:19;;global_total_consumption;;1.01;;;;;;
+12.12.23 08:26:19;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:19;;global_total_consumption_plus_reserved;;1.01;;;;;;
+12.12.23 08:26:19;;global_total_production;;0;;;;;;
+12.12.23 08:26:20;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.08;0;0;;;0;
+12.12.23 08:26:20;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.08;0;0;;;0;
+12.12.23 08:26:20;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:26:20;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:26:20;;consumption_price_Elektroheizung;;;;;;;;;16.53;15.0;0.09255898366606177
+12.12.23 08:26:20;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.15;;1;
+12.12.23 08:26:20;;global_total_consumption;;1.08;;;;;;
+12.12.23 08:26:20;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:26:20;;global_total_consumption_plus_reserved;;1.08;;;;;;
+12.12.23 08:26:20;;global_total_production;;0;;;;;;
+12.12.23 08:39:13;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.08;0;0;;;0;
+12.12.23 08:39:13;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.08;0;0;;;0;
+12.12.23 08:39:13;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:13;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:13;;consumption_price_Elektroheizung;;;;;;;;;13.65;15.0;-0.09890109890109887
+12.12.23 08:39:13;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.75;;0;
+12.12.23 08:39:13;;global_total_consumption;;0.08;;;;;;
+12.12.23 08:39:13;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:13;;global_total_consumption_plus_reserved;;0.08;;;;;;
+12.12.23 08:39:13;;global_total_production;;0;;;;;;
+12.12.23 08:39:14;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.1;0;0;;;0;
+12.12.23 08:39:14;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.1;0;0;;;0;
+12.12.23 08:39:14;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:14;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:14;;consumption_price_Elektroheizung;;;;;;;;;13.776;15.0;-0.0888501742160279
+12.12.23 08:39:14;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.68;;0;
+12.12.23 08:39:14;;global_total_consumption;;0.1;;;;;;
+12.12.23 08:39:14;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:14;;global_total_consumption_plus_reserved;;0.1;;;;;;
+12.12.23 08:39:14;;global_total_production;;0;;;;;;
+12.12.23 08:39:15;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.02;0;0;;;0;
+12.12.23 08:39:15;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.02;0;0;;;0;
+12.12.23 08:39:15;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:15;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:15;;consumption_price_Elektroheizung;;;;;;;;;13.883999999999999;15.0;-0.08038029386344005
+12.12.23 08:39:15;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.62;;0;
+12.12.23 08:39:15;;global_total_consumption;;0.02;;;;;;
+12.12.23 08:39:15;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:15;;global_total_consumption_plus_reserved;;0.02;;;;;;
+12.12.23 08:39:15;;global_total_production;;0;;;;;;
+12.12.23 08:39:16;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.04;0;0;;;0;
+12.12.23 08:39:16;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.04;0;0;;;0;
+12.12.23 08:39:16;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:16;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:16;;consumption_price_Elektroheizung;;;;;;;;;14.009999999999998;15.0;-0.07066381156316932
+12.12.23 08:39:16;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.55;;0;
+12.12.23 08:39:16;;global_total_consumption;;0.04;;;;;;
+12.12.23 08:39:16;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:16;;global_total_consumption_plus_reserved;;0.04;;;;;;
+12.12.23 08:39:16;;global_total_production;;0;;;;;;
+12.12.23 08:39:18;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.0;0;0;;;0;
+12.12.23 08:39:18;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.0;0;0;;;0;
+12.12.23 08:39:18;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:18;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:18;;consumption_price_Elektroheizung;;;;;;;;;14.118000000000002;15.0;-0.06247343816404574
+12.12.23 08:39:18;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.49;;0;
+12.12.23 08:39:18;;global_total_consumption;;0.0;;;;;;
+12.12.23 08:39:18;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:18;;global_total_consumption_plus_reserved;;0.0;;;;;;
+12.12.23 08:39:18;;global_total_production;;0;;;;;;
+12.12.23 08:39:19;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.02;0;0;;;0;
+12.12.23 08:39:19;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.02;0;0;;;0;
+12.12.23 08:39:19;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:19;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:19;;consumption_price_Elektroheizung;;;;;;;;;14.207999999999998;15.0;-0.05574324324324336
+12.12.23 08:39:19;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.44;;0;
+12.12.23 08:39:19;;global_total_consumption;;0.02;;;;;;
+12.12.23 08:39:19;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:19;;global_total_consumption_plus_reserved;;0.02;;;;;;
+12.12.23 08:39:19;;global_total_production;;0;;;;;;
+12.12.23 08:39:20;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.1;0;0;;;0;
+12.12.23 08:39:20;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.1;0;0;;;0;
+12.12.23 08:39:20;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:20;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:20;;consumption_price_Elektroheizung;;;;;;;;;14.333999999999998;15.0;-0.04646295521138567
+12.12.23 08:39:20;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.37;;0;
+12.12.23 08:39:20;;global_total_consumption;;0.1;;;;;;
+12.12.23 08:39:20;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:20;;global_total_consumption_plus_reserved;;0.1;;;;;;
+12.12.23 08:39:20;;global_total_production;;0;;;;;;
+12.12.23 08:39:21;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.0;0;0;;;0;
+12.12.23 08:39:21;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.0;0;0;;;0;
+12.12.23 08:39:21;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:21;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:21;;consumption_price_Elektroheizung;;;;;;;;;14.442000000000002;15.0;-0.03863730785209791
+12.12.23 08:39:21;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.31;;0;
+12.12.23 08:39:21;;global_total_consumption;;0.0;;;;;;
+12.12.23 08:39:21;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:21;;global_total_consumption_plus_reserved;;0.0;;;;;;
+12.12.23 08:39:21;;global_total_production;;0;;;;;;
+12.12.23 08:39:22;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.05;0;0;;;0;
+12.12.23 08:39:22;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.05;0;0;;;0;
+12.12.23 08:39:22;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:22;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:22;;consumption_price_Elektroheizung;;;;;;;;;14.568000000000003;15.0;-0.029654036243821853
+12.12.23 08:39:22;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.24;;0;
+12.12.23 08:39:22;;global_total_consumption;;0.05;;;;;;
+12.12.23 08:39:22;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:22;;global_total_consumption_plus_reserved;;0.05;;;;;;
+12.12.23 08:39:22;;global_total_production;;0;;;;;;
+12.12.23 08:39:23;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.01;0;0;;;0;
+12.12.23 08:39:23;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.01;0;0;;;0;
+12.12.23 08:39:23;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:23;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:23;;consumption_price_Elektroheizung;;;;;;;;;14.676;15.0;-0.022076860179885516
+12.12.23 08:39:23;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.18;;0;
+12.12.23 08:39:23;;global_total_consumption;;0.01;;;;;;
+12.12.23 08:39:23;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:23;;global_total_consumption_plus_reserved;;0.01;;;;;;
+12.12.23 08:39:23;;global_total_production;;0;;;;;;
+12.12.23 08:39:24;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.03;0;0;;;0;
+12.12.23 08:39:24;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.03;0;0;;;0;
+12.12.23 08:39:24;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:24;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:24;;consumption_price_Elektroheizung;;;;;;;;;14.783999999999999;15.0;-0.014610389610389685
+12.12.23 08:39:24;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.12;;0;
+12.12.23 08:39:24;;global_total_consumption;;0.03;;;;;;
+12.12.23 08:39:24;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:24;;global_total_consumption_plus_reserved;;0.03;;;;;;
+12.12.23 08:39:24;;global_total_production;;0;;;;;;
+12.12.23 08:39:25;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.07;0;0;;;0;
+12.12.23 08:39:25;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.07;0;0;;;0;
+12.12.23 08:39:25;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:25;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:25;;consumption_price_Elektroheizung;;;;;;;;;14.892000000000003;15.0;-0.007252215954874897
+12.12.23 08:39:25;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.06;;0;
+12.12.23 08:39:25;;global_total_consumption;;0.07;;;;;;
+12.12.23 08:39:25;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:25;;global_total_consumption_plus_reserved;;0.07;;;;;;
+12.12.23 08:39:25;;global_total_production;;0;;;;;;
+12.12.23 08:39:26;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.05;0;0;;;0;
+12.12.23 08:39:26;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.05;0;0;;;0;
+12.12.23 08:39:26;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:26;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:26;;consumption_price_Elektroheizung;;;;;;;;;14.981999999999998;15.0;-0.0012014417300762557
+12.12.23 08:39:26;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;20.01;;0;
+12.12.23 08:39:26;;global_total_consumption;;0.05;;;;;;
+12.12.23 08:39:26;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:26;;global_total_consumption_plus_reserved;;0.05;;;;;;
+12.12.23 08:39:26;;global_total_production;;0;;;;;;
+12.12.23 08:39:27;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.07;0;0;;;0;
+12.12.23 08:39:27;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;0.07;0;0;;;0;
+12.12.23 08:39:27;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:27;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:27;;consumption_price_Elektroheizung;;;;;;;;;15.090000000000002;15.0;0.00596421471172973
+12.12.23 08:39:27;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;0;0;0;19.95;;1;
+12.12.23 08:39:27;;global_total_consumption;;0.07;;;;;;
+12.12.23 08:39:27;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:27;;global_total_consumption_plus_reserved;;0.07;;;;;;
+12.12.23 08:39:27;;global_total_production;;0;;;;;;
+12.12.23 08:39:28;d6ae5f18-3360-457d-897e-ea08f01e166c;REMAINING_CONSUMPTION;True;0.07;0;0;;;0;
+12.12.23 08:39:28;832edb56-e87f-49e0-951c-45bc41c91336;Hausanschluss;True;1.07;0;0;;;0;
+12.12.23 08:39:28;dd0862e7-1f85-471d-9dba-a6310b1fd0f3;PV-Anlage Garage;True;0;0;0;;;0;
+12.12.23 08:39:28;0c4cab7e-6bbf-4f1e-a2fc-73c7e9716961;Ladestation;True;0;0;0;;;0;
+12.12.23 08:39:28;;consumption_price_Elektroheizung;;;;;;;;;15.180000000000003;15.0;0.011857707509881635
+12.12.23 08:39:28;990a98a1-6c5f-4a02-b85a-002549f82a49;Elektroheizung;True;1.0;0;0;19.9;;1;
+12.12.23 08:39:28;;global_total_consumption;;1.07;;;;;;
+12.12.23 08:39:28;;global_total_power_reserved;;0;;;;;;
+12.12.23 08:39:28;;global_total_consumption_plus_reserved;;1.07;;;;;;
+12.12.23 08:39:28;;global_total_production;;0;;;;;;
