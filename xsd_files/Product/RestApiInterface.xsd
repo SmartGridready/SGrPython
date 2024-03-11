@@ -13,7 +13,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
     <complexContent>
       <extension base="sgr:DataPointBase">
         <sequence>
-          <element name="restApiDataPointConfiguration" type="sgr:RestApiDataPointConfiguration" />
+          <element name="restApiDataPointConfiguration" type="sgr:RestApiDataPointConfiguration" minOccurs="0" />
         </sequence>
       </extension>
     </complexContent>

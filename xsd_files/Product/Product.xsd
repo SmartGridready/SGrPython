@@ -12,6 +12,30 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
   <include schemaLocation="ModbusInterface.xsd" />
   <include schemaLocation="RestApiInterface.xsd" />
 
+  <complexType name="ConfigurationDescription">
+    <complexContent>
+      <extension base="sgr:LegibleDescription">
+        <sequence>
+          <element name="label" type="string" minOccurs="0" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="ConfigurationListElement">
+    <sequence>
+      <element name="name" type="string" />
+      <element name="dataType" type="sgr:DataTypeProduct" />
+      <element name="configurationDescription" type="sgr:ConfigurationDescription" minOccurs="0" maxOccurs="4" />
+    </sequence>
+  </complexType>
+
+  <complexType name="ConfigurationList">
+    <sequence>
+      <element name="configurationListElement" type="sgr:ConfigurationListElement" minOccurs="1" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+
   <complexType name="DeviceInformation">
     <sequence>
       <element name="alternativeNames" type="sgr:AlternativeNames" minOccurs="0" />
@@ -109,6 +133,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <element name="specificationOwnerIdentification" type="sgr:SpecificationOwnerIdentification" />
       <element name="releaseNotes" type="sgr:ReleaseNotes" />
       <element name="deviceInformation" type="sgr:DeviceInformation" />
+      <element name="configurationList" type="sgr:ConfigurationList" minOccurs="0" />
       <element name="genericAttributeList" type="sgr:GenericAttributeListProduct" minOccurs="0" />
       <element name="interfaceList" type="sgr:InterfaceList" />
     </sequence>

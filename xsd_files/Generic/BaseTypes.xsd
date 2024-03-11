@@ -173,9 +173,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
     <sequence>
       <element name="literal" type="string" />
       <element name="ordinal" type="int" />
-      <choice minOccurs="0">
-        <element name="description" type="string"/>
-      </choice>
+      <element name="description" type="string" minOccurs="0"/>
     </sequence>
   </complexType>
 
@@ -183,9 +181,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
   <complexType name="EnumEntryRecordFunctionalProfile">
     <sequence>
       <element name="literal" type="string" />
-      <choice minOccurs="0">
-        <element name="description" type="string"/>
-      </choice>
+      <element name="description" type="string" minOccurs="0"/>
     </sequence>
   </complexType>
 
@@ -194,9 +190,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
     <sequence>
       <element name="literal" type="string" />
       <element name="ordinal" type="int" minOccurs="0" />
-      <choice minOccurs="0">
-        <element name="description" type="string"/>
-      </choice>
+      <element name="description" type="string" minOccurs="0"/>
     </sequence>
   </complexType>
 
@@ -365,12 +359,23 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
 
   <!-- enumeration to select data direction (Read Write) and persistent storage 
 		use of elements -->
-  <simpleType name="DataDirection">
+  <simpleType name="DataDirectionFunctionalProfile">
     <annotation>
-      <documentation>Read/write direction with read (R), write (W), read-write (RW), read-write with
-        persistent storage (RWP)</documentation>
+      <documentation>Read/write direction with read (R), write (W), read-write (RW)</documentation>
     </annotation>
     <restriction base="string">
+      <enumeration value="R" />
+      <enumeration value="W" />
+      <enumeration value="RW" />
+    </restriction>
+  </simpleType>
+  <simpleType name="DataDirectionProduct">
+    <annotation>
+      <documentation>Read/write direction with read (R), write (W), read-write (RW), read-write with
+        persistent storage (RWP), or constant (C)</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="C" />
       <enumeration value="R" />
       <enumeration value="W" />
       <enumeration value="RW" />

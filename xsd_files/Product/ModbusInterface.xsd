@@ -13,7 +13,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
     <complexContent>
       <extension base="sgr:DataPointBase">
         <sequence>
-          <element name="modbusDataPointConfiguration" type="sgr:ModbusDataPointConfiguration">
+          <element name="modbusDataPointConfiguration" type="sgr:ModbusDataPointConfiguration" minOccurs="0">
           </element>
           <element name="blockCacheIdentification" type="string" minOccurs="0">
             <annotation>
