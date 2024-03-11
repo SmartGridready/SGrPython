@@ -6,15 +6,14 @@ from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
 import time
 
-from sgr_library.api import BaseSGrInterface, DeviceInformation, FunctionProfile, DataPointProtocol, DataPoint, \
-    build_configurations_parameters, ConfigurationParameter
+from sgr_library.api import BaseSGrInterface, DeviceInformation, FunctionProfile, DataPointProtocol, DataPoint
 from sgr_library.auxiliary_functions import find_dp
 from sgr_library.converters import build_converter
-from sgr_library.generated.generic import Parity, DataDirectionProduct
+from sgr_library.data_classes.generic import Parity, DataDirection
 
 # from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
-from sgr_library.generated.product import DeviceFrame, ModbusDataPoint, ModbusFunctionalProfile
-
+from sgr_library.data_classes.product import DeviceFrame, ModbusDataPoint, ModbusFunctionalProfile
+# from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointsFrameType
 from sgr_library.modbusRTU_client_async import SGrModbusRTUClient
 from sgr_library.validators import build_validator
 
@@ -85,7 +84,7 @@ class ModBusRTUDataPoint(DataPointProtocol):
     def name(self) -> tuple[str, str]:
         return self._fp.functional_profile.functional_profile_name, self._dp.data_point.data_point_name
 
-    def direction(self) -> DataDirectionProduct:
+    def direction(self) -> DataDirection:
         return self._dp.data_point.data_direction
 
 
@@ -118,7 +117,6 @@ class SgrModbusRtuInterface(BaseSGrInterface):
         self.root = frame
         # self.root = parser.parse(interface_file, SgrModbusDeviceDescriptionType)
         self.port = ""  # get_port(self.root) #TODO überlegungen machen wo Port untergebracht wird
-        self._configurations_params = build_configurations_parameters(frame.configuration_list)
         self.baudrate = get_baudrate(self.root)
         self.parity = get_parity(self.root)
         self.slave_id = get_slave(self.root)
@@ -135,7 +133,6 @@ class SgrModbusRtuInterface(BaseSGrInterface):
             is_local=frame.device_information.is_local_control
         )
         self.connect()
-
 
     def get_pymodbus_client(self):
         """
@@ -278,9 +275,6 @@ class SgrModbusRtuInterface(BaseSGrInterface):
                             return dp
         return None
     """
-
-    def configuration_parameter(self) -> list[ConfigurationParameter]:
-        return self._configurations_params
 
     def connect(self):
         # check if there already exists a ModbusRTUClient for the communication over ModbusRTU
