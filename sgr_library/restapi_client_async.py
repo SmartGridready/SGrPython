@@ -10,11 +10,13 @@ import jmespath
 from aiohttp import ClientResponseError, ClientConnectionError
 from cachetools import TTLCache
 
-from sgr_library.api import BaseSGrInterface, FunctionProfile, DataPoint, DataPointProtocol, DeviceInformation
+from sgr_library.api import BaseSGrInterface, FunctionProfile, DataPoint, DataPointProtocol, DeviceInformation, \
+    ConfigurationParameter
+from sgr_library.api.configuration_parameter import build_configurations_parameters
 from sgr_library.converters import build_converter
-from sgr_library.data_classes.generic import DataDirection
-from sgr_library.data_classes.product import DeviceFrame
-from sgr_library.data_classes.product import RestApiFunctionalProfile, RestApiDataPoint
+from sgr_library.generated.generic import DataDirectionProduct
+from sgr_library.generated.product import DeviceFrame
+from sgr_library.generated.product import RestApiFunctionalProfile, RestApiDataPoint
 from sgr_library.validators import build_validator
 
 logging.basicConfig(level=logging.ERROR)
@@ -45,7 +47,7 @@ class RestDataPoint(DataPointProtocol):
     async def write(self, data: Any):
         pass
 
-    def direction(self) -> DataDirection:
+    def direction(self) -> DataDirectionProduct:
         return self._dp.data_point.data_direction
 
 
@@ -80,6 +82,9 @@ class SgrRestInterface(BaseSGrInterface):
     def device_information(self) -> DeviceInformation:
         return self._device_information
 
+    def configuration_parameter(self) -> list[ConfigurationParameter]:
+        return self._configuration_parameters
+
     def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
         # session
         self._device_information = DeviceInformation(
@@ -90,11 +95,11 @@ class SgrRestInterface(BaseSGrInterface):
             device_category=frame.device_information.device_category,
             is_local=frame.device_information.is_local_control
         )
+        self._configuration_parameters = build_configurations_parameters(frame.configuration_list)
         self.ssl_context = ssl.create_default_context(cafile=certifi.where())
         self.connector = aiohttp.TCPConnector(ssl=self.ssl_context)
         self.session = aiohttp.ClientSession(connector=self.connector)
         self.token = None
-        self.sensor_id = "5e8c91ce9e720119f94d0249"
         self.root = frame
         self._cache = TTLCache(maxsize=100, ttl=5)
 
@@ -102,32 +107,9 @@ class SgrRestInterface(BaseSGrInterface):
                self.root.interface_list.rest_api_interface.functional_profile_list.functional_profile_list_element]
         self._function_profiles = {fp.name(): fp for fp in fps}
         try:
-            user, password = 'test', 'test_pw'
-            for section_name, section in configuration.items():
-                for param_name in section:
-                    if param_name == 'username':
-                        user = configuration.get(section_name, param_name)
-                    if param_name == 'password':
-                        password = configuration.get(section_name, param_name)
-
-                    if param_name == 'sensor_id':
-                        self.sensor_id = configuration.get(section_name, param_name)
-
-            if not user:
-                raise ValueError("Missing username in the configuration file")
-            if not password:
-                raise ValueError("Missing password in the configuration file")
-            if not self.sensor_id:
-                raise ValueError("Missing sensor ID in the configuration file")
-
             description = self.root.interface_list.rest_api_interface.rest_api_interface_description
-
             request_body = str(description.rest_api_bearer.rest_api_service_call.request_body)
-            data = json.loads(request_body)
-            data['email'] = user
-            data['password'] = password
-            self.data = json.dumps(data)
-
+            self.data = json.loads(request_body)
             self.base_url = str(description.rest_api_uri)
             request_path = str(description.rest_api_bearer.rest_api_service_call.request_path)
             self.authentication_url = f'https://{self.base_url}{request_path}'
@@ -235,7 +217,7 @@ class SgrRestInterface(BaseSGrInterface):
 
             # Dataclass parsing
             service_call = dp.rest_api_data_point_configuration.rest_api_service_call
-            request_path = service_call.request_path.format(sensor_id=self.sensor_id)
+            request_path = service_call.request_path
 
             # Urls string
             url = f'https://{self.base_url}{request_path}'

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Copyright (c) 2023, SmartGridready, Switzerland. All rights reserved. Source
+https://github.com/SmartgridReady/SGrSpecifications  -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/"
+  attributeFormDefault="unqualified" elementFormDefault="qualified"
+  targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
+
+  <include schemaLocation="../Generic/DataPoint.xsd" />
+  <include schemaLocation="../Generic/FunctionalProfile.xsd" />
+  <include schemaLocation="ModbusTypes.xsd" />
+
+  <complexType name="ModbusDataPoint">
+    <complexContent>
+      <extension base="sgr:DataPointBase">
+        <sequence>
+          <element name="modbusDataPointConfiguration" type="sgr:ModbusDataPointConfiguration" minOccurs="0">
+          </element>
+          <element name="blockCacheIdentification" type="string" minOccurs="0">
+            <annotation>
+              <documentation>Refers to a timeSyncBlockNotification</documentation>
+            </annotation>
+          </element>
+          <element name="modbusAttributes" type="sgr:ModbusAttributes" minOccurs="0" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ModbusDataPointList">
+    <annotation>
+      <documentation>List of data points</documentation>
+    </annotation>
+    <sequence>
+      <element name="dataPointListElement" type="sgr:ModbusDataPoint" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <complexType name="ModbusFunctionalProfile">
+    <complexContent>
+      <extension base="sgr:FunctionalProfileBase">
+        <sequence>
+          <element name="modbusAttributes" type="sgr:ModbusAttributes" minOccurs="0" />
+          <element name="dataPointList" type="sgr:ModbusDataPointList" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ModbusFunctionalProfileList">
+    <annotation>
+      <documentation>List of functional profiles</documentation>
+    </annotation>
+    <sequence>
+      <element name="functionalProfileListElement" type="sgr:ModbusFunctionalProfile"
+        maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <complexType name="ModbusInterface">
+    <annotation>
+      <documentation>Container for a modbus device</documentation>
+    </annotation>
+    <sequence>
+      <sequence>
+        <element name="modbusInterfaceDescription" type="sgr:ModbusInterfaceDescription" />
+        <element name="modbusAttributes" type="sgr:ModbusAttributes" minOccurs="0" />          
+        <element name="functionalProfileList" type="sgr:ModbusFunctionalProfileList" />
+        <element name="timeSyncBlockNotification" type="sgr:TimeSyncBlockNotification"
+          maxOccurs="unbounded" minOccurs="0" />
+      </sequence>
+    </sequence>
+  </complexType>
+</schema>

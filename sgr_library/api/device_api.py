@@ -3,9 +3,10 @@ from dataclasses import dataclass
 from typing import Any
 
 from sgr_library.api import DataPoint
+from sgr_library.api.configuration_parameter import ConfigurationParameter
 from sgr_library.api.data_types import DataTypes
 from sgr_library.api.function_profile_api import FunctionProfile
-from sgr_library.data_classes.generic import DeviceCategory, DataDirection
+from sgr_library.generated.generic import DeviceCategory, DataDirectionProduct
 
 
 @dataclass
@@ -32,6 +33,10 @@ class BaseSGrInterface(ABC):
     def device_information(self) -> DeviceInformation:
         pass
 
+    @abstractmethod
+    def configuration_parameter(self) -> list[ConfigurationParameter]:
+        pass
+
     def get_function_profile(self, function_profile_name: str) -> FunctionProfile:
         return self.get_function_profiles()[function_profile_name]
 
@@ -50,7 +55,7 @@ class BaseSGrInterface(ABC):
             data.update({(fp.name(), key): value for key, value in (await fp.read()).items()})
         return data
 
-    def describe(self) -> tuple[str, dict[str, dict[str, tuple[DataDirection, DataTypes]]]]:
+    def describe(self) -> tuple[str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]]:
 
         data = {}
         for fp in self.get_function_profiles().values():

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Copyright (c) 2023, SmartGridready, Switzerland. All rights reserved. Source https://github.com/SmartgridReady/SGrSpecifications  -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/"
+  attributeFormDefault="unqualified" elementFormDefault="qualified"
+  targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
+
+  <include schemaLocation="BaseTypes.xsd" />
+
+  <complexType name="GenericAttributeListElement">
+    <sequence>
+      <element name="name" type="string" maxOccurs="1" minOccurs="0"/>
+      <element name="dataType" type="sgr:DataTypeFunctionalProfile"/>
+      <element name="unit" type="sgr:Units"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="GenericAttributeList">
+    <sequence>
+      <element name="genericAttributeListElement" type="sgr:GenericAttributeListElement" maxOccurs="unbounded" minOccurs="1"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="GenericAttributeFrame">
+    <sequence>
+      <element name="name" type="string"/>
+      <choice>
+        <element name="genericAttributeList" type="sgr:GenericAttributeList"/>
+        <sequence>
+          <element name="dataType" type="sgr:DataTypeFunctionalProfile"/>
+          <element name="unit" type="sgr:Units"/>
+        </sequence>
+      </choice>
+      <element name="legibleDescription" type="sgr:LegibleDescription" maxOccurs="4" minOccurs="0" />
+    </sequence>
+  </complexType>
+
+  <!-- Instance of Generic Attribute -->
+  <element name="GenericAttributeFrame" type="sgr:GenericAttributeFrame">
+    <annotation>
+      <documentation>Generic Attribute</documentation>
+    </annotation>
+  </element>
+
+</schema>

@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 from sgr_library.api.data_point_api import DataPoint
 from sgr_library.api.data_types import DataTypes
-from sgr_library.data_classes.generic import DataDirection
+from sgr_library.generated.generic import DataDirectionProduct
 
 
 class FunctionProfile(ABC):
@@ -21,6 +21,6 @@ class FunctionProfile(ABC):
     async def read(self) -> dict[str, DataPoint]:
         return {key[1]: await dp.read() for key, dp in self.get_data_points().items()}
 
-    def describe(self) -> tuple[str, dict[str, tuple[DataDirection, DataTypes]]]:
+    def describe(self) -> tuple[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]:
         infos = map(lambda dp: dp.describe(), self.get_data_points().values())
         return self.name(), {dp[0][1]: (dp[1], dp[2]) for dp in infos}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Copyright (c) 2023, SmartGridready, Switzerland. All rights reserved. Source https://github.com/SmartgridReady/SGrSpecifications  -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/" targetNamespace="http://www.smartgridready.com/ns/V0/">
+
+  <include schemaLocation="Product.xsd" />
+
+</schema>

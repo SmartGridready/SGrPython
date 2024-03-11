@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Copyright (c) 2023, SmartGridready, Switzerland. All rights reserved. Source
+https://github.com/SmartgridReady/SGrSpecifications  -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:sgr="http://www.smartgridready.com/ns/V0/"
+  attributeFormDefault="unqualified" elementFormDefault="qualified"
+  targetNamespace="http://www.smartgridready.com/ns/V0/" version="0.2.2">
+  <simpleType name="FunctionalProfileCategory">
+    <restriction base="string">
+      <enumeration value="Battery">
+        <annotation>
+          <documentation>1: Batterie</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Compressor">
+        <annotation>
+          <documentation>2: Kompressor</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="DeviceInformation">
+        <annotation>
+          <documentation>3: Geräteinformation</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="DHWCircuit">
+        <annotation>
+          <documentation>4: WarmWasserHeizung</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="DHWStorage">
+        <annotation>
+          <documentation>5: WarmWasserSpeicher</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Dishwasher">
+        <annotation>
+          <documentation> 6: Geschirrspülmaschine </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Dryer">
+        <annotation>
+          <documentation>7: Trockner</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ElectricalImmersionHeater">
+        <annotation>
+          <documentation>8: elTauchSieder</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Fan">
+        <annotation>
+          <documentation>9: Ventilator</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="GasHeatingAppliance">
+        <annotation>
+          <documentation>10: GasWärmeAnwendung</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Metering">
+        <annotation>
+          <documentation>11: allgemein verwendbar</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="HeatingBufferStorage">
+        <annotation>
+          <documentation> 12: WaermeBufferSpeicher </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="HeatingCircuit">
+        <annotation>
+          <documentation>13: Heizkreis</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="HeatingObject">
+        <annotation>
+          <documentation>14: Heizungsobjekt</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="HeatingZone">
+        <annotation>
+          <documentation>15: Heizzone</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="HeatPumpControl">
+        <annotation>
+          <documentation> 16: WärmePumpenAnwendung </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="HeatSinkCircuit">
+        <annotation>
+          <documentation> 17: KuehlKoerperSchaltung </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="HeatSourceCircuit">
+        <annotation>
+          <documentation> 18: WärmekörperSchaltung </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="HeatSourceUnit">
+        <annotation>
+          <documentation>19: Wärmequelle</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="HVACController">
+        <annotation>
+          <documentation>20: HLKController</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="HVACRoom">
+        <annotation>
+          <documentation>21: HLKRaum</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="InstantDHWHeater">
+        <annotation>
+          <documentation> 22: DurchflussWarmwasserHeizung </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Inverter">
+        <annotation>
+          <documentation> 23: Wechselrichter / Wandler </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="OilHeatingAppliance">
+        <annotation>
+          <documentation> 24: OelWaermeAnwendung </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Pump">
+        <annotation>
+          <documentation>25: Pumpe</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="RefrigerantCircuit">
+        <annotation>
+          <documentation> 26: Kältemittelkreislauf </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SmartEnergyAppliance">
+        <annotation>
+          <documentation> 27: SmartEnergyAppliance </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SolarDHWStorage">
+        <annotation>
+          <documentation> 28: SolarWarmwasserSpeicher </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SolarThermalCircuit">
+        <annotation>
+          <documentation> SolarWarmwasserKreislauf </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SubMeterElectricity">
+        <annotation>
+          <documentation> 30: SubMeter Elektrisch </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="TemperatureSensor">
+        <annotation>
+          <documentation>31: Temperatursensor</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Washer">
+        <annotation>
+          <documentation>32: Waschmaschine</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="BatterySystem">
+        <annotation>
+          <documentation>33: Batteriesystem</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ElectricityGenerationSystem">
+        <annotation>
+          <documentation> 34: Generator Elektrisch </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ElectricityStorageSystem">
+        <annotation>
+          <documentation> 35: ElektroSpeicher System </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="SGCP">
+        <annotation>
+          <documentation> 36: GridConnectionPoint Nachbarschaft </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Household">
+        <annotation>
+          <documentation>37: Haushalt</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="PVSystem">
+        <annotation>
+          <documentation>38: PV System</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="EV">
+        <annotation>
+          <documentation>39: Elektromobil</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="EVSE">
+        <annotation>
+          <documentation> 40: Ladestationscontroller für Elektrofahrzeug </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ChargingOutlet">
+        <annotation>
+          <documentation>41: Ladestation</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="CEM">
+        <annotation>
+          <documentation> 42: Energiemanager für Endverbraucher </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Actuator">
+        <annotation>
+          <documentation>43:allgemein fuer Aktor</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Sensor">
+        <annotation>
+          <documentation>44: allgemein fuer Messdatenaufnahme</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Controller">
+        <annotation>
+          <documentation>45:Steuergeraet</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="EnvCondition">
+        <annotation>
+          <documentation>46:Umweltbedingungen</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="FlexBuildingCampus">
+        <annotation>
+          <documentation>47: Gebäude und Campus.elektrische Flexibilität </documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="Metering">
+        <annotation>
+          <documentation>48: Metering</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="DynamicTariff">
+        <annotation>
+          <documentation>49: Dynamic Tariff</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="R50">
+        <annotation>
+          <documentation>50: Reserve</documentation>
+        </annotation>
+      </enumeration>
+    </restriction>
+  </simpleType>
+</schema>
