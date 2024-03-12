@@ -26,7 +26,6 @@ class ModbusDataPoint(DataPointBase):
             "name": "modbusDataPointConfiguration",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
         }
     )
     block_cache_identification: Optional[str] = field(

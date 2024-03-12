@@ -15,7 +15,7 @@ class FunctionalProfileCategory(Enum):
     :cvar ELECTRICAL_IMMERSION_HEATER: 8: elTauchSieder
     :cvar FAN: 9: Ventilator
     :cvar GAS_HEATING_APPLIANCE: 10: GasWärmeAnwendung
-    :cvar NON_SPECIFIC: 11: allgemein verwendbar
+    :cvar METERING: 11: allgemein verwendbar
     :cvar HEATING_BUFFER_STORAGE: 12: WaermeBufferSpeicher
     :cvar HEATING_CIRCUIT: 13: Heizkreis
     :cvar HEATING_OBJECT: 14: Heizungsobjekt
@@ -40,8 +40,8 @@ class FunctionalProfileCategory(Enum):
     :cvar BATTERY_SYSTEM: 33: Batteriesystem
     :cvar ELECTRICITY_GENERATION_SYSTEM: 34: Generator Elektrisch
     :cvar ELECTRICITY_STORAGE_SYSTEM: 35: ElektroSpeicher System
-    :cvar SGCP: 31: GridConnectionPoint Nachbarschaft
-    :cvar HOUSEHOLD: 327: Haushalt
+    :cvar SGCP: 36: GridConnectionPoint Nachbarschaft
+    :cvar HOUSEHOLD: 37: Haushalt
     :cvar PVSYSTEM: 38: PV System
     :cvar EV: 39: Elektromobil
     :cvar EVSE: 40: Ladestationscontroller für Elektrofahrzeug
@@ -53,8 +53,7 @@ class FunctionalProfileCategory(Enum):
     :cvar ENV_CONDITION: 46:Umweltbedingungen
     :cvar FLEX_BUILDING_CAMPUS: 47: Gebäude und Campus.elektrische
         Flexibilität
-    :cvar R48: 48: Reserve
-    :cvar R49: 49: Reserve
+    :cvar DYNAMIC_TARIFF: 49: Dynamic Tariff
     :cvar R50: 50: Reserve
     """
     BATTERY = "Battery"
@@ -67,7 +66,7 @@ class FunctionalProfileCategory(Enum):
     ELECTRICAL_IMMERSION_HEATER = "ElectricalImmersionHeater"
     FAN = "Fan"
     GAS_HEATING_APPLIANCE = "GasHeatingAppliance"
-    NON_SPECIFIC = "NonSpecific"
+    METERING = "Metering"
     HEATING_BUFFER_STORAGE = "HeatingBufferStorage"
     HEATING_CIRCUIT = "HeatingCircuit"
     HEATING_OBJECT = "HeatingObject"
@@ -104,7 +103,5 @@ class FunctionalProfileCategory(Enum):
     CONTROLLER = "Controller"
     ENV_CONDITION = "EnvCondition"
     FLEX_BUILDING_CAMPUS = "FlexBuildingCampus"
-    R48 = "R48"
-    R49 = "R49"
+    DYNAMIC_TARIFF = "DynamicTariff"
     R50 = "R50"
-    METERING = "Metering"

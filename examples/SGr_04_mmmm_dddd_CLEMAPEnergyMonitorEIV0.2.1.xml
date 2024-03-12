@@ -64,7 +64,6 @@
               <dataPoint>
                 <dataPointName>ActivePowerACtot</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -96,7 +95,6 @@
               <dataPoint>
                 <dataPointName>ActivePowerACL1</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -124,7 +122,6 @@
               <dataPoint>
                 <dataPointName>ActivePowerACL2</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -152,7 +149,6 @@
               <dataPoint>
                 <dataPointName>ActivePowerACL3</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -198,7 +194,6 @@
               <dataPoint>
                 <dataPointName>ReactivePowerACtot</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -230,7 +225,6 @@
               <dataPoint>
                 <dataPointName>ReactivePowerACL1</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -258,7 +252,6 @@
               <dataPoint>
                 <dataPointName>ReactivePowerACL2</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -286,7 +279,6 @@
               <dataPoint>
                 <dataPointName>ReactivePowerACL3</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -332,7 +324,6 @@
               <dataPoint>
                 <dataPointName>ActiveEnergyACTOT</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -364,7 +355,6 @@
               <dataPoint>
                 <dataPointName>ActiveEnergyACL1</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -392,7 +382,6 @@
               <dataPoint>
                 <dataPointName>ActiveEnergyACL2</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -420,7 +409,6 @@
               <dataPoint>
                 <dataPointName>ActiveEnergyACL3</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -466,7 +454,6 @@
               <dataPoint>
                 <dataPointName>VoltageTOT</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -498,7 +485,6 @@
               <dataPoint>
                 <dataPointName>VoltageL1</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -526,7 +512,6 @@
               <dataPoint>
                 <dataPointName>VoltageL2</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -554,7 +539,6 @@
               <dataPoint>
                 <dataPointName>VoltageL3</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -600,7 +584,6 @@
               <dataPoint>
                 <dataPointName>CurrentTOT</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -632,7 +615,6 @@
               <dataPoint>
                 <dataPointName>CurrentL1</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -660,7 +642,6 @@
               <dataPoint>
                 <dataPointName>CurrentL2</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -688,7 +669,6 @@
               <dataPoint>
                 <dataPointName>CurrentL3</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -734,7 +714,6 @@
               <dataPoint>
                 <dataPointName>ApparentPowerTOT</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -766,7 +745,6 @@
               <dataPoint>
                 <dataPointName>ApparentPowerL1</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -794,7 +772,6 @@
               <dataPoint>
                 <dataPointName>ApparentPowerL2</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -822,7 +799,6 @@
               <dataPoint>
                 <dataPointName>ApparentPowerL3</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -868,7 +844,6 @@
               <dataPoint>
                 <dataPointName>PowerFactorTOT</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -900,7 +875,6 @@
               <dataPoint>
                 <dataPointName>PowerFactorL1</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -928,7 +902,6 @@
               <dataPoint>
                 <dataPointName>PowerFactorL2</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>
@@ -956,7 +929,6 @@
               <dataPoint>
                 <dataPointName>PowerFactorL3</dataPointName>
                 <dataDirection>R</dataDirection>
-                <presenceLevel>R</presenceLevel>
                 <dataType>
                   <float64 />
                 </dataType>

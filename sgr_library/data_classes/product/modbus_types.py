@@ -95,85 +95,24 @@ class MasterFunctionsSupported(Enum):
 
 
 @dataclass
-class ModbusBitmapMapper:
-    """Bitmaps typically define operation modes or parallel active states.
-
-    Devices use different control schemes, SmartGridrady defines a
-    commmon information model for interoperable behaviour. At interface
-    class level, Bitmaps may use different binary values.
+class ModbusBoolean:
     """
-    modbus_bit_mapper: List[int] = field(
-        default_factory=list,
-        metadata={
-            "name": "modbusBitMapper",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "min_occurs": 1,
-        }
-    )
-    generic_bit_mapper: List[int] = field(
-        default_factory=list,
-        metadata={
-            "name": "genericBitMapper",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "min_occurs": 1,
-        }
-    )
-
-
-@dataclass
-class ModbusBooleanMapper:
-    """Booleans at modbus level may be true if 1, 0, 0xff, -1 , all but not a
-    certain value .
-
-    isPositiveLogic is true if a number must contain a specific value to
-    be valid isPositiveLogic is false if a number must contain any but
-    NOT a specific value to be valid
+    Modbus specific boolean definition.
     """
-    is_positive_logic: Optional[bool] = field(
+    true_value: Optional[int] = field(
         default=None,
         metadata={
-            "name": "isPositiveLogic",
+            "name": "trueValue",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
         }
     )
-    value: Optional[int] = field(
+    false_value: Optional[int] = field(
         default=None,
         metadata={
+            "name": "falseValue",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
-        }
-    )
-
-
-@dataclass
-class ModbusEnumMapper:
-    """Enumerations typically define operation modes or singlular states.
-
-    Devices use different control schemes, SmartGridrady defines a
-    commmon information model for interoperable behaviour. At interface
-    class level, enums may use different binary values.
-    """
-    modbus_enum_mapper: List[int] = field(
-        default_factory=list,
-        metadata={
-            "name": "modbusEnumMapper",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "min_occurs": 1,
-        }
-    )
-    gen_enum_mapper: List[int] = field(
-        default_factory=list,
-        metadata={
-            "name": "genEnumMapper",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "min_occurs": 1,
         }
     )
 
@@ -246,16 +185,9 @@ class ModbusLayer6Deviation(Enum):
     :cvar VALUE_2_REG_BASE1000_H2_L: 2 Registers show a combined value,
         as example in kWh and MWh beginning with lower range @ higher
         address
-    :cvar SGREADY_ENUM2_IO_H2_L: 2 Registers combine SGready IO1 and IO2
-        into the sgreadyStateLv2 enum beginning with IO1 @ higher
-        address
-    :cvar SGREADY_ENUM2_IO_L2_H: 2 Registers combine SGready IO1 and IO2
-        into the sgreadyStateLv2 enum beginning with IO1 @ lower address
     """
     VALUE_2_REG_BASE1000_L2_H = "2RegBase1000_L2H"
     VALUE_2_REG_BASE1000_H2_L = "2RegBase1000_H2L"
-    SGREADY_ENUM2_IO_H2_L = "SGReadyEnum2IO_H2L"
-    SGREADY_ENUM2_IO_L2_H = "SGReadyEnum2IO_L2H"
 
 
 @dataclass
@@ -280,7 +212,7 @@ class ModbusTcp:
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
             "required": True,
-            "pattern": r"\d+\.\d+\.\d+\.\d+",
+            "pattern": r"\d+\.\d+\.\d+\.\d+|\{\{.*\}\}",
         }
     )
     slave_id: Optional[int] = field(
@@ -367,7 +299,7 @@ class ModbusDataType:
     """
     Modbus specific data types.
     """
-    boolean: Optional[EmptyType] = field(
+    boolean: Optional[ModbusBoolean] = field(
         default=None,
         metadata={
             "type": "Element",
@@ -614,9 +546,6 @@ class ModbusAttributes:
         cycle in ms
     :ivar access_protection:
     :ivar layer6_deviation:
-    :ivar iop_enum_mapper:
-    :ivar iop_bitmap_mapper:
-    :ivar iop_boolean_mapper:
     """
     scaling_factor: Optional[ScalingFactor] = field(
         default=None,
@@ -661,30 +590,6 @@ class ModbusAttributes:
         default=None,
         metadata={
             "name": "layer6Deviation",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    iop_enum_mapper: Optional[ModbusEnumMapper] = field(
-        default=None,
-        metadata={
-            "name": "iopEnumMapper",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    iop_bitmap_mapper: Optional[ModbusBitmapMapper] = field(
-        default=None,
-        metadata={
-            "name": "iopBitmapMapper",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-        }
-    )
-    iop_boolean_mapper: Optional[ModbusBooleanMapper] = field(
-        default=None,
-        metadata={
-            "name": "iopBooleanMapper",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }

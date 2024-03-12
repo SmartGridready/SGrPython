@@ -3,17 +3,31 @@ from typing import List, Optional
 from sgr_library.data_classes.generic.base_type_level_of_operation_type import LevelOfOperation
 from sgr_library.data_classes.generic.base_types import (
     AlternativeNames,
+    DataTypeProduct,
     DeviceCategory,
-    GenericAttributes,
+    GenericAttributeListProduct,
     LegibleDescription,
     PowerSource,
     ReleaseNotes,
+    VersionNumber,
 )
 from sgr_library.data_classes.product.contact_interface import ContactInterface
+from sgr_library.data_classes.product.generic_interface import GenericInterface
 from sgr_library.data_classes.product.modbus_interface import ModbusInterface
 from sgr_library.data_classes.product.rest_api_interface import RestApiInterface
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
+
+
+@dataclass
+class ConfigurationDescription(LegibleDescription):
+    label: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
 
 
 @dataclass
@@ -34,13 +48,14 @@ class DeviceInformation:
     :ivar brand_name: branding information
     :ivar power_source: power supply type
     :ivar nominal_power: nominal Power of the device (installation)
-    :ivar manufacturer_specification_identification: manufacurers
+    :ivar manufacturer_specification_identification: manufacturers
         specification identifier
     :ivar manufacturer_label: manufacturers label of the device
     :ivar general_remarks: author of this sheet may add remarks / non
         disclaimer statements
     :ivar level_of_operation: defines the SGr Label Level 1...6 of the
         highest level functional profile of this device
+    :ivar version_number:
     :ivar programmer_hints: additional device-specific implementation
         hints for this device
     """
@@ -151,6 +166,14 @@ class DeviceInformation:
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
+    version_number: Optional[VersionNumber] = field(
+        default=None,
+        metadata={
+            "name": "versionNumber",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
     programmer_hints: List[LegibleDescription] = field(
         default_factory=list,
         metadata={
@@ -191,12 +214,55 @@ class InterfaceList:
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
-    generic_interface: Optional[str] = field(
+    generic_interface: Optional[GenericInterface] = field(
         default=None,
         metadata={
             "name": "genericInterface",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+
+
+@dataclass
+class ConfigurationListElement:
+    name: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "required": True,
+        }
+    )
+    data_type: Optional[DataTypeProduct] = field(
+        default=None,
+        metadata={
+            "name": "dataType",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "required": True,
+        }
+    )
+    configuration_description: List[ConfigurationDescription] = field(
+        default_factory=list,
+        metadata={
+            "name": "configurationDescription",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "max_occurs": 4,
+        }
+    )
+
+
+@dataclass
+class ConfigurationList:
+    configuration_list_element: List[ConfigurationListElement] = field(
+        default_factory=list,
+        metadata={
+            "name": "configurationListElement",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "min_occurs": 1,
         }
     )
 
@@ -211,7 +277,8 @@ class DeviceFrame:
     :ivar specification_owner_identification:
     :ivar release_notes:
     :ivar device_information:
-    :ivar generic_attributes:
+    :ivar configuration_list:
+    :ivar generic_attribute_list:
     :ivar interface_list:
     """
     class Meta:
@@ -256,10 +323,17 @@ class DeviceFrame:
             "required": True,
         }
     )
-    generic_attributes: Optional[GenericAttributes] = field(
+    configuration_list: Optional[ConfigurationList] = field(
         default=None,
         metadata={
-            "name": "genericAttributes",
+            "name": "configurationList",
+            "type": "Element",
+        }
+    )
+    generic_attribute_list: Optional[GenericAttributeListProduct] = field(
+        default=None,
+        metadata={
+            "name": "genericAttributeList",
             "type": "Element",
         }
     )

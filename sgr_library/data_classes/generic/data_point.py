@@ -2,11 +2,10 @@ from dataclasses import dataclass, field
 from typing import List, Optional
 from sgr_library.data_classes.generic.base_types import (
     AlternativeNames,
-    DataDirection,
+    DataDirectionProduct,
     DataTypeProduct,
-    GenericAttributes,
+    GenericAttributeListProduct,
     LegibleDescription,
-    PresenceLevel,
     Units,
 )
 
@@ -21,11 +20,14 @@ class DataPointDescription:
     :ivar data_point_name: Name of the data point (unique on functional
         profile)
     :ivar data_direction:
-    :ivar presence_level:
     :ivar data_type:
+    :ivar value:
     :ivar unit:
     :ivar array_length: Optional, if present the data point is an array
         of specified length
+    :ivar minimum_value:
+    :ivar maximum_value:
+    :ivar unit_conversion_multiplicator:
     :ivar alternative_names:
     :ivar legible_description: Published and printable information
         related to this data point
@@ -41,19 +43,10 @@ class DataPointDescription:
             "required": True,
         }
     )
-    data_direction: Optional[DataDirection] = field(
+    data_direction: Optional[DataDirectionProduct] = field(
         default=None,
         metadata={
             "name": "dataDirection",
-            "type": "Element",
-            "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
-        }
-    )
-    presence_level: Optional[PresenceLevel] = field(
-        default=None,
-        metadata={
-            "name": "presenceLevel",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
             "required": True,
@@ -68,6 +61,13 @@ class DataPointDescription:
             "required": True,
         }
     )
+    value: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
     unit: Optional[Units] = field(
         default=None,
         metadata={
@@ -80,6 +80,30 @@ class DataPointDescription:
         default=None,
         metadata={
             "name": "arrayLength",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    minimum_value: Optional[float] = field(
+        default=None,
+        metadata={
+            "name": "minimumValue",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    maximum_value: Optional[float] = field(
+        default=None,
+        metadata={
+            "name": "maximumValue",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    unit_conversion_multiplicator: Optional[float] = field(
+        default=None,
+        metadata={
+            "name": "unitConversionMultiplicator",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
@@ -126,10 +150,10 @@ class DataPointBase:
             "required": True,
         }
     )
-    generic_attributes: Optional[GenericAttributes] = field(
+    generic_attribute_list: Optional[GenericAttributeListProduct] = field(
         default=None,
         metadata={
-            "name": "genericAttributes",
+            "name": "genericAttributeList",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }

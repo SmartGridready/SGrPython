@@ -3,7 +3,7 @@ from typing import List, Optional
 from sgr_library.data_classes.generic.base_types import (
     AlternativeNames,
     FunctionalProfileIdentification,
-    GenericAttributes,
+    GenericAttributeListProduct,
     LegibleDescription,
 )
 
@@ -83,10 +83,10 @@ class FunctionalProfileBase:
             "required": True,
         }
     )
-    generic_attributes: Optional[GenericAttributes] = field(
+    generic_attribute_list: Optional[GenericAttributeListProduct] = field(
         default=None,
         metadata={
-            "name": "genericAttributes",
+            "name": "genericAttributeList",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }

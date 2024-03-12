@@ -122,42 +122,22 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <enumeration value="JMESPathExpression" />
       <enumeration value="XPathExpression" />
       <enumeration value="RegularExpression" />
+      <enumeration value="JMESPathMapping" />
     </restriction>
   </simpleType>
 
-  <simpleType name="RestApiEmptyValue">
-    <restriction base="string">
-      <enumeration value="" />
-    </restriction>
-  </simpleType>
-
-  <complexType name="JSonElemProduct">
+  <complexType name="JMESPathMappingRecord">
     <sequence>
-      <element name="key" type="string"/>
-      <choice>
-        <element name="date" type="sgr:RestApiEmptyValue"/>
-        <element name="string" type="sgr:RestApiEmptyValue"/>
-        <element name="number" type="sgr:RestApiEmptyValue"/>
-      </choice>
-      <element name="query" type="string"/>
+      <element name = "from" type="string"/>
+      <element name = "to" type="string"/>
+      <element name="name" minOccurs="0" maxOccurs="1" type="string"/>
     </sequence>
   </complexType>
 
-  <complexType name="JSonArrayOutputProduct">
+  <complexType name="JMESPathMapping">
     <sequence>
-      <element name="name" type="string" minOccurs="0" maxOccurs="1"/>
-      <choice minOccurs="0" maxOccurs="unbounded">
-        <element name="array" type="sgr:JSonArrayOutputProduct"/>
-        <element name="elem" type="sgr:JSonElemProduct"/>
-      </choice>
+      <element name="mapping" minOccurs="1" maxOccurs="unbounded" type="sgr:JMESPathMappingRecord" />
     </sequence>
-  </complexType>
-
-  <complexType name="JSonOutputProduct">
-    <choice minOccurs="0" maxOccurs="unbounded">
-      <element name="array" type="sgr:JSonArrayOutputProduct"/>
-      <element name="elem" type="sgr:JSonElemProduct"/>
-    </choice>
   </complexType>
 
   <complexType name="ResponseQuery">
@@ -165,7 +145,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
       <element name="queryType" type="sgr:ResponseQueryType" />
       <choice>
         <element name="query" type="string" />
-        <element name="json" type="sgr:JSonOutputProduct"/>
+        <element name="jmesPathMappings" type="sgr:JMESPathMapping" />
       </choice>
     </sequence>
   </complexType>  

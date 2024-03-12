@@ -9,7 +9,7 @@ import time
 from sgr_library.api import BaseSGrInterface, DeviceInformation, FunctionProfile, DataPointProtocol, DataPoint
 from sgr_library.auxiliary_functions import find_dp
 from sgr_library.converters import build_converter
-from sgr_library.data_classes.generic import Parity, DataDirection
+from sgr_library.data_classes.generic import Parity, DataDirectionProduct
 
 # from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
 from sgr_library.data_classes.product import DeviceFrame, ModbusDataPoint, ModbusFunctionalProfile
@@ -84,7 +84,7 @@ class ModBusRTUDataPoint(DataPointProtocol):
     def name(self) -> tuple[str, str]:
         return self._fp.functional_profile.functional_profile_name, self._dp.data_point.data_point_name
 
-    def direction(self) -> DataDirection:
+    def direction(self) -> DataDirectionProduct:
         return self._dp.data_point.data_direction
 
 

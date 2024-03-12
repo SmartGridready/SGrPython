@@ -27,7 +27,7 @@
                   SmartGridready Namespace für die maschinenlesbaren Daten. </documentation>
               </annotation>
             </element>
-            <element name="dataDirection" type="sgr:DataDirection" />
+            <element name="dataDirection" type="sgr:DataDirectionFunctionalProfile" />
             <element name="presenceLevel" type="sgr:PresenceLevel" />
             <element name="requestParams" type="sgr:RequestParam" minOccurs="0" maxOccurs="1"/>
             <element name="dataType" type="sgr:DataTypeFunctionalProfile" />

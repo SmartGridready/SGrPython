@@ -11,13 +11,6 @@ class VoltDataPointConverter(DataPointConverter[int]):
     def __init__(self, unit: Units):
         self._unit = unit
         self._factor = 1
-        match unit:
-            case unit.MILLIVOLTS:
-                self._factor = 0.001
-            case unit.KILOVOLTS:
-                self._factor = 1000
-            case unit.MEGAVOLTS:
-                self._factor = 1000_000
 
     def to_device(self, value: int) -> Any:
         return value / self._factor

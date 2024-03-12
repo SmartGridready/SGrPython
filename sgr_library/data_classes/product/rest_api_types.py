@@ -34,10 +34,42 @@ class HttpMethod(Enum):
     DELETE = "DELETE"
 
 
+@dataclass
+class JmespathMappingRecord:
+    class Meta:
+        name = "JMESPathMappingRecord"
+
+    from_value: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "from",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "required": True,
+        }
+    )
+    to: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "required": True,
+        }
+    )
+    name: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+
+
 class ResponseQueryType(Enum):
     JMESPATH_EXPRESSION = "JMESPathExpression"
     XPATH_EXPRESSION = "XPathExpression"
     REGULAR_EXPRESSION = "RegularExpression"
+    JMESPATH_MAPPING = "JMESPathMapping"
 
 
 class RestApiAuthenticationMethod(Enum):
@@ -110,6 +142,21 @@ class HeaderList:
 
 
 @dataclass
+class JmespathMapping:
+    class Meta:
+        name = "JMESPathMapping"
+
+    mapping: List[JmespathMappingRecord] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+            "min_occurs": 1,
+        }
+    )
+
+
+@dataclass
 class ResponseQuery:
     query_type: Optional[ResponseQueryType] = field(
         default=None,
@@ -125,7 +172,14 @@ class ResponseQuery:
         metadata={
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
+        }
+    )
+    jmes_path_mappings: Optional[JmespathMapping] = field(
+        default=None,
+        metadata={
+            "name": "jmesPathMappings",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
         }
     )
 

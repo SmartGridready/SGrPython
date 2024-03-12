@@ -2,13 +2,14 @@ from dataclasses import dataclass, field
 from typing import List, Optional
 from sgr_library.data_classes.generic.base_types import (
     AlternativeNames,
-    DataDirection,
+    DataDirectionFunctionalProfile,
     DataTypeFunctionalProfile,
     FunctionalProfileIdentification,
-    GenericAttributes,
+    GenericAttributeListFunctionalProfile,
     LegibleDescription,
     PresenceLevel,
     ReleaseNotes,
+    RequestParam,
     Units,
 )
 
@@ -29,10 +30,10 @@ class FunctionalProfileDataPoint:
             "required": True,
         }
     )
-    generic_attributes: Optional[GenericAttributes] = field(
+    generic_attribute_list: Optional[GenericAttributeListFunctionalProfile] = field(
         default=None,
         metadata={
-            "name": "genericAttributes",
+            "name": "genericAttributeList",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }
@@ -50,6 +51,7 @@ class FunctionalProfileDataPoint:
             Daten.
         :ivar data_direction:
         :ivar presence_level:
+        :ivar request_params:
         :ivar data_type:
         :ivar unit:
         :ivar array_length:
@@ -66,7 +68,7 @@ class FunctionalProfileDataPoint:
                 "required": True,
             }
         )
-        data_direction: Optional[DataDirection] = field(
+        data_direction: Optional[DataDirectionFunctionalProfile] = field(
             default=None,
             metadata={
                 "name": "dataDirection",
@@ -82,6 +84,14 @@ class FunctionalProfileDataPoint:
                 "type": "Element",
                 "namespace": "http://www.smartgridready.com/ns/V0/",
                 "required": True,
+            }
+        )
+        request_params: Optional[RequestParam] = field(
+            default=None,
+            metadata={
+                "name": "requestParams",
+                "type": "Element",
+                "namespace": "http://www.smartgridready.com/ns/V0/",
             }
         )
         data_type: Optional[DataTypeFunctionalProfile] = field(
@@ -167,10 +177,10 @@ class FunctionalProfileFrame:
             "required": True,
         }
     )
-    generic_attributes: List[GenericAttributes] = field(
-        default_factory=list,
+    generic_attribute_list: Optional[GenericAttributeListFunctionalProfile] = field(
+        default=None,
         metadata={
-            "name": "genericAttributes",
+            "name": "genericAttributeList",
             "type": "Element",
         }
     )

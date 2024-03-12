@@ -7,7 +7,7 @@ import time
 from sgr_library.api import DeviceInformation, FunctionProfile, DataPointProtocol, DataPoint
 from sgr_library.api.device_api import BaseSGrInterface
 from sgr_library.converters import build_converter
-from sgr_library.data_classes.generic import DataDirection
+from sgr_library.data_classes.generic import DataDirectionProduct
 from sgr_library.exceptions import DataPointException, FunctionalProfileException, DataProcessingError, \
     DeviceInformationError, InvalidEndianType
 from pymodbus.exceptions import ConnectionException
@@ -48,7 +48,7 @@ class ModBusTCPDataPoint(DataPointProtocol):
     def name(self) -> tuple[str, str]:
         return self._fp.functional_profile.functional_profile_name, self._dp.data_point.data_point_name
 
-    def direction(self) -> DataDirection:
+    def direction(self) -> DataDirectionProduct:
         return self._dp.data_point.data_direction
 
 

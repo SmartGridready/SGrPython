@@ -18,7 +18,6 @@ class RestApiDataPoint(DataPointBase):
             "name": "restApiDataPointConfiguration",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
-            "required": True,
         }
     )
 

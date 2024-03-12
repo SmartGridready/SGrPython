@@ -11,6 +11,9 @@ async def test_loop():
     config_file = 'config_CLEMAPEnMon_ressource_default.ini'
     interface_file = 'SGr_04_mmmm_dddd_CLEMAPEnergyMonitorEIV0.2.1.xml'
 
+    config_file = 'config_wago'
+    interface_file = 'SGr_04_mmmm_dddd_Initial_ChargingStation_V0.5.0_2.xml'
+
     
 
     device = SGrDevice()
@@ -20,11 +23,11 @@ async def test_loop():
     #device_data = await device.read_data()
     #print(device_data)
 
-    fp = device.get_function_profile("PowerFactor") #PowerFactor #VoltageAC
+    fp = device.get_function_profile("ActiveEnergyAC") #PowerFactor #VoltageAC
     #fp_data = await fp.read()
     #print(fp_data)
 
-    dp = fp.get_data_point("PowerFactorTOT") #PowerFactorTOT #VoltageACL1
+    dp = fp.get_data_point("ActiveEnergyACtot") #PowerFactorTOT #VoltageACL1
     dp_data = await dp.read()
     print(dp_data)
 

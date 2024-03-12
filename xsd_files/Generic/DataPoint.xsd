@@ -27,8 +27,9 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
           <documentation>Name of the data point (unique on functional profile)</documentation>
         </annotation>
       </element>
-      <element name="dataDirection" type="sgr:DataDirection" />
+      <element name="dataDirection" type="sgr:DataDirectionProduct" />
       <element name="dataType" type="sgr:DataTypeProduct" />
+      <element name="value" type="string" minOccurs="0" />
       <element name="unit" type="sgr:Units" />
       <element name="arrayLength" type="int" minOccurs="0">
         <annotation>

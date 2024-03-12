@@ -3,7 +3,7 @@ from typing import Generic, TypeVar, Any
 
 from sgr_library.api.data_types import DataTypes
 from sgr_library.api.sub_set_units import SubSetUnits
-from sgr_library.data_classes.generic import DataDirection
+from sgr_library.data_classes.generic import DataDirectionProduct
 
 T = TypeVar('T')
 
@@ -51,7 +51,7 @@ class DataPointProtocol(ABC):
         pass
 
     @abstractmethod
-    def direction(self) -> DataDirection:
+    def direction(self) -> DataDirectionProduct:
         pass
 
 
@@ -80,13 +80,13 @@ class DataPoint(Generic[T]):
     def unit(self) -> SubSetUnits:
         return self._converter.converted_unit()
 
-    def direction(self) -> DataDirection:
+    def direction(self) -> DataDirectionProduct:
         return self._protocol.direction()
 
     def data_type(self) -> DataTypes:
         return self._validator.data_type()
 
-    def describe(self) -> tuple[tuple[str, str], DataDirection, DataTypes]:
+    def describe(self) -> tuple[tuple[str, str], DataDirectionProduct, DataTypes]:
         return self.name(), self.direction(), self.data_type()
 
     def options(self) -> list[str]:

@@ -5,7 +5,7 @@ from typing import Any
 from sgr_library.api import DataPoint
 from sgr_library.api.data_types import DataTypes
 from sgr_library.api.function_profile_api import FunctionProfile
-from sgr_library.data_classes.generic import DeviceCategory, DataDirection
+from sgr_library.data_classes.generic import DeviceCategory, DataDirectionProduct
 
 
 @dataclass
@@ -50,7 +50,7 @@ class BaseSGrInterface(ABC):
             data.update({(fp.name(), key): value for key, value in (await fp.read()).items()})
         return data
 
-    def describe(self) -> tuple[str, dict[str, dict[str, tuple[DataDirection, DataTypes]]]]:
+    def describe(self) -> tuple[str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]]:
 
         data = {}
         for fp in self.get_function_profiles().values():
