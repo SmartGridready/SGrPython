@@ -13,3 +13,9 @@ class ConfigurationParameter:
         self.match = parameter.name
         self.type = parameter.data_type
         self.description = translation[0].text_element
+
+    def __str__(self):
+        return f'{self.label} - {self.match}'
+
+    def __repr__(self):
+        return f'{self.label} - {self.match}'

@@ -189,7 +189,6 @@ class FunctionalProfileFrame:
         metadata={
             "name": "dataPointList",
             "type": "Element",
-            "required": True,
         }
     )
 

@@ -19,7 +19,8 @@
         <legibleDescription>
             <textElement>
                 <![CDATA[
-                Der CLEMAP Energy Monitor wird eingesetzt, um den Stromverbrauch bei KMU und industriellen Anwendungen vollständig zu überwachen.
+                Der CLEMAP Energy Monitor wird eingesetzt, um den Stromverbrauch bei KMU und industriellen Anwendungen
+                vollständig zu überwachen.
                 </p>
                 Er wird in Steuerschränke oder Verteilerkästen installiert und fungiert als dezentrale Messstelle.
                 ]]>
@@ -38,77 +39,57 @@
         <configurationListElement>
             <name>sensor_id</name>
             <dataType>
-                <int32/>
+                <string/>
             </dataType>
-            <legibleDescription>
-                <textElement>
-                    <![CDATA[
-                    Identification of the sensor.</br>
-                    This value is numeric.
-                    ]]>
-                </textElement>
+            <configurationDescription>
+                <textElement>Identification of the sensor.</textElement>
                 <language>en</language>
-            </legibleDescription>
-            <legibleDescription>
-                <textElement>
-                    <![CDATA[
-                    Identifikation des Sensors. </br>
-                    Dieser Wert ist numerisch.
-                    ]]>
-                </textElement>
+                <label>Identification</label>
+            </configurationDescription>
+            <configurationDescription>
+                <textElement>Identifikation des Sensors.</textElement>
                 <language>de</language>
-            </legibleDescription>
+                <label>Identifikation</label>
+            </configurationDescription>
         </configurationListElement>
         <configurationListElement>
             <name>username</name>
             <dataType>
                 <string/>
             </dataType>
-            <legibleDescription>
-                <textElement>
-                    <![CDATA[
-                    User name for accessing the device.
-                    ]]>
-                </textElement>
+            <configurationDescription>
+                <textElement>User name for accessing the device.</textElement>
                 <language>en</language>
-            </legibleDescription>
-            <legibleDescription>
-                <textElement>
-                    <![CDATA[
-                    Benutzername für den Zugriff auf das Gerät.
-                    ]]>
-                </textElement>
+                <label>User Name</label>
+            </configurationDescription>
+            <configurationDescription>
+                <textElement>Benutzername für den Zugriff auf das Gerät.</textElement>
                 <language>de</language>
-            </legibleDescription>
+                <label>Benutzername</label>
+            </configurationDescription>
         </configurationListElement>
         <configurationListElement>
             <name>password</name>
             <dataType>
                 <string/>
             </dataType>
-            <legibleDescription>
-                <textElement>
-                    <![CDATA[
-                    Password for accessing the device.
-                    ]]>
-                </textElement>
+            <configurationDescription>
+                <textElement>Password for accessing the device.</textElement>
                 <language>en</language>
-            </legibleDescription>
-            <legibleDescription>
-                <textElement>
-                    <![CDATA[
-                    Passwort für den Zugriff auf das Gerät.
-                    ]]>
-                </textElement>
+                <label>Password</label>
+            </configurationDescription>
+            <configurationDescription>
+                <textElement>Passwort für den Zugriff auf das Gerät.</textElement>
                 <language>de</language>
-            </legibleDescription>
+                <label>Passwort</label>
+            </configurationDescription>
         </configurationListElement>
     </configurationList>
     <interfaceList>
         <restApiInterface>
             <restApiInterfaceDescription>
                 <restApiInterfaceSelection>URI</restApiInterfaceSelection>
-                <restApiUri>b1.cloud.clemap.com:3032</restApiUri>
+                <restApiUri>{{ baseuri }}</restApiUri>
                 <restApiAuthenticationMethod>BearerSecurityScheme</restApiAuthenticationMethod>
                 <restApiBearer>
                     <restApiServiceCall>
@@ -120,7 +101,8 @@
                         </requestHeader>
                         <requestMethod>POST</requestMethod>
                         <requestPath>/authentication</requestPath>
-                        <requestBody>{"strategy": "local", "email": "{{username}}", "password": "{{password}}"}</requestBody>
+                        <requestBody>{"strategy": "local", "email": "{{ username }}", "password": "{{ password }}"}
+                        </requestBody>
                         <responseQuery>
                             <queryType>JMESPathExpression</queryType>
                             <query>accessToken</query>
@@ -148,20 +130,29 @@
                                 <![CDATA[
                                 <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
                                 <strong>Messung der Wirkleistung</strong><br>
-                                Monitoring Funktionsprofil für Stromerzeuger und Stromverbraucher zur Kontrolle der Systemlast und/oder für regeltechnische
+                                Monitoring Funktionsprofil für Stromerzeuger und Stromverbraucher zur Kontrolle der
+                                Systemlast und/oder für regeltechnische
                                 Zwecke.
 
-                                <p>Für Regelzwecke ist die Kenntnissder Messgenauigkeit zwingend und wird daher pro Datenpunkt als obligatorisches
-                                    Attribut angegeben. Somit ist es möglich unterschiedliche Messgenauigkeiten für die Datenpunkte
+                                <p>Für Regelzwecke ist die Kenntnissder Messgenauigkeit zwingend und wird daher pro
+                                    Datenpunkt als obligatorisches
+                                    Attribut angegeben. Somit ist es möglich unterschiedliche Messgenauigkeiten für die
+                                    Datenpunkte
                                     zu definieren.</p>
 
-                                <p>Dieses Funktionsprofil erlaubt sowohl die Messung der Totalleistung wie auch die Leistung der drei
-                                    einzelnen Phasen. Eine der folgenden Varianten muss bei der Implementierung des Funktionsprofiles
+                                <p>Dieses Funktionsprofil erlaubt sowohl die Messung der Totalleistung wie auch die
+                                    Leistung der drei
+                                    einzelnen Phasen. Eine der folgenden Varianten muss bei der Implementierung des
+                                    Funktionsprofiles
                                     umgesetzt werden:
                                 <ul>
                                     <li>Einphasige Geräte geben die Totalleistung an (ActivePowerACtot)</li>
-                                    <li>3-phasige Geräte ohne Totalleistungsmessung geben die Leistung pro Phase an (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
-                                    <li>3-phasige Geräte mit Einzelphasen- und Totalleistungsmessung geben alle Datenpunkte an</li>
+                                    <li>3-phasige Geräte ohne Totalleistungsmessung geben die Leistung pro Phase an
+                                        (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)
+                                    </li>
+                                    <li>3-phasige Geräte mit Einzelphasen- und Totalleistungsmessung geben alle
+                                        Datenpunkte an
+                                    </li>
                                 </ul>
                                 </p>
                                 ]]>
@@ -173,17 +164,27 @@
                                 <![CDATA[
                                 <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
                                 <strong>Active Power Measurement</strong><br>
-                                Monitoring functional profile for power generators and consumers for reflecting the active power.
+                                Monitoring functional profile for power generators and consumers for reflecting the
+                                active power.
 
-                                <p>Knowing the precisionPercent of measurements is necessary and therefore specified as a mandatory attribute
-                                    per data point. Thus, different measurement precisions can be defined for the data points.</p>
+                                <p>Knowing the precisionPercent of measurements is necessary and therefore specified as
+                                    a mandatory attribute
+                                    per data point. Thus, different measurement precisions can be defined for the data
+                                    points.</p>
 
-                                <p>With this functional profile you can measure the total active power as well as the active power of
-                                    the three individual phases. One of the following options must be implemented for fulfilling the functional profile:
+                                <p>With this functional profile you can measure the total active power as well as the
+                                    active power of
+                                    the three individual phases. One of the following options must be implemented for
+                                    fulfilling the functional profile:
                                 <ul>
-                                    <li>Single-phase devices use the total active power data point (ActivePowerACtot)</li>
-                                    <li>Three-phase devices without measurement of the total active power use the data points per phase (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
-                                    <li>Three-phase devices with measurement of the total active power use all data points</li>
+                                    <li>Single-phase devices use the total active power data point (ActivePowerACtot)
+                                    </li>
+                                    <li>Three-phase devices without measurement of the total active power use the data
+                                        points per phase (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)
+                                    </li>
+                                    <li>Three-phase devices with measurement of the total active power use all data
+                                        points
+                                    </li>
                                 </ul>
                                 </p>
                                 ]]>
@@ -197,7 +198,7 @@
                                 <dataPointName>ActivePowerACtot</dataPointName>
                                 <dataDirection>R</dataDirection>
                                 <dataType>
-                                    <float64 />
+                                    <float64/>
                                 </dataType>
                                 <unit>KILOWATTS</unit>
                                 <legibleDescription>
@@ -219,7 +220,7 @@
                                         </header>
                                     </requestHeader>
                                     <requestMethod>GET</requestMethod>
-                                    <requestPath>/digitaltwins/?sensor_id={{sensor_id}}</requestPath>
+                                    <requestPath>/digitaltwins/?sensor_id={{ sensor_id }}</requestPath>
                                     <responseQuery>
                                         <queryType>JMESPathExpression</queryType>
                                         <query>sum([[0].ten_sec.p_l1,[0].ten_sec.p_l2,[0].ten_sec.p_l3])</query>
@@ -232,7 +233,7 @@
                                 <dataPointName>ActivePowerACL1</dataPointName>
                                 <dataDirection>R</dataDirection>
                                 <dataType>
-                                    <float64 />
+                                    <float64/>
                                 </dataType>
                                 <unit>KILOWATTS</unit>
                                 <legibleDescription>
@@ -254,7 +255,7 @@
                                         </header>
                                     </requestHeader>
                                     <requestMethod>GET</requestMethod>
-                                    <requestPath>/digitaltwins/?sensor_id={{sensor_id}}</requestPath>
+                                    <requestPath>/digitaltwins/?sensor_id={{ sensor_id }}</requestPath>
                                     <responseQuery>
                                         <queryType>JMESPathExpression</queryType>
                                         <query>[0].ten_sec.p_l1</query>
@@ -267,7 +268,7 @@
                                 <dataPointName>ActivePowerACL2</dataPointName>
                                 <dataDirection>R</dataDirection>
                                 <dataType>
-                                    <float64 />
+                                    <float64/>
                                 </dataType>
                                 <unit>KILOWATTS</unit>
                                 <legibleDescription>
@@ -289,7 +290,7 @@
                                         </header>
                                     </requestHeader>
                                     <requestMethod>GET</requestMethod>
-                                    <requestPath>/digitaltwins/?sensor_id={{sensor_id}}</requestPath>
+                                    <requestPath>/digitaltwins/?sensor_id={{ sensor_id }}</requestPath>
                                     <responseQuery>
                                         <queryType>JMESPathExpression</queryType>
                                         <query>[0].ten_sec.p_l2</query>
@@ -302,7 +303,7 @@
                                 <dataPointName>ActivePowerACL3</dataPointName>
                                 <dataDirection>R</dataDirection>
                                 <dataType>
-                                    <float64 />
+                                    <float64/>
                                 </dataType>
                                 <unit>KILOWATTS</unit>
                                 <legibleDescription>
@@ -324,7 +325,7 @@
                                         </header>
                                     </requestHeader>
                                     <requestMethod>GET</requestMethod>
-                                    <requestPath>/digitaltwins/?sensor_id={{sensor_id}}</requestPath>
+                                    <requestPath>/digitaltwins/?sensor_id={{ sensor_id }}</requestPath>
                                     <responseQuery>
                                         <queryType>JMESPathExpression</queryType>
                                         <query>[0].ten_sec.p_l3</query>

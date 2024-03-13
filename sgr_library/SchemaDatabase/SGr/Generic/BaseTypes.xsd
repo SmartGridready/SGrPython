@@ -197,7 +197,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
   <!-- mapping table containing modbus to generic enumeration mapping records -->
   <complexType name="EnumMapFunctionalProfile">
     <sequence>
-      <element name="enumEntry" type="sgr:EnumEntryRecordFunctionalProfile" maxOccurs="unbounded" />
+      <element name="enumEntry" type="sgr:EnumEntryRecordFunctionalProfile" minOccurs="0" maxOccurs="unbounded" />
       <element name="hexMask" type="hexBinary" minOccurs="0"/>
     </sequence>
   </complexType>
@@ -228,7 +228,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
         bit patterns (as hex mask) to literals.</documentation>
     </annotation>
     <sequence>
-      <element name="bitmapEntry" type="sgr:BitmapEntryFunctionalProfile" maxOccurs="unbounded"/>
+      <element name="bitmapEntry" type="sgr:BitmapEntryFunctionalProfile" minOccurs="0" maxOccurs="unbounded"/>
     </sequence>
   </complexType>
 
