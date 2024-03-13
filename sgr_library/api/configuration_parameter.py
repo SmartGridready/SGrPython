@@ -2,6 +2,8 @@ from sgr_library.generated.product import ConfigurationListElement, Configuratio
 
 
 def build_configurations_parameters(params: ConfigurationList):
+    if params is None:
+        return []
     return [ConfigurationParameter(x) for x in params.configuration_list_element]
 
 
