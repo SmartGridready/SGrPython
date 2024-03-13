@@ -71,6 +71,7 @@ class ModBusTCPFunctionProfile(FunctionProfile):
                self._fp.data_point_list.data_point_list_element]
         self._data_points = {dp.name(): dp for dp in dps}
 
+
     def name(self) -> str:
         return self._fp.functional_profile.functional_profile_name
 
@@ -106,9 +107,10 @@ class SgrModbusInterface(BaseSGrInterface):
             device_category=frame.device_information.device_category,
             is_local=frame.device_information.is_local_control
         )
+        self._configuration_parameters = build_configurations_parameters(frame.configuration_list)
 
     def configuration_parameter(self) -> list[ConfigurationParameter]:
-        return self.configuration_parameter()
+        return self._configuration_parameters
 
     async def connect(self):
         try:

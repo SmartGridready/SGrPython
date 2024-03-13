@@ -9,6 +9,7 @@ from sgr_library.generated.generic.base_types import (
     LegibleDescription,
     PowerSource,
     ReleaseNotes,
+    VersionNumber,
 )
 from sgr_library.generated.product.contact_interface import ContactInterface
 from sgr_library.generated.product.generic_interface import GenericInterface
@@ -54,6 +55,7 @@ class DeviceInformation:
         disclaimer statements
     :ivar level_of_operation: defines the SGr Label Level 1...6 of the
         highest level functional profile of this device
+    :ivar version_number:
     :ivar programmer_hints: additional device-specific implementation
         hints for this device
     """
@@ -160,6 +162,14 @@ class DeviceInformation:
         default=None,
         metadata={
             "name": "levelOfOperation",
+            "type": "Element",
+            "namespace": "http://www.smartgridready.com/ns/V0/",
+        }
+    )
+    version_number: Optional[VersionNumber] = field(
+        default=None,
+        metadata={
+            "name": "versionNumber",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
         }

@@ -564,7 +564,6 @@ class BitmapFunctionalProfile:
             "name": "bitmapEntry",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
-            "min_occurs": 1,
         }
     )
 
@@ -626,7 +625,6 @@ class EnumMapFunctionalProfile:
             "name": "enumEntry",
             "type": "Element",
             "namespace": "http://www.smartgridready.com/ns/V0/",
-            "min_occurs": 1,
         }
     )
     hex_mask: Optional[bytes] = field(
