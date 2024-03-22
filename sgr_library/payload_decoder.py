@@ -8,10 +8,12 @@ from pymodbus.payload import BinaryPayloadDecoder, BinaryPayloadBuilder
 from enum import Enum
 from math import ceil, floor
 
+
 class RoundingScheme(Enum):
     floor = 'floor'
     ceil = 'ceil'
     near = 'Near'
+
 
 def round_to_int(value: float, scheme: RoundingScheme) -> int:
     if scheme == RoundingScheme.floor:
@@ -57,11 +59,12 @@ class PayloadDecoder(BinaryPayloadDecoder):
         elif modbus_type == 'float32':
             return self.decode_32bit_float()
         elif modbus_type == 'float64':
-            return self.decode_32bit_float()
+            return self.decode_32bit_uint()
         elif modbus_type == 'string':
             return self.decode_string(byte_count)
         else:
-            pass
+            raise ValueError('Unknown modbus type "%s"', modbus_type)
+
 
 class PayloadBuilder(BinaryPayloadBuilder):
     def __init__(self, *args, **kwarg):

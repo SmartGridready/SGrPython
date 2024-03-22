@@ -68,7 +68,9 @@ class DataPoint(Generic[T]):
 
     async def read(self) -> T:
         value = await self._protocol.read()
+
         if self._validator.validate(value):
+            print(value)
             return self._converter.from_device(value)
         raise Exception(f"invalid value read from device, {value}, validator: {self._validator.data_type()}")
 

@@ -98,6 +98,7 @@ https://github.com/SmartgridReady/SGrSpecifications  -->
             of this device </documentation>
         </annotation>
       </element>
+      <element name="versionNumber" type="sgr:VersionNumber" minOccurs="0" />
       <element name="programmerHints" type="sgr:LegibleDescription" maxOccurs="4" minOccurs="0">
         <annotation>
           <documentation>additional device-specific implementation hints for this device</documentation>
