@@ -1,4 +1,5 @@
 import logging
+import os
 from dataclasses import dataclass
 from typing import Optional, Tuple, Dict, Any, Iterable
 from pymodbus.constants import Endian
@@ -115,7 +116,7 @@ class SgrModbusRtuInterface(BaseSGrInterface):
         """
         self.root = frame
         # self.root = parser.parse(interface_file, SgrModbusDeviceDescriptionType)
-        self.port = "/dev/tty.usbmodem56D11292701"  # get_port(self.root) #TODO überlegungen machen wo Port untergebracht wird
+        self.port = os.getenv("SGR_RTU_PORT")  # get_port(self.root) #TODO überlegungen machen wo Port untergebracht wird
         self._configurations_params = build_configurations_parameters(frame.configuration_list)
         self.baudrate = get_baudrate(self.root)
         self.parity = get_parity(self.root)
