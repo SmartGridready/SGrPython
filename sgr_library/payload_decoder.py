@@ -59,7 +59,7 @@ class PayloadDecoder(BinaryPayloadDecoder):
         elif modbus_type == 'float32':
             return self.decode_32bit_float()
         elif modbus_type == 'float64':
-            return self.decode_32bit_uint()
+            return self.decode_64bit_float()
         elif modbus_type == 'string':
             return self.decode_string(byte_count)
         else:
