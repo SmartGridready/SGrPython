@@ -14,8 +14,9 @@ converter_lookup: dict[Units, Callable[[Units], DataPointConverter]] = {
     Units.KILOVOLT_AMPERES: lambda x: ReactiveEnergyConverter(x),
     Units.KILOWATT_HOURS: lambda x: PowerOverTimeConverter(x),
     Units.KILOVOLT_AMPERES_REACTIVE_HOURS: lambda x: ReactiveEnergyConverter(x),
-
+    Units.VOLT_AMPERES_REACTIVE: lambda x: ReactiveEnergyConverter(x),
     Units.HERTZ: lambda x : ReactiveEnergyConverter(x),
+    Units.VOLT_AMPERES: lambda x: ReactiveEnergyConverter(x),
 
     Units.DEGREES_CELSIUS: lambda x: TemperatureConverter(x),
 
@@ -26,6 +27,7 @@ converter_lookup: dict[Units, Callable[[Units], DataPointConverter]] = {
     Units.PERCENT: lambda x: PercentConverter(x),
 
     Units.NONE: lambda x: NoneConverter(x),
+
 }
 
 

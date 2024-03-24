@@ -1,4 +1,5 @@
 import logging
+import os
 from dataclasses import dataclass
 from typing import Optional, Tuple, Dict, Any, Iterable
 from pymodbus.constants import Endian
@@ -24,8 +25,6 @@ def get_port(root) -> str:
     :param root: The root element created with the xsdata parser
     :returns: string with port from xml file.
     """
-    print(root.interface_list.modbus_interface.modbus_interface_description.mod)
-
     return (str(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.port))
     # return(str(root.modbus_interface_desc.trspSrvModbusRTUoutOfBox.port)) #TODO Port datapoint for RTU in XML is not existing
 
@@ -37,7 +36,7 @@ def get_slave(root) -> int:
     return root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu.slave_addr
 
 
-def get_endian(root) -> str:
+def get_endian(root) -> Endian:
     return Endian.BIG
 
 
@@ -117,7 +116,7 @@ class SgrModbusRtuInterface(BaseSGrInterface):
         """
         self.root = frame
         # self.root = parser.parse(interface_file, SgrModbusDeviceDescriptionType)
-        self.port = ""  # get_port(self.root) #TODO überlegungen machen wo Port untergebracht wird
+        self.port = os.getenv("SGR_RTU_PORT")  # get_port(self.root) #TODO überlegungen machen wo Port untergebracht wird
         self._configurations_params = build_configurations_parameters(frame.configuration_list)
         self.baudrate = get_baudrate(self.root)
         self.parity = get_parity(self.root)
@@ -134,8 +133,6 @@ class SgrModbusRtuInterface(BaseSGrInterface):
             device_category=frame.device_information.device_category,
             is_local=frame.device_information.is_local_control
         )
-        self.connect()
-
 
     def get_pymodbus_client(self):
         """
@@ -203,63 +200,51 @@ class SgrModbusRtuInterface(BaseSGrInterface):
         :param dp_name: The name of the datapoint.
         :param value: The value that is to be written on the datapoint.
         """
-        dp = find_dp(self.root, fp_name, dp_name)
+        dp: ModbusDataPoint = find_dp(self.root, fp_name, dp_name)
         address = self.get_address(dp)
         data_type = self.get_datatype(dp)
         slave_id = self.slave_id
         order = self.byte_order
-        self.client.value_encoder(address, value, data_type, slave_id, order)
+        await self.client.value_encoder(address, value, data_type, slave_id, order)
 
     def get_device_profile(self):
-        print(f"Brand Name: {self.root.device_profile.brand_name}")
-        print(f"Nominal Power: {self.root.device_profile.nominal_power}")
-        print(f"Level of Operation: {self.root.device_profile.dev_levelof_operation}")
         return (self.root.device_profile)
 
-    def get_register_type(self, dp) -> str:
+    def get_register_type(self, dp: ModbusDataPoint) -> str:
         """
         Returns register type E.g. "HoldRegister"
         :param fp_name: The name of the functional profile
         :param dp_name: The name of the data point.
         :returns: The type of the register
         """
-        register_type = dp.modbus_data_point[0].modbus_first_register_reference.register_type.value
-        return register_type
+        return dp.modbus_data_point_configuration.register_type.value.__str__()
 
-    def get_datatype(self, dp) -> str:
-        datatype = dp.modbus_data_point[0].modbus_data_type.__dict__
+    def get_datatype(self, dp: ModbusDataPoint) -> str:
+        datatype = dp.modbus_data_point_configuration.modbus_data_type.__dict__
         for key in datatype:
-            if datatype[key] != None:
+            if datatype[key] is not None:
                 return key
-        print('data_type not available')
 
-    def get_bit_rank(self, dp):
-        bitrank = dp.modbus_data_point[0].modbus_first_register_reference.bit_rank
-        return bitrank
+    def get_bit_rank(self, dp: ModbusDataPoint):
+        return dp.modbus_data_point_configuration.bit_rank
 
-    def get_address(self, dp):
-        address = dp.modbus_data_point[0].modbus_first_register_reference.addr
-        return address
+    def get_address(self, dp: ModbusDataPoint):
+        return dp.modbus_data_point_configuration.address
 
-    def get_size(self, dp):
-        size = dp.modbus_data_point[0].dp_size_nr_registers
-        return size
+    def get_size(self, dp: ModbusDataPoint):
+        return dp.modbus_data_point_configuration.number_of_registers
 
-    def get_multiplicator(self, dp) -> int:
-        multiplicator = dp.modbus_attr[0].scaling_by_mul_pwr.multiplicator
-        return multiplicator
+    def get_multiplicator(self, dp: ModbusDataPoint) -> int:
+        return dp.modbus_attributes.scaling_factor.multiplicator
 
-    def get_power_10(self, dp) -> int:
-        power_10 = dp.modbus_attr[0].scaling_by_mul_pwr.powerof10
-        return power_10
+    def get_power_10(self, dp: ModbusDataPoint) -> int:
+        return dp.modbus_attributes.scaling_factor.powerof10
 
-    def get_unit(self, dp):
-        unit = dp.data_point.unit.value
-        return unit
+    def get_unit(self, dp: ModbusDataPoint):
+        return dp.data_point.unit.value
 
-    def get_name(self, dp):
-        name = dp.data_point[0].datapoint_name
-        return name
+    def get_name(self, dp: ModbusDataPoint):
+        return dp.data_point.data_point_name
 
     """
     def find_dp(self, fp_name: str, dp_name: str) -> SgrModbusDataPointType:
@@ -282,13 +267,18 @@ class SgrModbusRtuInterface(BaseSGrInterface):
     def configuration_parameter(self) -> list[ConfigurationParameter]:
         return self._configurations_params
 
-    def connect(self):
+    async def connect(self):
         # check if there already exists a ModbusRTUClient for the communication over ModbusRTU
         if SgrModbusRtuInterface.globalModbusRTUClient is None:
             self.client = SGrModbusRTUClient(str(self.port), str(self.parity), int(self.baudrate))
             SgrModbusRtuInterface.globalModbusRTUClient = self.client
         else:
             self.client = SgrModbusRtuInterface.globalModbusRTUClient
+
+        if self.client:
+            connected = await self.client.connect()
+            if connected:
+                print("Connected to ModbusRTU on Port: " + self.port)
 
     def get_function_profiles(self) -> dict[str, FunctionProfile]:
         return self._function_profiles

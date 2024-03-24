@@ -2,7 +2,7 @@ from pymodbus.constants import Endian
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
 
-from sgr_library.generated.product import DeviceFrame, BitOrder
+from sgr_library.generated.product import DeviceFrame, BitOrder, ModbusDataPoint
 from sgr_library.exceptions import DataPointException, FunctionalProfileException
 
 
@@ -32,7 +32,7 @@ def get_protocol(xml_file: str) -> str:
 
 
 # TODO make this one so that it is generic.
-def find_dp(root, fp_name: str, dp_name: str):
+def find_dp(root, fp_name: str, dp_name: str) -> ModbusDataPoint:
     """
     Searches the datapoint in the root element.
     :param root: The root element created with the xsdata parser
@@ -40,17 +40,12 @@ def find_dp(root, fp_name: str, dp_name: str):
     :param dp_name: The name of the datapoint
     :returns: The datapoint element found in root, if not, returns None.
     """
-
-    fp = next(filter(lambda x: x.functional_profile.functional_profile_name == fp_name,
-                     root.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element),
-              None)
-    if fp:
-        dp = next(filter(lambda x: x.data_point.data_point_name == dp_name, fp.data_point_list.data_point_list_element),
-                  None)
-        if dp:
-            print(dp)
-        raise DataPointException(f"Datapoint {dp_name} not found in functional profile {fp_name}.")
-    raise FunctionalProfileException(f"Functional profile {fp_name} not found in XML file.")
+    for fp in root.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element:
+        for dp in fp.data_point_list.data_point_list_element:
+            if fp.functional_profile.functional_profile_name == fp_name and dp.data_point.data_point_name:
+                return dp
+    raise DataPointException(f"Datapoint {dp_name} not found in functional profile {fp_name}.")
+    # raise FunctionalProfileException(f"Functional profile {fp_name} not found in XML file.")
 
 
 def get_modbusInterfaceSelection(xml_file: str) -> str:
