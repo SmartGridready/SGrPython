@@ -136,7 +136,7 @@ class SgrRestInterface(BaseSGrInterface):
 
     async def authenticate(self):
         try:
-            async with self.session.post(url=self.authentication_url, headers=self.headers, data=self.data) as res:
+            async with self.session.post(url=self.authentication_url, headers=self.headers, json=self.data) as res:
                 if 200 <= res.status < 300:
                     logging.info(f"Authentication successful: Status {res.status}")
                     try:
