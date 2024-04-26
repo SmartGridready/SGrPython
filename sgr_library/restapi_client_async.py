@@ -10,6 +10,7 @@ import jmespath
 from aiohttp import ClientResponseError, ClientConnectionError
 from cachetools import TTLCache
 
+from generated.product import RestApiAuthenticationMethod
 from sgr_library.api import BaseSGrInterface, FunctionProfile, DataPoint, DataPointProtocol, DeviceInformation, \
     ConfigurationParameter
 from sgr_library.api.configuration_parameter import build_configurations_parameters
