@@ -3,7 +3,7 @@ from typing import Generic, TypeVar, Any
 
 from sgr_library.api.data_types import DataTypes
 from sgr_library.api.sub_set_units import SubSetUnits
-from sgr_library.generated.generic import DataDirectionProduct
+from sgrspecification.generic import DataDirectionProduct
 
 T = TypeVar('T')
 

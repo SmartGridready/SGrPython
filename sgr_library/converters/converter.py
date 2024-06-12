@@ -3,7 +3,7 @@ from typing import Any
 from sgr_library.api import DataPointConverter
 from sgr_library.api.data_point_api import T
 from sgr_library.api.sub_set_units import SubSetUnits
-from sgr_library.generated.generic import Units
+from sgrspecification.generic import Units
 
 
 class VoltDataPointConverter(DataPointConverter[int]):

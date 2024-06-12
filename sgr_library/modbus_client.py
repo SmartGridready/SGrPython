@@ -1,4 +1,4 @@
-from sgr_library.payload_decoder import PayloadDecoder, PayloadBuilder
+from sgr_library.payload_decoder import PayloadDecoder, PayloadBuilder, RoundingScheme
 from pymodbus.constants import Endian
 from pymodbus.client import AsyncModbusTcpClient
 from typing import Optional, Tuple, Dict, Any, Iterable
@@ -63,7 +63,7 @@ class SGrModbusClient:
         except Exception as e:
             logging.exception(f"An unexpected error occurred: {e}")
             return None
-    
+
     # TODO Under construction
     async def mult_value_decoder(self, addr: int, size: int, data_type: str, register_type: str, slave_id: int, order: Endian) -> Optional[float]:
         """
@@ -97,14 +97,13 @@ class SGrModbusClient:
         :param slave_id: The ID of the slave
         :param order: The endian order
         """
-        try:   
+        try:
             builder = PayloadBuilder(byteorder=order, wordorder=order)
-            builder.encode(value, data_type, rounding="floor")
-            await self.client.write_registers(address=addr, values=builder.to_registers(), unit=slave_id)
+            builder.encode(value, data_type, rounding=RoundingScheme.floor)
+            self.client.write_registers(address=addr, values=builder.to_registers(), unit=slave_id)
         except asyncio.TimeoutError:
             logging.exception(f"Timeout writing value to register at address {addr} with slave ID {slave_id}")
         except ValueError as e:
             logging.exception(f"Value error occurred: {e}")
         except Exception as e:
             logging.exception(f"An unexpected error occurred while writing value to register: {e}")
-

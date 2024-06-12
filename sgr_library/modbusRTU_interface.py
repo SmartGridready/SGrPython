@@ -8,7 +8,7 @@ import time
 
 from sgr_library.api import build_configurations_parameters
 #from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
-from sgr_library.generated.product import DeviceFrame
+from sgrspecification.product import DeviceFrame
 #from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointsFrameType
 from sgr_library.modbusRTU_client import SGrModbusRTUClient
 from sgr_library.auxiliary_functions import get_port, get_endian, find_dp, get_baudrate, get_slave_rtu, get_parity

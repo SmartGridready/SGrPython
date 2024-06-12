@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
-from sgr_library.generated.generic.base_type_level_of_operation_type import LevelOfOperation
-from sgr_library.generated.generic.base_types import (
+from sgrspecification.generic.base_type_level_of_operation_type import LevelOfOperation
+from sgrspecification.generic.base_types import (
     AlternativeNames,
     DataTypeProduct,
     DeviceCategory,
@@ -11,10 +11,10 @@ from sgr_library.generated.generic.base_types import (
     ReleaseNotes,
     VersionNumber,
 )
-from sgr_library.generated.product.contact_interface import ContactInterface
-from sgr_library.generated.product.generic_interface import GenericInterface
-from sgr_library.generated.product.modbus_interface import ModbusInterface
-from sgr_library.generated.product.rest_api_interface import RestApiInterface
+from sgrspecification.product.contact_interface import ContactInterface
+from sgrspecification.product.generic_interface import GenericInterface
+from sgrspecification.product.modbus_interface import ModbusInterface
+from sgrspecification.product.rest_api_interface import RestApiInterface
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 

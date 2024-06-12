@@ -15,9 +15,9 @@ from sgr_library.api import BaseSGrInterface, FunctionProfile, DataPoint, DataPo
     ConfigurationParameter
 from sgr_library.api.configuration_parameter import build_configurations_parameters
 from sgr_library.converters import build_converter
-from sgr_library.generated.generic import DataDirectionProduct
-from sgr_library.generated.product import DeviceFrame
-from sgr_library.generated.product import RestApiFunctionalProfile, RestApiDataPoint
+from sgrspecification.generic import DataDirectionProduct
+from sgrspecification.product import DeviceFrame
+from sgrspecification.product import RestApiFunctionalProfile, RestApiDataPoint
 from sgr_library.validators import build_validator
 
 logging.basicConfig(level=logging.ERROR)

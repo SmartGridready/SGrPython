@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
-from sgr_library.generated.generic.base_types import (
+from sgrspecification.generic.base_types import (
     DataTypeFunctionalProfile,
     LegibleDescription,
     Units,

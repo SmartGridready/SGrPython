@@ -1,13 +1,13 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional
-from sgr_library.generated.generic.base_types import (
+from sgrspecification.generic.base_types import (
     BitmapProduct,
     EmptyType,
     EnumType,
     ScalingFactor,
 )
-from sgr_library.generated.generic.sgr_serial_int_capability import (
+from sgrspecification.generic.sgr_serial_int_capability import (
     BaudRate,
     ByteLength,
     Parity,

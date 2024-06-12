@@ -2,8 +2,8 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional
 from xsdata.models.datatype import XmlDate
-from sgr_library.generated.generic.base_type_functional_profile_category import FunctionalProfileCategory
-from sgr_library.generated.generic.base_type_level_of_operation_type import LevelOfOperation
+from sgrspecification.generic.base_type_functional_profile_category import FunctionalProfileCategory
+from sgrspecification.generic.base_type_level_of_operation_type import LevelOfOperation
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 

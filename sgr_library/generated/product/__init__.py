@@ -1,24 +1,24 @@
-from sgr_library.generated.product.contact_interface import (
+from sgrspecification.product.contact_interface import (
     ContactFunctionalProfile,
     ContactFunctionalProfileList,
     ContactInterface,
     ContactInterfaceDescription,
     ContactsDataPointList,
 )
-from sgr_library.generated.product.generic_interface import (
+from sgrspecification.product.generic_interface import (
     GenericDataPointList,
     GenericFunctionalProfile,
     GenericFunctionalProfileList,
     GenericInterface,
 )
-from sgr_library.generated.product.modbus_interface import (
+from sgrspecification.product.modbus_interface import (
     ModbusDataPoint,
     ModbusDataPointList,
     ModbusFunctionalProfile,
     ModbusFunctionalProfileList,
     ModbusInterface,
 )
-from sgr_library.generated.product.modbus_types import (
+from sgrspecification.product.modbus_types import (
     AccessProtectionEnabled,
     BitOrder,
     MasterFunctionsSupported,
@@ -36,7 +36,7 @@ from sgr_library.generated.product.modbus_types import (
     RegisterType,
     TimeSyncBlockNotification,
 )
-from sgr_library.generated.product.product import (
+from sgrspecification.product.product import (
     ConfigurationDescription,
     ConfigurationList,
     ConfigurationListElement,
@@ -44,14 +44,14 @@ from sgr_library.generated.product.product import (
     DeviceInformation,
     InterfaceList,
 )
-from sgr_library.generated.product.rest_api_interface import (
+from sgrspecification.product.rest_api_interface import (
     RestApiDataPoint,
     RestApiDataPointList,
     RestApiFunctionalProfile,
     RestApiFunctionalProfileList,
     RestApiInterface,
 )
-from sgr_library.generated.product.rest_api_types import (
+from sgrspecification.product.rest_api_types import (
     HeaderEntry,
     HeaderList,
     HttpMethod,

@@ -1,5 +1,5 @@
 # nothing here
-from sgr_library.generated import (
+from sgrspecification import (
     communicator,
     functional_profile,
     generic,

@@ -1,9 +1,9 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
-from sgr_library.generated.communicator.communicator_types import CommunicatorBase
-from sgr_library.generated.generic.base_types import GenericAttributeListFunctionalProfile
-from sgr_library.generated.generic.data_point import DataPointBase
-from sgr_library.generated.generic.functional_profile import FunctionalProfileDescription
+from sgrspecification.communicator.communicator_types import CommunicatorBase
+from sgrspecification.generic.base_types import GenericAttributeListFunctionalProfile
+from sgrspecification.generic.data_point import DataPointBase
+from sgrspecification.generic.functional_profile import FunctionalProfileDescription
 
 __NAMESPACE__ = "http://www.smartgridready.com/ns/V0/"
 

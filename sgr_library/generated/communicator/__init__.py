@@ -1,9 +1,9 @@
-from sgr_library.generated.communicator.communicator_frame import (
+from sgrspecification.communicator.communicator_frame import (
     CommunicatorFrame1,
     CommunicatorFunctionalProfile,
     CommunicatorFrame,
 )
-from sgr_library.generated.communicator.communicator_types import (
+from sgrspecification.communicator.communicator_types import (
     CommunicatorBase,
     CommunicatorCategory,
     CommunicatorInformation,

@@ -11,10 +11,10 @@ from sgr_library.api import BaseSGrInterface, DeviceInformation, FunctionProfile
     build_configurations_parameters, ConfigurationParameter
 from sgr_library.auxiliary_functions import find_dp
 from sgr_library.converters import build_converter
-from sgr_library.generated.generic import Parity, DataDirectionProduct
+from sgrspecification.generic import Parity, DataDirectionProduct
 
 # from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
-from sgr_library.generated.product import DeviceFrame, ModbusDataPoint, ModbusFunctionalProfile
+from sgrspecification.product import DeviceFrame, ModbusDataPoint, ModbusFunctionalProfile
 
 from sgr_library.modbusRTU_client_async import SGrModbusRTUClient
 from sgr_library.validators import build_validator

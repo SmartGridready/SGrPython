@@ -1,4 +1,4 @@
-from sgr_library.generated.functional_profile.functional_profile_frame import (
+from sgrspecification.functional_profile.functional_profile_frame import (
     FunctionalProfileDataPoint,
     FunctionalProfileDataPointList,
     FunctionalProfileFrame,

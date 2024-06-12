@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 from sgr_library.api.data_point_api import DataPoint
 from sgr_library.api.data_types import DataTypes
-from sgr_library.generated.generic import DataDirectionProduct
+from sgrspecification.generic import DataDirectionProduct
 
 
 class FunctionProfile(ABC):
