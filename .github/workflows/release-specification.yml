@@ -58,7 +58,7 @@ jobs:
           NEW_PATCH=$((PATCH + 1))
           NEW_VERSION="${ADDR[0]}.${ADDR[1]}.$NEW_PATCH"
           sed -i "s/$CURRENT_VERSION/$NEW_VERSION/g" ./sgrpython/specification/setup.py
-          sed -i "s/SGrSpecificationPythontks4r==.*/SGrSpecificationPythontks4r==$NEW_VERSION/g" ./sgrpython/requirements.txt
+          sed -i "s/SGrSpecificationPythontks4r==.*/SGrSpecificationPythontks4r==$CURRENT_VERSION/g" ./sgrpython/requirements.txt
           echo "Updated version to $NEW_VERSION"
           cat ./sgrpython/specification/setup.py
           cat ./sgrpython/requirements.txt
