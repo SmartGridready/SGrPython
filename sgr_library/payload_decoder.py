@@ -70,7 +70,7 @@ class PayloadBuilder(BinaryPayloadBuilder):
     def __init__(self, *args, **kwarg):
         super().__init__(*args, **kwarg)
 
-    def encode(self, value: float, modbus_type: str, rounding: RoundingScheme):
+    def sgr_encode(self, value: float, modbus_type: str, rounding: RoundingScheme) -> 'PayloadBuilder':
         """
         :param modbus_type: 'int8', 'int8_u', 'int16', 'int16_u', 'int32', 'int32_u', 'int64', 'int64_u', 'float16', 'float32', 'float64', 'string'
         """
@@ -101,3 +101,4 @@ class PayloadBuilder(BinaryPayloadBuilder):
             self.add_string(round_to_int(value, rounding))
         else:
             print('Unknown modbus type "%s"', modbus_type)
+        return self

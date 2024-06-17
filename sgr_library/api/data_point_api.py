@@ -76,7 +76,7 @@ class DataPoint(Generic[T]):
     async def write(self, data: T):
         value = self._converter.to_device(data)
         if self._validator.validate(value):
-            await self._protocol.write(value)
+            return await self._protocol.write(value)
         raise Exception("invalid data to write to device")
 
     def unit(self) -> SubSetUnits:
