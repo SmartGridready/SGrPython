@@ -8,7 +8,7 @@ from sgr_library.api import DeviceInformation, FunctionProfile, DataPointProtoco
     build_configurations_parameters
 from sgr_library.api.device_api import BaseSGrInterface
 from sgr_library.converters import build_converter
-from sgr_library.generated.generic import DataDirectionProduct
+from sgrspecification.generic import DataDirectionProduct
 from sgr_library.exceptions import DataPointException, FunctionalProfileException, DataProcessingError, \
     DeviceInformationError, InvalidEndianType
 from pymodbus.exceptions import ConnectionException
@@ -17,9 +17,9 @@ from aiohttp import ClientError
 # from sgr_library.data_classes.ei_modbus import SgrModbusDeviceFrame
 # from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointType
 
-from sgr_library.generated.product import DeviceFrame, ModbusDataPoint, ModbusFunctionalProfile
+from sgrspecification.product import DeviceFrame, ModbusDataPoint, ModbusFunctionalProfile
 from sgr_library.auxiliary_functions import get_address, get_endian, get_port, get_slave
-from sgr_library.generated.generic import DataDirectionProduct
+from sgrspecification.generic import DataDirectionProduct
 
 from sgr_library.modbus_client import SGrModbusClient
 # from auxiliary_functions import find_dp
@@ -70,7 +70,6 @@ class ModBusTCPFunctionProfile(FunctionProfile):
         dps = [build_modbus_tcp_data_point(dp, self._fp, self._interface) for dp in
                self._fp.data_point_list.data_point_list_element]
         self._data_points = {dp.name(): dp for dp in dps}
-
 
     def name(self) -> str:
         return self._fp.functional_profile.functional_profile_name

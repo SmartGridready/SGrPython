@@ -1,5 +1,5 @@
 from sgr_library.api import DataPointValidator
-from sgr_library.generated.generic import DataTypeProduct
+from sgrspecification.generic import DataTypeProduct
 from sgr_library.validators.validator import IntValidator, EnumValidator, FloatValidator, StringValidator, \
     BooleanValidator
 

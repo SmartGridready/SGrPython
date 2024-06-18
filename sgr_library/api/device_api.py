@@ -6,7 +6,7 @@ from sgr_library.api import DataPoint
 from sgr_library.api.configuration_parameter import ConfigurationParameter
 from sgr_library.api.data_types import DataTypes
 from sgr_library.api.function_profile_api import FunctionProfile
-from sgr_library.generated.generic import DeviceCategory, DataDirectionProduct
+from sgrspecification.generic import DeviceCategory, DataDirectionProduct
 
 
 @dataclass

@@ -2,7 +2,7 @@ from pymodbus.constants import Endian
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
 
-from sgr_library.generated.product import DeviceFrame, BitOrder, ModbusDataPoint
+from sgrspecification.product import DeviceFrame, BitOrder, ModbusDataPoint
 from sgr_library.exceptions import DataPointException, FunctionalProfileException
 
 

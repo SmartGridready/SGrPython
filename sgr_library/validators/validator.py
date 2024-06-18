@@ -2,7 +2,7 @@ from typing import Any
 
 from sgr_library.api import DataPointValidator
 from sgr_library.api.data_types import DataTypes
-from sgr_library.generated.generic import EnumMapProduct
+from sgrspecification.generic import EnumMapProduct
 
 
 class UnsupportedValidator(DataPointValidator):

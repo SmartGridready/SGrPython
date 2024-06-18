@@ -3,7 +3,7 @@ from typing import Callable
 from sgr_library.api import DataPointConverter
 from sgr_library.converters.converter import HoursConverter, MinutesConverter, NoneConverter, SecondsConverter, TemperatureConverter, VoltDataPointConverter, UnsupportedConverter, \
     ReactiveEnergyConverter, PowerOverTimeConverter, CurrentConverter, PowerConverter, PercentConverter
-from sgr_library.generated.generic import Units
+from sgrspecification.generic import Units
 
 converter_lookup: dict[Units, Callable[[Units], DataPointConverter]] = {
     Units.WATTS: lambda x: PowerConverter(x),
