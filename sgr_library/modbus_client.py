@@ -1,10 +1,11 @@
-from sgr_library.payload_decoder import PayloadDecoder, PayloadBuilder
+from sgr_library.payload_decoder import PayloadDecoder, PayloadBuilder, RoundingScheme
 from pymodbus.constants import Endian
 from pymodbus.client import AsyncModbusTcpClient
 from typing import Optional, Tuple, Dict, Any, Iterable
 from sgr_library.exceptions import RegisterError
 import asyncio
 import logging
+
 
 # In this case establishes a connection with the localhost server that is running the simulation.
 # TODO make this inherit from the ModbusTcpClient
@@ -18,17 +19,18 @@ class SGrModbusClient:
         :param ip: The host to connect to (default 127.0.0.1)
         :param port: The modbus port to connect to (default 502)
         """
-        #EXAMPLE: client = ModbusTcpClient('127.0.0.1', 5002)
+        # EXAMPLE: client = ModbusTcpClient('127.0.0.1', 5002)
         self.client = AsyncModbusTcpClient(
-        host=ip,
-        port=port,
-        timeout=1,
-        retries=0,
-        reconnect_delay=5000,
-        close_comm_on_error=False,)
-        #self.client.connect() #TODO a wrapper that opens and closes connection when function is excecuted?
+            host=ip,
+            port=port,
+            timeout=1,
+            retries=0,
+            reconnect_delay=5000,
+            close_comm_on_error=False, )
+        # self.client.connect() #TODO a wrapper that opens and closes connection when function is excecuted?
 
-    async def value_decoder(self, addr: int, size: int, data_type: str, register_type: str, slave_id: int, order: Endian) -> Optional[float]:
+    async def value_decoder(self, addr: int, size: int, data_type: str, register_type: str, slave_id: int,
+                            order: Endian) -> Optional[float]:
         """
         Reads register and decodes the value.
         :param addr: The address to read from and decode
@@ -50,7 +52,6 @@ class SGrModbusClient:
             if reg.isError():
                 raise RegisterError(f"Error reading register: {reg}")
 
-
             decoder = PayloadDecoder.fromRegisters(reg.registers, byteorder=order, wordorder=order)
             return decoder.decode(data_type, 0)
             # TODO: Add code to decode and return the float value based on the data type
@@ -63,9 +64,10 @@ class SGrModbusClient:
         except Exception as e:
             logging.exception(f"An unexpected error occurred: {e}")
             return None
-    
+
     # TODO Under construction
-    async def mult_value_decoder(self, addr: int, size: int, data_type: str, register_type: str, slave_id: int, order: Endian) -> Optional[float]:
+    async def mult_value_decoder(self, addr: int, size: int, data_type: str, register_type: str, slave_id: int,
+                                 order: Endian) -> Optional[float]:
         """
         Reads register and decodes the value.
         :param addr: The address to read from and decode
@@ -74,19 +76,18 @@ class SGrModbusClient:
         :returns: Decoded float
         """
         if register_type == "HoldRegister":
-            reg = await self.client.read_holding_registers(addr, size, slave=slave_id) #TODO add slave id?
+            reg = self.client.read_holding_registers(addr, size, slave=slave_id)  # TODO add slave id?
         else:
-            reg = await self.client.read_input_registers(addr, count=size, slave=slave_id)
+            reg = self.client.read_input_registers(addr, count=size, slave=slave_id)
         decoder = PayloadDecoder.fromRegisters(reg.registers, byteorder=order, wordorder=order)
-        #print(decoder.decode('float32', 0))
+        # print(decoder.decode('float32', 0))
         if not reg.isError():
-            #await print(decoder.decode(data_type, 0))
-            indexes = [size//3*0, size//3*1, size//3*2]
+            # await print(decoder.decode(data_type, 0))
+            indexes = [size // 3 * 0, size // 3 * 1, size // 3 * 2]
             l1 = decoder.decode(data_type, indexes[0])
             l2 = decoder.decode(data_type, indexes[1])
             l3 = decoder.decode(data_type, indexes[2])
             return l1, l2, l3
-
 
     async def value_encoder(self, addr: int, value: float, data_type: str, slave_id: int, order: Endian):
         """
@@ -97,14 +98,13 @@ class SGrModbusClient:
         :param slave_id: The ID of the slave
         :param order: The endian order
         """
-        try:   
-            builder = PayloadBuilder(byteorder=order, wordorder=order)
-            builder.encode(value, data_type, rounding="floor")
-            await self.client.write_registers(address=addr, values=builder.to_registers(), unit=slave_id)
+        try:
+            builder = PayloadBuilder(byteorder=order, wordorder=order) \
+                .sgr_encode(value, data_type, RoundingScheme.floor)
+            self.client.write_registers(address=addr, values=builder.to_registers(), unit=slave_id)
         except asyncio.TimeoutError:
             logging.exception(f"Timeout writing value to register at address {addr} with slave ID {slave_id}")
         except ValueError as e:
             logging.exception(f"Value error occurred: {e}")
         except Exception as e:
             logging.exception(f"An unexpected error occurred while writing value to register: {e}")
-
