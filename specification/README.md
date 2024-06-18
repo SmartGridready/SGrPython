@@ -1,2 +1,0 @@
-# SGrPython Specification
-hallo
