@@ -67,6 +67,7 @@ jobs:
           cp ./sgrpython/specification/setup.py .
           sed -i "s/{{tag}}/${{ steps.set_tag.outputs.semver }}/g" ./sgrpython/specification/setup.py
           cat ./sgrpython/specification/setup.py
+          echo ${{ steps.set_tag.outputs.original_tag }}
 #
 #      - name: Build Package
 #        run: python setup.py sdist bdist_wheel
