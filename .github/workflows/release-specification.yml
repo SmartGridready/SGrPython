@@ -5,7 +5,7 @@ on:
     types: [ new-tag-created ]
   workflow_dispatch:
     inputs:
-      tag_name:
+      tag:
         description: 'Tag to checkout and build'
         required: true
 
