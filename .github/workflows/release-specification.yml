@@ -69,12 +69,12 @@ jobs:
           cat ./setup.py
           echo ${{ steps.set_tag.outputs.original_tag }}
 
-#      - name: Build Package
-#        run: python setup.py sdist bdist_wheel
-#      - name: Publish to PyPI
-#        uses: pypa/gh-action-pypi-publish@v1.4.2
-#        with:
-#          password: ${{ secrets.PYPI_API_TOKEN }}
+      - name: Build Package
+        run: python setup.py sdist bdist_wheel
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@v1.4.2
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
 
       - name: Bump Patch Version
         id: version_bump
