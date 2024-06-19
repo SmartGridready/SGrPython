@@ -28,79 +28,81 @@ jobs:
             TAG="${{ github.event.client_payload.tag }}"
           fi
           SEMVER="${TAG:1}"  # This removes the first character, assuming it's 'v'
+          echo "Semver: $SEMVER"
+          echo "Tag: $TAG"
           echo "::set-output name=original_tag::$TAG"
           echo "::set-output name=semver::$SEMVER"
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-
-      - name: Install Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install xsdata[cli] wheel twine setuptools
-
-      - name: Check Python and xsdata versions
-        run: |
-          python --version
-          pip show xsdata
-
-      - name: Clone Repository
-        uses: actions/checkout@v2
-        with:
-          repository: 'SmartGridready/SGrSpecifications'
-          ref: ${{ steps.set_tag.outputs.current_tag }}
-
-      - name: Run xsdata Command
-        run: xsdata SchemaDatabase/SGr -r --package sgrspecification
-      - name: Checkout Current Repository
-        uses: actions/checkout@v2
-        with:
-          path: 'sgrpython'
-      - name: ls
-        run: ls sgrpython
-      - name: Copy Setup File
-        run: |
-          cp ./sgrpython/specification/setup.py .
-          sed -i "s/{{tag}}/${{ steps.set_tag.outputs.semver }}/g" ./sgrpython/specification/setup.py
-
-      - name: Build Package
-        run: python setup.py sdist bdist_wheel
-      - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.4.2
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
-
-      - name: Bump Patch Version
-        id: version_bump
-        run: |
-          sed -i "s/SGrSpecificationPythontks4r==.*/SGrSpecificationPythontks4r==${{ steps.set_tag.outputs.semver }}/g" ./sgrpython/requirements.txt
-          echo "Updated version to ${{ steps.set_tag.outputs.semver }} in requirements.txt"
-          cat ./sgrpython/requirements.txt
-      - name: Create a new branch
-        run: |
-          cd ./sgrpython
-          git checkout -b version-update-${{ steps.set_tag.outputs.semver }}
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add .
-          git commit -m "Bump version to ${{ steps.set_tag.outputs.semver }}"
-          git push --set-upstream origin version-update-${{ steps.set_tag.outputs.semver }}
-      - name: Create Pull Request
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const title = `Bump SGr Specification version to ${{ steps.set_tag.outputs.semver }}`
-            const body = `This PR is to bump the version in setup.py for SGr Specification to ${{ steps.set_tag.outputs.semver }}`
-            const base = 'master'
-            const head = `version-update-${{ steps.set_tag.outputs.semver }}`
-            const createPullRequest = await github.rest.pulls.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: title,
-              body: body,
-              head: head,
-              base: base
-            });
-            console.log("Pull request created: #" + createPullRequest.data.number);
+#
+#      - name: Set up Python
+#        uses: actions/setup-python@v2
+#        with:
+#          python-version: '3.x'
+#
+#      - name: Install Dependencies
+#        run: |
+#          python -m pip install --upgrade pip
+#          pip install xsdata[cli] wheel twine setuptools
+#
+#      - name: Check Python and xsdata versions
+#        run: |
+#          python --version
+#          pip show xsdata
+#
+#      - name: Clone Repository
+#        uses: actions/checkout@v2
+#        with:
+#          repository: 'SmartGridready/SGrSpecifications'
+#          ref: ${{ steps.set_tag.outputs.current_tag }}
+#
+#      - name: Run xsdata Command
+#        run: xsdata SchemaDatabase/SGr -r --package sgrspecification
+#      - name: Checkout Current Repository
+#        uses: actions/checkout@v2
+#        with:
+#          path: 'sgrpython'
+#      - name: ls
+#        run: ls sgrpython
+#      - name: Copy Setup File
+#        run: |
+#          cp ./sgrpython/specification/setup.py .
+#          sed -i "s/{{tag}}/${{ steps.set_tag.outputs.semver }}/g" ./sgrpython/specification/setup.py
+#
+#      - name: Build Package
+#        run: python setup.py sdist bdist_wheel
+#      - name: Publish to PyPI
+#        uses: pypa/gh-action-pypi-publish@v1.4.2
+#        with:
+#          password: ${{ secrets.PYPI_API_TOKEN }}
+#
+#      - name: Bump Patch Version
+#        id: version_bump
+#        run: |
+#          sed -i "s/SGrSpecificationPythontks4r==.*/SGrSpecificationPythontks4r==${{ steps.set_tag.outputs.semver }}/g" ./sgrpython/requirements.txt
+#          echo "Updated version to ${{ steps.set_tag.outputs.semver }} in requirements.txt"
+#          cat ./sgrpython/requirements.txt
+#      - name: Create a new branch
+#        run: |
+#          cd ./sgrpython
+#          git checkout -b version-update-${{ steps.set_tag.outputs.semver }}
+#          git config --local user.email "action@github.com"
+#          git config --local user.name "GitHub Action"
+#          git add .
+#          git commit -m "Bump version to ${{ steps.set_tag.outputs.semver }}"
+#          git push --set-upstream origin version-update-${{ steps.set_tag.outputs.semver }}
+#      - name: Create Pull Request
+#        uses: actions/github-script@v6
+#        with:
+#          script: |
+#            const title = `Bump SGr Specification version to ${{ steps.set_tag.outputs.semver }}`
+#            const body = `This PR is to bump the version in setup.py for SGr Specification to ${{ steps.set_tag.outputs.semver }}`
+#            const base = 'master'
+#            const head = `version-update-${{ steps.set_tag.outputs.semver }}`
+#            const createPullRequest = await github.rest.pulls.create({
+#              owner: context.repo.owner,
+#              repo: context.repo.repo,
+#              title: title,
+#              body: body,
+#              head: head,
+#              base: base
+#            });
+#            console.log("Pull request created: #" + createPullRequest.data.number);
