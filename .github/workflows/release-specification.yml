@@ -52,7 +52,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'SmartGridready/SGrSpecifications'
-          ref: ${{ steps.set_tag.outputs.current_tag }}
+          ref: ${{ steps.set_tag.outputs.original_tag }}
 
       - name: Run xsdata Command
         run: xsdata SchemaDatabase/SGr -r --package sgrspecification
