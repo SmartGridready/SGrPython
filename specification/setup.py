@@ -1,12 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='SGrSpecificationPythontks4r',
+    name='SGrSpecifications', # SGrSpecificationPythontks4r
     version='{{tag}}',
     packages=find_packages(),
-    url='https://github.com/robin-schoch/SGrPython',
-    license='',
-    author='robin',
+    install_requires=[],
+    url='https://github.com/SmartGridready/SGrSpecifications/',
+    license='BSD',
+    author='Robin Schoch',
     author_email='',
     description='',
     long_description='',
