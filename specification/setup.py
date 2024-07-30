@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='SGrSpecifications', # SGrSpecificationPythontks4r
+    name='SGrSpecificationPythontks4r', # SGrSpecificationPythontks4r
     version='{{tag}}',
     packages=find_packages(),
     install_requires=[],
