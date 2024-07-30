@@ -7,7 +7,7 @@ def read_requirements() -> list[str]:
 
 
 setup(
-    name='SGrPythontks4r',
+    name='sgr-lib',
     use_scm_version={'local_scheme': 'no-local-version'},
     setup_requires=['setuptools_scm'],
     packages=[
