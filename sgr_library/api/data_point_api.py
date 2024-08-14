@@ -7,22 +7,6 @@ from sgr_library.generated.generic import DataDirectionProduct
 
 T = TypeVar('T')
 
-
-class DataPointConverter(ABC, Generic[T]):
-
-    @abstractmethod
-    def to_device(self, value: T) -> Any:
-        pass
-
-    @abstractmethod
-    def from_device(self, value: Any) -> T:
-        pass
-
-    @abstractmethod
-    def converted_unit(self) -> SubSetUnits:
-        pass
-
-
 class DataPointValidator(ABC):
 
     @abstractmethod
@@ -30,7 +14,7 @@ class DataPointValidator(ABC):
         pass
 
     @abstractmethod
-    def data_type(self) -> SubSetUnits:
+    def data_type(self) -> DataTypes:
         pass
 
     def options(self) -> list[str] | None:
@@ -58,9 +42,8 @@ class DataPointProtocol(ABC):
 
 class DataPoint(Generic[T]):
 
-    def __init__(self, protocol: DataPointProtocol, converter: DataPointConverter[T], validator: DataPointValidator):
+    def __init__(self, protocol: DataPointProtocol, validator: DataPointValidator):
         self._protocol = protocol
-        self._converter = converter
         self._validator = validator
 
     def name(self) -> tuple[str, str]:
@@ -70,17 +53,14 @@ class DataPoint(Generic[T]):
         value = await self._protocol.read()
 
         if self._validator.validate(value):
-            return self._converter.from_device(value)
+            return value
         raise Exception(f"invalid value read from device, {value}, validator: {self._validator.data_type()}")
 
     async def write(self, data: T):
-        value = self._converter.to_device(data)
-        if self._validator.validate(value):
-            return await self._protocol.write(value)
+        if self._validator.validate(data):
+            return await self._protocol.write(data)
         raise Exception("invalid data to write to device")
 
-    def unit(self) -> SubSetUnits:
-        return self._converter.converted_unit()
 
     def direction(self) -> DataDirectionProduct:
         return self._protocol.direction()
@@ -92,6 +72,7 @@ class DataPoint(Generic[T]):
         return self.name(), self.direction(), self.data_type()
 
     def options(self) -> list[str]:
-        if self._validator.options() == None:
+        options = self._validator.options()
+        if options == None:
             return []
-        return self._validator.options()
+        return options
