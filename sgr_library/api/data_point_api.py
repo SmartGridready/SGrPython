@@ -61,7 +61,6 @@ class DataPoint(Generic[T]):
             return await self._protocol.write(data)
         raise Exception("invalid data to write to device")
 
-
     def direction(self) -> DataDirectionProduct:
         return self._protocol.direction()
 

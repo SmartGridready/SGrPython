@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Tuple, Dict
 
 from sgr_library.api import DataPoint
 from sgr_library.api.configuration_parameter import ConfigurationParameter
@@ -26,7 +26,23 @@ class BaseSGrInterface(ABC):
         pass
 
     @abstractmethod
-    def get_function_profiles(self) -> dict[str, FunctionProfile]:
+    async def connect_async(self):
+        pass
+
+    @abstractmethod
+    def disconnect(self):
+        pass
+
+    @abstractmethod
+    async def disconnect_async(self):
+        pass
+
+    @abstractmethod
+    def get_function_profiles(self) -> Dict[str, FunctionProfile]:
+        pass
+
+    @abstractmethod
+    def is_connected(self):
         pass
 
     @abstractmethod
@@ -40,22 +56,26 @@ class BaseSGrInterface(ABC):
     def get_function_profile(self, function_profile_name: str) -> FunctionProfile:
         return self.get_function_profiles()[function_profile_name]
 
-    def get_data_point(self, dp: tuple[str, str]) -> DataPoint:
+    def get_data_point(self, dp: Tuple[str, str]) -> DataPoint:
         return self.get_function_profile(dp[0]).get_data_point(dp[1])
 
-    def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
+    def get_data_points(self) -> Dict[Tuple[str, str], DataPoint]:
         data_points = {}
         for fp in self.get_function_profiles().values():
             data_points.update(fp.get_data_points())
         return data_points
 
-    async def read_data(self) -> dict[tuple[str, str], Any]:
+
+    def get_value(self) ->  Dict[Tuple[str, str], Any]:
+        pass
+
+    async def get_value_async(self) -> Dict[Tuple[str, str], Any]:
         data = {}
         for fp in self.get_function_profiles().values():
             data.update({(fp.name(), key): value for key, value in (await fp.read()).items()})
         return data
 
-    def describe(self) -> tuple[str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]]:
+    def describe(self) -> Tuple[str, Dict[str, Dict[str, Tuple[DataDirectionProduct, DataTypes]]]]:
 
         data = {}
         for fp in self.get_function_profiles().values():
