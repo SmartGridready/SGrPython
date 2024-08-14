@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
 
         # We connect to the modbus component. # TODO fix connect thingy
-        await modbus_component.connect()
+        await modbus_component.connect_async()
 
         # We instanciate an interface object with a restapi xml.
         config_file_rest = 'config_CLEMAPEnMon_ressource_default.ini'
@@ -31,7 +31,7 @@ if __name__ == "__main__":
         # We authentificate the restapi conneciton
         await restapi_component.authenticate()
 
-        # We create a loop where we request a datapoint with a getval of our restapi 
+        # We create a loop where we request a datapoint with a getval of our restapi
         # component and a datapoint with a getval of our modbus component.
         while True:
             # instanciate modbus component and use getval to get a value back.

@@ -13,11 +13,11 @@ from cachetools import TTLCache
 from sgr_library.api import BaseSGrInterface, FunctionProfile, DataPoint, DataPointProtocol, DeviceInformation, \
     ConfigurationParameter
 from sgr_library.api.configuration_parameter import build_configurations_parameters
-from sgr_library.converters import build_converter
-from sgr_library.generated.generic import DataDirectionProduct
-from sgr_library.generated.product import DeviceFrame
-from sgr_library.generated.product import RestApiFunctionalProfile, RestApiDataPoint
+from sgrspecification.generic import DataDirectionProduct
+from sgrspecification.product import DeviceFrame
+from sgrspecification.product import RestApiFunctionalProfile, RestApiDataPoint
 from sgr_library.validators import build_validator
+from typing import Tuple, Dict
 
 logging.basicConfig(level=logging.ERROR)
 
@@ -25,9 +25,8 @@ logging.basicConfig(level=logging.ERROR)
 def build_rest_data_point(data_point: RestApiDataPoint, function_profile: RestApiFunctionalProfile,
                           interface: 'SgrRestInterface') -> DataPoint:
     protocol = RestDataPoint(data_point, function_profile, interface)
-    converter = build_converter(data_point.data_point.unit)
     validator = build_validator(data_point.data_point.data_type)
-    return DataPoint(protocol, converter, validator)
+    return DataPoint(protocol, validator)
 
 
 class RestDataPoint(DataPointProtocol):
@@ -38,7 +37,7 @@ class RestDataPoint(DataPointProtocol):
         self._fp = rest_api_fp
         self._interface = interface
 
-    def name(self) -> tuple[str, str]:
+    def name(self) -> Tuple[str, str]:
         return self._fp.functional_profile.functional_profile_name, self._dp.data_point.data_point_name
 
     async def read(self):
@@ -64,7 +63,7 @@ class RestFunctionProfile(FunctionProfile):
     def name(self) -> str:
         return self._fp.functional_profile.functional_profile_name
 
-    def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
+    def get_data_points(self) -> Dict[Tuple[str, str], DataPoint]:
         return self._data_points
 
 
@@ -76,7 +75,7 @@ class SgrRestInterface(BaseSGrInterface):
     async def connect(self):
         await self.authenticate()
 
-    def get_function_profiles(self) -> dict[str, FunctionProfile]:
+    def get_function_profiles(self) -> Dict[str, FunctionProfile]:
         return self._function_profiles
 
     def device_information(self) -> DeviceInformation:

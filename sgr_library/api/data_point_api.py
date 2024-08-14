@@ -2,8 +2,8 @@ from abc import ABC, abstractmethod
 from typing import Generic, TypeVar, Any
 
 from sgr_library.api.data_types import DataTypes
-from sgr_library.api.sub_set_units import SubSetUnits
-from sgr_library.generated.generic import DataDirectionProduct
+from sgrspecification.generic import DataDirectionProduct
+from asyncio import run
 
 T = TypeVar('T')
 
@@ -49,17 +49,22 @@ class DataPoint(Generic[T]):
     def name(self) -> tuple[str, str]:
         return self._protocol.name()
 
-    async def read(self) -> T:
+    async def get_value_async(self) -> T:
         value = await self._protocol.read()
-
         if self._validator.validate(value):
             return value
         raise Exception(f"invalid value read from device, {value}, validator: {self._validator.data_type()}")
 
-    async def write(self, data: T):
+    def get_value(self) -> T:
+        return run(self.get_value_async())
+
+    async def set_value_async(self, data: T):
         if self._validator.validate(data):
             return await self._protocol.write(data)
         raise Exception("invalid data to write to device")
+
+    def set_value(self, data: T):
+        return run(self.set_value_async(data=data))
 
     def direction(self) -> DataDirectionProduct:
         return self._protocol.direction()

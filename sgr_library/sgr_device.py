@@ -16,7 +16,7 @@ class SGrDevice(BaseSGrInterface):
 
     async def connect(self):
         self._interface = self._builder.build()
-        await self._interface.connect()
+        await self._interface.connect_async()
 
     def update_config(self, config: dict | str) -> 'SGrDevice':
         if isinstance(config, str):

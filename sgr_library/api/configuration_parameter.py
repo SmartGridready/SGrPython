@@ -1,4 +1,4 @@
-from sgr_library.generated.product import ConfigurationListElement, ConfigurationList
+from sgrspecification.product import ConfigurationListElement, ConfigurationList
 
 
 def build_configurations_parameters(params: ConfigurationList):

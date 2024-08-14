@@ -7,8 +7,7 @@ import time
 from sgr_library.api import DeviceInformation, FunctionProfile, DataPointProtocol, DataPoint, ConfigurationParameter, \
     build_configurations_parameters
 from sgr_library.api.device_api import BaseSGrInterface
-from sgr_library.converters import build_converter
-from sgr_library.generated.generic import DataDirectionProduct
+from sgrspecification.generic import DataDirectionProduct
 from sgr_library.exceptions import DataPointException, FunctionalProfileException, DataProcessingError, \
     DeviceInformationError, InvalidEndianType
 from pymodbus.exceptions import ConnectionException
@@ -17,11 +16,11 @@ from aiohttp import ClientError
 # from sgr_library.data_classes.ei_modbus import SgrModbusDeviceFrame
 # from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointType
 
-from sgr_library.generated.product import DeviceFrame, ModbusDataPoint, ModbusFunctionalProfile
+from sgrspecification.product import DeviceFrame, ModbusDataPoint, ModbusFunctionalProfile
 from sgr_library.auxiliary_functions import get_address, get_endian, get_port, get_slave
-from sgr_library.generated.generic import DataDirectionProduct
+from sgrspecification.generic import DataDirectionProduct
 
-from sgr_library.modbus_client import SGrModbusClient
+from sgr_library.driver.modbus_client import SGrModbusClient
 # from auxiliary_functions import find_dp
 import asyncio
 
@@ -57,9 +56,8 @@ class ModBusTCPDataPoint(DataPointProtocol):
 def build_modbus_tcp_data_point(dp: ModbusDataPoint, fp: ModbusFunctionalProfile,
                                 interface: 'SgrModbusInterface') -> DataPoint:
     protocol = ModBusTCPDataPoint(dp, fp, interface)
-    converter = build_converter(dp.data_point.unit)
     validator = build_validator(dp.data_point.data_type)
-    return DataPoint(protocol, converter, validator)
+    return DataPoint(protocol, validator)
 
 
 class ModBusTCPFunctionProfile(FunctionProfile):
@@ -112,7 +110,10 @@ class SgrModbusInterface(BaseSGrInterface):
     def configuration_parameter(self) -> list[ConfigurationParameter]:
         return self._configuration_parameters
 
-    async def connect(self):
+    async def disconnect_async(self):
+        print("not implemented")
+
+    async def connect_async(self):
         try:
             await self.client.client.connect()
             logger.info("Connected successfully.")
