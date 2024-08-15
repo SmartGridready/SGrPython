@@ -1,7 +1,7 @@
 import logging
 import os
 from dataclasses import dataclass
-from typing import Optional, Tuple, Dict, Any, Iterable
+from typing import Optional, Tuple, Dict, Any, Iterable, Mapping
 from pymodbus.constants import Endian
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
@@ -278,7 +278,7 @@ class SgrModbusRtuInterface(BaseSGrInterface):
             if connected:
                 print("Connected to ModbusRTU on Port: " + self.port)
 
-    def get_function_profiles(self) -> dict[str, FunctionProfile]:
+    def get_function_profiles(self) -> Mapping[str, FunctionProfile]:
         return self._function_profiles
 
     def device_information(self) -> DeviceInformation:

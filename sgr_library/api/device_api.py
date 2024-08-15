@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any, Tuple, Dict
+from typing import Any, Tuple, Dict, Mapping
 from asyncio import run
 from sgr_library.api import DataPoint
 from sgr_library.api.configuration_parameter import ConfigurationParameter
@@ -36,7 +36,7 @@ class BaseSGrInterface(ABC):
     async def disconnect_async(self):
 
     @abstractmethod
-    def get_function_profiles(self) -> Dict[str, FunctionProfile]:
+    def get_function_profiles(self) -> Mapping[str, FunctionProfile]:
         pass
 
     @abstractmethod

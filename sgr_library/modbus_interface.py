@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Mapping
 
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
@@ -124,7 +124,7 @@ class SgrModbusInterface(BaseSGrInterface):
         except Exception as e:
             logger.exception(f"An unexpected error occurred during the connection: {e}")
 
-    def get_function_profiles(self) -> dict[str, FunctionProfile]:
+    def get_function_profiles(self) -> Mapping[str, FunctionProfile]:
         return self._function_profiles
 
     def device_information(self) -> DeviceInformation:

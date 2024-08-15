@@ -1,6 +1,6 @@
-from sgr_library.generic_interface import GenericInterface, GenericSGrDeviceBuilder
 import asyncio
 import os
+from sgr_library.api.devcie_builder import DeviceBuilder
 
 if __name__ == "__main__":
 
@@ -10,7 +10,7 @@ if __name__ == "__main__":
 
         # We instanciate one interface object with a modbus xml.
         interface_file_modbus = 'xml/abb_terra_01.xml'
-        builder = GenericSGrDeviceBuilder()
+        builder = DeviceBuilder()
         modbus_component = builder \
                             .xml_file_path(interface_file_modbus) \
                             .config({}) \

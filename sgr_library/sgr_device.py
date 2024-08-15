@@ -1,13 +1,14 @@
 import re
+from typing import Mapping
 
 from sgr_library.api import BaseSGrInterface, FunctionProfile, DeviceInformation, ConfigurationParameter
-from sgr_library.generic_interface import GenericSGrDeviceBuilder
+from sgr_library.generic_interface import DeviceBuilder
 
 
 class SGrDevice(BaseSGrInterface):
 
     def __init__(self):
-        self._builder: GenericSGrDeviceBuilder = GenericSGrDeviceBuilder()
+        self._builder: DeviceBuilder = DeviceBuilder()
         self._interface: BaseSGrInterface | None = None
         self._configuration_params: list[str] = []
 
@@ -39,7 +40,7 @@ class SGrDevice(BaseSGrInterface):
             content = self._builder.get_spec_content()
         return self
 
-    def get_function_profiles(self) -> dict[str, FunctionProfile]:
+    def get_function_profiles(self) -> Mapping[str, FunctionProfile]:
         return self._interface.get_function_profiles()
 
     def build(self):

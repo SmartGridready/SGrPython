@@ -3,6 +3,7 @@ import json
 import logging
 import ssl
 from typing import Any
+from typing_extensions import Mapping
 
 import aiohttp
 import certifi
@@ -35,13 +36,22 @@ class RestDataPoint(DataPointProtocol):
                  interface: 'SgrRestInterface'):
         self._dp = rest_api_dp
         self._fp = rest_api_fp
+
+        self._fp_name = ""
+        if rest_api_fp.functional_profile is not None and rest_api_fp.functional_profile.functional_profile_name is not None:
+           self._fp_name =  rest_api_fp.functional_profile.functional_profile_name
+
+        self._dp_name = ""
+        if rest_api_dp.data_point is not None and rest_api_dp.data_point.data_point_name is not None:
+            self._dp_name = rest_api_dp.data_point.data_point_name
+
         self._interface = interface
 
     def name(self) -> Tuple[str, str]:
-        return self._fp.functional_profile.functional_profile_name, self._dp.data_point.data_point_name
+        return self._fp_name, self._dp_name
 
     async def read(self):
-        return await self._interface.getval(self.name()[0], self.name()[1])
+        return await self._interface.getval(self._fp_name, self._dp_name)
 
     async def write(self, data: Any):
         pass
@@ -72,10 +82,10 @@ class SgrRestInterface(BaseSGrInterface):
     SmartGrid ready External Interface Class for Rest API
     """
 
-    async def connect(self):
+    async def connect_async(self):
         await self.authenticate()
 
-    def get_function_profiles(self) -> Dict[str, FunctionProfile]:
+    def get_function_profiles(self) -> Mapping[str, FunctionProfile]:
         return self._function_profiles
 
     def device_information(self) -> DeviceInformation:

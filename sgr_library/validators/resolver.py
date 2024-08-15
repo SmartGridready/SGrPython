@@ -2,9 +2,10 @@ from sgr_library.api import DataPointValidator
 from sgrspecification.generic import DataTypeProduct
 from sgr_library.validators.validator import IntValidator, EnumValidator, FloatValidator, StringValidator, \
     BooleanValidator
+from typing import Optional
 
 
-def build_validator(type: DataTypeProduct) -> DataPointValidator:
+def build_validator(type: Optional[DataTypeProduct]) -> DataPointValidator:
     if type.int8:
         return IntValidator(8)
     elif type.int16:
