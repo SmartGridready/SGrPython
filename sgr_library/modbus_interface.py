@@ -1,4 +1,4 @@
-from typing import Any, Mapping
+from typing import Any, Mapping, Tuple, Dict
 
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
@@ -46,7 +46,7 @@ class ModBusTCPDataPoint(DataPointProtocol):
     async def read(self) -> Any:
         return await self._interface.getval(self.name()[0], self.name()[1])
 
-    def name(self) -> tuple[str, str]:
+    def name(self) -> Tuple[str, str]:
         return self._fp.functional_profile.functional_profile_name, self._dp.data_point.data_point_name
 
     def direction(self) -> DataDirectionProduct:
@@ -73,7 +73,7 @@ class ModBusTCPFunctionProfile(FunctionProfile):
     def name(self) -> str:
         return self._fp.functional_profile.functional_profile_name
 
-    def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
+    def get_data_points(self) -> Dict[Tuple[str, str], DataPoint]:
         return self._data_points
 
 
