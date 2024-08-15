@@ -26,7 +26,10 @@ logging.basicConfig(level=logging.ERROR)
 def build_rest_data_point(data_point: RestApiDataPoint, function_profile: RestApiFunctionalProfile,
                           interface: 'SgrRestInterface') -> DataPoint:
     protocol = RestDataPoint(data_point, function_profile, interface)
-    validator = build_validator(data_point.data_point.data_type)
+    data_type = None
+    if data_point.data_point and data_point.data_point.data_type:
+        data_type = data_point.data_point.data_type
+    validator = build_validator(data_type)
     return DataPoint(protocol, validator)
 
 
@@ -57,6 +60,8 @@ class RestDataPoint(DataPointProtocol):
         pass
 
     def direction(self) -> DataDirectionProduct:
+        if self._dp.data_point is None or self._dp.data_point.data_direction is None:
+            raise Exception("missing data direction")
         return self._dp.data_point.data_direction
 
 
@@ -82,6 +87,13 @@ class SgrRestInterface(BaseSGrInterface):
     SmartGrid ready External Interface Class for Rest API
     """
 
+    def is_connected(self):
+        return self._is_connected
+
+    async def disconnect_async(self):
+        self._is_connected = False
+        print("todo clean up connection")
+
     async def connect_async(self):
         await self.authenticate()
 
@@ -104,6 +116,7 @@ class SgrRestInterface(BaseSGrInterface):
             device_category=frame.device_information.device_category,
             is_local=frame.device_information.is_local_control
         )
+        self._is_connected = False
         self._configuration_parameters = build_configurations_parameters(frame.configuration_list)
         self.ssl_context = ssl.create_default_context(cafile=certifi.where())
         self.connector = aiohttp.TCPConnector(ssl=self.ssl_context)
@@ -156,6 +169,7 @@ class SgrRestInterface(BaseSGrInterface):
                             logging.info("Token retrieved successfully")
                         else:
                             logging.warning("Token not found in the response")
+                            self._is_connected = True
                     except json.JSONDecodeError:
                         logging.error("Failed to decode JSON response")
                     except jmespath.exceptions.JMESPathError:

@@ -40,7 +40,7 @@ class BaseSGrInterface(ABC):
         pass
 
     @abstractmethod
-    def is_connected(self):
+    def is_connected(self) -> bool:
         pass
 
     @abstractmethod

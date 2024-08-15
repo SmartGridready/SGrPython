@@ -6,6 +6,8 @@ from typing import Optional
 
 
 def build_validator(type: Optional[DataTypeProduct]) -> DataPointValidator:
+    if type is None:
+        raise Exception("Missing datatype")
     if type.int8:
         return IntValidator(8)
     elif type.int16:
