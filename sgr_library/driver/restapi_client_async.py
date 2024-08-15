@@ -3,6 +3,7 @@ import json
 import logging
 import ssl
 from typing import Any
+from sgrspecification.product.product import ConfigurationList
 from typing_extensions import Mapping
 
 import aiohttp
@@ -109,27 +110,27 @@ class SgrRestInterface(BaseSGrInterface):
     def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
         # session
         self._device_information = DeviceInformation(
-            name=frame.device_name,
-            manufacture=frame.manufacturer_name,
+            name=frame.device_name if frame.device_name else "",
+            manufacture=frame.manufacturer_name if frame.manufacturer_name else "",
             software_revision=frame.device_information.software_revision,
             hardware_revision=frame.device_information.hardware_revision,
             device_category=frame.device_information.device_category,
             is_local=frame.device_information.is_local_control
         )
         self._is_connected = False
-        self._configuration_parameters = build_configurations_parameters(frame.configuration_list)
-        self.ssl_context = ssl.create_default_context(cafile=certifi.where())
-        self.connector = aiohttp.TCPConnector(ssl=self.ssl_context)
-        self.session = aiohttp.ClientSession(connector=self.connector)
-        self.token = None
-        self.root = frame
+        self._configuration_parameters = build_configurations_parameters(frame.configuration_list if frame.configuration_list else ConfigurationList())
+        self._ssl_context = ssl.create_default_context(cafile=certifi.where())
+        self._conntector = aiohttp.TCPConnector(ssl=self._ssl_context)
+        self._session = aiohttp.ClientSession(connector=self._conntector)
+        self._token = None
+        self._root = frame
         self._cache = TTLCache(maxsize=100, ttl=5)
 
         fps = [RestFunctionProfile(profile, self) for profile in
-               self.root.interface_list.rest_api_interface.functional_profile_list.functional_profile_list_element]
+               self._root.interface_list.rest_api_interface.functional_profile_list.functional_profile_list_element]
         self._function_profiles = {fp.name(): fp for fp in fps}
         try:
-            description = self.root.interface_list.rest_api_interface.rest_api_interface_description
+            description = self._root.interface_list.rest_api_interface.rest_api_interface_description
             request_body = str(description.rest_api_bearer.rest_api_service_call.request_body)
             self.data = json.loads(request_body)
             self.base_url = str(description.rest_api_uri)
@@ -137,7 +138,7 @@ class SgrRestInterface(BaseSGrInterface):
             self.authentication_url = f'https://{self.base_url}{request_path}'
             logging.info(f"Authentication URL: {self.authentication_url}")
 
-            self.call = self.root.interface_list.rest_api_interface.rest_api_interface_description.rest_api_bearer.rest_api_service_call
+            self.call = self._root.interface_list.rest_api_interface.rest_api_interface_description.rest_api_bearer.rest_api_service_call
             self.headers = {header_entry.header_name: header_entry.value for header_entry in
                             self.call.request_header.header}
         except json.JSONDecodeError:
@@ -158,14 +159,14 @@ class SgrRestInterface(BaseSGrInterface):
 
     async def authenticate(self):
         try:
-            async with self.session.post(url=self.authentication_url, headers=self.headers, json=self.data) as res:
+            async with self._session.post(url=self.authentication_url, headers=self.headers, json=self.data) as res:
                 if 200 <= res.status < 300:
                     logging.info(f"Authentication successful: Status {res.status}")
                     try:
                         response = await res.text()
                         token = jmespath.search('accessToken', json.loads(response))
                         if token:
-                            self.token = str(token)
+                            self._token = str(token)
                             logging.info("Token retrieved successfully")
                         else:
                             logging.warning("Token not found in the response")
@@ -184,7 +185,7 @@ class SgrRestInterface(BaseSGrInterface):
             logging.error(f"An unexpected error occurred: {e}")
 
     async def close(self):
-        await self.session.close()
+        await self._session.close()
 
     def find_dp(self, root, fp_name: str, dp_name: str):
         """
@@ -234,13 +235,14 @@ class SgrRestInterface(BaseSGrInterface):
 
     async def getval(self, fp_name, dp_name):
         try:
-            dp = self.find_dp(self.root, fp_name, dp_name)
+            dp = self.find_dp(self._root, fp_name, dp_name)
             if not dp:
                 raise ValueError(f"Data point for {fp_name}, {dp_name} not found")
 
             # Dataclass parsing
             service_call = dp.rest_api_data_point_configuration.rest_api_service_call
             request_path = service_call.request_path
+
 
             # Urls string
             url = f'https://{self.base_url}{request_path}'
@@ -252,14 +254,14 @@ class SgrRestInterface(BaseSGrInterface):
                 header_entry.header_name: header_entry.value
                 for header_entry in service_call.request_header.header
             }
-            headers['Authorization'] = f'Bearer {self.token}'
+            headers['Authorization'] = f'Bearer {self._token}'
 
             cache_key = (frozenset(headers), url)
 
             if cache_key in self._cache:
                 response = self._cache.get(cache_key)
             else:
-                async with self.session.get(url=url, headers=headers) as res:
+                async with self._session.get(url=url, headers=headers) as res:
                     res.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
                     response = await res.json()
                     logging.info(f"Getval Status: {res.status}")
