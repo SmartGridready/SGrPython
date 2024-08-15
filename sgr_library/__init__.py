@@ -1,7 +1,6 @@
 from sgr_library import modbus_client, modbus_interface, payload_decoder, restapi_client_async, exceptions, \
-    auxiliary_functions, generated
+    auxiliary_functions
 
-from sgr_library.sgr_device import SGrDevice
 __all__ = [
     "modbus_client",
     "modbus_interface",
@@ -9,6 +8,4 @@ __all__ = [
     "restapi_client_async",
     "exceptions",
     "auxiliary_functions",
-    "generated",
-    "SGrDevice"
 ]

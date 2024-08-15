@@ -110,6 +110,10 @@ class SgrModbusInterface(BaseSGrInterface):
     def configuration_parameter(self) -> list[ConfigurationParameter]:
         return self._configuration_parameters
 
+
+    def is_connected(self) -> bool:
+        return True
+
     async def disconnect_async(self):
         print("not implemented")
 

@@ -132,6 +132,15 @@ class SgrModbusRtuInterface(BaseSGrInterface):
             is_local=frame.device_information.is_local_control
         )
 
+    def is_connected(self) -> bool:
+        return True
+
+    async def connect_async(self):
+        print("todo implement conenct")
+
+    async def disconnect_async(self):
+        print("todo impleemnt")
+
     def get_pymodbus_client(self):
         """
         returns the pymodbus client object

@@ -2,9 +2,7 @@ import configparser
 import json
 import logging
 import ssl
-from typing import Any
 from sgrspecification.product.product import ConfigurationList
-from typing_extensions import Mapping
 
 import aiohttp
 import certifi
@@ -19,7 +17,7 @@ from sgrspecification.generic import DataDirectionProduct
 from sgrspecification.product import DeviceFrame
 from sgrspecification.product import RestApiFunctionalProfile, RestApiDataPoint
 from sgr_library.validators import build_validator
-from typing import Tuple, Dict
+from typing import Tuple, Dict, Any, Mapping
 
 logging.basicConfig(level=logging.ERROR)
 
