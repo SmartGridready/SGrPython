@@ -12,8 +12,8 @@ if __name__ == "__main__":
         interface_file_modbus = 'xml/abb_terra_01.xml'
         builder = DeviceBuilder()
         modbus_component = builder \
-                            .xml_file_path(interface_file_modbus) \
-                            .config({}) \
+                            .eid_path(interface_file_modbus) \
+                            .properties({}) \
                             .build()
 
 
