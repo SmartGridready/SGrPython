@@ -17,10 +17,10 @@ from sgrspecification.generic import DataDirectionProduct
 from sgrspecification.product import DeviceFrame
 from sgrspecification.product import RestApiFunctionalProfile, RestApiDataPoint
 from sgr_library.validators import build_validator
-from typing import Tuple, Dict, Any, Mapping
+from typing import Any
+from collections.abc import Mapping
 
 logging.basicConfig(level=logging.ERROR)
-
 
 def build_rest_data_point(data_point: RestApiDataPoint, function_profile: RestApiFunctionalProfile,
                           interface: 'SgrRestInterface') -> DataPoint:
@@ -30,7 +30,6 @@ def build_rest_data_point(data_point: RestApiDataPoint, function_profile: RestAp
         data_type = data_point.data_point.data_type
     validator = build_validator(data_type)
     return DataPoint(protocol, validator)
-
 
 class RestDataPoint(DataPointProtocol):
 
@@ -49,7 +48,7 @@ class RestDataPoint(DataPointProtocol):
 
         self._interface = interface
 
-    def name(self) -> Tuple[str, str]:
+    def name(self) -> tuple[str, str]:
         return self._fp_name, self._dp_name
 
     async def read(self):
@@ -77,7 +76,7 @@ class RestFunctionProfile(FunctionProfile):
     def name(self) -> str:
         return self._fp.functional_profile.functional_profile_name
 
-    def get_data_points(self) -> Dict[Tuple[str, str], DataPoint]:
+    def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
 
 

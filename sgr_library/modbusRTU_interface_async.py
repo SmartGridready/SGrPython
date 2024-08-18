@@ -1,7 +1,8 @@
 import logging
 import os
 from dataclasses import dataclass
-from typing import Optional, Tuple, Dict, Any, Iterable, Mapping
+from typing import Optional, Any
+from collections.abc import Mapping
 from pymodbus.constants import Endian
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.context import XmlContext
@@ -79,7 +80,7 @@ class ModBusRTUDataPoint(DataPointProtocol):
     async def read(self) -> Any:
         return await self._interface.getval(self.name()[0], self.name()[1])
 
-    def name(self) -> Tuple[str, str]:
+    def name(self) -> tuple[str, str]:
         return self._fp.functional_profile.functional_profile_name, self._dp.data_point.data_point_name
 
     def direction(self) -> DataDirectionProduct:
@@ -98,7 +99,7 @@ class ModBusRTUFunctionProfile(FunctionProfile):
     def name(self) -> str:
         return self._fp.functional_profile.functional_profile_name
 
-    def get_data_points(self) -> Dict[Tuple[str, str], DataPoint]:
+    def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
 
 

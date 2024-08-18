@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar, Any, Tuple
+from typing import Generic, TypeVar, Any
 
 from sgr_library.api.data_types import DataTypes
 from sgrspecification.generic import DataDirectionProduct
@@ -32,7 +32,7 @@ class DataPointProtocol(ABC):
         pass
 
     @abstractmethod
-    def name(self) -> Tuple[str, str]:
+    def name(self) -> tuple[str, str]:
         pass
 
     @abstractmethod
@@ -46,7 +46,7 @@ class DataPoint(Generic[T]):
         self._protocol = protocol
         self._validator = validator
 
-    def name(self) -> Tuple[str, str]:
+    def name(self) -> tuple[str, str]:
         return self._protocol.name()
 
     async def get_value_async(self) -> T:
@@ -72,7 +72,7 @@ class DataPoint(Generic[T]):
     def data_type(self) -> DataTypes:
         return self._validator.data_type()
 
-    def describe(self) -> Tuple[Tuple[str, str], DataDirectionProduct, DataTypes]:
+    def describe(self) -> tuple[tuple[str, str], DataDirectionProduct, DataTypes]:
         return self.name(), self.direction(), self.data_type()
 
     def options(self) -> list[str]:
