@@ -3,13 +3,16 @@ import asyncio
 from pymodbus.client import AsyncModbusSerialClient
 from pymodbus.constants import Endian
 
-from sgr_library.payload_decoder import PayloadDecoder, PayloadBuilder, RoundingScheme
-
+from sgr_library.payload_decoder import (
+    PayloadBuilder,
+    PayloadDecoder,
+    RoundingScheme,
+)
 
 # In this case establishes a connection with the localhost server that is running the simulation.
 
-class SGrModbusRTUClient:
 
+class SGrModbusRTUClient:
     def __init__(self, port: str, parity: str, baudrate: int, client=None):
         """
         Creates client
@@ -37,8 +40,15 @@ class SGrModbusRTUClient:
         print("Connected to ModbusRTU ond Port: " + self._port)
 
     # not changed
-    async def value_decoder(self, addr: int, size: int, data_type: str, register_type: str, slave_id: int,
-                            order: Endian) -> float:
+    async def value_decoder(
+        self,
+        addr: int,
+        size: int,
+        data_type: str,
+        register_type: str,
+        slave_id: int,
+        order: Endian,
+    ) -> float:
         """
         Reads register and decodes the value.
         :param addr: The address to read from and decode
@@ -47,18 +57,33 @@ class SGrModbusRTUClient:
         :returns: Decoded float
         """
         async with self._semaphore:
-            if register_type == "HoldRegister":  # Todo im Modbus_client ist "HoldingRegister" angeben, ist das falsch?
-                reg = await self.client.read_holding_registers(addr, count=size, slave=slave_id)
+            if (
+                register_type == "HoldRegister"
+            ):  # Todo im Modbus_client ist "HoldingRegister" angeben, ist das falsch?
+                reg = await self.client.read_holding_registers(
+                    addr, count=size, slave=slave_id
+                )
                 # print(reg.registers)
             else:
-                reg = await self.client.read_input_registers(addr, count=size, slave=slave_id)
-            decoder = PayloadDecoder.fromRegisters(reg.registers, byteorder=order, wordorder=order)
+                reg = await self.client.read_input_registers(
+                    addr, count=size, slave=slave_id
+                )
+            decoder = PayloadDecoder.fromRegisters(
+                reg.registers, byteorder=order, wordorder=order
+            )
 
             if not reg.isError():
                 return decoder.decode(data_type, 0)
 
     # not changed
-    async def value_encoder(self, addr: int, value: float, data_type: str, slave_id: int, order: Endian):
+    async def value_encoder(
+        self,
+        addr: int,
+        value: float,
+        data_type: str,
+        slave_id: int,
+        order: Endian,
+    ):
         """
         Encodes value to be set on the register address
         :param addr: The address to read from and decode
@@ -68,18 +93,22 @@ class SGrModbusRTUClient:
         async with self._semaphore:
             builder = PayloadBuilder(byteorder=order, wordorder=order)
             builder.encode(value, data_type, rounding=RoundingScheme.floor)
-            await self.client.write_registers(address=addr, values=builder.to_registers(), unit=slave_id)
+            await self.client.write_registers(
+                address=addr, values=builder.to_registers(), unit=slave_id
+            )
 
 
 if __name__ == "__main__":
+
     async def run():
         MyClient = SGrModbusRTUClient("COM5", "E", 19200)
 
         connected = await MyClient.client.connect()
 
-        a = await MyClient.value_decoder(0x5B14, 2, "int32", "HoldRegister", slave_id=1, order=Endian.BIG)
+        a = await MyClient.value_decoder(
+            0x5B14, 2, "int32", "HoldRegister", slave_id=1, order=Endian.BIG
+        )
         print(f"Der Wert ist: {a}")
         await MyClient.client.close()
-
 
     asyncio.run(run())

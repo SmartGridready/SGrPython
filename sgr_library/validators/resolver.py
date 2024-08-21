@@ -1,8 +1,15 @@
-from sgr_library.api import DataPointValidator
-from sgrspecification.generic import DataTypeProduct
-from sgr_library.validators.validator import IntValidator, EnumValidator, FloatValidator, StringValidator, \
-    BooleanValidator
 from typing import Optional
+
+from sgrspecification.generic import DataTypeProduct
+
+from sgr_library.api import DataPointValidator
+from sgr_library.validators.validator import (
+    BooleanValidator,
+    EnumValidator,
+    FloatValidator,
+    IntValidator,
+    StringValidator,
+)
 
 
 def build_validator(type: Optional[DataTypeProduct]) -> DataPointValidator:
@@ -35,7 +42,9 @@ def build_validator(type: Optional[DataTypeProduct]) -> DataPointValidator:
     elif type.boolean:
         return BooleanValidator()
     elif type.bitmap:
-        raise Exception("unsupported validator")  # return BitmapValidator(type.bitmap)
+        raise Exception(
+            "unsupported validator"
+        )  # return BitmapValidator(type.bitmap)
     elif type.date_time:
         raise Exception("unsupported validator")
     raise Exception("unsupported validator")

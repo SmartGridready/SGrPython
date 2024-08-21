@@ -10,7 +10,6 @@ from sgr_library.api.function_profile_api import FunctionProfile
 from sgrspecification.generic import DeviceCategory, DataDirectionProduct
 
 
-
 @dataclass
 class DeviceInformation:
     name: str

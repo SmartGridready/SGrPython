@@ -1,21 +1,28 @@
 import logging
 import os
-from dataclasses import dataclass
-from typing import Optional, Any
 from collections.abc import Mapping
-from pymodbus.constants import Endian
-from xsdata.formats.dataclass.parsers import XmlParser
-from xsdata.formats.dataclass.context import XmlContext
-import time
+from typing import Any
 
-from sgr_library.api import BaseSGrInterface, DeviceInformation, FunctionProfile, DataPointProtocol, DataPoint, \
-    build_configurations_parameters, ConfigurationParameter
-from sgr_library.auxiliary_functions import find_dp
-from sgrspecification.generic import Parity, DataDirectionProduct
+from pymodbus.constants import Endian
+from sgrspecification.generic import DataDirectionProduct, Parity
 
 # from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
-from sgrspecification.product import DeviceFrame, ModbusDataPoint, ModbusFunctionalProfile
+from sgrspecification.product import (
+    DeviceFrame,
+    ModbusDataPoint,
+    ModbusFunctionalProfile,
+)
 
+from sgr_library.api import (
+    BaseSGrInterface,
+    ConfigurationParameter,
+    DataPoint,
+    DataPointProtocol,
+    DeviceInformation,
+    FunctionProfile,
+    build_configurations_parameters,
+)
+from sgr_library.auxiliary_functions import find_dp
 from sgr_library.driver.modbusRTU_client_async import SGrModbusRTUClient
 from sgr_library.validators import build_validator
 
@@ -25,7 +32,7 @@ def get_port(root) -> str:
     :param root: The root element created with the xsdata parser
     :returns: string with port from xml file.
     """
-    return (str(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.port))
+    return str(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.port)
     # return(str(root.modbus_interface_desc.trspSrvModbusRTUoutOfBox.port)) #TODO Port datapoint for RTU in XML is not existing
 
 
@@ -54,46 +61,62 @@ def get_parity(root) -> str:
     parity = root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu.parity_selected
     match parity:
         case Parity.EVEN:
-            return 'E'
+            return "E"
         case _:
             raise NotImplementedError
 
 
-def build_modbus_rtu_data_point(data_point: ModbusDataPoint, function_profile: ModbusFunctionalProfile,
-                                interface: 'SgrModbusRtuInterface') -> DataPoint:
+def build_modbus_rtu_data_point(
+    data_point: ModbusDataPoint,
+    function_profile: ModbusFunctionalProfile,
+    interface: "SgrModbusRtuInterface",
+) -> DataPoint:
     protocol = ModBusRTUDataPoint(data_point, function_profile, interface)
     validator = build_validator(data_point.data_point.data_type)
     return DataPoint(protocol, validator)
 
 
 class ModBusRTUDataPoint(DataPointProtocol):
-
-    def __init__(self, modbus_api_dp: ModbusDataPoint, modbus_api_fp: ModbusFunctionalProfile,
-                 interface: 'SgrModbusRtuInterface'):
+    def __init__(
+        self,
+        modbus_api_dp: ModbusDataPoint,
+        modbus_api_fp: ModbusFunctionalProfile,
+        interface: "SgrModbusRtuInterface",
+    ):
         self._dp = modbus_api_dp
         self._fp = modbus_api_fp
         self._interface = interface
 
     async def write(self, data: Any):
-        return await self._interface.setval(self.name()[0], self.name()[1], data)
+        return await self._interface.setval(
+            self.name()[0], self.name()[1], data
+        )
 
     async def read(self) -> Any:
         return await self._interface.getval(self.name()[0], self.name()[1])
 
     def name(self) -> tuple[str, str]:
-        return self._fp.functional_profile.functional_profile_name, self._dp.data_point.data_point_name
+        return (
+            self._fp.functional_profile.functional_profile_name,
+            self._dp.data_point.data_point_name,
+        )
 
     def direction(self) -> DataDirectionProduct:
         return self._dp.data_point.data_direction
 
 
 class ModBusRTUFunctionProfile(FunctionProfile):
-
-    def __init__(self, modbus_api_fp: ModbusFunctionalProfile, interface: 'SgrModbusRtuInterface'):
+    def __init__(
+        self,
+        modbus_api_fp: ModbusFunctionalProfile,
+        interface: "SgrModbusRtuInterface",
+    ):
         self._fp = modbus_api_fp
         self._interface = interface
-        dps = [build_modbus_rtu_data_point(dp, self._fp, self._interface) for dp in
-               self._fp.data_point_list.data_point_list_element]
+        dps = [
+            build_modbus_rtu_data_point(dp, self._fp, self._interface)
+            for dp in self._fp.data_point_list.data_point_list_element
+        ]
         self._data_points = {dp.name(): dp for dp in dps}
 
     def name(self) -> str:
@@ -115,14 +138,20 @@ class SgrModbusRtuInterface(BaseSGrInterface):
         """
         self.root = frame
         # self.root = parser.parse(interface_file, SgrModbusDeviceDescriptionType)
-        self.port = os.getenv("SGR_RTU_PORT")  # get_port(self.root) #TODO überlegungen machen wo Port untergebracht wird
-        self._configurations_params = build_configurations_parameters(frame.configuration_list)
+        self.port = os.getenv(
+            "SGR_RTU_PORT"
+        )  # get_port(self.root) #TODO überlegungen machen wo Port untergebracht wird
+        self._configurations_params = build_configurations_parameters(
+            frame.configuration_list
+        )
         self.baudrate = get_baudrate(self.root)
         self.parity = get_parity(self.root)
         self.slave_id = get_slave(self.root)
         self.byte_order = get_endian(self.root)
-        fps = [ModBusRTUFunctionProfile(profile, self) for profile in
-               self.root.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element]
+        fps = [
+            ModBusRTUFunctionProfile(profile, self)
+            for profile in self.root.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element
+        ]
         self._function_profiles = {fp.name(): fp for fp in fps}
         self._device_information = DeviceInformation(
             name=frame.device_name,
@@ -130,7 +159,7 @@ class SgrModbusRtuInterface(BaseSGrInterface):
             software_revision=frame.device_information.software_revision,
             hardware_revision=frame.device_information.hardware_revision,
             device_category=frame.device_information.device_category,
-            is_local=frame.device_information.is_local_control
+            is_local=frame.device_information.is_local_control,
         )
 
     def is_connected(self) -> bool:
@@ -198,8 +227,11 @@ class SgrModbusRtuInterface(BaseSGrInterface):
         order = self.byte_order
 
         logging.debug(
-            f"getVal() with address: {address}, size: {size}, data_type:{data_type}, slave_id: {slave_id}, order: {order}")  # for debugging
-        return await self.client.value_decoder(address, size, data_type, reg_type, slave_id, order)
+            f"getVal() with address: {address}, size: {size}, data_type:{data_type}, slave_id: {slave_id}, order: {order}"
+        )  # for debugging
+        return await self.client.value_decoder(
+            address, size, data_type, reg_type, slave_id, order
+        )
 
     async def setval(self, fp_name: str, dp_name: str, value: float) -> None:
         """
@@ -213,10 +245,12 @@ class SgrModbusRtuInterface(BaseSGrInterface):
         data_type = self.get_datatype(dp)
         slave_id = self.slave_id
         order = self.byte_order
-        await self.client.value_encoder(address, value, data_type, slave_id, order)
+        await self.client.value_encoder(
+            address, value, data_type, slave_id, order
+        )
 
     def get_device_profile(self):
-        return (self.root.device_profile)
+        return self.root.device_profile
 
     def get_register_type(self, dp: ModbusDataPoint) -> str:
         """
@@ -278,7 +312,9 @@ class SgrModbusRtuInterface(BaseSGrInterface):
     async def connect(self):
         # check if there already exists a ModbusRTUClient for the communication over ModbusRTU
         if SgrModbusRtuInterface.globalModbusRTUClient is None:
-            self.client = SGrModbusRTUClient(str(self.port), str(self.parity), int(self.baudrate))
+            self.client = SGrModbusRTUClient(
+                str(self.port), str(self.parity), int(self.baudrate)
+            )
             SgrModbusRtuInterface.globalModbusRTUClient = self.client
         else:
             self.client = SgrModbusRtuInterface.globalModbusRTUClient
@@ -302,9 +338,21 @@ class SgrModbusRtuInterface(BaseSGrInterface):
         :param dp_name: the name of the datapoint
         :returns: the datapoint element found in root, if not, returns none.
         """
-        fp = next(filter(lambda x: x.functional_profile.profile_name == fp_name, self.root.fp_list_element), None)
+        fp = next(
+            filter(
+                lambda x: x.functional_profile.profile_name == fp_name,
+                self.root.fp_list_element,
+            ),
+            None,
+        )
         if fp:
-            dp = next(filter(lambda x: x.data_point.datapoint_name == dp_name, fp.dp_list_element), None)
+            dp = next(
+                filter(
+                    lambda x: x.data_point.datapoint_name == dp_name,
+                    fp.dp_list_element,
+                ),
+                None,
+            )
             if dp:
                 return dp
 
@@ -318,7 +366,7 @@ class SgrModbusRtuInterface(BaseSGrInterface):
         """
         returns selected modbus interface in xml file
         """
-        return (self.root.modbus_interface_desc.modbus_interface_selection.value)
+        return self.root.modbus_interface_desc.modbus_interface_selection.value
 
     def get_manufacturer(self):
         """

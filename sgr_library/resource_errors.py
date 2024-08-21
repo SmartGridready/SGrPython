@@ -1,9 +1,11 @@
 from enum import Enum
 
+
 class ResourceError(Enum):
     """
     Default
     """
+
     NoError = "no_error"
     UnknownError = "unknown_error"
 
@@ -20,4 +22,3 @@ class ResourceError(Enum):
     CredentialError = "credential_error"
     RequestCreationError = "request_creation_error"
     AuthenticationError = "authentication_error"
-    

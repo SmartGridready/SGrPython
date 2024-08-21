@@ -1,14 +1,15 @@
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar, Any
+from asyncio import run
+from typing import Any, Generic, TypeVar
+
+from sgrspecification.generic import DataDirectionProduct
 
 from sgr_library.api.data_types import DataTypes
-from sgrspecification.generic import DataDirectionProduct
-from asyncio import run
 
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class DataPointValidator(ABC):
-
     @abstractmethod
     def validate(self, value: Any) -> bool:
         pass
@@ -22,7 +23,6 @@ class DataPointValidator(ABC):
 
 
 class DataPointProtocol(ABC):
-
     @abstractmethod
     async def write(self, data: Any):
         pass
@@ -41,8 +41,9 @@ class DataPointProtocol(ABC):
 
 
 class DataPoint(Generic[T]):
-
-    def __init__(self, protocol: DataPointProtocol, validator: DataPointValidator):
+    def __init__(
+        self, protocol: DataPointProtocol, validator: DataPointValidator
+    ):
         self._protocol = protocol
         self._validator = validator
 
@@ -53,7 +54,9 @@ class DataPoint(Generic[T]):
         value = await self._protocol.read()
         if self._validator.validate(value):
             return value
-        raise Exception(f"invalid value read from device, {value}, validator: {self._validator.data_type()}")
+        raise Exception(
+            f"invalid value read from device, {value}, validator: {self._validator.data_type()}"
+        )
 
     def get_value(self) -> T:
         return run(self.get_value_async())
@@ -72,11 +75,13 @@ class DataPoint(Generic[T]):
     def data_type(self) -> DataTypes:
         return self._validator.data_type()
 
-    def describe(self) -> tuple[tuple[str, str], DataDirectionProduct, DataTypes]:
+    def describe(
+        self,
+    ) -> tuple[tuple[str, str], DataDirectionProduct, DataTypes]:
         return self.name(), self.direction(), self.data_type()
 
     def options(self) -> list[str]:
         options = self._validator.options()
-        if options == None:
+        if options is None:
             return []
         return options

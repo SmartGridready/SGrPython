@@ -1,9 +1,11 @@
 from pymodbus.constants import Endian
+from sgrspecification.product import BitOrder, DeviceFrame, ModbusDataPoint
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
 
-from sgrspecification.product import DeviceFrame, BitOrder, ModbusDataPoint
-from sgr_library.exceptions import DataPointException, FunctionalProfileException
+from sgr_library.exceptions import (
+    DataPointException,
+)
 
 
 # TODO error handling
@@ -42,9 +44,14 @@ def find_dp(root, fp_name: str, dp_name: str) -> ModbusDataPoint:
     """
     for fp in root.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element:
         for dp in fp.data_point_list.data_point_list_element:
-            if fp.functional_profile.functional_profile_name == fp_name and dp.data_point.data_point_name:
+            if (
+                fp.functional_profile.functional_profile_name == fp_name
+                and dp.data_point.data_point_name
+            ):
                 return dp
-    raise DataPointException(f"Datapoint {dp_name} not found in functional profile {fp_name}.")
+    raise DataPointException(
+        f"Datapoint {dp_name} not found in functional profile {fp_name}."
+    )
     # raise FunctionalProfileException(f"Functional profile {fp_name} not found in XML file.")
 
 
@@ -53,37 +60,54 @@ def get_modbusInterfaceSelection(xml_file: str) -> str:
         parser = XmlParser(context=XmlContext())
         root = parser.parse(xml_file, DeviceFrame)
         interface_selection = root.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection.value
-        if interface_selection not in ['RTU', 'TCPIP', 'UDPIP', 'RTU-ASCII', 'TCPIP-ASCII', 'UDPIP-ASCII']:
-            raise ValueError('Invalid Modbus interface selection found.')
+        if interface_selection not in [
+            "RTU",
+            "TCPIP",
+            "UDPIP",
+            "RTU-ASCII",
+            "TCPIP-ASCII",
+            "UDPIP-ASCII",
+        ]:
+            raise ValueError("Invalid Modbus interface selection found.")
         return interface_selection
     except Exception as e:
-        raise ValueError(f"Error parsing XML file or extracting Modbus interface selection: {e}")
+        raise ValueError(
+            f"Error parsing XML file or extracting Modbus interface selection: {e}"
+        )
 
 
 def get_address(root) -> str:
     try:
-        return str(root.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.address)
+        return str(
+            root.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.address
+        )
     except AttributeError:
         raise ValueError("IP address not found in XML file.")
 
 
 def get_port(root) -> int:
     try:
-        return int(root.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.port)
+        return int(
+            root.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.port
+        )
     except (AttributeError, ValueError):
         raise ValueError("Port not found or invalid in XML file.")
 
 
 def get_slave(root) -> int:
     try:
-        return int(root.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.slave_id)
+        return int(
+            root.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.slave_id
+        )
     except (AttributeError, ValueError):
         raise ValueError("Slave ID not found or invalid in XML file.")
 
 
 def get_slave_rtu(root) -> int:
     try:
-        return int(root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu.slave_addr)
+        return int(
+            root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu.slave_addr
+        )
     except (AttributeError, ValueError):
         raise ValueError("RTU Slave ID not found or invalid in XML file.")
 
@@ -102,7 +126,8 @@ def get_endian(root) -> str:
 def get_baudrate(root) -> int:
     try:
         return int(
-            root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu.baud_rate_selected.value)
+            root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu.baud_rate_selected.value
+        )
     except (AttributeError, ValueError):
         raise ValueError("Baudrate not found or invalid in XML file.")
 
@@ -110,10 +135,13 @@ def get_baudrate(root) -> int:
 def get_parity(root) -> str:
     try:
         parity_string = str(
-            root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu.parity_selected.value)
+            root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu.parity_selected.value
+        )
         if parity_string == "EVEN":
             return "E"
         else:
-            raise NotImplementedError(f'Parity type "{parity_string}" not supported.')
+            raise NotImplementedError(
+                f'Parity type "{parity_string}" not supported.'
+            )
     except AttributeError:
         raise ValueError("Parity type not found in XML file.")

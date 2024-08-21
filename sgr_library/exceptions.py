@@ -3,6 +3,7 @@
 Custom exceptions to be used in the SGr Library code.
 """
 
+
 class MyCustomException(Exception):
     def __init__(self, message):
         self.message = message
@@ -12,15 +13,28 @@ class MyCustomException(Exception):
         """Return string representation."""
         return f"Custom Error: {self.message}"
 
+
 class XMLValueException(Exception): ...
+
+
 class ParsingError(Exception): ...
+
 
 # Search DP exceptions
 class FunctionalProfileException(ValueError): ...
+
+
 class DataPointException(ValueError): ...
+
+
 class DataProcessingError(Exception): ...
+
+
 class DeviceInformationError(Exception): ...
+
 
 # Modbus exceptions
 class RegisterError(Exception): ...
+
+
 class InvalidEndianType(Exception): ...
