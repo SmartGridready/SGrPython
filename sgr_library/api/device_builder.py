@@ -1,24 +1,23 @@
-from collections import deque
-from enum import Enum
-from sgr_library.api.device_api import BaseSGrInterface
-from sgr_library.modbus_interface import SgrModbusInterface
-from sgr_library.driver.restapi_client_async import SgrRestInterface
-from sgr_library.modbusRTU_interface_async import SgrModbusRtuInterface
-from collections.abc import Callable
-
-import re
-from xsdata.formats.dataclass.context import XmlContext
-from xsdata.formats.dataclass.parsers import XmlParser
 import configparser
-from xsdata.formats.dataclass.context import XmlContext
-from xsdata.formats.dataclass.parsers import XmlParser
+import re
+from collections.abc import Callable
+from enum import Enum
 
 from sgrspecification.product import DeviceFrame
+from xsdata.formats.dataclass.context import XmlContext
+from xsdata.formats.dataclass.parsers import XmlParser
+
+from sgr_library.api.device_api import BaseSGrInterface
+from sgr_library.driver.restapi_client_async import SgrRestInterface
+from sgr_library.modbus_interface import SgrModbusInterface
+from sgr_library.modbusRTU_interface_async import SgrModbusRtuInterface
+
 
 class SGrConfiguration(Enum):
     UNKNOWN = 1
     STRING = 2
     FILE = 3
+
 
 class SGrDeviceProtocol(Enum):
     MODBUS_RTU = 0
@@ -27,24 +26,30 @@ class SGrDeviceProtocol(Enum):
     GENERIC = 3
     CONTACT = 4
 
-device_builders: dict[SGrDeviceProtocol, Callable[
-    [DeviceFrame, configparser.ConfigParser], SgrRestInterface | SgrModbusInterface | SgrModbusRtuInterface]
+
+device_builders: dict[
+    SGrDeviceProtocol,
+    Callable[
+        [DeviceFrame, configparser.ConfigParser],
+        SgrRestInterface | SgrModbusInterface | SgrModbusRtuInterface,
+    ],
 ] = {
     SGrDeviceProtocol.MODBUS_TPC: lambda frame, _: SgrModbusInterface(frame),
     SGrDeviceProtocol.MODBUS_RTU: lambda frame, _: SgrModbusRtuInterface(frame),
-    SGrDeviceProtocol.RESTAPI: lambda frame, config: SgrRestInterface(frame, config),
+    SGrDeviceProtocol.RESTAPI: lambda frame, config: SgrRestInterface(
+        frame, config
+    ),
     # SGrDeviceProtocol.GENERIC: lambda frame, config: SgrModbusInterface(frame),
     # SGrDeviceProtocol.CONTACT: lambda frame, config: SgrModbusInterface(frame)
 }
 
-class DeviceBuilder:
 
+class DeviceBuilder:
     def __init__(self):
         self._value: str | None = None
         self._config_value: str | dict | None = None
         self._type: SGrConfiguration = SGrConfiguration.UNKNOWN
         self._config_type: SGrConfiguration = SGrConfiguration.UNKNOWN
-
 
     def build(self) -> BaseSGrInterface:
         spec, config = self._replace_variables()
@@ -57,13 +62,19 @@ class DeviceBuilder:
             raise Exception("unsupported device interface")
         if frame.interface_list.rest_api_interface:
             return SGrDeviceProtocol.RESTAPI
-        elif (frame.interface_list.modbus_interface is not None and
-            frame.interface_list.modbus_interface.modbus_interface_description is not None and
-            frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu):
+        elif (
+            frame.interface_list.modbus_interface is not None
+            and frame.interface_list.modbus_interface.modbus_interface_description
+            is not None
+            and frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
+        ):
             return SGrDeviceProtocol.MODBUS_RTU
-        elif (frame.interface_list.modbus_interface is not None and
-            frame.interface_list.modbus_interface.modbus_interface_description is not None and
-            frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp):
+        elif (
+            frame.interface_list.modbus_interface is not None
+            and frame.interface_list.modbus_interface.modbus_interface_description
+            is not None
+            and frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp
+        ):
             return SGrDeviceProtocol.MODBUS_TPC
         elif frame.interface_list.contact_interface:
             return SGrDeviceProtocol.CONTACT
@@ -75,7 +86,6 @@ class DeviceBuilder:
         if self._value is None:
             raise Exception("missing specifcation")
         return parser.from_string(self._value, DeviceFrame)
-
 
     def _file_loader(self) -> DeviceFrame:
         parser = XmlParser(context=XmlContext())
@@ -125,7 +135,7 @@ class DeviceBuilder:
         spec = self.get_eid_content()
         for section_name, section in config.items():
             for param_name in section:
-                pattern = re.compile(r'{{' + param_name + r'}}')
+                pattern = re.compile(r"{{" + param_name + r"}}")
                 spec = pattern.sub(config.get(section_name, param_name), spec)
 
         return spec, config

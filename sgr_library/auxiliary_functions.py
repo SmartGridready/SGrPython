@@ -8,31 +8,6 @@ from sgr_library.exceptions import (
 )
 
 
-# TODO error handling
-def get_protocol(xml_file: str) -> str:
-    """
-    Searches for protocol type in xml file
-    :return: protocol type string
-    """
-    parser = XmlParser(context=XmlContext())
-    root = parser.parse(xml_file, DeviceFrame)
-
-    restapi = root.interface_list.rest_api_interface
-    generic = root.interface_list.generic_interface
-    contact = root.interface_list.contact_interface
-    modbus = root.interface_list.modbus_interface
-    if modbus:
-        return "modbus"
-    elif restapi:
-        return "restapi"
-    elif generic:
-        return "generic"
-    elif contact:
-        return "contact"
-    else:
-        return "error"
-
-
 # TODO make this one so that it is generic.
 def find_dp(root, fp_name: str, dp_name: str) -> ModbusDataPoint:
     """

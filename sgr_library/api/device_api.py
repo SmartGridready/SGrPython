@@ -1,11 +1,12 @@
+from collections.abc import Mapping
+from typing import Any
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any
-from collections.abc import Mapping
+from sgr_library.api.data_types import DataTypes
 from asyncio import run
+
 from sgr_library.api import DataPoint
 from sgr_library.api.configuration_parameter import ConfigurationParameter
-from sgr_library.api.data_types import DataTypes
 from sgr_library.api.function_profile_api import FunctionProfile
 from sgrspecification.generic import DeviceCategory, DataDirectionProduct
 
@@ -18,7 +19,6 @@ class DeviceInformation:
     hardware_revision: str
     device_category: DeviceCategory
     is_local: bool
-
 
 class BaseSGrInterface(ABC):
 

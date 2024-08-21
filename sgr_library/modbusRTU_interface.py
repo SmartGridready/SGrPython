@@ -1,5 +1,4 @@
 import logging
-import time
 
 from sgrspecification.product import DeviceFrame
 
@@ -222,4 +221,3 @@ class SgrModbusRtuInterface:
         self.slave_id = slave_id
 
     # TODO a getval for L1, L2 and L3 at the same time
-

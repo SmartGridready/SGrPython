@@ -3,7 +3,6 @@
 Custom exceptions to be used in the SGr Library code.
 """
 
-
 class MyCustomException(Exception):
     def __init__(self, message):
         self.message = message
