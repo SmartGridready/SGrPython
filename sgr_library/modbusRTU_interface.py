@@ -223,20 +223,3 @@ class SgrModbusRtuInterface:
 
     # TODO a getval for L1, L2 and L3 at the same time
 
-
-if __name__ == "__main__":
-    starting_time = time.time()
-    print("start")
-    interface_file = "../xml_files/SGr_04_0016_xxxx_ABBMeterV0.2.1.xml"
-    a = SgrModbusRtuInterface(interface_file)
-    print("ActivePowerACtot :", a.getval("ActivePowerAC", "ActivePowerACtot"))
-    # Power = a.client.value_decoder(0x5B14,2,"int32","HoldingRegister",1,Endian.Big)
-    # print(str(Power*0.01) + "W")
-
-    # a.setval('ActiveEnerBalanceAC', 'ActiveImportAC', 9000)
-
-    dp = find_dp(a.root, "ActiveEnerBalanceAC", "ActiveImportAC")
-    print("ActiveImportAC :", a.getval(dp))
-
-    a.client.client.close()
-    print("print finished")
