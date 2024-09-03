@@ -315,70 +315,29 @@ class SgrRestInterface(BaseSGrInterface):
 
 
     async def get_val(self, method: HttpMethod, request_path: str, headers: HeaderList, body: str | None, query: ResponseQuery):
-        url = f"https://{self.base_url}{request_path}"
-        # All headers into dicitonary
-        request_headers  = {
-            header_entry.header_name: header_entry.value
-            for header_entry in headers.header
-        }
-        request_headers["Authorization"] = f"Bearer {self._token}"
-
-        cache_key = (frozenset(request_headers), url)
-
-        if cache_key in self._cache:
-            return self._cache.get(cache_key)
-        else:
-            async with self._session.request(method.value, url, headers=headers, body=body) as reqeust:
-                reqeust.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
-                response = await reqeust.json()
-                logging.info(f"Getval Status: {reqeust.status}")
-                response = json.dumps(response)
-                q = query.query if query.query else ""
-                value = jmespath.search(q, json.loads(response))
-                self._cache[cache_key] = value
-                return value
-
-    async def getval(self, fp_name, dp_name):
         try:
-            dp = self.find_dp(self._root, fp_name, dp_name)
-            if not dp:
-                raise ValueError(
-                    f"Data point for {fp_name}, {dp_name} not found"
-                )
-
-            # Dataclass parsing
-            service_call = (
-                dp.rest_api_data_point_configuration.rest_api_service_call
-            )
-            request_path = service_call.request_path
-
-            # Urls string
             url = f"https://{self.base_url}{request_path}"
-
-            query = str(service_call.response_query.query)
-
             # All headers into dicitonary
-            headers = {
+            request_headers  = {
                 header_entry.header_name: header_entry.value
-                for header_entry in service_call.request_header.header
+                for header_entry in headers.header
             }
-            headers["Authorization"] = f"Bearer {self._token}"
+            request_headers["Authorization"] = f"Bearer {self._token}"
 
-            cache_key = (frozenset(headers), url)
+            cache_key = (frozenset(request_headers), url)
 
             if cache_key in self._cache:
-                response = self._cache.get(cache_key)
+                return self._cache.get(cache_key)
             else:
-                async with self._session.get(url=url, headers=headers) as res:
-                    res.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
-                    response = await res.json()
-                    logging.info(f"Getval Status: {res.status}")
-
+                async with self._session.request(method.value, url, headers=headers, body=body) as reqeust:
+                    reqeust.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
+                    response = await reqeust.json()
+                    logging.info(f"Getval Status: {reqeust.status}")
                     response = json.dumps(response)
-                    self._cache[cache_key] = response
-
-            value = jmespath.search(query, json.loads(response))
-            return value
+                    q = query.query if query.query else ""
+                    value = jmespath.search(q, json.loads(response))
+                    self._cache[cache_key] = value
+                    return value
 
         except ClientResponseError as e:
             logging.error(f"HTTP error occurred: {e}")
@@ -390,16 +349,3 @@ class SgrRestInterface(BaseSGrInterface):
             logging.error(f"An unexpected error occurred: {e}")
 
         return None  # Return None or an appropriate default/fallback value in case of error
-
-def map_request_method(method: HttpMethod) -> str:
-    match method:
-        case HttpMethod.GET:
-            return "GET"
-        case HttpMethod.POST:
-            return "POST"
-        case HttpMethod.PUT:
-            return "PUT"
-        case HttpMethod.DELETE:
-            return "DELETE"
-        case HttpMethod.PATCH:
-            return "PATCH"
