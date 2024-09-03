@@ -10,9 +10,12 @@ import certifi
 import jmespath
 from aiohttp import ClientConnectionError, ClientResponseError
 from cachetools import TTLCache
-from sgrspecification.generic import DataDirectionProduct
+from sgrspecification.generic import DataDirectionProduct, DeviceCategory
+from sgrspecification.generic.base_types import ResponseQuery
 from sgrspecification.product import (
     DeviceFrame,
+    HeaderList,
+    HttpMethod,
     RestApiDataPoint,
     RestApiFunctionalProfile,
 )
@@ -56,6 +59,14 @@ class RestDataPoint(DataPointProtocol):
     ):
         self._dp = rest_api_dp
         self._fp = rest_api_fp
+        if  self._dp.rest_api_data_point_configuration is None or self._dp.rest_api_data_point_configuration.rest_api_service_call is None:
+            raise Exception("illegal")
+
+        self._method = self._dp.rest_api_data_point_configuration.rest_api_service_call.request_method if  self._dp.rest_api_data_point_configuration.rest_api_service_call.request_method else HttpMethod.GET
+        self._header = self._dp.rest_api_data_point_configuration.rest_api_service_call.request_header if  self._dp.rest_api_data_point_configuration.rest_api_service_call.request_header else HeaderList()
+        self._body = self._dp.rest_api_data_point_configuration.rest_api_service_call.request_body
+        self._path = self._dp.rest_api_data_point_configuration.rest_api_service_call.request_path if self._dp.rest_api_data_point_configuration.rest_api_service_call.request_path else ""
+        self._query = self._dp.rest_api_data_point_configuration.rest_api_service_call.response_query if self._dp.rest_api_data_point_configuration.rest_api_service_call.response_query else ""
 
         self._fp_name = ""
         if (
@@ -80,12 +91,13 @@ class RestDataPoint(DataPointProtocol):
         return self._fp_name, self._dp_name
 
     async def read(self):
+        await self._interface.get_val(self._method, self._path, self._header, self._body, self._query)
         return await self._interface.getval(self._fp_name, self._dp_name)
 
     async def write(self, data: Any):
         pass
 
-    def direction(self) -> DataDirectionProduct:
+    def direction(self) -> DataDirect
         if (
             self._dp.data_point is None
             or self._dp.data_point.data_direction is None
@@ -144,15 +156,19 @@ class SgrRestInterface(BaseSGrInterface):
         self, frame: DeviceFrame, configuration: configparser.ConfigParser
     ):
         # session
+        device_info = frame.device_information
+        if device_info is None:
+            raise Exception("invalid")
+
         self._device_information = DeviceInformation(
             name=frame.device_name if frame.device_name else "",
             manufacture=frame.manufacturer_name
             if frame.manufacturer_name
             else "",
-            software_revision=frame.device_information.software_revision,
-            hardware_revision=frame.device_information.hardware_revision,
-            device_category=frame.device_information.device_category,
-            is_local=frame.device_information.is_local_control,
+            software_revision=device_info.software_revision if device_info.software_revision else "",
+            hardware_revision=device_info.hardware_revision if device_info.hardware_revision else "",
+            device_category=device_info.device_category if device_info.device_category else DeviceCategory.DEVICE_INFORMATION,
+            is_local=device_info.is_local_control if device_info.is_local_control else False,
         )
         self._is_connected = False
         self._configuration_parameters = build_configurations_parameters(
@@ -297,6 +313,31 @@ class SgrRestInterface(BaseSGrInterface):
             logging.error(f"Functional profile '{fp_name}' not found.")
             return None
 
+
+    async def get_val(self, method: HttpMethod, request_path: str, headers: HeaderList, body: str | None, query: ResponseQuery):
+        url = f"https://{self.base_url}{request_path}"
+        # All headers into dicitonary
+        request_headers  = {
+            header_entry.header_name: header_entry.value
+            for header_entry in headers.header
+        }
+        request_headers["Authorization"] = f"Bearer {self._token}"
+
+        cache_key = (frozenset(request_headers), url)
+
+        if cache_key in self._cache:
+            return self._cache.get(cache_key)
+        else:
+            async with self._session.request(method.value, url, headers=headers, body=body) as reqeust:
+                reqeust.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
+                response = await reqeust.json()
+                logging.info(f"Getval Status: {reqeust.status}")
+                response = json.dumps(response)
+                q = query.query if query.query else ""
+                value = jmespath.search(q, json.loads(response))
+                self._cache[cache_key] = value
+                return value
+
     async def getval(self, fp_name, dp_name):
         try:
             dp = self.find_dp(self._root, fp_name, dp_name)
@@ -349,3 +390,16 @@ class SgrRestInterface(BaseSGrInterface):
             logging.error(f"An unexpected error occurred: {e}")
 
         return None  # Return None or an appropriate default/fallback value in case of error
+
+def map_request_method(method: HttpMethod) -> str:
+    match method:
+        case HttpMethod.GET:
+            return "GET"
+        case HttpMethod.POST:
+            return "POST"
+        case HttpMethod.PUT:
+            return "PUT"
+        case HttpMethod.DELETE:
+            return "DELETE"
+        case HttpMethod.PATCH:
+            return "PATCH"
