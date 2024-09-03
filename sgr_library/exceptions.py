@@ -12,15 +12,28 @@ class MyCustomException(Exception):
         """Return string representation."""
         return f"Custom Error: {self.message}"
 
+
 class XMLValueException(Exception): ...
+
+
 class ParsingError(Exception): ...
+
 
 # Search DP exceptions
 class FunctionalProfileException(ValueError): ...
+
+
 class DataPointException(ValueError): ...
+
+
 class DataProcessingError(Exception): ...
+
+
 class DeviceInformationError(Exception): ...
+
 
 # Modbus exceptions
 class RegisterError(Exception): ...
+
+
 class InvalidEndianType(Exception): ...

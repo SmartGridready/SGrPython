@@ -11,7 +11,7 @@ async def test_loop():
     config_file = 'config_CLEMAPEnMon_ressource_default.ini'
     interface_file = 'SGr_04_mmmm_dddd_CLEMAPEnergyMonitorEIV0.2.1.xml'
 
-    
+
 
     device = SGrDevice()
     device.update_xml_spec(interface_file).update_config(config_file).build()
@@ -25,7 +25,7 @@ async def test_loop():
     #print(fp_data)
 
     dp = fp.get_data_point("PowerFactorTOT") #PowerFactorTOT #VoltageACL1
-    dp_data = await dp.read()
+    dp_data = await dp.get_value_async()
     print(dp_data)
 
 #VoltageDC_IN_1

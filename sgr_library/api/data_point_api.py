@@ -1,36 +1,21 @@
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar, Any
+from asyncio import run
+from typing import Any, Generic, TypeVar
+
+from sgrspecification.generic import DataDirectionProduct
 
 from sgr_library.api.data_types import DataTypes
-from sgr_library.api.sub_set_units import SubSetUnits
-from sgr_library.generated.generic import DataDirectionProduct
 
-T = TypeVar('T')
-
-
-class DataPointConverter(ABC, Generic[T]):
-
-    @abstractmethod
-    def to_device(self, value: T) -> Any:
-        pass
-
-    @abstractmethod
-    def from_device(self, value: Any) -> T:
-        pass
-
-    @abstractmethod
-    def converted_unit(self) -> SubSetUnits:
-        pass
+T = TypeVar("T")
 
 
 class DataPointValidator(ABC):
-
     @abstractmethod
     def validate(self, value: Any) -> bool:
         pass
 
     @abstractmethod
-    def data_type(self) -> SubSetUnits:
+    def data_type(self) -> DataTypes:
         pass
 
     def options(self) -> list[str] | None:
@@ -38,7 +23,6 @@ class DataPointValidator(ABC):
 
 
 class DataPointProtocol(ABC):
-
     @abstractmethod
     async def write(self, data: Any):
         pass
@@ -57,30 +41,33 @@ class DataPointProtocol(ABC):
 
 
 class DataPoint(Generic[T]):
-
-    def __init__(self, protocol: DataPointProtocol, converter: DataPointConverter[T], validator: DataPointValidator):
+    def __init__(
+        self, protocol: DataPointProtocol, validator: DataPointValidator
+    ):
         self._protocol = protocol
-        self._converter = converter
         self._validator = validator
 
     def name(self) -> tuple[str, str]:
         return self._protocol.name()
 
-    async def read(self) -> T:
+    async def get_value_async(self) -> T:
         value = await self._protocol.read()
-
         if self._validator.validate(value):
-            return self._converter.from_device(value)
-        raise Exception(f"invalid value read from device, {value}, validator: {self._validator.data_type()}")
+            return value
+        raise Exception(
+            f"invalid value read from device, {value}, validator: {self._validator.data_type()}"
+        )
 
-    async def write(self, data: T):
-        value = self._converter.to_device(data)
-        if self._validator.validate(value):
-            return await self._protocol.write(value)
+    def get_value(self) -> T:
+        return run(self.get_value_async())
+
+    async def set_value_async(self, data: T):
+        if self._validator.validate(data):
+            return await self._protocol.write(data)
         raise Exception("invalid data to write to device")
 
-    def unit(self) -> SubSetUnits:
-        return self._converter.converted_unit()
+    def set_value(self, data: T):
+        return run(self.set_value_async(data=data))
 
     def direction(self) -> DataDirectionProduct:
         return self._protocol.direction()
@@ -88,10 +75,13 @@ class DataPoint(Generic[T]):
     def data_type(self) -> DataTypes:
         return self._validator.data_type()
 
-    def describe(self) -> tuple[tuple[str, str], DataDirectionProduct, DataTypes]:
+    def describe(
+        self,
+    ) -> tuple[tuple[str, str], DataDirectionProduct, DataTypes]:
         return self.name(), self.direction(), self.data_type()
 
     def options(self) -> list[str]:
-        if self._validator.options() == None:
+        options = self._validator.options()
+        if options is None:
             return []
-        return self._validator.options()
+        return options

@@ -2,63 +2,111 @@ import configparser
 import json
 import logging
 import ssl
+from collections.abc import Mapping
 from typing import Any
 
 import aiohttp
 import certifi
 import jmespath
-from aiohttp import ClientResponseError, ClientConnectionError
+from aiohttp import ClientConnectionError, ClientResponseError
 from cachetools import TTLCache
+from sgrspecification.generic import DataDirectionProduct
+from sgrspecification.product import (
+    DeviceFrame,
+    RestApiDataPoint,
+    RestApiFunctionalProfile,
+)
+from sgrspecification.product.product import ConfigurationList
 
-from sgr_library.api import BaseSGrInterface, FunctionProfile, DataPoint, DataPointProtocol, DeviceInformation, \
-    ConfigurationParameter
-from sgr_library.api.configuration_parameter import build_configurations_parameters
-from sgr_library.converters import build_converter
-from sgr_library.generated.generic import DataDirectionProduct
-from sgr_library.generated.product import DeviceFrame
-from sgr_library.generated.product import RestApiFunctionalProfile, RestApiDataPoint
+from sgr_library.api import (
+    BaseSGrInterface,
+    ConfigurationParameter,
+    DataPoint,
+    DataPointProtocol,
+    DeviceInformation,
+    FunctionProfile,
+)
+from sgr_library.api.configuration_parameter import (
+    build_configurations_parameters,
+)
 from sgr_library.validators import build_validator
 
 logging.basicConfig(level=logging.ERROR)
 
 
-def build_rest_data_point(data_point: RestApiDataPoint, function_profile: RestApiFunctionalProfile,
-                          interface: 'SgrRestInterface') -> DataPoint:
+def build_rest_data_point(
+    data_point: RestApiDataPoint,
+    function_profile: RestApiFunctionalProfile,
+    interface: "SgrRestInterface",
+) -> DataPoint:
     protocol = RestDataPoint(data_point, function_profile, interface)
-    converter = build_converter(data_point.data_point.unit)
-    validator = build_validator(data_point.data_point.data_type)
-    return DataPoint(protocol, converter, validator)
+    data_type = None
+    if data_point.data_point and data_point.data_point.data_type:
+        data_type = data_point.data_point.data_type
+    validator = build_validator(data_type)
+    return DataPoint(protocol, validator)
 
 
 class RestDataPoint(DataPointProtocol):
-
-    def __init__(self, rest_api_dp: RestApiDataPoint, rest_api_fp: RestApiFunctionalProfile,
-                 interface: 'SgrRestInterface'):
+    def __init__(
+        self,
+        rest_api_dp: RestApiDataPoint,
+        rest_api_fp: RestApiFunctionalProfile,
+        interface: "SgrRestInterface",
+    ):
         self._dp = rest_api_dp
         self._fp = rest_api_fp
+
+        self._fp_name = ""
+        if (
+            rest_api_fp.functional_profile is not None
+            and rest_api_fp.functional_profile.functional_profile_name
+            is not None
+        ):
+            self._fp_name = (
+                rest_api_fp.functional_profile.functional_profile_name
+            )
+
+        self._dp_name = ""
+        if (
+            rest_api_dp.data_point is not None
+            and rest_api_dp.data_point.data_point_name is not None
+        ):
+            self._dp_name = rest_api_dp.data_point.data_point_name
+
         self._interface = interface
 
     def name(self) -> tuple[str, str]:
-        return self._fp.functional_profile.functional_profile_name, self._dp.data_point.data_point_name
+        return self._fp_name, self._dp_name
 
     async def read(self):
-        return await self._interface.getval(self.name()[0], self.name()[1])
+        return await self._interface.getval(self._fp_name, self._dp_name)
 
     async def write(self, data: Any):
         pass
 
     def direction(self) -> DataDirectionProduct:
+        if (
+            self._dp.data_point is None
+            or self._dp.data_point.data_direction is None
+        ):
+            raise Exception("missing data direction")
         return self._dp.data_point.data_direction
 
 
 class RestFunctionProfile(FunctionProfile):
-
-    def __init__(self, rest_api_fp: RestApiFunctionalProfile, interface: 'SgrRestInterface'):
+    def __init__(
+        self,
+        rest_api_fp: RestApiFunctionalProfile,
+        interface: "SgrRestInterface",
+    ):
         self._fp = rest_api_fp
         self._interface = interface
 
-        dps = [build_rest_data_point(dp, self._fp, self._interface) for dp in
-               self._fp.data_point_list.data_point_list_element]
+        dps = [
+            build_rest_data_point(dp, self._fp, self._interface)
+            for dp in self._fp.data_point_list.data_point_list_element
+        ]
         self._data_points = {dp.name(): dp for dp in dps}
 
     def name(self) -> str:
@@ -73,10 +121,17 @@ class SgrRestInterface(BaseSGrInterface):
     SmartGrid ready External Interface Class for Rest API
     """
 
-    async def connect(self):
+    def is_connected(self):
+        return self._is_connected
+
+    async def disconnect_async(self):
+        self._is_connected = False
+        print("todo clean up connection")
+
+    async def connect_async(self):
         await self.authenticate()
 
-    def get_function_profiles(self) -> dict[str, FunctionProfile]:
+    def get_function_profiles(self) -> Mapping[str, FunctionProfile]:
         return self._function_profiles
 
     def device_information(self) -> DeviceInformation:
@@ -85,39 +140,56 @@ class SgrRestInterface(BaseSGrInterface):
     def configuration_parameter(self) -> list[ConfigurationParameter]:
         return self._configuration_parameters
 
-    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
+    def __init__(
+        self, frame: DeviceFrame, configuration: configparser.ConfigParser
+    ):
         # session
         self._device_information = DeviceInformation(
-            name=frame.device_name,
-            manufacture=frame.manufacturer_name,
+            name=frame.device_name if frame.device_name else "",
+            manufacture=frame.manufacturer_name
+            if frame.manufacturer_name
+            else "",
             software_revision=frame.device_information.software_revision,
             hardware_revision=frame.device_information.hardware_revision,
             device_category=frame.device_information.device_category,
-            is_local=frame.device_information.is_local_control
+            is_local=frame.device_information.is_local_control,
         )
-        self._configuration_parameters = build_configurations_parameters(frame.configuration_list)
-        self.ssl_context = ssl.create_default_context(cafile=certifi.where())
-        self.connector = aiohttp.TCPConnector(ssl=self.ssl_context)
-        self.session = aiohttp.ClientSession(connector=self.connector)
-        self.token = None
-        self.root = frame
+        self._is_connected = False
+        self._configuration_parameters = build_configurations_parameters(
+            frame.configuration_list
+            if frame.configuration_list
+            else ConfigurationList()
+        )
+        self._ssl_context = ssl.create_default_context(cafile=certifi.where())
+        self._conntector = aiohttp.TCPConnector(ssl=self._ssl_context)
+        self._session = aiohttp.ClientSession(connector=self._conntector)
+        self._token = None
+        self._root = frame
         self._cache = TTLCache(maxsize=100, ttl=5)
 
-        fps = [RestFunctionProfile(profile, self) for profile in
-               self.root.interface_list.rest_api_interface.functional_profile_list.functional_profile_list_element]
+        fps = [
+            RestFunctionProfile(profile, self)
+            for profile in self._root.interface_list.rest_api_interface.functional_profile_list.functional_profile_list_element
+        ]
         self._function_profiles = {fp.name(): fp for fp in fps}
         try:
-            description = self.root.interface_list.rest_api_interface.rest_api_interface_description
-            request_body = str(description.rest_api_bearer.rest_api_service_call.request_body)
+            description = self._root.interface_list.rest_api_interface.rest_api_interface_description
+            request_body = str(
+                description.rest_api_bearer.rest_api_service_call.request_body
+            )
             self.data = json.loads(request_body)
             self.base_url = str(description.rest_api_uri)
-            request_path = str(description.rest_api_bearer.rest_api_service_call.request_path)
-            self.authentication_url = f'https://{self.base_url}{request_path}'
+            request_path = str(
+                description.rest_api_bearer.rest_api_service_call.request_path
+            )
+            self.authentication_url = f"https://{self.base_url}{request_path}"
             logging.info(f"Authentication URL: {self.authentication_url}")
 
-            self.call = self.root.interface_list.rest_api_interface.rest_api_interface_description.rest_api_bearer.rest_api_service_call
-            self.headers = {header_entry.header_name: header_entry.value for header_entry in
-                            self.call.request_header.header}
+            self.call = self._root.interface_list.rest_api_interface.rest_api_interface_description.rest_api_bearer.rest_api_service_call
+            self.headers = {
+                header_entry.header_name: header_entry.value
+                for header_entry in self.call.request_header.header
+            }
         except json.JSONDecodeError:
             logging.exception("Error parsing JSON from the XML file")
             raise
@@ -130,29 +202,42 @@ class SgrRestInterface(BaseSGrInterface):
         except ValueError as e:
             logging.exception(str(e))
             raise
-        except Exception as e:
+        except Exception:
             logging.exception("An unexpected error occurred")
             raise
 
     async def authenticate(self):
         try:
-            async with self.session.post(url=self.authentication_url, headers=self.headers, json=self.data) as res:
+            async with self._session.post(
+                url=self.authentication_url,
+                headers=self.headers,
+                json=self.data,
+            ) as res:
                 if 200 <= res.status < 300:
-                    logging.info(f"Authentication successful: Status {res.status}")
+                    logging.info(
+                        f"Authentication successful: Status {res.status}"
+                    )
                     try:
                         response = await res.text()
-                        token = jmespath.search('accessToken', json.loads(response))
+                        token = jmespath.search(
+                            "accessToken", json.loads(response)
+                        )
                         if token:
-                            self.token = str(token)
+                            self._token = str(token)
                             logging.info("Token retrieved successfully")
                         else:
                             logging.warning("Token not found in the response")
+                            self._is_connected = True
                     except json.JSONDecodeError:
                         logging.error("Failed to decode JSON response")
                     except jmespath.exceptions.JMESPathError:
-                        logging.error("Failed to search JSON data using JMESPath")
+                        logging.error(
+                            "Failed to search JSON data using JMESPath"
+                        )
                 else:
-                    logging.warning(f"Authentication failed: Status {res.status}")
+                    logging.warning(
+                        f"Authentication failed: Status {res.status}"
+                    )
                     logging.info(f"Response: {await res.text()}")
 
         except aiohttp.ClientError as e:
@@ -161,7 +246,7 @@ class SgrRestInterface(BaseSGrInterface):
             logging.error(f"An unexpected error occurred: {e}")
 
     async def close(self):
-        await self.session.close()
+        await self._session.close()
 
     def find_dp(self, root, fp_name: str, dp_name: str):
         """
@@ -178,10 +263,11 @@ class SgrRestInterface(BaseSGrInterface):
         try:
             fp = next(
                 filter(
-                    lambda x: x.functional_profile.functional_profile_name == fp_name,
-                    root.interface_list.rest_api_interface.functional_profile_list.functional_profile_list_element
+                    lambda x: x.functional_profile.functional_profile_name
+                    == fp_name,
+                    root.interface_list.rest_api_interface.functional_profile_list.functional_profile_list_element,
                 ),
-                None
+                None,
             )
         except AttributeError as e:
             logging.error(f"Attribute error encountered: {e}")
@@ -192,9 +278,9 @@ class SgrRestInterface(BaseSGrInterface):
                 dp = next(
                     filter(
                         lambda x: x.data_point.data_point_name == dp_name,
-                        fp.data_point_list.data_point_list_element
+                        fp.data_point_list.data_point_list_element,
                     ),
-                    None
+                    None,
                 )
             except AttributeError as e:
                 logging.error(f"Attribute error encountered: {e}")
@@ -203,7 +289,9 @@ class SgrRestInterface(BaseSGrInterface):
             if dp:
                 return dp
             else:
-                logging.error(f"Datapoint '{dp_name}' not found in functional profile '{fp_name}'.")
+                logging.error(
+                    f"Datapoint '{dp_name}' not found in functional profile '{fp_name}'."
+                )
                 return None
         else:
             logging.error(f"Functional profile '{fp_name}' not found.")
@@ -211,16 +299,20 @@ class SgrRestInterface(BaseSGrInterface):
 
     async def getval(self, fp_name, dp_name):
         try:
-            dp = self.find_dp(self.root, fp_name, dp_name)
+            dp = self.find_dp(self._root, fp_name, dp_name)
             if not dp:
-                raise ValueError(f"Data point for {fp_name}, {dp_name} not found")
+                raise ValueError(
+                    f"Data point for {fp_name}, {dp_name} not found"
+                )
 
             # Dataclass parsing
-            service_call = dp.rest_api_data_point_configuration.rest_api_service_call
+            service_call = (
+                dp.rest_api_data_point_configuration.rest_api_service_call
+            )
             request_path = service_call.request_path
 
             # Urls string
-            url = f'https://{self.base_url}{request_path}'
+            url = f"https://{self.base_url}{request_path}"
 
             query = str(service_call.response_query.query)
 
@@ -229,14 +321,14 @@ class SgrRestInterface(BaseSGrInterface):
                 header_entry.header_name: header_entry.value
                 for header_entry in service_call.request_header.header
             }
-            headers['Authorization'] = f'Bearer {self.token}'
+            headers["Authorization"] = f"Bearer {self._token}"
 
             cache_key = (frozenset(headers), url)
 
             if cache_key in self._cache:
                 response = self._cache.get(cache_key)
             else:
-                async with self.session.get(url=url, headers=headers) as res:
+                async with self._session.get(url=url, headers=headers) as res:
                     res.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
                     response = await res.json()
                     logging.info(f"Getval Status: {res.status}")
