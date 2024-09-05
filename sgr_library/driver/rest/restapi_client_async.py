@@ -238,7 +238,6 @@ class SgrRestInterface(BaseSGrInterface):
 
     async def disconnect_async(self):
         self._is_connected = False
-        print("todo clean up connection")
 
     async def connect_async(self):
         await self.authenticate()
@@ -298,4 +297,4 @@ class SgrRestInterface(BaseSGrInterface):
         except Exception as e:
             logging.error(f"An unexpected error occurred: {e}")
 
-        return None  # Return None or an appropriate default/fallback value in case of error
+        return None
