@@ -7,6 +7,7 @@ __all__ = [
     "DeviceInformation",
     "ConfigurationParameter",
     "build_configurations_parameters",
+    "DeviceBuilder",
 ]
 
 from sgr_library.api.configuration_parameter import (
@@ -19,4 +20,5 @@ from sgr_library.api.data_point_api import (
     DataPointValidator,
 )
 from sgr_library.api.device_api import BaseSGrInterface, DeviceInformation
+from sgr_library.api.device_builder import DeviceBuilder
 from sgr_library.api.function_profile_api import FunctionProfile
