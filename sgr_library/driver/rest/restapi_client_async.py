@@ -274,12 +274,11 @@ class SgrRestInterface(BaseSGrInterface):
                 for header_entry in headers.header
             }
             cache_key = (frozenset(request_headers), url)
-
             if cache_key in self._cache:
                 return self._cache.get(cache_key)
             else:
                 async with self._session.request(
-                    method.value, url, headers=headers, body=body
+                    method.value, url, headers=request_headers
                 ) as reqeust:
                     reqeust.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
                     response = await reqeust.json()

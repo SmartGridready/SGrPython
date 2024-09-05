@@ -53,7 +53,6 @@ async def authtenicate_with_bearer_token(
             raise Exception("illegal")
 
         data = json.loads(request_body)
-
         async with session.post(
             url=authentication_url,
             headers=headers,
@@ -66,8 +65,9 @@ async def authtenicate_with_bearer_token(
                     token = jmespath.search("accessToken", json.loads(response))
                     if token:
                         session.headers.update(
-                            {"authentication": f"Bearer ${token}"}
+                            {"Authorization": f"Bearer {token}"}
                         )
+
                         logging.info("Token retrieved successfully")
                         return True
                     else:
