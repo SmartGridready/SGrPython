@@ -5,6 +5,7 @@ from typing import Awaitable, Callable
 import aiohttp
 import jmespath
 from aiohttp.client import ClientSession
+from jmespath.exceptions import JMESPathError
 from sgrspecification.product import RestApiInterface
 from sgrspecification.product.rest_api_types import (
     HeaderList,
@@ -12,13 +13,13 @@ from sgrspecification.product.rest_api_types import (
 )
 
 type Authenticator = Callable[
-    [RestApiInterface, ClientSession], Awaitable[None]
+    [RestApiInterface, ClientSession], Awaitable[bool]
 ]
 
 
 async def authtenicate_with_bearer_token(
     interface: RestApiInterface, session: ClientSession
-) -> None:
+) -> bool:
     try:
         description = interface.rest_api_interface_description
         if description is None:
@@ -64,14 +65,17 @@ async def authtenicate_with_bearer_token(
                     response = await res.text()
                     token = jmespath.search("accessToken", json.loads(response))
                     if token:
-                        self._token = str(token)
+                        session.headers.update(
+                            {"authentication": f"Bearer ${token}"}
+                        )
                         logging.info("Token retrieved successfully")
+                        return True
                     else:
                         logging.warning("Token not found in the response")
-                        self._is_connected = True
+                        return False
                 except json.JSONDecodeError:
                     logging.error("Failed to decode JSON response")
-                except jmespath.exceptions.JMESPathError:
+                except JMESPathError:
                     logging.error("Failed to search JSON data using JMESPath")
             else:
                 logging.warning(f"Authentication failed: Status {res.status}")
@@ -81,6 +85,8 @@ async def authtenicate_with_bearer_token(
         logging.error(f"Network error occurred: {e}")
     except Exception as e:
         logging.error(f"An unexpected error occurred: {e}")
+    finally:
+        return False
 
 
 supported_authentication_methods: dict[
@@ -88,3 +94,18 @@ supported_authentication_methods: dict[
 ] = {
     RestApiAuthenticationMethod.BEARER_SECURITY_SCHEME: authtenicate_with_bearer_token
 }
+
+
+async def setup_authentication(
+    rest_api_interface: RestApiInterface, session: ClientSession
+) -> bool:
+    option = rest_api_interface.rest_api_interface_description
+    if option is None:
+        raise Exception("illegal")
+    method = option.rest_api_authentication_method
+    if method is None:
+        raise Exception("illegal")
+    auth_fn = supported_authentication_methods.get(method)
+    if auth_fn is None:
+        raise Exception("illegal")
+    return await auth_fn(rest_api_interface, session)

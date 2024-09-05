@@ -56,12 +56,12 @@ class ModBusTCPDataPoint(DataPointProtocol):
         self._fp = modbus_api_fp
         self._interface = interface
 
-    async def write(self, data: Any):
+    async def set_val(self, data: Any):
         return await self._interface.setval(
             self.name()[0], self.name()[1], data
         )
 
-    async def read(self) -> Any:
+    async def get_val(self) -> Any:
         return await self._interface.getval(self.name()[0], self.name()[1])
 
     def name(self) -> tuple[str, str]:
