@@ -1,9 +1,9 @@
 import asyncio
 
-from sgr_library.api import DeviceBuilder
+from sgr_library.device_builder import DeviceBuilder
 
 
-async def test_loop():
+def test_loop():
     config_file = "config_wago"
     interface_file = "abb_terra_01.xml"
 
@@ -14,16 +14,16 @@ async def test_loop():
     device = (
         builder.eid_path(interface_file).properties_path(config_file).build()
     )
-    await device.connect_async()
+    device.connect()
 
-    vals = await device.get_value_async()
+    vals = device.get_value()
     print(vals)
 
-
-try:
-    asyncio.run(test_loop())
-except KeyboardInterrupt:
-    # Here we have to close all the sessions...
-    # We have to think if we want to open a connection and close it for
-    # every getval, or we just leave the user do this.
-    print("done")
+if __name__ == '__main__':
+    try:
+        test_loop()
+    except KeyboardInterrupt:
+        # Here we have to close all the sessions...
+        # We have to think if we want to open a connection and close it for
+        # every getval, or we just leave the user do this.
+        print("done")

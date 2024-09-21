@@ -87,7 +87,7 @@ def get_slave_rtu(root) -> int:
         raise ValueError("RTU Slave ID not found or invalid in XML file.")
 
 
-def get_endian(root) -> str:
+def get_endian(root) -> Endian:
     try:
         match root.interface_list.modbus_interface.modbus_interface_description.bit_order:
             case BitOrder.BIG_ENDIAN:

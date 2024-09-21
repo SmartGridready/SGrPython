@@ -17,11 +17,18 @@ class UnsupportedValidator(DataPointValidator):
 class EnumValidator(DataPointValidator):
     def __init__(self, type: EnumMapProduct):
         self._type = type
-        literals = {entry.literal for entry in type.enum_entry}
-        ordinals = {entry.ordinal for entry in type.enum_entry}
+        literals = {
+            entry.literal
+            for entry in type.enum_entry
+            if entry.literal is not None
+        }
+        ordinals = {
+            entry.ordinal
+            for entry in type.enum_entry
+            if entry.ordinal is not None
+        }
         literals.union(ordinals)
-        literals.discard(None)
-        self._valid_entries: list[str] = literals
+        self._valid_entries: list[str] = list(literals)
 
     def validate(self, value: Any) -> bool:
         return value in self._valid_entries

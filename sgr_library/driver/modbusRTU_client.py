@@ -1,7 +1,7 @@
 from pymodbus.client import ModbusSerialClient
 from pymodbus.constants import Endian
 
-from sgr_library.payload_decoder import PayloadBuilder, PayloadDecoder
+from .payload_decoder import PayloadBuilder, PayloadDecoder
 
 # In this case establishes a connection with the localhost server that is running the simulation.
 
