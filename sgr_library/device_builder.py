@@ -8,9 +8,11 @@ from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
 
 from sgr_library.api.device_api import BaseSGrInterface
+from sgr_library.driver.modbus_rtu.modbusRTU_interface_async import (
+    SgrModbusRtuInterface,
+)
 from sgr_library.driver.modbus_tcp.modbus_interface import SgrModbusInterface
 from sgr_library.driver.rest.restapi_client_async import SgrRestInterface
-from sgr_library.modbusRTU_interface_async import SgrModbusRtuInterface
 
 
 class SGrConfiguration(Enum):
