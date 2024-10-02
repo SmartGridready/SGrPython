@@ -13,6 +13,9 @@ class UnsupportedValidator(DataPointValidator):
     def validate(self, value: Any) -> bool:
         return False
 
+    def data_type(self):
+        return DataTypes.STRING
+
 
 class EnumValidator(DataPointValidator):
     def __init__(self, type: EnumMapProduct):
@@ -36,7 +39,7 @@ class EnumValidator(DataPointValidator):
     def data_type(self):
         return DataTypes.ENUM
 
-    def options(self) -> list[str] | None:
+    def options(self) -> list[str]:
         return self._valid_entries
 
 
