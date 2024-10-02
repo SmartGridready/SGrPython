@@ -1,7 +1,7 @@
 from pymodbus.client import ModbusSerialClient
 from pymodbus.constants import Endian
 
-from sgr_library.payload_decoder import PayloadBuilder, PayloadDecoder
+from ..payload_decoder import PayloadBuilder, PayloadDecoder
 
 # In this case establishes a connection with the localhost server that is running the simulation.
 
@@ -76,18 +76,3 @@ class SGrModbusRTUClient:
         self.client.write_registers(
             address=addr, values=builder.to_registers(), unit=slave_id
         )
-
-
-if __name__ == "__main__":
-    # Build Connection
-    myRTUModbus = SGrModbusRTUClient("COM7", "E", 19200)
-
-    # int16_u --> 16bit pro register, signedvalue
-    Power = myRTUModbus.value_decoder(
-        0x5B14, 2, "int32", "HoldingRegister", 1, Endian.Big
-    )
-
-    print(str(Power * 0.01) + "W")
-
-    myRTUModbus.client.close()
-    print("finished")

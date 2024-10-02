@@ -24,11 +24,11 @@ class DataPointValidator(ABC):
 
 class DataPointProtocol(ABC):
     @abstractmethod
-    async def write(self, data: Any):
+    async def set_val(self, data: Any):
         pass
 
     @abstractmethod
-    async def read(self) -> Any:
+    async def get_val(self) -> Any:
         pass
 
     @abstractmethod
@@ -51,7 +51,7 @@ class DataPoint(Generic[T]):
         return self._protocol.name()
 
     async def get_value_async(self) -> T:
-        value = await self._protocol.read()
+        value = await self._protocol.get_val()
         if self._validator.validate(value):
             return value
         raise Exception(
@@ -63,7 +63,7 @@ class DataPoint(Generic[T]):
 
     async def set_value_async(self, data: T):
         if self._validator.validate(data):
-            return await self._protocol.write(data)
+            return await self._protocol.set_val(data)
         raise Exception("invalid data to write to device")
 
     def set_value(self, data: T):

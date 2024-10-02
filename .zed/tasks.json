@@ -1,0 +1,11 @@
+[
+  {
+    "label": "Example",
+    "command": "python3 $ZED_FILENAME",
+    "env": {
+      "PYTHONPATH": "/Users/robin/GitRepos/GitHub/SGrPython:$PYTHONPATH"
+    },
+    "cwd": "$ZED_DIRNAME",
+    "reveal": "always"
+  }
+]

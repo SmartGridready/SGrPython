@@ -6,7 +6,8 @@ from pymodbus.client import AsyncModbusTcpClient
 from pymodbus.constants import Endian
 
 from sgr_library.exceptions import RegisterError
-from sgr_library.payload_decoder import (
+
+from ..payload_decoder import (
     PayloadBuilder,
     PayloadDecoder,
     RoundingScheme,
@@ -25,7 +26,7 @@ class SGrModbusClient:
         :param port: The modbus port to connect to (default 502)
         """
         # EXAMPLE: client = ModbusTcpClient('127.0.0.1', 5002)
-        self.client = AsyncModbusTcpClient(
+        self._client = AsyncModbusTcpClient(
             host=ip,
             port=port,
             timeout=1,
@@ -56,11 +57,11 @@ class SGrModbusClient:
         """
         try:
             if register_type == "HoldRegister":
-                reg = await self.client.read_holding_registers(
+                reg = await self._client.read_holding_registers(
                     addr, size, slave=slave_id
                 )
             elif register_type == "InputRegister":
-                reg = await self.client.read_input_registers(
+                reg = await self._client.read_input_registers(
                     addr, count=size, slave=slave_id
                 )
             else:
@@ -104,11 +105,11 @@ class SGrModbusClient:
         :returns: Decoded float
         """
         if register_type == "HoldRegister":
-            reg = self.client.read_holding_registers(
+            reg = self._client.read_holding_registers(
                 addr, size, slave=slave_id
             )  # TODO add slave id?
         else:
-            reg = self.client.read_input_registers(
+            reg = self._client.read_input_registers(
                 addr, count=size, slave=slave_id
             )
         decoder = PayloadDecoder.fromRegisters(
@@ -143,7 +144,8 @@ class SGrModbusClient:
             builder = PayloadBuilder(
                 byteorder=order, wordorder=order
             ).sgr_encode(value, data_type, RoundingScheme.floor)
-            self.client.write_registers(
+
+            self._client.write_registers(
                 address=addr, values=builder.to_registers(), unit=slave_id
             )
         except asyncio.TimeoutError:

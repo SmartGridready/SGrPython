@@ -22,18 +22,10 @@ from sgr_library.api import (
     FunctionProfile,
     build_configurations_parameters,
 )
-from sgr_library.auxiliary_functions import find_dp
-from sgr_library.driver.modbusRTU_client_async import SGrModbusRTUClient
+from sgr_library.driver.modbus_rtu.modbusRTU_client_async import (
+    SGrModbusRTUClient,
+)
 from sgr_library.validators import build_validator
-
-
-def get_port(root) -> str:
-    """
-    :param root: The root element created with the xsdata parser
-    :returns: string with port from xml file.
-    """
-    return str(root.modbus_interface_desc.trsp_srv_modbus_tcpout_of_box.port)
-    # return(str(root.modbus_interface_desc.trspSrvModbusRTUoutOfBox.port)) #TODO Port datapoint for RTU in XML is not existing
 
 
 def get_slave(root) -> int:
@@ -87,22 +79,71 @@ class ModBusRTUDataPoint(DataPointProtocol):
         self._fp = modbus_api_fp
         self._interface = interface
 
-    async def write(self, data: Any):
+        self._dp_name = ""
+        if self._dp.data_point and self._dp.data_point.data_point_name:
+            self._dp_name = self._dp.data_point.data_point_name
+
+        self._direction = DataDirectionProduct.C
+        if self._dp.data_point and self._dp.data_point.data_direction:
+            self._direction = self._dp.data_point.data_direction
+        self._fp_name = ""
+        if (
+            self._fp.functional_profile
+            and self._fp.functional_profile.functional_profile_name
+        ):
+            self._fp_name = self._fp.functional_profile.functional_profile_name
+        self._address = -1
+        if (
+            self._dp.modbus_data_point_configuration
+            and self._dp.modbus_data_point_configuration.address
+        ):
+            self._address = self._dp.modbus_data_point_configuration.address
+
+        self._data_type = ""
+        if (
+            self._dp.modbus_data_point_configuration
+            and self._dp.modbus_data_point_configuration.modbus_data_type
+        ):
+            for (
+                key,
+                value,
+            ) in self._dp.modbus_data_point_configuration.modbus_data_type.__dict__.items():
+                if value:
+                    self._data_type = key
+
+        self._size = -1
+        if (
+            self._dp.modbus_data_point_configuration
+            and self._dp.modbus_data_point_configuration.number_of_registers
+        ):
+            self._size = (
+                self._dp.modbus_data_point_configuration.number_of_registers
+            )
+
+        self._register_type = ""
+        if (
+            self._dp.modbus_data_point_configuration
+            and self._dp.modbus_data_point_configuration.register_type
+        ):
+            self._register_type = (
+                self._dp.modbus_data_point_configuration.register_type.value
+            )
+
+    async def set_val(self, data: Any):
         return await self._interface.setval(
-            self.name()[0], self.name()[1], data
+            self._address, self._data_type, data
         )
 
-    async def read(self) -> Any:
-        return await self._interface.getval(self.name()[0], self.name()[1])
+    async def get_val(self) -> Any:
+        return await self._interface.getval(
+            self._address, self._size, self._data_type, self._register_type
+        )
 
     def name(self) -> tuple[str, str]:
-        return (
-            self._fp.functional_profile.functional_profile_name,
-            self._dp.data_point.data_point_name,
-        )
+        return self._fp_name, self._dp_name
 
     def direction(self) -> DataDirectionProduct:
-        return self._dp.data_point.data_direction
+        return self._direction
 
 
 class ModBusRTUFunctionProfile(FunctionProfile):
@@ -162,6 +203,9 @@ class SgrModbusRtuInterface(BaseSGrInterface):
             is_local=frame.device_information.is_local_control,
         )
 
+    def device_information(self) -> DeviceInformation:
+        return self._device_information
+
     def is_connected(self) -> bool:
         return True
 
@@ -177,52 +221,9 @@ class SgrModbusRtuInterface(BaseSGrInterface):
         """
         return self.client.client
 
-    # TODO
-    def get_dp_attribute(self, datapoint: str, attribute: str):
-        """
-        searches for a specific attribute in the datapoint via a key.
-        :param attribute"address", "size", "bitrank", "data_type", "register_type", "unit", "multiplicator", "power_of", "name"
-        :returns: the chosen attribute.
-        """
-        # todo
-        ...
-
-    # todo assign multiple dispatch to the function.
-    '''def getval(self, fp_name: str, dp_name: str) -> float:
-        """
-        reads datapoint value.
-        :param fp_name: the name of the funcitonal profile in which the datapoint resides.
-        :param dp_name: the name of the datapoint.
-        :returns: the current decoded value in the datapoint register.
-        """
-        dp = find_dp(self.root, fp_name, dp_name)
-        address = self.get_address(dp)
-        size = self.get_size(dp)
-        data_type = self.get_datatype(dp)
-        reg_type = self.get_register_type(dp)
-        return self.client.value_decoder(address, size, data_type, reg_type)'''
-
-    # getval with multiple dispatching
-    async def getval(self, *parameter) -> float:
-        """
-        reads datapoint value.
-
-        :dp: the already obtained datapoint object
-
-        2 parameters alternative:
-        :param fp_name: the name of the functional profile in which the datapoint resides.
-        :param dp_name: the name of the datapoint.
-
-        :returns: the current decoded value in the datapoint register.
-        """
-        if len(parameter) == 2:
-            dp = find_dp(self.root, parameter[0], parameter[1])
-        else:
-            dp = parameter[0]
-        address = self.get_address(dp)
-        size = self.get_size(dp)
-        data_type = self.get_datatype(dp)
-        reg_type = self.get_register_type(dp)
+    async def getval(
+        self, address: int, size: int, data_type: str, reg_type: str
+    ) -> float:
         slave_id = self.slave_id
         order = self.byte_order
 
@@ -233,16 +234,7 @@ class SgrModbusRtuInterface(BaseSGrInterface):
             address, size, data_type, reg_type, slave_id, order
         )
 
-    async def setval(self, fp_name: str, dp_name: str, value: float) -> None:
-        """
-        writes datapoint value.
-        :param fp_name: the name of the funcitonal profile in which the datapoint resides.
-        :param dp_name: the name of the datapoint.
-        :param value: the value that is to be written on the datapoint.
-        """
-        dp: ModbusDataPoint = find_dp(self.root, fp_name, dp_name)
-        address = self.get_address(dp)
-        data_type = self.get_datatype(dp)
+    async def setval(self, address: int, data_type: str, value: float) -> None:
         slave_id = self.slave_id
         order = self.byte_order
         await self.client.value_encoder(
@@ -276,40 +268,10 @@ class SgrModbusRtuInterface(BaseSGrInterface):
     def get_size(self, dp: ModbusDataPoint):
         return dp.modbus_data_point_configuration.number_of_registers
 
-    def get_multiplicator(self, dp: ModbusDataPoint) -> int:
-        return dp.modbus_attributes.scaling_factor.multiplicator
-
-    def get_power_10(self, dp: ModbusDataPoint) -> int:
-        return dp.modbus_attributes.scaling_factor.powerof10
-
-    def get_unit(self, dp: ModbusDataPoint):
-        return dp.data_point.unit.value
-
-    def get_name(self, dp: ModbusDataPoint):
-        return dp.data_point.data_point_name
-
-    """
-    def find_dp(self, fp_name: str, dp_name: str) -> SgrModbusDataPointType:
-
-        Searches the datapoint in the root element.
-        :param root: The root element created with the xsdata parser
-        :param fp_name: The name of the funcitonal profile in which the datapoint resides
-        :param dp_name: The name of the datapoint
-        :returns: The datapoint element found in root, if not, returns None.
-
-        for fp in self.root.fp_list_element:
-                if fp_name == fp.functional_profile.profile_name:
-                    #Secondly we filter the datpoint name
-                    for dp in fp.dp_list_element:
-                        if dp_name == dp.data_point[0].datapoint_name:
-                            return dp
-        return None
-    """
-
     def configuration_parameter(self) -> list[ConfigurationParameter]:
         return self._configurations_params
 
-    async def connect(self):
+    async def async_connect(self):
         # check if there already exists a ModbusRTUClient for the communication over ModbusRTU
         if SgrModbusRtuInterface.globalModbusRTUClient is None:
             self.client = SGrModbusRTUClient(
@@ -326,54 +288,6 @@ class SgrModbusRtuInterface(BaseSGrInterface):
 
     def get_function_profiles(self) -> Mapping[str, FunctionProfile]:
         return self._function_profiles
-
-    def device_information(self) -> DeviceInformation:
-        return self._device_information
-
-    def find_dp(self, fp_name: str, dp_name: str):
-        """
-        searches the datapoint in the root element.
-        :param root: the root element created with the xsdata parser
-        :param fp_name: the name of the funcitonal profile in which the datapoint resides
-        :param dp_name: the name of the datapoint
-        :returns: the datapoint element found in root, if not, returns none.
-        """
-        fp = next(
-            filter(
-                lambda x: x.functional_profile.profile_name == fp_name,
-                self.root.fp_list_element,
-            ),
-            None,
-        )
-        if fp:
-            dp = next(
-                filter(
-                    lambda x: x.data_point.datapoint_name == dp_name,
-                    fp.dp_list_element,
-                ),
-                None,
-            )
-            if dp:
-                return dp
-
-    def get_device_name(self) -> str:
-        """
-        returns the s_lv1_name of the device
-        """
-        return self.root.device_profile.dev_name_list.s_lv1_name
-
-    def get_modbusInterfaceSelection(self) -> str:
-        """
-        returns selected modbus interface in xml file
-        """
-        return self.root.modbus_interface_desc.modbus_interface_selection.value
-
-    def get_manufacturer(self):
-        """
-        returns the manufacturer name of the device
-        """
-        # todo it could also be root.device_information.alternative_names.manuf_name
-        return self.root.manufacturer_name
 
     def set_slave_id(self, slave_id: int):
         """

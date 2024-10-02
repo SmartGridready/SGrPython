@@ -3,7 +3,7 @@ import asyncio
 from pymodbus.client import AsyncModbusSerialClient
 from pymodbus.constants import Endian
 
-from sgr_library.payload_decoder import (
+from ..payload_decoder import (
     PayloadBuilder,
     PayloadDecoder,
     RoundingScheme,

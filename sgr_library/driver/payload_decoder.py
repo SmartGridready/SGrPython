@@ -103,7 +103,7 @@ class PayloadBuilder(BinaryPayloadBuilder):
         elif modbus_type == "float64":
             self.add_64bit_float(round_to_int(value, rounding))
         elif modbus_type == "string":
-            self.add_string(round_to_int(value, rounding))
+            self.add_string(str(value))
         else:
             print('Unknown modbus type "%s"', modbus_type)
         return self

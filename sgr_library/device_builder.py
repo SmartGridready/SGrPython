@@ -8,9 +8,11 @@ from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
 
 from sgr_library.api.device_api import BaseSGrInterface
-from sgr_library.driver.restapi_client_async import SgrRestInterface
-from sgr_library.modbus_interface import SgrModbusInterface
-from sgr_library.modbusRTU_interface_async import SgrModbusRtuInterface
+from sgr_library.driver.modbus_rtu.modbusRTU_interface_async import (
+    SgrModbusRtuInterface,
+)
+from sgr_library.driver.modbus_tcp.modbus_interface import SgrModbusInterface
+from sgr_library.driver.rest.restapi_client_async import SgrRestInterface
 
 
 class SGrConfiguration(Enum):
@@ -53,6 +55,8 @@ class DeviceBuilder:
 
     def build(self) -> BaseSGrInterface:
         spec, config = self._replace_variables()
+        self._value = spec
+        self._type = SGrConfiguration.FILE
         xml = self._string_loader()
         protocol = self._resolve_protocol(xml)
         return device_builders[protocol](xml, config)
@@ -85,7 +89,11 @@ class DeviceBuilder:
         parser = XmlParser(context=XmlContext())
         if self._value is None:
             raise Exception("missing specifcation")
-        return parser.from_string(self._value, DeviceFrame)
+        try:
+            return parser.from_string(self._value, DeviceFrame)
+        except Exception as e:
+            print(self._value)
+            print(e)
 
     def _file_loader(self) -> DeviceFrame:
         parser = XmlParser(context=XmlContext())
