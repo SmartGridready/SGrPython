@@ -1,4 +1,4 @@
-from sgrspecification.generic import EnumEntryProductRecord, EnumMapProduct
+from sgr_specification.v0.generic import EnumEntryProductRecord, EnumMapProduct
 
 from sgr_library.api.data_types import DataTypes
 from sgr_library.validators.validator import (

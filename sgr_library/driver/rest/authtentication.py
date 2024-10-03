@@ -6,8 +6,8 @@ import aiohttp
 import jmespath
 from aiohttp.client import ClientSession
 from jmespath.exceptions import JMESPathError
-from sgrspecification.product import RestApiInterface
-from sgrspecification.product.rest_api_types import (
+from sgr_specification.v0.product import RestApiInterface
+from sgr_specification.v0.product.rest_api_types import (
     HeaderList,
     RestApiAuthenticationMethod,
 )

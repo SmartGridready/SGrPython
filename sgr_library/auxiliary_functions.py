@@ -1,5 +1,5 @@
 from pymodbus.constants import Endian
-from sgrspecification.product import BitOrder
+from sgr_specification.v0.product import BitOrder
 
 
 def get_address(root) -> str:

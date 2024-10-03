@@ -1,15 +1,20 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
+# do not configure 'packages', so setuptools uses auto-detection
 setup(
-    name='SGrSpecificationPythontks4r', # SGrSpecificationPythontks4r
+    name='SGrSpecificationPythontks4r',  # SGrSpecificationPythontks4r
     version='{{tag}}',
-    packages=find_packages(),
     install_requires=[],
-    url='https://github.com/SmartGridready/SGrSpecifications/',
+    url='https://github.com/SmartGridready/SGrSpecifications#readme',
+    project_urls={
+        'Issue Tracker': 'https://github.com/SmartGridready/SGrSpecifications/issues',
+        'Source': 'https://github.com/SmartGridready/SGrSpecifications'
+    },
     license='BSD',
     author='Robin Schoch',
     author_email='',
-    description='',
-    long_description='',
+    description='SGr Specifications',
+    long_description='Specification classes generated from XML schema',
     long_description_content_type='text/plain',
+    python_requires='>=3.9'
 )

@@ -48,49 +48,59 @@ jobs:
           python --version
           pip show xsdata
 
-      - name: Clone Repository
+      - name: Checkout SGrSpecifications Repository
         uses: actions/checkout@v4
         with:
           repository: 'SmartGridready/SGrSpecifications'
           ref: ${{ steps.set_tag.outputs.original_tag }}
+          path: SGrSpecifications
 
-      - name: Run xsdata Command
-        run: xsdata SchemaDatabase/SGr -r --package sgrspecification
-      - name: Checkout Current Repository
-        uses: actions/checkout@v2
+      - name: Checkout SGrPython Repository
+        uses: actions/checkout@v4
         with:
-          path: 'sgrpython'
-      - name: ls
-        run: ls sgrpython
-      - name: Copy Setup File
+          path: SGrPython
+
+      - name: Generate specification classes with xsdata
+        working-directory: SGrPython/specification/src
+        run: xsdata generate ../../../SGrSpecifications/SchemaDatabase/SGr -r --package sgr_specification.v0
+
+      - name: Check SGrPython Directory
+        run: ls SGrPython
+
+      - name: Modify Specification Setup File
+        working-directory: SGrPython/specification
         run: |
-          cp ./sgrpython/specification/setup.py .
-          sed -i "s/{{tag}}/${{ steps.set_tag.outputs.semver }}/g" ./setup.py
-          cat ./setup.py
+          sed -i "s/{{tag}}/${{ steps.set_tag.outputs.semver }}/g" setup.py
+          cat setup.py
           echo ${{ steps.set_tag.outputs.original_tag }}
 
-      - name: Build Package
+      - name: Build Specification Package
+        working-directory: SGrPython/specification
         run: python setup.py sdist bdist_wheel
-      - name: Publish to PyPI
+
+      - name: Publish Specification Package to PyPI
         uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
 
       - name: Bump Patch Version
         id: version_bump
+        working-directory: SGrPython
         run: |
-          sed -i "s/SGrSpecificationPythontks4r==.*/SGrSpecificationPythontks4r==${{ steps.set_tag.outputs.semver }}/g" ./sgrpython/requirements.txt
+          sed -i "s/SGrSpecificationPythontks4r==.*/SGrSpecificationPythontks4r==${{ steps.set_tag.outputs.semver }}/g" requirements.txt
           echo "Updated version to ${{ steps.set_tag.outputs.semver }} in requirements.txt"
-          cat ./sgrpython/requirements.txt
-      - name: Create a new branch
+          cat requirements.txt
+
+      - name: Create a new Branch
+        working-directory: SGrPython
         run: |
-          cd ./sgrpython
           git checkout -b version-update-${{ steps.set_tag.outputs.semver }}
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
           git commit -m "Bump version to ${{ steps.set_tag.outputs.semver }}"
           git push --set-upstream origin version-update-${{ steps.set_tag.outputs.semver }}
+
       - name: Create Pull Request
         uses: actions/github-script@v6
         with:

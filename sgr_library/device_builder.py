@@ -3,7 +3,7 @@ import re
 from collections.abc import Callable
 from enum import Enum
 
-from sgrspecification.product import DeviceFrame
+from sgr_specification.v0.product import DeviceFrame
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
 

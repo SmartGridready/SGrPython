@@ -10,16 +10,16 @@ import certifi
 import jmespath
 from aiohttp import ClientConnectionError, ClientResponseError
 from cachetools import TTLCache
-from sgrspecification.generic import DataDirectionProduct, DeviceCategory
-from sgrspecification.generic.base_types import ResponseQuery
-from sgrspecification.product import (
+from sgr_specification.v0.generic import DataDirectionProduct, DeviceCategory
+from sgr_specification.v0.generic.base_types import ResponseQuery
+from sgr_specification.v0.product import (
     DeviceFrame,
     HeaderList,
     HttpMethod,
     RestApiDataPoint,
     RestApiFunctionalProfile,
 )
-from sgrspecification.product.product import ConfigurationList
+from sgr_specification.v0.product.product import ConfigurationList
 
 from sgr_library.api import (
     BaseSGrInterface,

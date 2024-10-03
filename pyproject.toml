@@ -3,11 +3,11 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "sgr-lib"
+name = "SGrPythontks4r"
 dynamic = ["version"]
 description = ""
 readme = ""
-requires-python = ">=3.6"
+requires-python = ">=3.9"
 license = { text = "BSD" }
 authors = [{ name = "Robin Schoch" }]
 urls = { "Homepage" = "https://github.com/SmartGridready/SGrPython" }

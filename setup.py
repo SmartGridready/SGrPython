@@ -7,7 +7,7 @@ def read_requirements() -> list[str]:
 
 
 setup(
-    name="sgr-lib",
+    name='SGrPythontks4r',  # SGrPythontks4r
     use_scm_version={"local_scheme": "no-local-version"},
     setup_requires=["setuptools_scm"],
     packages=[
@@ -16,12 +16,13 @@ setup(
         "sgr_library.validators",
         "sgr_library.converters",
     ],
+    install_requires=read_requirements(),
     url="https://github.com/SmartGridready/SGrPython",
     license="BSD",
     author="Robin Schoch",
-    author_email="",
-    description="",
-    install_requires=read_requirements(),
-    long_description="",
+    author_email='',
+    description='SGr Commhandler',
+    long_description='SGr Commhandler Library',
     long_description_content_type="text/plain",
+    python_requires='>=3.9'
 )

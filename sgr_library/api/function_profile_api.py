@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from asyncio import run
 
-from sgrspecification.generic import DataDirectionProduct
+from sgr_specification.v0.generic import DataDirectionProduct
 
 from sgr_library.api.data_point_api import DataPoint
 from sgr_library.api.data_types import DataTypes

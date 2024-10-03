@@ -1,6 +1,6 @@
 from typing import Optional
 
-from sgrspecification.generic import DataTypeProduct
+from sgr_specification.v0.generic import DataTypeProduct
 
 from sgr_library.api import DataPointValidator
 from sgr_library.validators.validator import (

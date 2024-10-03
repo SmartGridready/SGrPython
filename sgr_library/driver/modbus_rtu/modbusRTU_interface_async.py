@@ -4,10 +4,10 @@ from collections.abc import Mapping
 from typing import Any
 
 from pymodbus.constants import Endian
-from sgrspecification.generic import DataDirectionProduct, Parity
+from sgr_specification.v0.generic import DataDirectionProduct, Parity
 
 # from sgr_library.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
-from sgrspecification.product import (
+from sgr_specification.v0.product import (
     DeviceFrame,
     ModbusDataPoint,
     ModbusFunctionalProfile,

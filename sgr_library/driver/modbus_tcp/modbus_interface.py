@@ -5,11 +5,11 @@ from typing import Any
 
 from aiohttp import ClientError
 from pymodbus.exceptions import ConnectionException
-from sgrspecification.generic import DataDirectionProduct
+from sgr_specification.v0.generic import DataDirectionProduct
 
 # from sgr_library.data_classes.ei_modbus import SgrModbusDeviceFrame
 # from sgr_library.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointType
-from sgrspecification.product import (
+from sgr_specification.v0.product import (
     DeviceFrame,
     ModbusDataPoint,
     ModbusFunctionalProfile,

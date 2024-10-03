@@ -1,6 +1,6 @@
 from typing import Any
 
-from sgrspecification.generic import EnumMapProduct
+from sgr_specification.v0.generic import EnumMapProduct
 
 from sgr_library.api import DataPointValidator
 from sgr_library.api.data_types import DataTypes

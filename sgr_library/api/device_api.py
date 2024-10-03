@@ -4,7 +4,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any
 
-from sgrspecification.generic import DataDirectionProduct, DeviceCategory
+from sgr_specification.v0.generic import DataDirectionProduct, DeviceCategory
 
 from sgr_library.api import DataPoint
 from sgr_library.api.configuration_parameter import ConfigurationParameter
