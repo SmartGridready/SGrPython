@@ -11,8 +11,8 @@
 	
 generic_interface.py has a script with an example on how to use these functions.
 
-- For the xsdata documentation and the library documentation please go to sgr_library folder in this directory. There you will find the specific the documentation.
-- For EXAMPLES on how to use the library, you will also find them in the sgr_library file, as 'examples'.
+- For the xsdata documentation and the library documentation please go to sgr_commhandler folder in this directory. There you will find the specific the documentation.
+- For EXAMPLES on how to use the library, you will also find them in the sgr_commhandler file, as 'examples'.
 
 ## 2.1) Pip Installation
 
@@ -22,7 +22,7 @@ Install our libray by running the command:
 
 Then import the library as follows (Please watch "example_generic.py" in our examples file for more clarity):
 
-		from sgr_library.generic_interface import GenericInterface
+		from sgr_commhandler.generic_interface import GenericInterface
 
 ## 2.2) DEVELOPER Pip Installation
 
@@ -51,13 +51,13 @@ You can download it with the following command.
     
 ## 3) Directory
 
-- sgr_library: Is the folder which will be installed with the pip install command.
+- sgr_commhandler: Is the folder which will be installed with the pip install command.
 
 - examples: This folder contains files on how to use the library. Please go to "example_generic.py" to have a basic example.
 
 - xml_files: Contains sample xml files for users to modify or use as example.
 
-- xsd_files: Contains the SGr xsd files structure, from which the dataclasses in "sgr_library" directory were generated. 
+- xsd_files: Contains the SGr xsd files structure, from which the dataclasses in "sgr_commhandler" directory were generated. 
 You don't have to do this, since the classes come included in the pip install, but in case you want to change something, you can generate classes with the following command:
 
 		xsdata --package data_classes xsd_files/SGrIncluder.xsd

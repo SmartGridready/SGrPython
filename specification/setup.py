@@ -1,9 +1,10 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
-# do not configure 'packages', so setuptools uses auto-detection
 setup(
     name='SGrSpecificationPythontks4r',  # SGrSpecificationPythontks4r
-    version='{{tag}}',
+    version='0.3.0',
+    packages=find_packages(where='src'),
+    package_dir={'':'src'},
     install_requires=[],
     url='https://github.com/SmartGridready/SGrSpecifications#readme',
     project_urls={
