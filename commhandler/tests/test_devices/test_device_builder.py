@@ -1,4 +1,5 @@
 import os
+import pytest
 from sgr_commhandler.device_builder import (
     DeviceBuilder
 )
@@ -8,7 +9,8 @@ EID_BASE_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'eids'
 INI_BASE_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'ini')
 
 
-def test_device_builder_modbus_tcp_dict():
+@pytest.mark.asyncio
+async def test_device_builder_modbus_tcp_dict():
     eid_path = os.path.join(EID_BASE_PATH, 'SGr_00_0016_dddd_ABB_B23_ModbusTCP_V0.3.xml')
     eid_properties = dict(
         tcp_address='127.0.0.1',
@@ -20,11 +22,12 @@ def test_device_builder_modbus_tcp_dict():
 
     device_info = test_device.device_information()
     assert device_info is not None
-    assert device_info.manufacture == 'ABB'
+    assert device_info.manufacturer == 'ABB'
     assert device_info.name == 'betaABBMeterTcpV0.3.0'
 
 
-def test_device_builder_modbus_tcp_ini():
+@pytest.mark.asyncio
+async def test_device_builder_modbus_tcp_ini():
     eid_path = os.path.join(EID_BASE_PATH, 'SGr_00_0016_dddd_ABB_B23_ModbusTCP_V0.3.xml')
     eid_properties_path = os.path.join(INI_BASE_PATH, 'SGr_00_0016_dddd_ABB_B23_ModbusTCP_V0.3.ini')
 
@@ -33,11 +36,12 @@ def test_device_builder_modbus_tcp_ini():
 
     device_info = test_device.device_information()
     assert device_info is not None
-    assert device_info.manufacture == 'ABB'
+    assert device_info.manufacturer == 'ABB'
     assert device_info.name == 'betaABBMeterTcpV0.3.0'
 
 
-def test_device_builder_rest_dict():
+@pytest.mark.asyncio
+async def test_device_builder_rest_dict():
     eid_path = os.path.join(EID_BASE_PATH, 'SGr_01_mmmm_dddd_Shelly_1PM_RestAPILocal_V0.1.xml')
     eid_properties = dict(
         baseUri='http://127.0.0.1'
@@ -48,11 +52,12 @@ def test_device_builder_rest_dict():
 
     device_info = test_device.device_information()
     assert device_info is not None
-    assert device_info.manufacture == 'Shelly'
+    assert device_info.manufacturer == 'Shelly'
     assert device_info.name == 'Shelly 1PM Local'
 
 
-def test_device_builder_rest_ini():
+@pytest.mark.asyncio
+async def test_device_builder_rest_ini():
     eid_path = os.path.join(EID_BASE_PATH, 'SGr_01_mmmm_dddd_Shelly_1PM_RestAPILocal_V0.1.xml')
     eid_properties_path = os.path.join(INI_BASE_PATH, 'SGr_01_mmmm_dddd_Shelly_1PM_RestAPILocal_V0.1.ini')
 
@@ -61,5 +66,5 @@ def test_device_builder_rest_ini():
 
     device_info = test_device.device_information()
     assert device_info is not None
-    assert device_info.manufacture == 'Shelly'
+    assert device_info.manufacturer == 'Shelly'
     assert device_info.name == 'Shelly 1PM Local'

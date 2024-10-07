@@ -8,9 +8,8 @@ from xsdata.formats.dataclass.parsers import XmlParser
 
 from sgr_specification.v0.product import DeviceFrame
 from sgr_commhandler.api.device_api import BaseSGrInterface
-from sgr_commhandler.driver.modbus.modbus_rtu_interface_async import SgrModbusRtuInterface
-from sgr_commhandler.driver.modbus.modbus_tcp_interface_async import SgrModbusTcpInterface
-from sgr_commhandler.driver.rest.restapi_client_async import SgrRestInterface
+from sgr_commhandler.driver.modbus.modbus_interface_async import SgrModbusInterface
+from sgr_commhandler.driver.rest.restapi_interface_async import SgrRestInterface
 
 
 class SGrConfiguration(Enum):
@@ -20,27 +19,30 @@ class SGrConfiguration(Enum):
 
 
 class SGrDeviceProtocol(Enum):
-    MODBUS_RTU = 0
-    MODBUS_TCP = 1
-    RESTAPI = 2
-    GENERIC = 3
-    CONTACT = 4
+    MODBUS = 0
+    RESTAPI = 1
+    MESSAGING = 2
+    CONTACT = 3
+    GENERIC = 4
+    UNKNOWN = 5
 
 
 device_builders: dict[
     SGrDeviceProtocol,
     Callable[
         [DeviceFrame, configparser.ConfigParser],
-        SgrRestInterface | SgrModbusTcpInterface | SgrModbusRtuInterface,
+        SgrRestInterface | SgrModbusInterface,
     ],
 ] = {
-    SGrDeviceProtocol.MODBUS_TCP: lambda frame, _: SgrModbusTcpInterface(frame),
-    SGrDeviceProtocol.MODBUS_RTU: lambda frame, _: SgrModbusRtuInterface(frame),
+    SGrDeviceProtocol.MODBUS: lambda frame, config: SgrModbusInterface(
+        frame, config
+    ),
     SGrDeviceProtocol.RESTAPI: lambda frame, config: SgrRestInterface(
         frame, config
     ),
+    # SGrDeviceProtocol.MESSAGING: lambda frame, config: SgrMessagingInterface(frame),
+    # SGrDeviceProtocol.CONTACT: lambda frame, config: SgrContactInterface(frame),
     # SGrDeviceProtocol.GENERIC: lambda frame, config: SgrGenericInterface(frame),
-    # SGrDeviceProtocol.CONTACT: lambda frame, config: SgrContactInterface(frame)
 }
 
 
@@ -64,20 +66,10 @@ class DeviceBuilder:
             raise Exception("unsupported device interface")
         if frame.interface_list.rest_api_interface:
             return SGrDeviceProtocol.RESTAPI
-        elif (
-            frame.interface_list.modbus_interface is not None
-            and frame.interface_list.modbus_interface.modbus_interface_description
-            is not None
-            and frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
-        ):
-            return SGrDeviceProtocol.MODBUS_RTU
-        elif (
-            frame.interface_list.modbus_interface is not None
-            and frame.interface_list.modbus_interface.modbus_interface_description
-            is not None
-            and frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp
-        ):
-            return SGrDeviceProtocol.MODBUS_TCP
+        elif frame.interface_list.modbus_interface:
+            return SGrDeviceProtocol.MODBUS
+        elif frame.interface_list.messaging_interface:
+            return SGrDeviceProtocol.MESSAGING
         elif frame.interface_list.contact_interface:
             return SGrDeviceProtocol.CONTACT
         else:

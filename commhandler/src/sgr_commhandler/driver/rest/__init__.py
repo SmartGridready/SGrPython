@@ -1,6 +1,6 @@
 __all__ = ["RestDataPoint", "RestFunctionProfile", "SgrRestInterface"]
 
-from .restapi_client_async import (
+from .restapi_interface_async import (
     RestDataPoint,
     RestFunctionProfile,
     SgrRestInterface,

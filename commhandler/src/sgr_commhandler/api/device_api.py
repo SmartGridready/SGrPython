@@ -1,13 +1,15 @@
 from abc import ABC, abstractmethod
 from asyncio import run
 from collections.abc import Mapping
+import configparser
 from dataclasses import dataclass
 from typing import Any
 
 from sgr_specification.v0.generic import DataDirectionProduct, DeviceCategory
+from sgr_specification.v0.product.product import DeviceFrame
 
 from sgr_commhandler.api import DataPoint
-from sgr_commhandler.api.configuration_parameter import ConfigurationParameter
+from sgr_commhandler.api.configuration_parameter import ConfigurationParameter, build_configurations_parameters
 from sgr_commhandler.api.data_types import DataTypes
 from sgr_commhandler.api.function_profile_api import FunctionProfile
 
@@ -15,7 +17,7 @@ from sgr_commhandler.api.function_profile_api import FunctionProfile
 @dataclass
 class DeviceInformation:
     name: str
-    manufacture: str
+    manufacturer: str
     software_revision: str
     hardware_revision: str
     device_category: DeviceCategory
@@ -23,6 +25,20 @@ class DeviceInformation:
 
 
 class BaseSGrInterface(ABC):
+    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
+        self.root = frame
+        self._configurations_params = build_configurations_parameters(
+            frame.configuration_list
+        )
+        self._device_information = DeviceInformation(
+            name=frame.device_name,
+            manufacturer=frame.manufacturer_name,
+            software_revision=frame.device_information.software_revision,
+            hardware_revision=frame.device_information.hardware_revision,
+            device_category=frame.device_information.device_category,
+            is_local=frame.device_information.is_local_control,
+        )
+
     def connect(self):
         run(self.connect_async())
 
@@ -45,13 +61,11 @@ class BaseSGrInterface(ABC):
     def is_connected(self) -> bool:
         pass
 
-    @abstractmethod
     def device_information(self) -> DeviceInformation:
-        pass
+        return self._device_information
 
-    @abstractmethod
     def configuration_parameter(self) -> list[ConfigurationParameter]:
-        pass
+        return self._configuration_parameters
 
     def get_function_profile(
         self, function_profile_name: str

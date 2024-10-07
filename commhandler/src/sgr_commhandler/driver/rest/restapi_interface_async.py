@@ -1,16 +1,15 @@
 import configparser
 import json
-import logging
 import ssl
 from collections.abc import Mapping
 from typing import Any
-
+import logging
 import aiohttp
 import certifi
 import jmespath
 from aiohttp import ClientConnectionError, ClientResponseError
 from cachetools import TTLCache
-from sgr_specification.v0.generic import DataDirectionProduct, DeviceCategory
+from sgr_specification.v0.generic import DataDirectionProduct
 from sgr_specification.v0.generic.base_types import ResponseQuery
 from sgr_specification.v0.product import (
     DeviceFrame,
@@ -19,23 +18,14 @@ from sgr_specification.v0.product import (
     RestApiDataPoint,
     RestApiFunctionalProfile,
 )
-from sgr_specification.v0.product.product import ConfigurationList
-
 from sgr_commhandler.api import (
     BaseSGrInterface,
-    ConfigurationParameter,
     DataPoint,
     DataPointProtocol,
-    DeviceInformation,
     FunctionProfile,
-)
-from sgr_commhandler.api.configuration_parameter import (
-    build_configurations_parameters,
 )
 from sgr_commhandler.driver.rest.authentication import setup_authentication
 from sgr_commhandler.validators import build_validator
-
-logging.basicConfig(level=logging.ERROR)
 
 
 def build_rest_data_point(
@@ -175,46 +165,19 @@ class SgrRestInterface(BaseSGrInterface):
     def __init__(
         self, frame: DeviceFrame, configuration: configparser.ConfigParser
     ):
-        device_info = frame.device_information
-        if device_info is None:
-            raise Exception("invalid")
-        self._device_information = DeviceInformation(
-            name=frame.device_name if frame.device_name else "",
-            manufacture=frame.manufacturer_name
-            if frame.manufacturer_name
-            else "",
-            software_revision=device_info.software_revision
-            if device_info.software_revision
-            else "",
-            hardware_revision=device_info.hardware_revision
-            if device_info.hardware_revision
-            else "",
-            device_category=device_info.device_category
-            if device_info.device_category
-            else DeviceCategory.DEVICE_INFORMATION,
-            is_local=device_info.is_local_control
-            if device_info.is_local_control
-            else False,
-        )
+        super().__init__(frame, configuration)
 
-        self._is_connected = False
-        self._configuration_parameters = build_configurations_parameters(
-            frame.configuration_list
-            if frame.configuration_list
-            else ConfigurationList()
-        )
+        self._session = None
         self._ssl_context = ssl.create_default_context(cafile=certifi.where())
-        self._conntector = aiohttp.TCPConnector(ssl=self._ssl_context)
-        self._session = aiohttp.ClientSession(connector=self._conntector)
-        self._root = frame
+        self._connector = aiohttp.TCPConnector(ssl=self._ssl_context)
         self._cache = TTLCache(maxsize=100, ttl=5)
 
         if (
-            self._root.interface_list
-            and self._root.interface_list
-            and self._root.interface_list.rest_api_interface
+            self.root.interface_list
+            and self.root.interface_list
+            and self.root.interface_list.rest_api_interface
         ):
-            self._raw_interface = self._root.interface_list.rest_api_interface
+            self._raw_interface = self.root.interface_list.rest_api_interface
         else:
             raise Exception("Invalid")
         desc = self._raw_interface.rest_api_interface_description
@@ -234,28 +197,25 @@ class SgrRestInterface(BaseSGrInterface):
         self._function_profiles = {fp.name(): fp for fp in fps}
 
     def is_connected(self):
-        return self._is_connected
+        return self._session is not None and not self._session.closed
 
     async def disconnect_async(self):
-        self._is_connected = False
+        if self._session is not None and not self._session.closed:
+            return
+        await self._session.close()
+        self._session = None
 
     async def connect_async(self):
+        if self._session is None or self._session.closed:
+            return
+        self._session = aiohttp.ClientSession(connector=self._connector)
         await self.authenticate()
 
     def get_function_profiles(self) -> Mapping[str, FunctionProfile]:
         return self._function_profiles
 
-    def device_information(self) -> DeviceInformation:
-        return self._device_information
-
-    def configuration_parameter(self) -> list[ConfigurationParameter]:
-        return self._configuration_parameters
-
     async def authenticate(self):
         await setup_authentication(self._raw_interface, self._session)
-
-    async def close(self):
-        await self._session.close()
 
     async def get_val(
         self,
@@ -266,8 +226,8 @@ class SgrRestInterface(BaseSGrInterface):
         query: ResponseQuery,
     ):
         try:
-            url = f"https://{self._base_url}{request_path}"
-            # All headers into dicitonary
+            url = f"{self._base_url}{request_path}"
+            # All headers into dictionary
             request_headers = {
                 header_entry.header_name: header_entry.value
                 for header_entry in headers.header
