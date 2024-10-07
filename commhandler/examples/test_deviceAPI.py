@@ -1,9 +1,7 @@
-import asyncio
-
 from sgr_commhandler.device_builder import DeviceBuilder
 
 
-def test_loop():
+def run_test_loop():
     config_file = "config_wago"
     interface_file = "abb_terra_01.xml"
 
@@ -19,9 +17,10 @@ def test_loop():
     vals = device.get_value()
     print(vals)
 
+
 if __name__ == '__main__':
     try:
-        test_loop()
+        run_test_loop()
     except KeyboardInterrupt:
         # Here we have to close all the sessions...
         # We have to think if we want to open a connection and close it for

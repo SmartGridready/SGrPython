@@ -104,7 +104,7 @@ class DeviceBuilder:
             try:
                 input_file = open(self._value)
                 return input_file.read()
-            except:
+            except Exception:
                 raise Exception("Invalid spec file path")
         elif self._type == SGrConfiguration.STRING:
             return self._value
@@ -134,14 +134,18 @@ class DeviceBuilder:
         config = configparser.ConfigParser()
         params = self._config_value if self._config_value is not None else {}
         if self._config_type is SGrConfiguration.FILE:
+            # read from ini file
+            params = params if isinstance(params, str) else ''
             config.read(params)
         elif self._config_type is SGrConfiguration.STRING:
-            params = params if not isinstance(params, str) else {}
+            # read from dictionary - no sections
+            params = dict(properties=params) if isinstance(params, dict) else {}
             config.read_dict(params)
+        else:
+            raise Exception('unsupported properties type')
         spec = self.get_eid_content()
         for section_name, section in config.items():
             for param_name in section:
                 pattern = re.compile(r"{{" + param_name + r"}}")
                 spec = pattern.sub(config.get(section_name, param_name), spec)
-
         return spec, config

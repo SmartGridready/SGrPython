@@ -24,3 +24,6 @@ dependencies = [
 ]
 
 [tool.ruff]
+
+[tool.pytest]
+pythonpath = 'src'

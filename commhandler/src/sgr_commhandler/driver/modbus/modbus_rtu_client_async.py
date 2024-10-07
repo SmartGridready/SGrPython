@@ -3,7 +3,7 @@ import asyncio
 from pymodbus.client import AsyncModbusSerialClient
 from pymodbus.constants import Endian
 
-from payload_decoder import (
+from sgr_commhandler.driver.modbus.payload_decoder import (
     PayloadBuilder,
     PayloadDecoder,
     RoundingScheme,
@@ -104,6 +104,9 @@ if __name__ == "__main__":
         MyClient = SGrModbusRTUClient("COM5", "E", 19200)
 
         connected = await MyClient.client.connect()
+        if not connected:
+            print("Not connected")
+            return
 
         a = await MyClient.value_decoder(
             0x5B14, 2, "int32", "HoldRegister", slave_id=1, order=Endian.BIG

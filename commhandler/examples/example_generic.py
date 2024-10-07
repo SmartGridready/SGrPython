@@ -1,10 +1,10 @@
 import asyncio
 import os
-from sgr_commhandler.api.device_builder import DeviceBuilder
+from sgr_commhandler.device_builder import DeviceBuilder
 
 if __name__ == "__main__":
 
-    async def test_loop():
+    async def run_test_loop():
 
         print('start loop')
 
@@ -15,7 +15,6 @@ if __name__ == "__main__":
                             .eid_path(interface_file_modbus) \
                             .properties({}) \
                             .build()
-
 
         # We connect to the modbus component. # TODO fix connect thingy
         await modbus_component.connect_async()
@@ -45,9 +44,8 @@ if __name__ == "__main__":
             # you could do the same funciton with a asyncio gather functions if you
             # want to get the variables "concurrently".
 
-
     try:
-        asyncio.run(test_loop())
+        asyncio.run(run_test_loop())
     except KeyboardInterrupt:
 
         # Here we have to close all the sessions...

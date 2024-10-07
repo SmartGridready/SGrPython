@@ -21,7 +21,7 @@ from sgr_commhandler.api import (
     build_configurations_parameters,
 )
 from sgr_commhandler.api.device_api import BaseSGrInterface
-from auxiliary_functions import (
+from sgr_commhandler.driver.modbus.auxiliary_functions import (
     get_address,
     get_endian,
     get_port,
@@ -29,7 +29,7 @@ from auxiliary_functions import (
 )
 from sgr_commhandler.validators import build_validator
 
-from modbus_tcp_client_async import SGrModbusClient
+from sgr_commhandler.driver.modbus.modbus_tcp_client_async import SGrModbusClient
 
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)

@@ -21,7 +21,7 @@ from sgr_commhandler.api import (
     FunctionProfile,
     build_configurations_parameters,
 )
-from modbus_rtu_client_async import (
+from sgr_commhandler.driver.modbus.modbus_rtu_client_async import (
     SGrModbusRTUClient,
 )
 from sgr_commhandler.validators import build_validator
