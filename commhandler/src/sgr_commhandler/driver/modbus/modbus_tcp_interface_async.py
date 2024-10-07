@@ -1,4 +1,3 @@
-# from auxiliary_functions import find_dp
 import logging
 from collections.abc import Mapping
 from typing import Any
@@ -7,8 +6,6 @@ from aiohttp import ClientError
 from pymodbus.exceptions import ConnectionException
 from sgr_specification.v0.generic import DataDirectionProduct
 
-# from sgr_commhandler.data_classes.ei_modbus import SgrModbusDeviceFrame
-# from sgr_commhandler.data_classes.ei_modbus.sgr_modbus_eidevice_frame import SgrModbusDataPointType
 from sgr_specification.v0.product import (
     DeviceFrame,
     ModbusDataPoint,
@@ -24,7 +21,7 @@ from sgr_commhandler.api import (
     build_configurations_parameters,
 )
 from sgr_commhandler.api.device_api import BaseSGrInterface
-from sgr_commhandler.auxiliary_functions import (
+from auxiliary_functions import (
     get_address,
     get_endian,
     get_port,
@@ -32,18 +29,18 @@ from sgr_commhandler.auxiliary_functions import (
 )
 from sgr_commhandler.validators import build_validator
 
-from .modbus_client import SGrModbusClient
+from modbus_tcp_client_async import SGrModbusClient
 
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
 
-class ModBusTCPDataPoint(DataPointProtocol):
+class ModbusTCPDataPoint(DataPointProtocol):
     def __init__(
         self,
         modbus_api_dp: ModbusDataPoint,
         modbus_api_fp: ModbusFunctionalProfile,
-        interface: "SgrModbusInterface",
+        interface: "SgrModbusTcpInterface",
     ):
         self._dp = modbus_api_dp
         self._fp = modbus_api_fp
@@ -120,18 +117,18 @@ class ModBusTCPDataPoint(DataPointProtocol):
 def build_modbus_tcp_data_point(
     dp: ModbusDataPoint,
     fp: ModbusFunctionalProfile,
-    interface: "SgrModbusInterface",
+    interface: "SgrModbusTcpInterface",
 ) -> DataPoint:
-    protocol = ModBusTCPDataPoint(dp, fp, interface)
+    protocol = ModbusTCPDataPoint(dp, fp, interface)
     validator = build_validator(dp.data_point.data_type)
     return DataPoint(protocol, validator)
 
 
-class ModBusTCPFunctionProfile(FunctionProfile):
+class ModbusTCPFunctionProfile(FunctionProfile):
     def __init__(
         self,
         modbus_api_fp: ModbusFunctionalProfile,
-        interface: "SgrModbusInterface",
+        interface: "SgrModbusTcpInterface",
     ):
         self._fp = modbus_api_fp
         self._interface = interface
@@ -154,7 +151,7 @@ class ModBusTCPFunctionProfile(FunctionProfile):
         return self._data_points
 
 
-class SgrModbusInterface(BaseSGrInterface):
+class SgrModbusTcpInterface(BaseSGrInterface):
     def __init__(self, frame: DeviceFrame) -> None:
         """
         Creates a connection from xml file data.
@@ -173,7 +170,7 @@ class SgrModbusInterface(BaseSGrInterface):
         # A dictionary where we cash the value of the datapoint. With name, value, timestamp and alive_time? ;)
         self.cash_dict = {}
         fps = [
-            ModBusTCPFunctionProfile(profile, self)
+            ModbusTCPFunctionProfile(profile, self)
             for profile in self.root.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element
         ]
         self._function_profiles = {fp.name(): fp for fp in fps}

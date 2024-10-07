@@ -1,17 +1,15 @@
 import configparser
 import re
+
 from collections.abc import Callable
 from enum import Enum
-
-from sgr_specification.v0.product import DeviceFrame
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
 
+from sgr_specification.v0.product import DeviceFrame
 from sgr_commhandler.api.device_api import BaseSGrInterface
-from sgr_commhandler.driver.modbus_rtu.modbusRTU_interface_async import (
-    SgrModbusRtuInterface,
-)
-from sgr_commhandler.driver.modbus_tcp.modbus_interface import SgrModbusInterface
+from sgr_commhandler.driver.modbus.modbus_rtu_interface_async import SgrModbusRtuInterface
+from sgr_commhandler.driver.modbus.modbus_tcp_interface_async import SgrModbusTcpInterface
 from sgr_commhandler.driver.rest.restapi_client_async import SgrRestInterface
 
 
@@ -23,7 +21,7 @@ class SGrConfiguration(Enum):
 
 class SGrDeviceProtocol(Enum):
     MODBUS_RTU = 0
-    MODBUS_TPC = 1
+    MODBUS_TCP = 1
     RESTAPI = 2
     GENERIC = 3
     CONTACT = 4
@@ -33,16 +31,16 @@ device_builders: dict[
     SGrDeviceProtocol,
     Callable[
         [DeviceFrame, configparser.ConfigParser],
-        SgrRestInterface | SgrModbusInterface | SgrModbusRtuInterface,
+        SgrRestInterface | SgrModbusTcpInterface | SgrModbusRtuInterface,
     ],
 ] = {
-    SGrDeviceProtocol.MODBUS_TPC: lambda frame, _: SgrModbusInterface(frame),
+    SGrDeviceProtocol.MODBUS_TCP: lambda frame, _: SgrModbusTcpInterface(frame),
     SGrDeviceProtocol.MODBUS_RTU: lambda frame, _: SgrModbusRtuInterface(frame),
     SGrDeviceProtocol.RESTAPI: lambda frame, config: SgrRestInterface(
         frame, config
     ),
-    # SGrDeviceProtocol.GENERIC: lambda frame, config: SgrModbusInterface(frame),
-    # SGrDeviceProtocol.CONTACT: lambda frame, config: SgrModbusInterface(frame)
+    # SGrDeviceProtocol.GENERIC: lambda frame, config: SgrGenericInterface(frame),
+    # SGrDeviceProtocol.CONTACT: lambda frame, config: SgrContactInterface(frame)
 }
 
 
@@ -79,7 +77,7 @@ class DeviceBuilder:
             is not None
             and frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp
         ):
-            return SGrDeviceProtocol.MODBUS_TPC
+            return SGrDeviceProtocol.MODBUS_TCP
         elif frame.interface_list.contact_interface:
             return SGrDeviceProtocol.CONTACT
         else:

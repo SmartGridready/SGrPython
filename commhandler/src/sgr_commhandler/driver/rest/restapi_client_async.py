@@ -32,7 +32,7 @@ from sgr_commhandler.api import (
 from sgr_commhandler.api.configuration_parameter import (
     build_configurations_parameters,
 )
-from sgr_commhandler.driver.rest.authtentication import setup_authentication
+from sgr_commhandler.driver.rest.authentication import setup_authentication
 from sgr_commhandler.validators import build_validator
 
 logging.basicConfig(level=logging.ERROR)

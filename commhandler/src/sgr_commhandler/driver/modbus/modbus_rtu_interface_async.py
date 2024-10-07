@@ -6,7 +6,6 @@ from typing import Any
 from pymodbus.constants import Endian
 from sgr_specification.v0.generic import DataDirectionProduct, Parity
 
-# from sgr_commhandler.data_classes.ei_modbus import SgrModbusDeviceDescriptionType
 from sgr_specification.v0.product import (
     DeviceFrame,
     ModbusDataPoint,
@@ -22,7 +21,7 @@ from sgr_commhandler.api import (
     FunctionProfile,
     build_configurations_parameters,
 )
-from sgr_commhandler.driver.modbus_rtu.modbusRTU_client_async import (
+from modbus_rtu_client_async import (
     SGrModbusRTUClient,
 )
 from sgr_commhandler.validators import build_validator
@@ -63,12 +62,12 @@ def build_modbus_rtu_data_point(
     function_profile: ModbusFunctionalProfile,
     interface: "SgrModbusRtuInterface",
 ) -> DataPoint:
-    protocol = ModBusRTUDataPoint(data_point, function_profile, interface)
+    protocol = ModbusRTUDataPoint(data_point, function_profile, interface)
     validator = build_validator(data_point.data_point.data_type)
     return DataPoint(protocol, validator)
 
 
-class ModBusRTUDataPoint(DataPointProtocol):
+class ModbusRTUDataPoint(DataPointProtocol):
     def __init__(
         self,
         modbus_api_dp: ModbusDataPoint,
@@ -146,7 +145,7 @@ class ModBusRTUDataPoint(DataPointProtocol):
         return self._direction
 
 
-class ModBusRTUFunctionProfile(FunctionProfile):
+class ModbusRTUFunctionProfile(FunctionProfile):
     def __init__(
         self,
         modbus_api_fp: ModbusFunctionalProfile,
@@ -190,7 +189,7 @@ class SgrModbusRtuInterface(BaseSGrInterface):
         self.slave_id = get_slave(self.root)
         self.byte_order = get_endian(self.root)
         fps = [
-            ModBusRTUFunctionProfile(profile, self)
+            ModbusRTUFunctionProfile(profile, self)
             for profile in self.root.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element
         ]
         self._function_profiles = {fp.name(): fp for fp in fps}

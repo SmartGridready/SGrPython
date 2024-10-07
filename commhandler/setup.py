@@ -7,7 +7,7 @@ def read_requirements() -> list[str]:
 
 
 setup(
-    name='SGrPythontks4r',  # SGrPythontks4r
+    name='SGrPythontks4r',  # use SGrPythontks4r until organization has been created, then change to sgr-commhandler
     version='0.2.0',
     packages=find_packages(where='src'),
     package_dir={'':'src'},
@@ -17,7 +17,8 @@ setup(
         'Issue Tracker': 'https://github.com/SmartGridready/SGrPython/issues',
         'Source': 'https://github.com/SmartGridready/SGrPython'
     },
-    license='BSD',
+    license='BSD-3',
+    license_files=['LICENSE.md'],
     author='Robin Schoch',
     author_email='',
     description='SGr Commhandler',

@@ -7,7 +7,7 @@ from pymodbus.constants import Endian
 
 from sgr_commhandler.exceptions import RegisterError
 
-from ..payload_decoder import (
+from payload_decoder import (
     PayloadBuilder,
     PayloadDecoder,
     RoundingScheme,
