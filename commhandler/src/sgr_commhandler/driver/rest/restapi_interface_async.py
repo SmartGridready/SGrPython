@@ -19,19 +19,21 @@ from sgr_specification.v0.product import (
     RestApiFunctionalProfile,
 )
 from sgr_commhandler.api import (
-    BaseSGrInterface,
+    SGrBaseInterface,
     DataPoint,
     DataPointProtocol,
-    FunctionProfile,
+    FunctionalProfile,
 )
 from sgr_commhandler.driver.rest.authentication import setup_authentication
 from sgr_commhandler.validators import build_validator
+
+logger = logging.getLogger(__name__)
 
 
 def build_rest_data_point(
     data_point: RestApiDataPoint,
     function_profile: RestApiFunctionalProfile,
-    interface: "SgrRestInterface",
+    interface: "SGrRestInterface",
 ) -> DataPoint:
     protocol = RestDataPoint(data_point, function_profile, interface)
     data_type = None
@@ -46,16 +48,17 @@ class RestDataPoint(DataPointProtocol):
         self,
         rest_api_dp: RestApiDataPoint,
         rest_api_fp: RestApiFunctionalProfile,
-        interface: "SgrRestInterface",
+        interface: "SGrRestInterface",
     ):
         self._dp = rest_api_dp
         self._fp = rest_api_fp
         if (
             self._dp.rest_api_data_point_configuration is None
-            or self._dp.rest_api_data_point_configuration.rest_api_service_call
-            is None
+            or self._dp.rest_api_data_point_configuration.rest_api_service_call is None
+            or self._dp.rest_api_data_point_configuration.rest_api_read_service_call is None
+            or self._dp.rest_api_data_point_configuration.rest_api_write_service_call is None
         ):
-            raise Exception("illegal")
+            raise Exception("REST service call configuration missing")
 
         self._method = (
             self._dp.rest_api_data_point_configuration.rest_api_service_call.request_method
@@ -122,11 +125,11 @@ class RestDataPoint(DataPointProtocol):
         return self._dp.data_point.data_direction
 
 
-class RestFunctionProfile(FunctionProfile):
+class RestFunctionalProfile(FunctionalProfile):
     def __init__(
         self,
         rest_api_fp: RestApiFunctionalProfile,
-        interface: "SgrRestInterface",
+        interface: "SGrRestInterface",
     ):
         self._fp = rest_api_fp
         self._interface = interface
@@ -157,7 +160,7 @@ class RestFunctionProfile(FunctionProfile):
         return self._data_points
 
 
-class SgrRestInterface(BaseSGrInterface):
+class SGrRestInterface(SGrBaseInterface):
     """
     SmartGrid ready External Interface Class for Rest API
     """
@@ -173,11 +176,11 @@ class SgrRestInterface(BaseSGrInterface):
         self._cache = TTLCache(maxsize=100, ttl=5)
 
         if (
-            self.root.interface_list
-            and self.root.interface_list
-            and self.root.interface_list.rest_api_interface
+            self._root.interface_list
+            and self._root.interface_list
+            and self._root.interface_list.rest_api_interface
         ):
-            self._raw_interface = self.root.interface_list.rest_api_interface
+            self._raw_interface = self._root.interface_list.rest_api_interface
         else:
             raise Exception("Invalid")
         desc = self._raw_interface.rest_api_interface_description
@@ -193,7 +196,7 @@ class SgrRestInterface(BaseSGrInterface):
             and self._raw_interface.functional_profile_list.functional_profile_list_element
         ):
             raw_fps = self._raw_interface.functional_profile_list.functional_profile_list_element
-        fps = [RestFunctionProfile(profile, self) for profile in raw_fps]
+        fps = [RestFunctionalProfile(profile, self) for profile in raw_fps]
         self._function_profiles = {fp.name(): fp for fp in fps}
 
     def is_connected(self):
@@ -211,7 +214,7 @@ class SgrRestInterface(BaseSGrInterface):
         self._session = aiohttp.ClientSession(connector=self._connector)
         await self.authenticate()
 
-    def get_function_profiles(self) -> Mapping[str, FunctionProfile]:
+    def get_function_profiles(self) -> Mapping[str, FunctionalProfile]:
         return self._function_profiles
 
     async def authenticate(self):
@@ -241,7 +244,7 @@ class SgrRestInterface(BaseSGrInterface):
                 ) as reqeust:
                     reqeust.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
                     response = await reqeust.json()
-                    logging.info(f"Getval Status: {reqeust.status}")
+                    logger.info(f"Getval Status: {reqeust.status}")
                     response = json.dumps(response)
                     q = query.query if query.query else ""
                     value = jmespath.search(q, json.loads(response))
@@ -249,12 +252,12 @@ class SgrRestInterface(BaseSGrInterface):
                     return value
 
         except ClientResponseError as e:
-            logging.error(f"HTTP error occurred: {e}")
+            logger.error(f"HTTP error occurred: {e}")
         except ClientConnectionError as e:
-            logging.error(f"Connection error occurred: {e}")
+            logger.error(f"Connection error occurred: {e}")
         except json.JSONDecodeError as e:
-            logging.error(f"Failed to decode JSON: {e}")
+            logger.error(f"Failed to decode JSON: {e}")
         except Exception as e:
-            logging.error(f"An unexpected error occurred: {e}")
+            logger.error(f"An unexpected error occurred: {e}")
 
         return None

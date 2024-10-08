@@ -14,7 +14,7 @@ def run_test_loop():
     )
     device.connect()
 
-    vals = device.get_value()
+    vals = device.get_values()
     print(vals)
 
 

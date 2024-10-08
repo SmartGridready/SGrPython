@@ -12,6 +12,8 @@ from sgr_specification.v0.product.rest_api_types import (
     RestApiAuthenticationMethod,
 )
 
+logger = logging.getLogger(__name__)
+
 Authenticator: TypeAlias = Callable[
     [RestApiInterface, ClientSession], Awaitable[bool]
 ]
@@ -59,7 +61,7 @@ async def authtenicate_with_bearer_token(
             json=data,
         ) as res:
             if 200 <= res.status < 300:
-                logging.info(f"Authentication successful: Status {res.status}")
+                logger.info(f"Authentication successful: Status {res.status}")
                 try:
                     response = await res.text()
                     token = jmespath.search("accessToken", json.loads(response))
@@ -68,23 +70,23 @@ async def authtenicate_with_bearer_token(
                             {"Authorization": f"Bearer {token}"}
                         )
 
-                        logging.info("Token retrieved successfully")
+                        logger.info("Token retrieved successfully")
                         return True
                     else:
-                        logging.warning("Token not found in the response")
+                        logger.warning("Token not found in the response")
                         return False
                 except json.JSONDecodeError:
-                    logging.error("Failed to decode JSON response")
+                    logger.error("Failed to decode JSON response")
                 except JMESPathError:
-                    logging.error("Failed to search JSON data using JMESPath")
+                    logger.error("Failed to search JSON data using JMESPath")
             else:
-                logging.warning(f"Authentication failed: Status {res.status}")
-                logging.info(f"Response: {await res.text()}")
+                logger.warning(f"Authentication failed: Status {res.status}")
+                logger.info(f"Response: {await res.text()}")
 
     except aiohttp.ClientError as e:
-        logging.error(f"Network error occurred: {e}")
+        logger.error(f"Network error occurred: {e}")
     except Exception as e:
-        logging.error(f"An unexpected error occurred: {e}")
+        logger.error(f"An unexpected error occurred: {e}")
     finally:
         return False
 

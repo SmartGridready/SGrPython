@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import asyncio
+import logging
 from typing import Optional
 from pymodbus.client import AsyncModbusTcpClient, AsyncModbusSerialClient
 from pymodbus.constants import Endian
@@ -8,6 +9,8 @@ from sgr_commhandler.driver.modbus.payload_decoder import (
     PayloadDecoder,
     RoundingScheme,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class SGrModbusClient(ABC):
@@ -68,7 +71,7 @@ class SGrModbusClient(ABC):
                 reg = await self.client.read_holding_registers(
                     addr, count=size, slave=slave_id
                 )
-                # print(reg.registers)
+                # logger.debug(reg.registers)
             else:
                 reg = await self.client.read_input_registers(
                     addr, count=size, slave=slave_id
@@ -108,9 +111,9 @@ class SGrModbusClient(ABC):
         decoder = PayloadDecoder.fromRegisters(
             reg.registers, byteorder=order, wordorder=order
         )
-        # print(decoder.decode('float32', 0))
+        # logger.debug(decoder.decode('float32', 0))
         if not reg.isError():
-            # await print(decoder.decode(data_type, 0))
+            # logger.debug(decoder.decode(data_type, 0))
             indexes = [size // 3 * 0, size // 3 * 1, size // 3 * 2]
             l1 = decoder.decode(data_type, indexes[0])
             l2 = decoder.decode(data_type, indexes[1])
@@ -138,11 +141,11 @@ class SGrModbusTCPClient(SGrModbusClient):
 
     async def connect(self):
         await self._client.connect()
-        print("Connected to ModbusTCP on ip: " + self._ip)
+        logger.debug("Connected to ModbusTCP on ip: " + self._ip)
 
     async def disconnect(self):
         await self._client.close()
-        print("Disconnected from ModbusTCP on ip: " + self._ip)
+        logger.debug("Disconnected from ModbusTCP on ip: " + self._ip)
 
     async def is_connected(self):
         await self._client.connected
@@ -170,11 +173,11 @@ class SGrModbusRTUClient(SGrModbusClient):
 
     async def connect(self):
         await self._client.connect()
-        print("Connected to ModbusRTU on serial port: " + self._serial_port)
+        logger.debug("Connected to ModbusRTU on serial port: " + self._serial_port)
 
     async def disconnect(self):
         await self._client.close()
-        print("Disconnected from ModbusRTU on serial port: " + self._serial_port)
+        logger.debug("Disconnected from ModbusRTU on serial port: " + self._serial_port)
 
     async def is_connected(self):
         await self._client.connected

@@ -12,71 +12,71 @@ from sgr_specification.v0.product import (
 )
 
 from sgr_commhandler.api import (
-    BaseSGrInterface,
+    SGrBaseInterface,
     ConfigurationParameter,
     DataPoint,
     DataPointProtocol,
     DeviceInformation,
-    FunctionProfile,
+    FunctionalProfile,
 )
 from sgr_commhandler.driver.modbus.modbus_client_async import (
     SGrModbusClient, SGrModbusRTUClient, SGrModbusTCPClient
 )
 from sgr_commhandler.validators import build_validator
-from sgr_specification.v0.product.modbus_types import ModbusInterfaceSelection
+from sgr_specification.v0.product.modbus_types import ModbusInterfaceSelection, ModbusRtu, ModbusTcp
 
 
-def get_rtu_slave_id(root) -> int:
+def get_rtu_slave_id(modbus_rtu: ModbusRtu) -> int:
     """
     returns the selected slave address
     """
-    return root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu.slave_addr
+    return modbus_rtu.slave_addr
 
 
-def get_tcp_slave_id(root) -> int:
+def get_tcp_slave_id(modbus_tcp: ModbusTcp) -> int:
     """
     returns the selected slave address
     """
-    return root.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.slave_id
+    return modbus_tcp.slave_id
 
 
-def get_endian(root) -> Endian:
+def get_endian() -> Endian:
     return Endian.BIG
 
 
-def get_tcp_address(root) -> str:
+def get_tcp_address(modbus_tcp: ModbusTcp) -> str:
     """
     returns the selected ip address.
     """
-    return root.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.address
+    return modbus_tcp.address
 
 
-def get_tcp_port(root) -> int:
+def get_tcp_port(modbus_tcp: ModbusTcp) -> int:
     """
     returns the selected ip port.
     """
-    return root.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.port
+    return modbus_tcp.port
 
 
-def get_rtu_serial_port(root) -> str:
+def get_rtu_serial_port(modbus_rtu: ModbusRtu) -> str:
     """
     returns the selected serial port.
     """
-    return root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu.port_name
+    return modbus_rtu.port_name
 
 
-def get_rtu_baudrate(root) -> int:
+def get_rtu_baudrate(modbus_rtu: ModbusRtu) -> int:
     """
     returns the selected baudrate.
     """
-    return root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu.baud_rate_selected
+    return modbus_rtu.baud_rate_selected
 
 
-def get_rtu_parity(root) -> str:
+def get_rtu_parity(modbus_rtu: ModbusRtu) -> str:
     """
     returns the parity.
     """
-    parity = root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu.parity_selected
+    parity = modbus_rtu.parity_selected
     match parity:
         case Parity.NONE:
             return "N"
@@ -91,7 +91,7 @@ def get_rtu_parity(root) -> str:
 def build_modbus_data_point(
     data_point: ModbusDataPointSpec,
     function_profile: ModbusFunctionalProfileSpec,
-    interface: "SgrModbusInterface",
+    interface: "SGrModbusInterface",
 ) -> DataPoint:
     protocol = ModbusDataPoint(data_point, function_profile, interface)
     validator = build_validator(data_point.data_point.data_type)
@@ -103,7 +103,7 @@ class ModbusDataPoint(DataPointProtocol):
         self,
         modbus_api_dp: ModbusDataPointSpec,
         modbus_api_fp: ModbusFunctionalProfileSpec,
-        interface: "SgrModbusInterface",
+        interface: "SGrModbusInterface",
     ):
         self._dp = modbus_api_dp
         self._fp = modbus_api_fp
@@ -176,11 +176,11 @@ class ModbusDataPoint(DataPointProtocol):
         return self._direction
 
 
-class ModbusFunctionProfile(FunctionProfile):
+class ModbusFunctionalProfile(FunctionalProfile):
     def __init__(
         self,
         modbus_api_fp: ModbusFunctionalProfileSpec,
-        interface: "SgrModbusInterface",
+        interface: "SGrModbusInterface",
     ):
         self._fp = modbus_api_fp
         self._interface = interface
@@ -197,37 +197,37 @@ class ModbusFunctionProfile(FunctionProfile):
         return self._data_points
 
 
-class SgrModbusInterface(BaseSGrInterface):
+class SGrModbusInterface(SGrBaseInterface):
     # a global Modbus client
     globalModbusRTUClient = None
 
     def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
         super().__init__(frame, configuration)
 
-        if self.root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu:
-            self.slave_id = get_rtu_slave_id(self.root)
-            self.serial_port = get_rtu_serial_port(self.root)
-            self.baudrate = get_rtu_baudrate(self.root)
-            self.parity = get_rtu_parity(self.root)
-        elif self.root.interface_list.modbus_interface.modbus_interface_description.modbus_tcp:
-            self.slave_id = get_tcp_slave_id(self.root)
-            self.ip_address = get_tcp_address(self.root)
-            self.ip_port = get_tcp_port(self.root)
+        if self._root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu:
+            self.slave_id = get_rtu_slave_id(self._root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu)
+            self.serial_port = get_rtu_serial_port(self._root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu)
+            self.baudrate = get_rtu_baudrate(self._root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu)
+            self.parity = get_rtu_parity(self._root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu)
+        elif self._root.interface_list.modbus_interface.modbus_interface_description.modbus_tcp:
+            self.slave_id = get_tcp_slave_id(self._root.interface_list.modbus_interface.modbus_interface_description.modbus_tcp)
+            self.ip_address = get_tcp_address(self._root.interface_list.modbus_interface.modbus_interface_description.modbus_tcp)
+            self.ip_port = get_tcp_port(self._root.interface_list.modbus_interface.modbus_interface_description.modbus_tcp)
         else:
             raise Exception('not Modbus RTU or TCP!')
 
-        self.byte_order = get_endian(self.root)
+        self.byte_order = get_endian()
         fps = [
-            ModbusFunctionProfile(profile, self)
-            for profile in self.root.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element
+            ModbusFunctionalProfile(profile, self)
+            for profile in self._root.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element
         ]
         self._function_profiles = {fp.name(): fp for fp in fps}
 
         self.client: SGrModbusClient = None
-        if self.root.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection == ModbusInterfaceSelection.TCPIP:
+        if self._root.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection == ModbusInterfaceSelection.TCPIP:
             self.client = SGrModbusTCPClient(self.ip_address, self.ip_port)
-        elif self.root.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection == ModbusInterfaceSelection.RTU:
-            if SgrModbusInterface.globalModbusRTUClient is None:
+        elif self._root.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection == ModbusInterfaceSelection.RTU:
+            if SGrModbusInterface.globalModbusRTUClient is None:
                 self.client = SGrModbusRTUClient(self.serial_port, self.parity, self.baudrate)
                 globalModbusRTUClient = self.client
             else:
@@ -264,7 +264,7 @@ class SgrModbusInterface(BaseSGrInterface):
         )
 
     def get_device_profile(self):
-        return self.root.device_profile
+        return self._root.device_profile
 
     def get_register_type(self, dp: ModbusDataPoint) -> str:
         """
@@ -293,7 +293,7 @@ class SgrModbusInterface(BaseSGrInterface):
     def configuration_parameter(self) -> list[ConfigurationParameter]:
         return self._configurations_params
 
-    def get_function_profiles(self) -> Mapping[str, FunctionProfile]:
+    def get_function_profiles(self) -> Mapping[str, FunctionalProfile]:
         return self._function_profiles
 
     def set_slave_id(self, slave_id: int):

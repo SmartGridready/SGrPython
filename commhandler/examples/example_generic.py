@@ -19,7 +19,7 @@ if __name__ == "__main__":
         # We connect to the modbus component. # TODO fix connect thingy
         await modbus_component.connect_async()
 
-        await modbus_component.get_value_async()
+        await modbus_component.get_values_async()
         # We instanciate an interface object with a restapi xml.
         config_file_rest = 'config_CLEMAPEnMon_ressource_default.ini'
         config_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), config_file_rest)

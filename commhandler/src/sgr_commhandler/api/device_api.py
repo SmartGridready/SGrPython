@@ -11,7 +11,7 @@ from sgr_specification.v0.product.product import DeviceFrame
 from sgr_commhandler.api import DataPoint
 from sgr_commhandler.api.configuration_parameter import ConfigurationParameter, build_configurations_parameters
 from sgr_commhandler.api.data_types import DataTypes
-from sgr_commhandler.api.function_profile_api import FunctionProfile
+from sgr_commhandler.api.functional_profile_api import FunctionalProfile
 
 
 @dataclass
@@ -24,9 +24,9 @@ class DeviceInformation:
     is_local: bool
 
 
-class BaseSGrInterface(ABC):
+class SGrBaseInterface(ABC):
     def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
-        self.root = frame
+        self._root = frame
         self._configurations_params = build_configurations_parameters(
             frame.configuration_list
         )
@@ -53,9 +53,8 @@ class BaseSGrInterface(ABC):
     async def disconnect_async(self):
         pass
 
-    @abstractmethod
-    def get_function_profiles(self) -> Mapping[str, FunctionProfile]:
-        pass
+    def get_function_profiles(self) -> Mapping[str, FunctionalProfile]:
+        return self._function_profiles
 
     @abstractmethod
     def is_connected(self) -> bool:
@@ -69,22 +68,22 @@ class BaseSGrInterface(ABC):
 
     def get_function_profile(
         self, function_profile_name: str
-    ) -> FunctionProfile:
-        return self.get_function_profiles()[function_profile_name]
+    ) -> FunctionalProfile:
+        return self._function_profiles[function_profile_name]
 
     def get_data_point(self, dp: tuple[str, str]) -> DataPoint:
         return self.get_function_profile(dp[0]).get_data_point(dp[1])
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         data_points = {}
-        for fp in self.get_function_profiles().values():
+        for fp in self._function_profiles.values():
             data_points.update(fp.get_data_points())
         return data_points
 
-    def get_value(self) -> dict[tuple[str, str], Any]:
-        return run(self.get_value_async())
+    def get_values(self) -> dict[tuple[str, str], Any]:
+        return run(self.get_values_async())
 
-    async def get_value_async(self) -> dict[tuple[str, str], Any]:
+    async def get_values_async(self) -> dict[tuple[str, str], Any]:
         data = {}
         for fp in self.get_function_profiles().values():
             data.update(

@@ -7,9 +7,9 @@ from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
 
 from sgr_specification.v0.product import DeviceFrame
-from sgr_commhandler.api.device_api import BaseSGrInterface
-from sgr_commhandler.driver.modbus.modbus_interface_async import SgrModbusInterface
-from sgr_commhandler.driver.rest.restapi_interface_async import SgrRestInterface
+from sgr_commhandler.api.device_api import SGrBaseInterface
+from sgr_commhandler.driver.modbus.modbus_interface_async import SGrModbusInterface
+from sgr_commhandler.driver.rest.restapi_interface_async import SGrRestInterface
 
 
 class SGrConfiguration(Enum):
@@ -31,13 +31,13 @@ device_builders: dict[
     SGrDeviceProtocol,
     Callable[
         [DeviceFrame, configparser.ConfigParser],
-        SgrRestInterface | SgrModbusInterface,
+        SGrRestInterface | SGrModbusInterface,
     ],
 ] = {
-    SGrDeviceProtocol.MODBUS: lambda frame, config: SgrModbusInterface(
+    SGrDeviceProtocol.MODBUS: lambda frame, config: SGrModbusInterface(
         frame, config
     ),
-    SGrDeviceProtocol.RESTAPI: lambda frame, config: SgrRestInterface(
+    SGrDeviceProtocol.RESTAPI: lambda frame, config: SGrRestInterface(
         frame, config
     ),
     # SGrDeviceProtocol.MESSAGING: lambda frame, config: SgrMessagingInterface(frame),
@@ -53,7 +53,7 @@ class DeviceBuilder:
         self._type: SGrConfiguration = SGrConfiguration.UNKNOWN
         self._config_type: SGrConfiguration = SGrConfiguration.UNKNOWN
 
-    def build(self) -> BaseSGrInterface:
+    def build(self) -> SGrBaseInterface:
         spec, config = self._replace_variables()
         self._value = spec
         self._type = SGrConfiguration.FILE

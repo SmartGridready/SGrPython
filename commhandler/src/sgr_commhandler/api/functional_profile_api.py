@@ -7,7 +7,7 @@ from sgr_commhandler.api.data_point_api import DataPoint
 from sgr_commhandler.api.data_types import DataTypes
 
 
-class FunctionProfile(ABC):
+class FunctionalProfile(ABC):
     @abstractmethod
     def name(self) -> str:
         pass
