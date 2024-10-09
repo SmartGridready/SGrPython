@@ -14,11 +14,10 @@ class DataPointValidator(ABC):
     def validate(self, value: Any) -> bool:
         pass
 
-    @abstractmethod
     def data_type(self) -> DataTypes:
-        pass
+        return None
 
-    def options(self) -> list[str] | None:
+    def options(self) -> list[Any] | None:
         return None
 
 
@@ -80,7 +79,7 @@ class DataPoint(Generic[T]):
     ) -> tuple[tuple[str, str], DataDirectionProduct, DataTypes]:
         return self.name(), self.direction(), self.data_type()
 
-    def options(self) -> list[str]:
+    def options(self) -> list[Any]:
         options = self._validator.options()
         if options is None:
             return []

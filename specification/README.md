@@ -12,7 +12,8 @@ Generate specification classes from schema:
 
 ```bash
 cd ./src
-xsdata generate ../../../SGrSpecifications/SchemaDatabase\SGr -r --package sgr_specification.v0
+rm -rf ./sgr_specification/v0
+xsdata generate ../../../SGrSpecifications/SchemaDatabase/SGr -r --package sgr_specification.v0
 ```
 
 Build package (for local use in virtual environment):
