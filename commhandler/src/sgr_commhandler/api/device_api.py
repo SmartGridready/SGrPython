@@ -26,7 +26,7 @@ class DeviceInformation:
 
 class SGrBaseInterface(ABC):
     def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
-        self._root = frame
+        self._root_spec = frame
         self._configurations_params = build_configurations_parameters(
             frame.configuration_list
         )

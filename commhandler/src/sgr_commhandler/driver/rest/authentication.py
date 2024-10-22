@@ -19,7 +19,14 @@ Authenticator: TypeAlias = Callable[
 ]
 
 
-async def authtenicate_with_bearer_token(
+async def authenticate_not(
+    interface: RestApiInterface, session: ClientSession
+) -> bool:
+    # skip authentication
+    return True
+
+
+async def authenticate_with_bearer_token(
     interface: RestApiInterface, session: ClientSession
 ) -> bool:
     try:
@@ -94,7 +101,8 @@ async def authtenicate_with_bearer_token(
 supported_authentication_methods: dict[
     RestApiAuthenticationMethod, Authenticator
 ] = {
-    RestApiAuthenticationMethod.BEARER_SECURITY_SCHEME: authtenicate_with_bearer_token
+    RestApiAuthenticationMethod.NO_SECURITY_SCHEME: authenticate_not,
+    RestApiAuthenticationMethod.BEARER_SECURITY_SCHEME: authenticate_with_bearer_token
 }
 
 
@@ -103,11 +111,11 @@ async def setup_authentication(
 ) -> bool:
     option = rest_api_interface.rest_api_interface_description
     if option is None:
-        raise Exception("illegal")
+        raise Exception("no REST interface description")
     method = option.rest_api_authentication_method
     if method is None:
-        raise Exception("illegal")
+        raise Exception("no authentication method")
     auth_fn = supported_authentication_methods.get(method)
     if auth_fn is None:
-        raise Exception("illegal")
+        raise Exception("unsupported authentication method")
     return await auth_fn(rest_api_interface, session)

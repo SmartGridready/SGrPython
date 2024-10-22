@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 import threading
 import logging
-from typing import Optional
+from typing import Any, Optional
+from pymodbus.client.base import ModbusBaseClient
 from pymodbus.client import AsyncModbusTcpClient, AsyncModbusSerialClient
 from pymodbus.constants import Endian
 from sgr_commhandler.driver.modbus.payload_decoder import (
@@ -9,11 +10,21 @@ from sgr_commhandler.driver.modbus.payload_decoder import (
     PayloadDecoder,
     RoundingScheme,
 )
+from sgr_specification.v0.product.modbus_types import BitOrder, ModbusDataType
 
 logger = logging.getLogger(__name__)
 
 
 class SGrModbusClient(ABC):
+    def __init__(self, endianness: BitOrder):
+        self._lock = threading.Lock()
+        self._client: ModbusBaseClient = None
+        self._byte_order: Endian = (
+            Endian.BIG if endianness is None or endianness == BitOrder.BIG_ENDIAN else Endian.LITTLE
+        )
+        self._word_order: Endian = (
+            Endian.LITTLE if endianness in {BitOrder.CHANGE_WORD_ORDER, BitOrder.CHANGE_DWORD_ORDER} else Endian.BIG
+        )
 
     @abstractmethod
     async def connect(self):
@@ -27,71 +38,112 @@ class SGrModbusClient(ABC):
     def is_connected(self):
         pass
 
-    async def value_encoder(
-        self,
-        addr: int,
-        value: float,
-        data_type: str,
-        slave_id: int,
-        order: Endian,
-    ):
+    async def write_holding_registers(self, slave_id: int, address: int, data_type: ModbusDataType, value: Any) -> None:
         """
-        Encodes value to be set on the register address
-        :param addr: The address to read from and decode
-        :param value: The value to be written on the register
-        :param data_type: The modbus type to decode
+        Encodes value to be written to holding register address
+        :param slave_id: The slave ID of the device
+        :param address: The address to read from and decode
+        :param data_type: The modbus type to encode
+        :param value: The value to be written
         """
+        builder = PayloadBuilder(byteorder=self._byte_order, wordorder=self._word_order)
+        builder.encode(value, data_type, rounding=RoundingScheme.floor)
         with self._lock:
-            builder = PayloadBuilder(byteorder=order, wordorder=order)
-            builder.encode(value, data_type, rounding=RoundingScheme.floor)
             await self._client.write_registers(
-                address=addr, values=builder.to_registers(), unit=slave_id
+                address=address, values=builder.to_registers(), unit=slave_id
             )
 
-    async def value_decoder(
-        self,
-        addr: int,
-        size: int,
-        data_type: str,
-        register_type: str,
-        slave_id: int,
-        order: Endian,
-    ) -> float:
+    async def write_coils(self, slave_id: int, address: int, data_type: ModbusDataType, value: Any) -> None:
         """
-        Reads register and decodes the value.
-        :param addr: The address to read from and decode
+        Encodes value to be written to coil address
+        :param slave_id: The slave ID of the device
+        :param address: The address to read from and decode
+        :param data_type: The modbus type to encode
+        :param value: The value to be written
+        """
+        builder = PayloadBuilder(byteorder=self._byte_order, wordorder=self._word_order)
+        builder.encode(value, data_type, rounding=RoundingScheme.floor)
+        with self._lock:
+            await self._client.write_coils(
+                address=address, values=builder.to_coils(), unit=slave_id
+            )
+
+    async def read_input_registers(self, slave_id: int, address: int, size: int, data_type: ModbusDataType) -> Any:
+        """
+        Reads input registers and decodes the value.
+        :param slave_id: The slave ID of the device
+        :param address: The address to read from and decode
         :param size: The number of registers to read
         :param data_type: The modbus type to decode
-        :returns: Decoded float
+        :returns: Decoded value
         """
         with self._lock:
-            if (
-                register_type == "HoldRegister"
-            ):  # Todo im Modbus_client ist "HoldingRegister" angeben, ist das falsch?
-                reg = await self._client.read_holding_registers(
-                    addr, count=size, slave=slave_id
-                )
-                # logger.debug(reg.registers)
-            else:
-                reg = await self._client.read_input_registers(
-                    addr, count=size, slave=slave_id
-                )
-            decoder = PayloadDecoder.fromRegisters(
-                reg.registers, byteorder=order, wordorder=order
+            response = await self._client.read_input_registers(
+                address, count=size, slave=slave_id
             )
+        if response and not response.isError():
+            decoder = PayloadDecoder.fromRegisters(
+                response.registers, byteorder=self._byte_order, wordorder=self._word_order
+            )
+            return decoder.decode(data_type, 0)
 
-            if not reg.isError():
-                return decoder.decode(data_type, 0)
+    async def read_holding_registers(self, slave_id: int, address: int, size: int, data_type: ModbusDataType) -> Any:
+        """
+        Reads holding registers and decodes the value.
+        :param slave_id: The slave ID of the device
+        :param address: The address to read from and decode
+        :param size: The number of registers to read
+        :param data_type: The modbus type to decode
+        :returns: Decoded value
+        """
+        with self._lock:
+            response = await self._client.read_holding_registers(
+                address, count=size, slave=slave_id
+            )
+        if response and not response.isError():
+            decoder = PayloadDecoder.fromRegisters(
+                response.registers, byteorder=self._byte_order, wordorder=self._word_order
+            )
+            return decoder.decode(data_type, 0)
 
-    # TODO Under construction
-    async def mult_value_decoder(
+    async def read_coils(self, slave_id: int, address: int, size: int, data_type: ModbusDataType) -> Any:
+        """
+        Reads coils and decodes the value.
+        :param slave_id: The slave ID of the device
+        :param address: The address to read from and decode
+        :param size: The number of registers to read
+        :param data_type: The modbus type to decode
+        :returns: Decoded value
+        """
+        with self._lock:
+            response = await self._client.read_coils(
+                address, count=size, slave=slave_id
+            )
+        if response and not response.isError():
+            decoder = PayloadDecoder.fromCoils(
+                response.bits, byteorder=self._byte_order, wordorder=self._word_order
+            )
+            return decoder.decode(data_type, 0)
+
+    async def read_discrete_inputs(self, slave_id: int, address: int, size: int, data_type: ModbusDataType) -> Any:
+        """
+        Reads discrete inputs and decodes the value.
+        :param slave_id: The slave ID of the device
+        :param address: The address to read from and decode
+        :param size: The number of registers to read
+        :param data_type: The modbus type to decode
+        :returns: Decoded value
+        """
+        raise Exception('Discrete inputs not supported yet')
+
+    # TODO Implement block transfers and remove this method
+    async def _mult_value_decoder(
         self,
         addr: int,
         size: int,
         data_type: str,
         register_type: str,
-        slave_id: int,
-        order: Endian,
+        slave_id: int
     ) -> Optional[float]:
         """
         Reads register and decodes the value.
@@ -103,13 +155,13 @@ class SGrModbusClient(ABC):
         if register_type == "HoldRegister":
             reg = self._client.read_holding_registers(
                 addr, size, slave=slave_id
-            )  # TODO add slave id?
+            )
         else:
             reg = self._client.read_input_registers(
                 addr, count=size, slave=slave_id
             )
         decoder = PayloadDecoder.fromRegisters(
-            reg.registers, byteorder=order, wordorder=order
+            reg.registers, byteorder=self._byte_order, wordorder=self._word_order
         )
         # logger.debug(decoder.decode('float32', 0))
         if not reg.isError():
@@ -122,13 +174,13 @@ class SGrModbusClient(ABC):
 
 
 class SGrModbusTCPClient(SGrModbusClient):
-    def __init__(self, ip: str, port: int):
+    def __init__(self, ip: str, port: int, endianness: BitOrder):
+        super().__init__(endianness)
         """
         Creates client
         :param ip: The host to connect to (default 127.0.0.1)
         :param port: The modbus port to connect to (default 502)
         """
-        self._lock = threading.Lock()
         self._ip = ip
         self._port = port
         self._client = AsyncModbusTcpClient(
@@ -155,14 +207,14 @@ class SGrModbusTCPClient(SGrModbusClient):
 
 
 class SGrModbusRTUClient(SGrModbusClient):
-    def __init__(self, serial_port: str, parity: str, baudrate: int):
+    def __init__(self, serial_port: str, parity: str, baudrate: int, endianness: BitOrder):
+        super().__init__(endianness)
         """
         Creates client
         :param serial_port: The serial port to connect to (e.g. COM1)
         :param parity: The serial parity (e.g. EVEN)
         :param baudrate: The serial baudrate (e.g. 19200)
         """
-        self._lock = threading.Lock()
         self._serial_port = serial_port
         self._client = AsyncModbusSerialClient(
             method="rtu",

@@ -46,58 +46,58 @@ def build_rest_data_point(
 class RestDataPoint(DataPointProtocol):
     def __init__(
         self,
-        rest_api_dp: RestApiDataPoint,
-        rest_api_fp: RestApiFunctionalProfile,
+        dp_spec: RestApiDataPoint,
+        fp_spec: RestApiFunctionalProfile,
         interface: "SGrRestInterface",
     ):
-        self._dp = rest_api_dp
-        self._fp = rest_api_fp
+        self._dp_spec = dp_spec
+        self._fp_spec = fp_spec
         if (
-            self._dp.rest_api_data_point_configuration is None
-            or self._dp.rest_api_data_point_configuration.rest_api_service_call is None
-            or self._dp.rest_api_data_point_configuration.rest_api_read_service_call is None
-            or self._dp.rest_api_data_point_configuration.rest_api_write_service_call is None
+            self._dp_spec.rest_api_data_point_configuration is None
+            or self._dp_spec.rest_api_data_point_configuration.rest_api_service_call is None
+            or self._dp_spec.rest_api_data_point_configuration.rest_api_read_service_call is None
+            or self._dp_spec.rest_api_data_point_configuration.rest_api_write_service_call is None
         ):
             raise Exception("REST service call configuration missing")
 
         self._method = (
-            self._dp.rest_api_data_point_configuration.rest_api_service_call.request_method
-            if self._dp.rest_api_data_point_configuration.rest_api_service_call.request_method
+            self._dp_spec.rest_api_data_point_configuration.rest_api_service_call.request_method
+            if self._dp_spec.rest_api_data_point_configuration.rest_api_service_call.request_method
             else HttpMethod.GET
         )
         self._header = (
-            self._dp.rest_api_data_point_configuration.rest_api_service_call.request_header
-            if self._dp.rest_api_data_point_configuration.rest_api_service_call.request_header
+            self._dp_spec.rest_api_data_point_configuration.rest_api_service_call.request_header
+            if self._dp_spec.rest_api_data_point_configuration.rest_api_service_call.request_header
             else HeaderList()
         )
-        self._body = self._dp.rest_api_data_point_configuration.rest_api_service_call.request_body
+        self._body = self._dp_spec.rest_api_data_point_configuration.rest_api_service_call.request_body
         self._path = (
-            self._dp.rest_api_data_point_configuration.rest_api_service_call.request_path
-            if self._dp.rest_api_data_point_configuration.rest_api_service_call.request_path
+            self._dp_spec.rest_api_data_point_configuration.rest_api_service_call.request_path
+            if self._dp_spec.rest_api_data_point_configuration.rest_api_service_call.request_path
             else ""
         )
         self._query = (
-            self._dp.rest_api_data_point_configuration.rest_api_service_call.response_query
-            if self._dp.rest_api_data_point_configuration.rest_api_service_call.response_query
+            self._dp_spec.rest_api_data_point_configuration.rest_api_service_call.response_query
+            if self._dp_spec.rest_api_data_point_configuration.rest_api_service_call.response_query
             else ResponseQuery()
         )
 
         self._fp_name = ""
         if (
-            rest_api_fp.functional_profile is not None
-            and rest_api_fp.functional_profile.functional_profile_name
+            fp_spec.functional_profile is not None
+            and fp_spec.functional_profile.functional_profile_name
             is not None
         ):
             self._fp_name = (
-                rest_api_fp.functional_profile.functional_profile_name
+                fp_spec.functional_profile.functional_profile_name
             )
 
         self._dp_name = ""
         if (
-            rest_api_dp.data_point is not None
-            and rest_api_dp.data_point.data_point_name is not None
+            dp_spec.data_point is not None
+            and dp_spec.data_point.data_point_name is not None
         ):
-            self._dp_name = rest_api_dp.data_point.data_point_name
+            self._dp_name = dp_spec.data_point.data_point_name
 
         self._interface = interface
 
@@ -118,31 +118,31 @@ class RestDataPoint(DataPointProtocol):
 
     def direction(self) -> DataDirectionProduct:
         if (
-            self._dp.data_point is None
-            or self._dp.data_point.data_direction is None
+            self._dp_spec.data_point is None
+            or self._dp_spec.data_point.data_direction is None
         ):
             raise Exception("missing data direction")
-        return self._dp.data_point.data_direction
+        return self._dp_spec.data_point.data_direction
 
 
 class RestFunctionalProfile(FunctionalProfile):
     def __init__(
         self,
-        rest_api_fp: RestApiFunctionalProfile,
+        fp_spec: RestApiFunctionalProfile,
         interface: "SGrRestInterface",
     ):
-        self._fp = rest_api_fp
+        self._fp_spec = fp_spec
         self._interface = interface
 
         raw_dps = []
         if (
-            self._fp.data_point_list
-            and self._fp.data_point_list.data_point_list_element
+            self._fp_spec.data_point_list
+            and self._fp_spec.data_point_list.data_point_list_element
         ):
-            raw_dps = self._fp.data_point_list.data_point_list_element
+            raw_dps = self._fp_spec.data_point_list.data_point_list_element
 
         dps = [
-            build_rest_data_point(dp, self._fp, self._interface)
+            build_rest_data_point(dp, self._fp_spec, self._interface)
             for dp in raw_dps
         ]
 
@@ -150,10 +150,10 @@ class RestFunctionalProfile(FunctionalProfile):
 
     def name(self) -> str:
         if (
-            self._fp.functional_profile
-            and self._fp.functional_profile.functional_profile_name
+            self._fp_spec.functional_profile
+            and self._fp_spec.functional_profile.functional_profile_name
         ):
-            return self._fp.functional_profile.functional_profile_name
+            return self._fp_spec.functional_profile.functional_profile_name
         return ""
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
@@ -162,7 +162,7 @@ class RestFunctionalProfile(FunctionalProfile):
 
 class SGrRestInterface(SGrBaseInterface):
     """
-    SmartGrid ready External Interface Class for Rest API
+    SmartGridready External Interface Class for Rest API
     """
 
     def __init__(
@@ -176,11 +176,11 @@ class SGrRestInterface(SGrBaseInterface):
         self._cache = TTLCache(maxsize=100, ttl=5)
 
         if (
-            self._root.interface_list
-            and self._root.interface_list
-            and self._root.interface_list.rest_api_interface
+            self._root_spec.interface_list
+            and self._root_spec.interface_list
+            and self._root_spec.interface_list.rest_api_interface
         ):
-            self._raw_interface = self._root.interface_list.rest_api_interface
+            self._raw_interface = self._root_spec.interface_list.rest_api_interface
         else:
             raise Exception("Invalid")
         desc = self._raw_interface.rest_api_interface_description
@@ -204,15 +204,13 @@ class SGrRestInterface(SGrBaseInterface):
 
     async def disconnect_async(self):
         if self._session is not None and not self._session.closed:
-            return
-        await self._session.close()
+            await self._session.close()
         self._session = None
 
     async def connect_async(self):
         if self._session is None or self._session.closed:
-            return
-        self._session = aiohttp.ClientSession(connector=self._connector)
-        await self.authenticate()
+            self._session = aiohttp.ClientSession(connector=self._connector)
+            await self.authenticate()
 
     def get_function_profiles(self) -> Mapping[str, FunctionalProfile]:
         return self._function_profiles
