@@ -1,8 +1,13 @@
+import asyncio
 import configparser
+import logging
 from collections.abc import Mapping
+import random
+import string
 from typing import Any
 
 from pymodbus.constants import Endian
+from sgr_commhandler.driver.modbus.shared_client import ModbusClientWrapper, register_shared_client, unregister_shared_client
 from sgr_specification.v0.generic import DataDirectionProduct, Parity
 
 from sgr_specification.v0.product import (
@@ -20,10 +25,13 @@ from sgr_commhandler.api import (
     FunctionalProfile,
 )
 from sgr_commhandler.driver.modbus.modbus_client_async import (
-    SGrModbusClient, SGrModbusRTUClient, SGrModbusTCPClient
+    SGrModbusRTUClient, SGrModbusTCPClient
 )
 from sgr_commhandler.validators import build_validator
 from sgr_specification.v0.product.modbus_types import ModbusInterfaceSelection, ModbusRtu, ModbusTcp
+
+
+logger = logging.getLogger(__name__)
 
 
 def get_rtu_slave_id(modbus_rtu: ModbusRtu) -> int:
@@ -198,10 +206,7 @@ class ModbusFunctionalProfile(FunctionalProfile):
 
 
 class SGrModbusInterface(SGrBaseInterface):
-    # a global Modbus client
-    globalModbusRTUClient = None
-
-    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
+    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser, sharedRTU: bool = False):
         super().__init__(frame, configuration)
 
         if self._root.interface_list.modbus_interface.modbus_interface_description.modbus_rtu:
@@ -223,43 +228,57 @@ class SGrModbusInterface(SGrBaseInterface):
         ]
         self._function_profiles = {fp.name(): fp for fp in fps}
 
-        self.client: SGrModbusClient = None
+        # unique string used in combination with shared Modbus client
+        self._device_id = ''.join(random.choices(string.ascii_letters, k=8))
+        self._client_wrapper: ModbusClientWrapper = None
         if self._root.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection == ModbusInterfaceSelection.TCPIP:
-            self.client = SGrModbusTCPClient(self.ip_address, self.ip_port)
+            self._client_wrapper = ModbusClientWrapper(
+                '',
+                SGrModbusTCPClient(self.ip_address, self.ip_port),
+                shared=False
+            )
         elif self._root.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection == ModbusInterfaceSelection.RTU:
-            if SGrModbusInterface.globalModbusRTUClient is None:
-                self.client = SGrModbusRTUClient(self.serial_port, self.parity, self.baudrate)
-                globalModbusRTUClient = self.client
+            if sharedRTU:
+                logger.debug('using shared RTU client')
+                self._client_wrapper = register_shared_client(self.serial_port, self.parity, self.baudrate, device_id=self._device_id)
             else:
-                self.client = globalModbusRTUClient
+                self._client_wrapper = ModbusClientWrapper(
+                    '',
+                    SGrModbusRTUClient(self.serial_port, self.parity, self.baudrate),
+                    shared=False
+                )
         else:
             raise Exception('Unsupported Modbus interface type')
+
+    def __del__(self):
+        if self._client_wrapper.shared:
+            unregister_shared_client(self.serial_port, device_id=self._device_id)
 
     def device_information(self) -> DeviceInformation:
         return self._device_information
 
     def is_connected(self) -> bool:
-        return self.client.is_connected()
+        return self._client_wrapper.is_connected(self._device_id)
 
     async def connect_async(self):
-        self.client.connect()
+        await self._client_wrapper.connect(self._device_id)
 
     async def disconnect_async(self):
-        self.client.disconnect()
+        await self._client_wrapper.disconnect()
 
     async def get_register_value(
         self, address: int, size: int, data_type: str, reg_type: str
     ) -> float:
         slave_id = self.slave_id
         order = self.byte_order
-        return await self.client.value_decoder(
+        return await self._client_wrapper.value_decoder(
             address, size, data_type, reg_type, slave_id, order
         )
 
     async def set_register_value(self, address: int, data_type: str, value: float) -> None:
         slave_id = self.slave_id
         order = self.byte_order
-        await self.client.value_encoder(
+        await self._client_wrapper.value_encoder(
             address, value, data_type, slave_id, order
         )
 

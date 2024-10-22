@@ -35,7 +35,7 @@ device_builders: dict[
     ],
 ] = {
     SGrDeviceProtocol.MODBUS: lambda frame, config: SGrModbusInterface(
-        frame, config
+        frame, config, sharedRTU=True
     ),
     SGrDeviceProtocol.RESTAPI: lambda frame, config: SGrRestInterface(
         frame, config
