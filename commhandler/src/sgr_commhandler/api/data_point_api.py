@@ -27,7 +27,7 @@ class DataPointProtocol(ABC):
         pass
 
     @abstractmethod
-    async def get_val(self) -> Any:
+    async def get_val(self, skip_cache: bool = False) -> Any:
         pass
 
     @abstractmethod

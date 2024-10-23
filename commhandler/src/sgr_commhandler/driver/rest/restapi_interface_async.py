@@ -189,7 +189,7 @@ class RestDataPoint(DataPointProtocol):
     def name(self) -> tuple[str, str]:
         return self._fp_name, self._dp_name
 
-    async def get_val(self):
+    async def get_val(self, skip_cache: bool = False):
         if not self._read_call:
             raise Exception('No read call')
         request = RestRequest(
@@ -198,7 +198,7 @@ class RestDataPoint(DataPointProtocol):
             self._read_call.headers,
             self._read_call.body
         )
-        response = await self._interface.execute_request(request)
+        response = await self._interface.execute_request(request, skip_cache)
         if self._read_call.response_query and self._read_call.response_query.query_type == ResponseQueryType.JMESPATH_EXPRESSION:
             query_expression = self._read_call.response_query.query
             return jmespath.search(query_expression, json.loads(response.body))
@@ -216,7 +216,7 @@ class RestDataPoint(DataPointProtocol):
             body=str(self._write_call.body).replace('{{value}}', str(data)) if self._write_call.body else None
         )
         # TODO use response body
-        await self._interface.execute_request(request)
+        await self._interface.execute_request(request, skip_cache=True)
 
     def direction(self) -> DataDirectionProduct:
         if (
@@ -321,7 +321,8 @@ class SGrRestInterface(SGrBaseInterface):
 
     async def execute_request(
         self,
-        request: RestRequest
+        request: RestRequest,
+        skip_cache: bool
     ) -> RestResponse:
         try:
             url = f"{self._base_url}{request.path}"
@@ -351,25 +352,26 @@ class SGrRestInterface(SGrBaseInterface):
                 request_headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
             cache_key = (frozenset(request_headers), url)
-            if cache_key in self._cache:
+            if not skip_cache and cache_key in self._cache:
                 return self._cache.get(cache_key)
-            else:
-                async with self._session.request(
-                    request.method.value,
-                    url,
-                    headers=request_headers,
-                    params=query_parameters,
-                    body=request_body
-                ) as req:
-                    req.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
-                    logger.info(f"execute_request status: {req.status}")
-                    res_body = await req.asText()
-                    response = RestResponse(
-                        headers=req.headers,
-                        body=res_body
-                    )
+
+            async with self._session.request(
+                request.method.value,
+                url,
+                headers=request_headers,
+                params=query_parameters,
+                body=request_body
+            ) as req:
+                req.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
+                logger.info(f"execute_request status: {req.status}")
+                res_body = await req.asText()
+                response = RestResponse(
+                    headers=req.headers,
+                    body=res_body
+                )
+                if not skip_cache:
                     self._cache[cache_key] = response
-                    return response
+                return response
 
         except ClientResponseError as e:
             logger.error(f"HTTP error occurred: {e}")
@@ -379,5 +381,3 @@ class SGrRestInterface(SGrBaseInterface):
             logger.error(f"Failed to decode JSON: {e}")
         except Exception as e:
             logger.error(f"An unexpected error occurred: {e}")
-
-        return None
