@@ -5,8 +5,8 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "SGrPythontks4r"
 dynamic = ["version"]
-description = ""
-readme = ""
+description = "SmartGridready CommHandler Library"
+readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "BSD" }
 authors = [{ name = "Robin Schoch" }]

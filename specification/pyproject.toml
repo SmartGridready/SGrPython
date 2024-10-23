@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "SGrSpecificationPythontks4r"
+dynamic = ["version"]
+description = "SmartGridready Specification Library"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "BSD" }
+authors = [{ name = "Robin Schoch" }]
+urls = { "Homepage" = "https://github.com/SmartGridready/SGrSpecifications" }
+dependencies = []
+
+[tool.ruff]
