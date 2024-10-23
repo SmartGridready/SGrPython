@@ -32,19 +32,19 @@ async def authenticate_with_bearer_token(
     try:
         description = interface.rest_api_interface_description
         if description is None:
-            raise Exception("invalid")
+            raise Exception("no interface description")
         base_url = description.rest_api_uri
         if base_url is None:
-            raise Exception("invalid")
+            raise Exception("no base URL")
         bearer_option = description.rest_api_bearer
         if bearer_option is None:
-            raise Exception("invalid")
+            raise Exception("no Bearer option")
         rest_service = bearer_option.rest_api_service_call
         if rest_service is None:
-            raise Exception("invalid")
+            raise Exception("no REST service")
         request_path = rest_service.request_path
         if request_path is None:
-            raise Exception("invalid")
+            raise Exception("no request path")
 
         authentication_url = f"https://{base_url}{request_path}"
 
