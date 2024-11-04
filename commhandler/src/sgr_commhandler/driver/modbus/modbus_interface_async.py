@@ -36,14 +36,14 @@ def get_rtu_slave_id(modbus_rtu: ModbusRtu) -> int:
     """
     returns the selected slave address
     """
-    return modbus_rtu.slave_addr
+    return int(modbus_rtu.slave_addr)
 
 
 def get_tcp_slave_id(modbus_tcp: ModbusTcp) -> int:
     """
     returns the selected slave address
     """
-    return modbus_tcp.slave_id
+    return int(modbus_tcp.slave_id)
 
 
 def get_endian(modbus: ModbusInterfaceDescription) -> BitOrder:
@@ -66,7 +66,7 @@ def get_tcp_port(modbus_tcp: ModbusTcp) -> int:
     """
     returns the selected ip port.
     """
-    return modbus_tcp.port
+    return int(modbus_tcp.port)
 
 
 def get_rtu_serial_port(modbus_rtu: ModbusRtu) -> str:
@@ -80,7 +80,7 @@ def get_rtu_baudrate(modbus_rtu: ModbusRtu) -> int:
     """
     returns the selected baudrate.
     """
-    return modbus_rtu.baud_rate_selected
+    return int(modbus_rtu.baud_rate_selected)
 
 
 def get_rtu_parity(modbus_rtu: ModbusRtu) -> str:

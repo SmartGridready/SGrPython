@@ -1,6 +1,10 @@
+import logging
 import asyncio
 import os
 from sgr_commhandler.device_builder import DeviceBuilder
+
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 async def run_test_loop():
@@ -9,7 +13,7 @@ async def run_test_loop():
 
     current_dir = os.path.dirname(os.path.realpath(__file__))
 
-    #### Modbus
+    # --- Modbus ---
 
     # We instantiate a Modbus device interface with a Modbus EID XML file
     eid_file_modbus = os.path.join(current_dir, 'eid', 'abb_terra_01.xml')
@@ -26,26 +30,33 @@ async def run_test_loop():
 
     await modbus_device.get_values_async()
 
-    #### REST
+    # --- REST ---
 
     # We instantiate a REST device interface with a REST-API EID XML file
     eid_file_rest = os.path.join(current_dir, 'eid', 'SGr_04_mmmm_dddd_CLEMAPEnergyMonitorEIV0.2.1.xml')
-    ini_file_path = os.path.join(current_dir, 'ini', '')
+    ini_file_rest = os.path.join(current_dir, 'ini', 'SGr_04_mmmm_dddd_CLEMAPEnergyMonitorEIV0.2.1_example.ini')
+    rest_device = (
+        DeviceBuilder()
+        .eid_path(eid_file_rest)
+        .properties_path(ini_file_rest)
+        .build()
+    )
 
-    # We instanciate a second interface object with a modbusTCP xml.
+    # We connect to the REST device
+    await rest_device.connect_async()
 
-    # We authentificate the restapi conneciton
+    await rest_device.get_values_async()
 
     # We create a loop where we request a datapoint with a getval of our restapi
     # component and a datapoint with a getval of our modbus component.
     while True:
         # instanciate modbus component and use getval to get a value back.
-        getval = await modbus_device.getval('CurrentAC', 'CurrentACL1')
-        print(getval)
+        modbus_val = await modbus_device.get_data_point(('CurrentAC', 'CurrentACL1')).get_value_async()
+        print(modbus_val)
 
         # instanciate restapi component
-        value = await restapi_component.getval('ActivePowerAC', 'ActivePowerACtot')
-        print(value)
+        rest_val = await rest_device.get_data_point(('ActivePowerAC', 'ActivePowerACtot')).get_value_async()
+        print(rest_val)
 
         await asyncio.sleep(1)
 

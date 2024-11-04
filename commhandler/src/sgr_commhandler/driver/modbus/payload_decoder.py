@@ -44,32 +44,32 @@ class PayloadDecoder(BinaryPayloadDecoder):
         :param modbus_type: 'int8', 'int8_u', 'int16', 'int16_u', 'int32', 'int32_u', 'int64', 'int64_u', 'float32', 'boolean', 'float64', 'string'
         """
         # TODO enum, date_time
-        if modbus_type == ModbusDataType.int8:
+        if modbus_type.int8:
             return self.decode_8bit_int()
-        elif modbus_type == ModbusDataType.int8_u:
+        elif modbus_type.int8_u:
             return self.decode_8bit_uint()
-        elif modbus_type == ModbusDataType.int16:
+        elif modbus_type.int16:
             return self.decode_16bit_int()
-        elif modbus_type == ModbusDataType.int16_u:
+        elif modbus_type.int16_u:
             return self.decode_16bit_uint()
-        elif modbus_type == ModbusDataType.int32:
+        elif modbus_type.int32:
             return self.decode_32bit_int()
-        elif modbus_type == ModbusDataType.int32_u:
+        elif modbus_type.int32_u:
             return self.decode_32bit_uint()
-        elif modbus_type == ModbusDataType.int64:
+        elif modbus_type.int64:
             return self.decode_64bit_int()
-        elif modbus_type == ModbusDataType.int64_u:
+        elif modbus_type.int64_u:
             return self.decode_64bit_uint()
-        elif modbus_type == ModbusDataType.float32:
+        elif modbus_type.float32:
             return self.decode_32bit_float()
-        elif modbus_type == ModbusDataType.float64:
+        elif modbus_type.float64:
             return self.decode_64bit_float()
-        elif modbus_type == ModbusDataType.boolean:
+        elif modbus_type.boolean:
             return bool(self.decode_8bit_uint())
-        elif modbus_type == ModbusDataType.string:
+        elif modbus_type.string:
             return self.decode_string(byte_count)
         else:
-            raise ValueError('Unsupported modbus type "%s"', modbus_type)
+            raise ValueError('No supported modbus data type')
 
 
 class PayloadBuilder(BinaryPayloadBuilder):

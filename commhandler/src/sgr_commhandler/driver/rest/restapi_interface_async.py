@@ -26,7 +26,7 @@ from sgr_commhandler.api import (
 )
 from sgr_commhandler.driver.rest.authentication import setup_authentication
 from sgr_commhandler.validators import build_validator
-from sgr_specification.v0.product.rest_api_types import ParameterList
+from sgr_specification.v0.product.rest_api_types import ParameterList, RestApiServiceCall
 import urllib
 
 logger = logging.getLogger(__name__)
@@ -59,17 +59,17 @@ class RestRequest:
     def __init__(
         self,
         method: HttpMethod,
-        path: str,
+        url: str,
         headers: HeaderList,
-        queryParameters: ParameterList = None,
-        formParameters: ParameterList = None,
+        query_parameters: ParameterList = None,
+        form_parameters: ParameterList = None,
         body: str = None
     ):
         self.method = method
-        self.path = path
+        self.url = url
         self.headers = headers
-        self.queryParameters = queryParameters
-        self.formParameters = formParameters
+        self.query_parameters = query_parameters
+        self.form_parameters = form_parameters
         self.body = body
 
 
@@ -87,13 +87,13 @@ class RestDataPoint(DataPointProtocol):
         if not dp_config:
             raise Exception("REST service call configuration missing")
 
-        self._read_call = None
-        self._write_call = None
+        self._read_call: RestApiServiceCall = None
+        self._write_call: RestApiServiceCall = None
 
         if len(dp_config.rest_api_read_service_call) > 0:
             service_call = dp_config.rest_api_read_service_call[0]
-            self._read_call = dict(
-                method=(
+            self._read_call = RestApiServiceCall(
+                request_method=(
                     service_call.request_method
                     if service_call.request_method
                     else HttpMethod.GET
@@ -103,10 +103,20 @@ class RestDataPoint(DataPointProtocol):
                     if service_call.request_path
                     else ""
                 ),
-                headers=(
+                request_header=(
                     service_call.request_header
                     if service_call.request_header
                     else HeaderList()
+                ),
+                request_query=(
+                    service_call.request_query
+                    if service_call.request_query
+                    else ParameterList()
+                ),
+                request_form=(
+                    service_call.request_form
+                    if service_call.request_form
+                    else ParameterList()
                 ),
                 response_query=(
                     service_call.response_query
@@ -116,8 +126,8 @@ class RestDataPoint(DataPointProtocol):
             )
         elif dp_config.rest_api_service_call:
             # old, for compatibility reasons
-            self._read_call = dict(
-                method=(
+            self._read_call = RestApiServiceCall(
+                request_method=(
                     dp_config.rest_api_service_call.request_method
                     if dp_config.rest_api_service_call.request_method
                     else HttpMethod.GET
@@ -127,10 +137,20 @@ class RestDataPoint(DataPointProtocol):
                     if dp_config.rest_api_service_call.request_path
                     else ""
                 ),
-                headers=(
+                request_header=(
                     dp_config.rest_api_service_call.request_header
                     if dp_config.rest_api_service_call.request_header
                     else HeaderList()
+                ),
+                request_query=(
+                    dp_config.rest_api_service_call.request_query
+                    if dp_config.rest_api_service_call.request_query
+                    else ParameterList()
+                ),
+                request_form=(
+                    dp_config.rest_api_service_call.request_form
+                    if dp_config.rest_api_service_call.request_form
+                    else ParameterList()
                 ),
                 response_query=(
                     dp_config.rest_api_service_call.response_query
@@ -141,8 +161,8 @@ class RestDataPoint(DataPointProtocol):
 
         if len(dp_config.rest_api_write_service_call) > 0:
             service_call = dp_config.rest_api_write_service_call[0]
-            self._write_call = dict(
-                method=(
+            self._write_call = RestApiServiceCall(
+                request_method=(
                     service_call.request_method
                     if service_call.request_method
                     else HttpMethod.GET
@@ -152,10 +172,20 @@ class RestDataPoint(DataPointProtocol):
                     if service_call.request_path
                     else ""
                 ),
-                headers=(
+                request_header=(
                     service_call.request_header
                     if service_call.request_header
                     else HeaderList()
+                ),
+                request_query=(
+                    service_call.request_query
+                    if service_call.request_query
+                    else ParameterList()
+                ),
+                request_form=(
+                    service_call.request_form
+                    if service_call.request_form
+                    else ParameterList()
                 ),
                 response_query=(
                     service_call.response_query
@@ -193,12 +223,16 @@ class RestDataPoint(DataPointProtocol):
         if not self._read_call:
             raise Exception('No read call')
         request = RestRequest(
-            self._read_call.method,
-            self._read_call.request_path,
-            self._read_call.headers,
-            self._read_call.body
+            self._read_call.request_method,
+            f"{self._interface.base_url}{self._read_call.request_path}",
+            self._read_call.request_header,
+            self._read_call.request_query,
+            self._read_call.request_form,
+            self._read_call.request_body
         )
         response = await self._interface.execute_request(request, skip_cache)
+        if not response.body:
+            return None
         if self._read_call.response_query and self._read_call.response_query.query_type == ResponseQueryType.JMESPATH_EXPRESSION:
             query_expression = self._read_call.response_query.query
             return jmespath.search(query_expression, json.loads(response.body))
@@ -210,10 +244,12 @@ class RestDataPoint(DataPointProtocol):
 
         # replace {{value}} placeholder
         request = RestRequest(
-            self._write_call.method,
-            self._write_call.request_path,
-            self._write_call.headers,
-            body=str(self._write_call.body).replace('{{value}}', str(data)) if self._write_call.body else None
+            self._write_call.request_method,
+            f"{self._interface.base_url}{self._write_call.request_path}",
+            self._write_call.request_header,
+            self._write_call.request_query,
+            self._write_call.request_form,
+            body=str(self._write_call.request_body).replace('{{value}}', str(data)) if self._write_call.request_body else None
         )
         # TODO use response body
         await self._interface.execute_request(request, skip_cache=True)
@@ -287,8 +323,8 @@ class SGrRestInterface(SGrBaseInterface):
         desc = self._raw_interface.rest_api_interface_description
         if desc is None:
             raise Exception("No REST interface description")
-        self._base_url = desc.rest_api_uri
-        if self._base_url is None:
+        self.base_url = desc.rest_api_uri
+        if self.base_url is None:
             raise Exception("Invalid base URL")
 
         raw_fps = []
@@ -325,8 +361,6 @@ class SGrRestInterface(SGrBaseInterface):
         skip_cache: bool
     ) -> RestResponse:
         try:
-            url = f"{self._base_url}{request.path}"
-
             # All headers into dictionary
             request_headers = {
                 header_entry.header_name: header_entry.value
@@ -336,7 +370,7 @@ class SGrRestInterface(SGrBaseInterface):
             # All query parameters into dictionary
             query_parameters = {
                 param_entry.name: param_entry.value
-                for param_entry in request.queryParameters
+                for param_entry in request.query_parameters.parameter
             }
 
             request_body: str = request.body
@@ -344,27 +378,27 @@ class SGrRestInterface(SGrBaseInterface):
             # All form parameters into dictionary
             form_parameters = {
                 param_entry.name: param_entry.value
-                for param_entry in request.formParameters
+                for param_entry in request.form_parameters.parameter
             }
             # override body
             if len(form_parameters) > 0:
                 request_body = urllib.parse.urlencode(form_parameters)
                 request_headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-            cache_key = (frozenset(request_headers), url)
+            cache_key = (frozenset(request_headers), request.url)
             if not skip_cache and cache_key in self._cache:
                 return self._cache.get(cache_key)
 
             async with self._session.request(
                 request.method.value,
-                url,
+                request.url,
                 headers=request_headers,
                 params=query_parameters,
-                body=request_body
+                data=request_body
             ) as req:
                 req.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
                 logger.info(f"execute_request status: {req.status}")
-                res_body = await req.asText()
+                res_body = await req.text()
                 response = RestResponse(
                     headers=req.headers,
                     body=res_body

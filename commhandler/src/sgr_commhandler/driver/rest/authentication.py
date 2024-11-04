@@ -39,27 +39,28 @@ async def authenticate_with_bearer_token(
         bearer_option = description.rest_api_bearer
         if bearer_option is None:
             raise Exception("no Bearer option")
-        rest_service = bearer_option.rest_api_service_call
-        if rest_service is None:
-            raise Exception("no REST service")
-        request_path = rest_service.request_path
+        service_call = bearer_option.rest_api_service_call
+        if service_call is None:
+            raise Exception("no REST service call for authentication")
+        request_path = service_call.request_path
         if request_path is None:
             raise Exception("no request path")
 
-        authentication_url = f"https://{base_url}{request_path}"
+        authentication_url = f"{base_url}{request_path}"
+        logger.debug("auth URL = " + authentication_url)
 
         headers = {
             header_entry.header_name: header_entry.value
             for header_entry in (
-                rest_service.request_header
-                if rest_service.request_header
+                service_call.request_header
+                if service_call.request_header
                 else HeaderList()
             ).header
         }
 
-        request_body = rest_service.request_body
+        request_body = service_call.request_body
         if request_body is None:
-            raise Exception("illegal")
+            raise Exception("no request body")
 
         data = json.loads(request_body)
         async with session.post(
@@ -109,10 +110,10 @@ supported_authentication_methods: dict[
 async def setup_authentication(
     rest_api_interface: RestApiInterface, session: ClientSession
 ) -> bool:
-    option = rest_api_interface.rest_api_interface_description
-    if option is None:
+    descr = rest_api_interface.rest_api_interface_description
+    if descr is None:
         raise Exception("no REST interface description")
-    method = option.rest_api_authentication_method
+    method = descr.rest_api_authentication_method
     if method is None:
         raise Exception("no authentication method")
     auth_fn = supported_authentication_methods.get(method)
