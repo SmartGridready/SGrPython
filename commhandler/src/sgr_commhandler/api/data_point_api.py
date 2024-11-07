@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from asyncio import run
+from collections.abc import Callable
 from typing import Any, Generic, TypeVar
 
 from sgr_specification.v0.generic import DataDirectionProduct
@@ -23,7 +24,7 @@ class DataPointValidator(ABC):
 
 class DataPointProtocol(ABC):
     @abstractmethod
-    async def set_val(self, data: Any):
+    async def set_val(self, value: Any):
         pass
 
     @abstractmethod
@@ -36,6 +37,15 @@ class DataPointProtocol(ABC):
 
     @abstractmethod
     def direction(self) -> DataDirectionProduct:
+        pass
+
+    def can_subscribe(self) -> bool:
+        return False
+
+    def subscribe(self, fn: Callable[[Any], None]):
+        pass
+
+    def unsubscribe(self):
         pass
 
 
@@ -60,13 +70,19 @@ class DataPoint(Generic[T]):
     def get_value(self) -> T:
         return run(self.get_value_async())
 
-    async def set_value_async(self, data: T):
-        if self._validator.validate(data):
-            return await self._protocol.set_val(data)
+    async def set_value_async(self, value: T):
+        if self._validator.validate(value):
+            return await self._protocol.set_val(value)
         raise Exception("invalid data to write to device")
 
-    def set_value(self, data: T):
-        return run(self.set_value_async(data=data))
+    def set_value(self, value: T):
+        return run(self.set_value_async(value))
+
+    def subscribe(self, fn: Callable[[Any], None]):
+        self._protocol.subscribe(fn)
+
+    def unsubscribe(self):
+        self._protocol.unsubscribe()
 
     def direction(self) -> DataDirectionProduct:
         return self._protocol.direction()

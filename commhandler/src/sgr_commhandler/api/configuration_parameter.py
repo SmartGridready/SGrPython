@@ -16,6 +16,7 @@ class ConfigurationParameter:
         self.match = parameter.name
         self.type = parameter.data_type
         self.description = translation[0].text_element
+        self.default_value = parameter.default_value
 
     def __str__(self):
         return f"{self.label} - {self.match}"

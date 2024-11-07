@@ -15,8 +15,8 @@ from sgr_specification.v0.product import (
     DeviceFrame,
     HeaderList,
     HttpMethod,
-    RestApiDataPoint,
-    RestApiFunctionalProfile,
+    RestApiDataPoint as RestApiDataPointSpec,
+    RestApiFunctionalProfile as RestApiFunctionalProfileSpec,
 )
 from sgr_commhandler.api import (
     SGrBaseInterface,
@@ -33,8 +33,8 @@ logger = logging.getLogger(__name__)
 
 
 def build_rest_data_point(
-    data_point: RestApiDataPoint,
-    function_profile: RestApiFunctionalProfile,
+    data_point: RestApiDataPointSpec,
+    function_profile: RestApiFunctionalProfileSpec,
     interface: "SGrRestInterface",
 ) -> DataPoint:
     protocol = RestDataPoint(data_point, function_profile, interface)
@@ -76,8 +76,8 @@ class RestRequest:
 class RestDataPoint(DataPointProtocol):
     def __init__(
         self,
-        dp_spec: RestApiDataPoint,
-        fp_spec: RestApiFunctionalProfile,
+        dp_spec: RestApiDataPointSpec,
+        fp_spec: RestApiFunctionalProfileSpec,
         interface: "SGrRestInterface",
     ):
         self._dp_spec = dp_spec
@@ -236,11 +236,27 @@ class RestDataPoint(DataPointProtocol):
         if self._read_call.response_query and self._read_call.response_query.query_type == ResponseQueryType.JMESPATH_EXPRESSION:
             query_expression = self._read_call.response_query.query
             return jmespath.search(query_expression, json.loads(response.body))
-        return response.body
+        ret_value = response.body
 
-    async def set_val(self, data: Any):
+        # convert to DP units
+        if (
+            self._dp_spec.data_point.unit_conversion_multiplicator and
+            self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
+        ):
+            ret_value = float(ret_value) * self._dp_spec.data_point.unit_conversion_multiplicator
+
+        return ret_value
+
+    async def set_val(self, value: Any):
         if not self._write_call:
             raise Exception('No write call')
+
+        # convert to device units
+        if (
+            self._dp_spec.data_point.unit_conversion_multiplicator and
+            self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
+        ):
+            value = float(value) / self._dp_spec.data_point.unit_conversion_multiplicator
 
         # replace {{value}} placeholder
         request = RestRequest(
@@ -249,7 +265,7 @@ class RestDataPoint(DataPointProtocol):
             self._write_call.request_header,
             self._write_call.request_query,
             self._write_call.request_form,
-            body=str(self._write_call.request_body).replace('{{value}}', str(data)) if self._write_call.request_body else None
+            body=str(self._write_call.request_body).replace('{{value}}', str(value)) if self._write_call.request_body else None
         )
         # TODO use response body
         await self._interface.execute_request(request, skip_cache=True)
@@ -266,7 +282,7 @@ class RestDataPoint(DataPointProtocol):
 class RestFunctionalProfile(FunctionalProfile):
     def __init__(
         self,
-        fp_spec: RestApiFunctionalProfile,
+        fp_spec: RestApiFunctionalProfileSpec,
         interface: "SGrRestInterface",
     ):
         self._fp_spec = fp_spec

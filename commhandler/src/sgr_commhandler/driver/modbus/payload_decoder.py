@@ -5,34 +5,10 @@ SGr Payload Builder
 An adapted payload decoder and payload builder to use with the pymodbus library.
 """
 
-from enum import Enum
-from math import ceil, floor
 from typing import Any
 
 from pymodbus.payload import BinaryPayloadBuilder, BinaryPayloadDecoder
 from sgr_specification.v0.product.modbus_types import ModbusDataType
-
-
-class RoundingScheme(Enum):
-    floor = "floor"
-    ceil = "ceil"
-    near = "Near"
-
-
-# TODO not sure if rounding is needed here --> only when data point type is integer and modbus is float
-def round_to_int(value: float, scheme: RoundingScheme) -> int:
-    if scheme == RoundingScheme.floor:
-        return floor(value)
-    elif scheme == RoundingScheme.ceil:
-        return ceil(value)
-    elif scheme == RoundingScheme.near:
-        return round(value)
-    else:
-        print(
-            "tried rounding with a invalid scheme (%s) using floor instead",
-            scheme,
-        )
-        return int(floor(value))
 
 
 class PayloadDecoder(BinaryPayloadDecoder):

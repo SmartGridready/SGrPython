@@ -7,8 +7,7 @@ from pymodbus.client import AsyncModbusTcpClient, AsyncModbusSerialClient
 from pymodbus.constants import Endian
 from sgr_commhandler.driver.modbus.payload_decoder import (
     PayloadBuilder,
-    PayloadDecoder,
-    RoundingScheme,
+    PayloadDecoder
 )
 from sgr_specification.v0.product.modbus_types import BitOrder, ModbusDataType
 
@@ -47,7 +46,7 @@ class SGrModbusClient(ABC):
         :param value: The value to be written
         """
         builder = PayloadBuilder(byteorder=self._byte_order, wordorder=self._word_order)
-        builder.encode(value, data_type, rounding=RoundingScheme.floor)
+        builder.encode(value, data_type)
         with self._lock:
             await self._client.write_registers(
                 address=address, values=builder.to_registers(), unit=slave_id
@@ -62,7 +61,7 @@ class SGrModbusClient(ABC):
         :param value: The value to be written
         """
         builder = PayloadBuilder(byteorder=self._byte_order, wordorder=self._word_order)
-        builder.encode(value, data_type, rounding=RoundingScheme.floor)
+        builder.encode(value, data_type)
         with self._lock:
             await self._client.write_coils(
                 address=address, values=builder.to_coils(), unit=slave_id

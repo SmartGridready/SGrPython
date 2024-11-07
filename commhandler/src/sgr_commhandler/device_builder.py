@@ -3,6 +3,7 @@ import re
 
 from collections.abc import Callable
 from enum import Enum
+from sgr_commhandler.driver.messaging.messaging_interface_async import SGrMessagingInterface
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
 
@@ -40,9 +41,15 @@ device_builders: dict[
     SGrDeviceProtocol.RESTAPI: lambda frame, config: SGrRestInterface(
         frame, config
     ),
-    # SGrDeviceProtocol.MESSAGING: lambda frame, config: SgrMessagingInterface(frame),
-    # SGrDeviceProtocol.CONTACT: lambda frame, config: SgrContactInterface(frame),
-    # SGrDeviceProtocol.GENERIC: lambda frame, config: SgrGenericInterface(frame),
+    SGrDeviceProtocol.MESSAGING: lambda frame, config: SGrMessagingInterface(
+        frame, config
+    ),
+    # SGrDeviceProtocol.CONTACT: lambda frame, config: SGrContactInterface(
+    #     frame, config
+    # ),
+    # SGrDeviceProtocol.GENERIC: lambda frame, config: SGrGenericInterface(
+    #     frame, config
+    # ),
 }
 
 

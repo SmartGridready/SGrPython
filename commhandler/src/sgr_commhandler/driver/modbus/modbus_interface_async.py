@@ -6,8 +6,10 @@ import string
 from typing import Any
 
 from sgr_commhandler.driver.modbus.shared_client import ModbusClientWrapper, register_shared_client, unregister_shared_client
+from sgr_commhandler.utils import value_util
 from sgr_specification.v0.generic import DataDirectionProduct, Parity
 
+from sgr_specification.v0.generic.base_types import DataTypeProduct
 from sgr_specification.v0.product import (
     DeviceFrame,
     ModbusDataPoint as ModbusDataPointSpec,
@@ -109,6 +111,26 @@ def build_modbus_data_point(
     return DataPoint(protocol, validator)
 
 
+def is_integer_type(data_type: DataTypeProduct | ModbusDataType) -> bool:
+    return (
+        data_type.int8 or
+        data_type.int8_u or
+        data_type.int16 or
+        data_type.int16_u or
+        data_type.int32 or
+        data_type.int32_u or
+        data_type.int64 or
+        data_type.int64_u
+    )
+
+
+def is_float_type(data_type: DataTypeProduct | ModbusDataType) -> bool:
+    return (
+        data_type.float32 or
+        data_type.float64
+    )
+
+
 class ModbusDataPoint(DataPointProtocol):
     def __init__(
         self,
@@ -173,16 +195,40 @@ class ModbusDataPoint(DataPointProtocol):
                 self._dp_spec.modbus_data_point_configuration.register_type
             )
 
-    async def set_val(self, data: Any):
+    async def set_val(self, value: Any):
+        # convert to device units
+        if (
+            self._dp_spec.data_point.unit_conversion_multiplicator and
+            self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
+        ):
+            value = float(value) / self._dp_spec.data_point.unit_conversion_multiplicator
+
+        # round to int if modbus type is int and DP type is not
+        if is_float_type(self._dp_spec.data_point.data_type) and not is_integer_type(self._dp_spec.modbus_data_point_configuration.modbus_data_type):
+            value = value_util.round_to_int(float(value))
+
         return await self._interface.write_data(
-            self._register_type, self._address, self._data_type, data
+            self._register_type, self._address, self._data_type, value
         )
 
     async def get_val(self, skip_cache: bool = False) -> Any:
         # TODO implement skip_cache
-        return await self._interface.read_data(
+        ret_value = await self._interface.read_data(
             self._register_type, self._address, self._size, self._data_type
         )
+
+        # convert to DP units
+        if (
+            self._dp_spec.data_point.unit_conversion_multiplicator and
+            self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
+        ):
+            ret_value = float(ret_value) * self._dp_spec.data_point.unit_conversion_multiplicator
+
+        # round to int if DP type is int and modbus type is not
+        if is_integer_type(self._dp_spec.data_point.data_type) and not is_float_type(self._dp_spec.modbus_data_point_configuration.modbus_data_type):
+            ret_value = value_util.round_to_int(float(ret_value))
+
+        return ret_value
 
     def name(self) -> tuple[str, str]:
         return self._fp_name, self._dp_name
@@ -266,7 +312,7 @@ class SGrModbusInterface(SGrBaseInterface):
         """
         Destruct.
         """
-        if self._client_wrapper.shared:
+        if self._client_wrapper and self._client_wrapper.shared:
             unregister_shared_client(self.serial_port, device_id=self._device_id)
 
     def device_information(self) -> DeviceInformation:
