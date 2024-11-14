@@ -125,7 +125,7 @@ class RestDataPoint(DataPointProtocol):
                 )
             )
         elif dp_config.rest_api_service_call:
-            # old, for compatibility reasons
+            # old spec, for compatibility reasons
             self._read_call = RestApiServiceCall(
                 request_method=(
                     dp_config.rest_api_service_call.request_method

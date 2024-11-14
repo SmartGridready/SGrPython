@@ -102,3 +102,30 @@ async def test_device_builder_messaging_ini():
     assert device_info is not None
     assert device_info.manufacturer == 'HiveMQ'
     assert device_info.name == 'HiveMQ Test Cloud'
+
+
+@pytest.mark.asyncio
+async def test_device_builder_contact_noprops():
+    eid_path = os.path.join(EID_BASE_PATH, 'EI4_UniDirFlexLoad_3631Lv2.xml')
+
+    test_device = DeviceBuilder().eid_path(eid_path).build()
+    assert test_device is not None
+
+    device_info = test_device.device_information()
+    assert device_info is not None
+    assert device_info.manufacturer == 'Solar Manager AG'
+    # TODO is this an UTF-8 problem?
+    assert device_info.name == 'TODO: GerÃ¤tenamen einfÃ¼gen'
+
+
+@pytest.mark.asyncio
+async def test_device_builder_generic_noprops():
+    eid_path = os.path.join(EID_BASE_PATH, 'test_eid_generic_V0.1.xml')
+
+    test_device = DeviceBuilder().eid_path(eid_path).build()
+    assert test_device is not None
+
+    device_info = test_device.device_information()
+    assert device_info is not None
+    assert device_info.manufacturer == 'Test'
+    assert device_info.name == 'Test Device Generic'

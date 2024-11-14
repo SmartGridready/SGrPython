@@ -3,6 +3,8 @@ import re
 
 from collections.abc import Callable
 from enum import Enum
+from sgr_commhandler.driver.contact.contact_interface_async import SGrContactInterface
+from sgr_commhandler.driver.generic.generic_interface_async import SGrGenericInterface
 from sgr_commhandler.driver.messaging.messaging_interface_async import SGrMessagingInterface
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
@@ -44,12 +46,12 @@ device_builders: dict[
     SGrDeviceProtocol.MESSAGING: lambda frame, config: SGrMessagingInterface(
         frame, config
     ),
-    # SGrDeviceProtocol.CONTACT: lambda frame, config: SGrContactInterface(
-    #     frame, config
-    # ),
-    # SGrDeviceProtocol.GENERIC: lambda frame, config: SGrGenericInterface(
-    #     frame, config
-    # ),
+    SGrDeviceProtocol.CONTACT: lambda frame, config: SGrContactInterface(
+        frame, config
+    ),
+    SGrDeviceProtocol.GENERIC: lambda frame, config: SGrGenericInterface(
+        frame, config
+    ),
 }
 
 
@@ -70,7 +72,7 @@ class DeviceBuilder:
 
     def _resolve_protocol(self, frame: DeviceFrame) -> SGrDeviceProtocol:
         if frame.interface_list is None:
-            raise Exception("unsupported device interface")
+            raise Exception("no device interface")
         if frame.interface_list.rest_api_interface:
             return SGrDeviceProtocol.RESTAPI
         elif frame.interface_list.modbus_interface:
@@ -79,8 +81,9 @@ class DeviceBuilder:
             return SGrDeviceProtocol.MESSAGING
         elif frame.interface_list.contact_interface:
             return SGrDeviceProtocol.CONTACT
-        else:
+        elif frame.interface_list.generic_interface:
             return SGrDeviceProtocol.GENERIC
+        raise Exception("unsupported device interface")
 
     def _string_loader(self) -> DeviceFrame:
         parser = XmlParser(context=XmlContext())
@@ -141,7 +144,8 @@ class DeviceBuilder:
             params = dict(properties=params) if isinstance(params, dict) else {}
             config.read_dict(params)
         else:
-            raise Exception('unsupported properties type')
+            config.clear()
+        # else no properties
         spec = self.get_eid_content()
         for section_name, section in config.items():
             for param_name in section:
