@@ -5,7 +5,9 @@ from collections.abc import Callable
 from enum import Enum
 from sgr_commhandler.driver.contact.contact_interface_async import SGrContactInterface
 from sgr_commhandler.driver.generic.generic_interface_async import SGrGenericInterface
-from sgr_commhandler.driver.messaging.messaging_interface_async import SGrMessagingInterface
+from sgr_commhandler.driver.messaging.messaging_interface_async import (
+    SGrMessagingInterface,
+)
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
 
@@ -40,18 +42,12 @@ device_builders: dict[
     SGrDeviceProtocol.MODBUS: lambda frame, config: SGrModbusInterface(
         frame, config, sharedRTU=True
     ),
-    SGrDeviceProtocol.RESTAPI: lambda frame, config: SGrRestInterface(
-        frame, config
-    ),
+    SGrDeviceProtocol.RESTAPI: lambda frame, config: SGrRestInterface(frame, config),
     SGrDeviceProtocol.MESSAGING: lambda frame, config: SGrMessagingInterface(
         frame, config
     ),
-    SGrDeviceProtocol.CONTACT: lambda frame, config: SGrContactInterface(
-        frame, config
-    ),
-    SGrDeviceProtocol.GENERIC: lambda frame, config: SGrGenericInterface(
-        frame, config
-    ),
+    SGrDeviceProtocol.CONTACT: lambda frame, config: SGrContactInterface(frame, config),
+    SGrDeviceProtocol.GENERIC: lambda frame, config: SGrGenericInterface(frame, config),
 }
 
 
@@ -137,7 +133,7 @@ class DeviceBuilder:
         params = self._config_value if self._config_value is not None else {}
         if self._config_type is SGrConfiguration.FILE:
             # read from ini file
-            params = params if isinstance(params, str) else ''
+            params = params if isinstance(params, str) else ""
             config.read(params)
         elif self._config_type is SGrConfiguration.STRING:
             # read from dictionary - no sections

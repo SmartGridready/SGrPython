@@ -4,7 +4,7 @@ from typing import Any
 import logging
 from sgr_specification.v0.generic import (
     DataDirectionProduct,
-    DataPointBase as GenericDataPointSpec
+    DataPointBase as GenericDataPointSpec,
 )
 from sgr_specification.v0.product import (
     DeviceFrame,
@@ -48,12 +48,9 @@ class GenericDataPoint(DataPointProtocol):
         self._fp_name = ""
         if (
             fp_spec.functional_profile is not None
-            and fp_spec.functional_profile.functional_profile_name
-            is not None
+            and fp_spec.functional_profile.functional_profile_name is not None
         ):
-            self._fp_name = (
-                fp_spec.functional_profile.functional_profile_name
-            )
+            self._fp_name = fp_spec.functional_profile.functional_profile_name
 
         self._dp_name = ""
         if (
@@ -74,10 +71,10 @@ class GenericDataPoint(DataPointProtocol):
             and self._dp_spec.data_point.data_direction is DataDirectionProduct.C
         ):
             return self._dp_spec.data_point.value
-        raise Exception('Not supported')
+        raise Exception("Not supported")
 
     async def set_val(self, value: Any):
-        raise Exception('Not supported')
+        raise Exception("Not supported")
 
     def direction(self) -> DataDirectionProduct:
         if (
@@ -128,9 +125,8 @@ class SGrGenericInterface(SGrBaseInterface):
     SmartGridready External Interface Class for Generic Protocols
     Actually has no communication protocol, just generic data
     """
-    def __init__(
-        self, frame: DeviceFrame, configuration: configparser.ConfigParser
-    ):
+
+    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
         super().__init__(frame, configuration)
 
         if (

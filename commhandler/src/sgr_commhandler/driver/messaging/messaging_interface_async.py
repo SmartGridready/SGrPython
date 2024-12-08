@@ -50,12 +50,9 @@ class MessagingDataPoint(DataPointProtocol):
         self._fp_name = ""
         if (
             fp_spec.functional_profile is not None
-            and fp_spec.functional_profile.functional_profile_name
-            is not None
+            and fp_spec.functional_profile.functional_profile_name is not None
         ):
-            self._fp_name = (
-                fp_spec.functional_profile.functional_profile_name
-            )
+            self._fp_name = fp_spec.functional_profile.functional_profile_name
 
         self._dp_name = ""
         if (
@@ -70,10 +67,10 @@ class MessagingDataPoint(DataPointProtocol):
         return self._fp_name, self._dp_name
 
     async def get_val(self, skip_cache: bool = False):
-        raise Exception('Not implemented')
+        raise Exception("Not implemented")
 
     async def set_val(self, value: Any):
-        raise Exception('Not implemented')
+        raise Exception("Not implemented")
 
     def direction(self) -> DataDirectionProduct:
         if (
@@ -134,9 +131,8 @@ class SGrMessagingInterface(SGrBaseInterface):
     """
     SmartGridready External Interface Class for Messaging Protocols
     """
-    def __init__(
-        self, frame: DeviceFrame, configuration: configparser.ConfigParser
-    ):
+
+    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
         super().__init__(frame, configuration)
 
         if (

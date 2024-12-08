@@ -5,12 +5,10 @@ __all__ = [
     "DataPointProtocol",
     "DataPointValidator",
     "DeviceInformation",
-    "ConfigurationParameter"
+    "ConfigurationParameter",
 ]
 
-from sgr_commhandler.api.configuration_parameter import (
-    ConfigurationParameter
-)
+from sgr_commhandler.api.configuration_parameter import ConfigurationParameter
 from sgr_commhandler.api.data_point_api import (
     DataPoint,
     DataPointProtocol,

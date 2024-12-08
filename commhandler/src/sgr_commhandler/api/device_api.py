@@ -9,7 +9,10 @@ from sgr_specification.v0.generic import DataDirectionProduct, DeviceCategory
 from sgr_specification.v0.product.product import DeviceFrame
 
 from sgr_commhandler.api import DataPoint
-from sgr_commhandler.api.configuration_parameter import ConfigurationParameter, build_configurations_parameters
+from sgr_commhandler.api.configuration_parameter import (
+    ConfigurationParameter,
+    build_configurations_parameters,
+)
 from sgr_commhandler.api.data_types import DataTypes
 from sgr_commhandler.api.functional_profile_api import FunctionalProfile
 
@@ -66,9 +69,7 @@ class SGrBaseInterface(ABC):
     def configuration_parameter(self) -> list[ConfigurationParameter]:
         return self._configuration_parameters
 
-    def get_function_profile(
-        self, function_profile_name: str
-    ) -> FunctionalProfile:
+    def get_function_profile(self, function_profile_name: str) -> FunctionalProfile:
         return self._function_profiles[function_profile_name]
 
     def get_data_point(self, dp: tuple[str, str]) -> DataPoint:
@@ -96,9 +97,7 @@ class SGrBaseInterface(ABC):
 
     def describe(
         self,
-    ) -> tuple[
-        str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]
-    ]:
+    ) -> tuple[str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]]:
         data = {}
         for fp in self.get_function_profiles().values():
             key, dps = fp.describe()

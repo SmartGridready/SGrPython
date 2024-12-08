@@ -50,9 +50,7 @@ class DataPointProtocol(ABC):
 
 
 class DataPoint(Generic[T]):
-    def __init__(
-        self, protocol: DataPointProtocol, validator: DataPointValidator
-    ):
+    def __init__(self, protocol: DataPointProtocol, validator: DataPointValidator):
         self._protocol = protocol
         self._validator = validator
 

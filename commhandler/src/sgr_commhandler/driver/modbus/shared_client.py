@@ -2,7 +2,10 @@ import asyncio
 import logging
 from threading import Lock
 
-from sgr_commhandler.driver.modbus.modbus_client_async import SGrModbusClient, SGrModbusRTUClient
+from sgr_commhandler.driver.modbus.modbus_client_async import (
+    SGrModbusClient,
+    SGrModbusRTUClient,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -22,7 +25,9 @@ class ModbusClientWrapper:
                 return
             if device_id not in self.connected_devices:
                 self.connected_devices.add(device_id)
-                logger.debug(f'device {device_id} connected to shared Modbus client {self.identifier}')
+                logger.debug(
+                    f"device {device_id} connected to shared Modbus client {self.identifier}"
+                )
                 await self.client.connect()
         else:
             await self.client.connect()
@@ -33,16 +38,22 @@ class ModbusClientWrapper:
                 return
             if device_id in self.connected_devices:
                 self.connected_devices.pop(device_id)
-                logger.debug(f'device {device_id} disconnected from shared Modbus client {self.identifier}')
+                logger.debug(
+                    f"device {device_id} disconnected from shared Modbus client {self.identifier}"
+                )
                 if len(self.connected_devices) == 0:
-                    logger.debug(f'last device disconnected from shared Modbus client {self.identifier}')
+                    logger.debug(
+                        f"last device disconnected from shared Modbus client {self.identifier}"
+                    )
                     await self.client.disconnect()
         else:
             await self.client.disconnect()
 
     def is_connected(self, device_id: str) -> bool:
         if self.shared:
-            return (device_id in self.registered_devices) and (device_id is self.connected_devices)
+            return (device_id in self.registered_devices) and (
+                device_id is self.connected_devices
+            )
         else:
             return self.client.is_connected()
 
@@ -52,17 +63,23 @@ _global_shared_lock = Lock()
 _global_shared_rtu_clients: dict[str, ModbusClientWrapper] = dict()
 
 
-def register_shared_client(serial_port: str, parity: str, baudrate: int, device_id: str) -> ModbusClientWrapper:
+def register_shared_client(
+    serial_port: str, parity: str, baudrate: int, device_id: str
+) -> ModbusClientWrapper:
     global _global_shared_lock
     global _global_shared_rtu_clients
     with _global_shared_lock:
         client_wrapper = _global_shared_rtu_clients.get(serial_port)
         if client_wrapper is None:
             modbus_client = SGrModbusRTUClient(serial_port, parity, baudrate)
-            client_wrapper = ModbusClientWrapper(serial_port, modbus_client, shared=True)
+            client_wrapper = ModbusClientWrapper(
+                serial_port, modbus_client, shared=True
+            )
             _global_shared_rtu_clients[serial_port] = client_wrapper
         client_wrapper.registered_devices.add(device_id)
-        logger.debug(f'device {device_id} registered at shared Modbus client {client_wrapper.identifier}')
+        logger.debug(
+            f"device {device_id} registered at shared Modbus client {client_wrapper.identifier}"
+        )
 
         return client_wrapper
 
@@ -77,11 +94,17 @@ def unregister_shared_client(serial_port: str, device_id: str) -> None:
             client_wrapper.registered_devices.pop(device_id)
             if len(client_wrapper.registered_devices) == 0:
                 try:
-                    asyncio.get_event_loop().run_until_complete(client_wrapper.client.disconnect())
+                    asyncio.get_event_loop().run_until_complete(
+                        client_wrapper.client.disconnect()
+                    )
                 except Exception:
-                    logger.warning(f'could not disconnect shared transport {client_wrapper.identifier}')
+                    logger.warning(
+                        f"could not disconnect shared transport {client_wrapper.identifier}"
+                    )
                 _global_shared_rtu_clients.pop(serial_port)
-            logger.debug(f'device {device_id} unregistered from shared Modbus client {client_wrapper.identifier}')
+            logger.debug(
+                f"device {device_id} unregistered from shared Modbus client {client_wrapper.identifier}"
+            )
 
 
 def clean_up_shared_clients() -> None:
@@ -90,8 +113,12 @@ def clean_up_shared_clients() -> None:
     with _global_shared_lock:
         for modbus_client_wrapper in _global_shared_rtu_clients:
             try:
-                asyncio.get_event_loop().run_until_complete(modbus_client_wrapper.disconnect())
+                asyncio.get_event_loop().run_until_complete(
+                    modbus_client_wrapper.disconnect()
+                )
             except Exception:
-                logger.warning(f'could not disconnect shared client {modbus_client_wrapper.identifier}')
+                logger.warning(
+                    f"could not disconnect shared client {modbus_client_wrapper.identifier}"
+                )
             finally:
                 _global_shared_rtu_clients.pop(modbus_client_wrapper.identifier)

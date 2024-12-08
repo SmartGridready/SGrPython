@@ -5,7 +5,11 @@ import random
 import string
 from typing import Any
 
-from sgr_commhandler.driver.modbus.shared_client import ModbusClientWrapper, register_shared_client, unregister_shared_client
+from sgr_commhandler.driver.modbus.shared_client import (
+    ModbusClientWrapper,
+    register_shared_client,
+    unregister_shared_client,
+)
 from sgr_commhandler.utils import value_util
 from sgr_specification.v0.generic import DataDirectionProduct, Parity
 
@@ -13,7 +17,7 @@ from sgr_specification.v0.generic.base_types import DataTypeProduct
 from sgr_specification.v0.product import (
     DeviceFrame,
     ModbusDataPoint as ModbusDataPointSpec,
-    ModbusFunctionalProfile as ModbusFunctionalProfileSpec
+    ModbusFunctionalProfile as ModbusFunctionalProfileSpec,
 )
 
 from sgr_commhandler.api import (
@@ -25,10 +29,19 @@ from sgr_commhandler.api import (
     FunctionalProfile,
 )
 from sgr_commhandler.driver.modbus.modbus_client_async import (
-    SGrModbusRTUClient, SGrModbusTCPClient
+    SGrModbusRTUClient,
+    SGrModbusTCPClient,
 )
 from sgr_commhandler.validators import build_validator
-from sgr_specification.v0.product.modbus_types import BitOrder, ModbusDataType, ModbusInterfaceDescription, ModbusInterfaceSelection, ModbusRtu, ModbusTcp, RegisterType
+from sgr_specification.v0.product.modbus_types import (
+    BitOrder,
+    ModbusDataType,
+    ModbusInterfaceDescription,
+    ModbusInterfaceSelection,
+    ModbusRtu,
+    ModbusTcp,
+    RegisterType,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -113,22 +126,19 @@ def build_modbus_data_point(
 
 def is_integer_type(data_type: DataTypeProduct | ModbusDataType) -> bool:
     return (
-        data_type.int8 or
-        data_type.int8_u or
-        data_type.int16 or
-        data_type.int16_u or
-        data_type.int32 or
-        data_type.int32_u or
-        data_type.int64 or
-        data_type.int64_u
+        data_type.int8
+        or data_type.int8_u
+        or data_type.int16
+        or data_type.int16_u
+        or data_type.int32
+        or data_type.int32_u
+        or data_type.int64
+        or data_type.int64_u
     )
 
 
 def is_float_type(data_type: DataTypeProduct | ModbusDataType) -> bool:
-    return (
-        data_type.float32 or
-        data_type.float64
-    )
+    return data_type.float32 or data_type.float64
 
 
 class ModbusDataPoint(DataPointProtocol):
@@ -143,17 +153,11 @@ class ModbusDataPoint(DataPointProtocol):
         self._interface = interface
 
         self._dp_name: str = ""
-        if (
-            self._dp_spec.data_point
-            and self._dp_spec.data_point.data_point_name
-        ):
+        if self._dp_spec.data_point and self._dp_spec.data_point.data_point_name:
             self._dp_name = self._dp_spec.data_point.data_point_name
 
         self._direction: DataDirectionProduct = DataDirectionProduct.C
-        if (
-            self._dp_spec.data_point
-            and self._dp_spec.data_point.data_direction
-        ):
+        if self._dp_spec.data_point and self._dp_spec.data_point.data_direction:
             self._direction = self._dp_spec.data_point.data_direction
 
         self._fp_name: str = ""
@@ -175,7 +179,9 @@ class ModbusDataPoint(DataPointProtocol):
             self._dp_spec.modbus_data_point_configuration
             and self._dp_spec.modbus_data_point_configuration.modbus_data_type
         ):
-            self._data_type = self._dp_spec.modbus_data_point_configuration.modbus_data_type
+            self._data_type = (
+                self._dp_spec.modbus_data_point_configuration.modbus_data_type
+            )
 
         self._size = -1
         if (
@@ -198,13 +204,17 @@ class ModbusDataPoint(DataPointProtocol):
     async def set_val(self, value: Any):
         # convert to device units
         if (
-            self._dp_spec.data_point.unit_conversion_multiplicator and
-            self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
+            self._dp_spec.data_point.unit_conversion_multiplicator
+            and self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
         ):
-            value = float(value) / self._dp_spec.data_point.unit_conversion_multiplicator
+            value = (
+                float(value) / self._dp_spec.data_point.unit_conversion_multiplicator
+            )
 
         # round to int if modbus type is int and DP type is not
-        if is_float_type(self._dp_spec.data_point.data_type) and not is_integer_type(self._dp_spec.modbus_data_point_configuration.modbus_data_type):
+        if is_float_type(self._dp_spec.data_point.data_type) and not is_integer_type(
+            self._dp_spec.modbus_data_point_configuration.modbus_data_type
+        ):
             value = value_util.round_to_int(float(value))
 
         return await self._interface.write_data(
@@ -219,13 +229,18 @@ class ModbusDataPoint(DataPointProtocol):
 
         # convert to DP units
         if (
-            self._dp_spec.data_point.unit_conversion_multiplicator and
-            self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
+            self._dp_spec.data_point.unit_conversion_multiplicator
+            and self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
         ):
-            ret_value = float(ret_value) * self._dp_spec.data_point.unit_conversion_multiplicator
+            ret_value = (
+                float(ret_value)
+                * self._dp_spec.data_point.unit_conversion_multiplicator
+            )
 
         # round to int if DP type is int and modbus type is not
-        if is_integer_type(self._dp_spec.data_point.data_type) and not is_float_type(self._dp_spec.modbus_data_point_configuration.modbus_data_type):
+        if is_integer_type(self._dp_spec.data_point.data_type) and not is_float_type(
+            self._dp_spec.modbus_data_point_configuration.modbus_data_type
+        ):
             ret_value = value_util.round_to_int(float(ret_value))
 
         return ret_value
@@ -259,25 +274,46 @@ class ModbusFunctionalProfile(FunctionalProfile):
 
 
 class SGrModbusInterface(SGrBaseInterface):
-    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser, sharedRTU: bool = False):
+    def __init__(
+        self,
+        frame: DeviceFrame,
+        configuration: configparser.ConfigParser,
+        sharedRTU: bool = False,
+    ):
         """
         Construct.
         """
         super().__init__(frame, configuration)
 
         if self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_rtu:
-            self.slave_id = get_rtu_slave_id(self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_rtu)
-            self.serial_port = get_rtu_serial_port(self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_rtu)
-            self.baudrate = get_rtu_baudrate(self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_rtu)
-            self.parity = get_rtu_parity(self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_rtu)
+            self.slave_id = get_rtu_slave_id(
+                self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
+            )
+            self.serial_port = get_rtu_serial_port(
+                self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
+            )
+            self.baudrate = get_rtu_baudrate(
+                self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
+            )
+            self.parity = get_rtu_parity(
+                self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
+            )
         elif self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_tcp:
-            self.slave_id = get_tcp_slave_id(self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_tcp)
-            self.ip_address = get_tcp_address(self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_tcp)
-            self.ip_port = get_tcp_port(self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_tcp)
+            self.slave_id = get_tcp_slave_id(
+                self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_tcp
+            )
+            self.ip_address = get_tcp_address(
+                self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_tcp
+            )
+            self.ip_port = get_tcp_port(
+                self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_tcp
+            )
         else:
-            raise Exception('not Modbus RTU or TCP!')
+            raise Exception("not Modbus RTU or TCP!")
 
-        self.byte_order = get_endian(self._root_spec.interface_list.modbus_interface.modbus_interface_description)
+        self.byte_order = get_endian(
+            self._root_spec.interface_list.modbus_interface.modbus_interface_description
+        )
 
         # build functional profiles
         fps = [
@@ -287,26 +323,39 @@ class SGrModbusInterface(SGrBaseInterface):
         self._function_profiles = {fp.name(): fp for fp in fps}
 
         # unique string used in combination with shared Modbus client
-        self._device_id = ''.join(random.choices(string.ascii_letters, k=8))
+        self._device_id = "".join(random.choices(string.ascii_letters, k=8))
         self._client_wrapper: ModbusClientWrapper = None
-        if self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection == ModbusInterfaceSelection.TCPIP:
+        if (
+            self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection
+            == ModbusInterfaceSelection.TCPIP
+        ):
             self._client_wrapper = ModbusClientWrapper(
-                '',
+                "",
                 SGrModbusTCPClient(self.ip_address, self.ip_port, self.byte_order),
-                shared=False
+                shared=False,
             )
-        elif self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection == ModbusInterfaceSelection.RTU:
+        elif (
+            self._root_spec.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection
+            == ModbusInterfaceSelection.RTU
+        ):
             if sharedRTU:
-                logger.debug('using shared RTU client')
-                self._client_wrapper = register_shared_client(self.serial_port, self.parity, self.baudrate, device_id=self._device_id)
+                logger.debug("using shared RTU client")
+                self._client_wrapper = register_shared_client(
+                    self.serial_port,
+                    self.parity,
+                    self.baudrate,
+                    device_id=self._device_id,
+                )
             else:
                 self._client_wrapper = ModbusClientWrapper(
-                    '',
-                    SGrModbusRTUClient(self.serial_port, self.parity, self.baudrate, self.byte_order),
-                    shared=False
+                    "",
+                    SGrModbusRTUClient(
+                        self.serial_port, self.parity, self.baudrate, self.byte_order
+                    ),
+                    shared=False,
                 )
         else:
-            raise Exception('Unsupported Modbus interface type')
+            raise Exception("Unsupported Modbus interface type")
 
     def __del__(self):
         """
@@ -327,7 +376,9 @@ class SGrModbusInterface(SGrBaseInterface):
     async def disconnect_async(self):
         await self._client_wrapper.disconnect()
 
-    async def read_data(self, reg_type: RegisterType, address: int, size: int, data_type: ModbusDataType) -> Any:
+    async def read_data(
+        self, reg_type: RegisterType, address: int, size: int, data_type: ModbusDataType
+    ) -> Any:
         """
         Reads data from the given Modbus address(es).
         """
@@ -349,9 +400,15 @@ class SGrModbusInterface(SGrBaseInterface):
                 slave_id, address, size, data_type
             )
         else:
-            raise Exception(f'cannot read from register type {reg_type}')
+            raise Exception(f"cannot read from register type {reg_type}")
 
-    async def write_data(self, reg_type: RegisterType, address: int, data_type: ModbusDataType, value: Any) -> None:
+    async def write_data(
+        self,
+        reg_type: RegisterType,
+        address: int,
+        data_type: ModbusDataType,
+        value: Any,
+    ) -> None:
         """
         Writes data to the given Modbus address(es).
         """
@@ -365,7 +422,7 @@ class SGrModbusInterface(SGrBaseInterface):
                 slave_id, address, data_type, value
             )
         else:
-            raise Exception(f'cannot write to register type {reg_type}')
+            raise Exception(f"cannot write to register type {reg_type}")
 
     def get_device_profile(self):
         return self._root_spec.device_profile

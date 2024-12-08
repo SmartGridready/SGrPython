@@ -3,18 +3,17 @@ from sgr_commhandler.modbus_interface import SgrModbusInterface
 
 
 if __name__ == "__main__":
-
     # Create interface instance
-    interface_file = 'SGr_HeatPump_Test.xml'
+    interface_file = "SGr_HeatPump_Test.xml"
     sgr_component = SgrModbusInterface(interface_file)
 
-    # OLD Read Value Method with functional_profile_name and datapoint_name as parameters 
-    value = sgr_component.getval('HeatPumpBase', 'HPOpState')
+    # OLD Read Value Method with functional_profile_name and datapoint_name as parameters
+    value = sgr_component.getval("HeatPumpBase", "HPOpState")
     print(value)
 
     # NEW Read Value Method with datapoint.
     # First find the datapoint and then get the values from the datapoint object found.
-    data_point = sgr_component.find_dp('HeatPumpBase', 'HPOpState')
+    data_point = sgr_component.find_dp("HeatPumpBase", "HPOpState")
     value = sgr_component.getval(data_point)
     print(value)
 

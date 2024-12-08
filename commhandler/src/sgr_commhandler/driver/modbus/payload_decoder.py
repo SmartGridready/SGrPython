@@ -45,16 +45,14 @@ class PayloadDecoder(BinaryPayloadDecoder):
         elif modbus_type.string:
             return self.decode_string(byte_count)
         else:
-            raise ValueError('No supported modbus data type')
+            raise ValueError("No supported modbus data type")
 
 
 class PayloadBuilder(BinaryPayloadBuilder):
     def __init__(self, *args, **kwarg):
         super().__init__(*args, **kwarg)
 
-    def sgr_encode(
-        self, value: Any, modbus_type: ModbusDataType
-    ) -> "PayloadBuilder":
+    def sgr_encode(self, value: Any, modbus_type: ModbusDataType) -> "PayloadBuilder":
         """
         :param modbus_type: 'int8', 'int8_u', 'int16', 'int16_u', 'int32', 'int32_u', 'int64', 'int64_u', 'float32', 'float64', 'boolean', 'string'
         """

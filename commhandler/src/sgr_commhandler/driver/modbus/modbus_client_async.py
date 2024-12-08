@@ -5,10 +5,7 @@ from typing import Any, Optional
 from pymodbus.client.base import ModbusBaseClient
 from pymodbus.client import AsyncModbusTcpClient, AsyncModbusSerialClient
 from pymodbus.constants import Endian
-from sgr_commhandler.driver.modbus.payload_decoder import (
-    PayloadBuilder,
-    PayloadDecoder
-)
+from sgr_commhandler.driver.modbus.payload_decoder import PayloadBuilder, PayloadDecoder
 from sgr_specification.v0.product.modbus_types import BitOrder, ModbusDataType
 
 logger = logging.getLogger(__name__)
@@ -19,10 +16,14 @@ class SGrModbusClient(ABC):
         self._lock = threading.Lock()
         self._client: ModbusBaseClient = None
         self._byte_order: Endian = (
-            Endian.BIG if endianness is None or endianness == BitOrder.BIG_ENDIAN else Endian.LITTLE
+            Endian.BIG
+            if endianness is None or endianness == BitOrder.BIG_ENDIAN
+            else Endian.LITTLE
         )
         self._word_order: Endian = (
-            Endian.LITTLE if endianness in {BitOrder.CHANGE_WORD_ORDER, BitOrder.CHANGE_DWORD_ORDER} else Endian.BIG
+            Endian.LITTLE
+            if endianness in {BitOrder.CHANGE_WORD_ORDER, BitOrder.CHANGE_DWORD_ORDER}
+            else Endian.BIG
         )
 
     @abstractmethod
@@ -37,7 +38,9 @@ class SGrModbusClient(ABC):
     def is_connected(self):
         pass
 
-    async def write_holding_registers(self, slave_id: int, address: int, data_type: ModbusDataType, value: Any) -> None:
+    async def write_holding_registers(
+        self, slave_id: int, address: int, data_type: ModbusDataType, value: Any
+    ) -> None:
         """
         Encodes value to be written to holding register address
         :param slave_id: The slave ID of the device
@@ -52,7 +55,9 @@ class SGrModbusClient(ABC):
                 address=address, values=builder.to_registers(), unit=slave_id
             )
 
-    async def write_coils(self, slave_id: int, address: int, data_type: ModbusDataType, value: Any) -> None:
+    async def write_coils(
+        self, slave_id: int, address: int, data_type: ModbusDataType, value: Any
+    ) -> None:
         """
         Encodes value to be written to coil address
         :param slave_id: The slave ID of the device
@@ -67,7 +72,9 @@ class SGrModbusClient(ABC):
                 address=address, values=builder.to_coils(), unit=slave_id
             )
 
-    async def read_input_registers(self, slave_id: int, address: int, size: int, data_type: ModbusDataType) -> Any:
+    async def read_input_registers(
+        self, slave_id: int, address: int, size: int, data_type: ModbusDataType
+    ) -> Any:
         """
         Reads input registers and decodes the value.
         :param slave_id: The slave ID of the device
@@ -82,11 +89,15 @@ class SGrModbusClient(ABC):
             )
         if response and not response.isError():
             decoder = PayloadDecoder.fromRegisters(
-                response.registers, byteorder=self._byte_order, wordorder=self._word_order
+                response.registers,
+                byteorder=self._byte_order,
+                wordorder=self._word_order,
             )
             return decoder.decode(data_type, 0)
 
-    async def read_holding_registers(self, slave_id: int, address: int, size: int, data_type: ModbusDataType) -> Any:
+    async def read_holding_registers(
+        self, slave_id: int, address: int, size: int, data_type: ModbusDataType
+    ) -> Any:
         """
         Reads holding registers and decodes the value.
         :param slave_id: The slave ID of the device
@@ -101,11 +112,15 @@ class SGrModbusClient(ABC):
             )
         if response and not response.isError():
             decoder = PayloadDecoder.fromRegisters(
-                response.registers, byteorder=self._byte_order, wordorder=self._word_order
+                response.registers,
+                byteorder=self._byte_order,
+                wordorder=self._word_order,
             )
             return decoder.decode(data_type, 0)
 
-    async def read_coils(self, slave_id: int, address: int, size: int, data_type: ModbusDataType) -> Any:
+    async def read_coils(
+        self, slave_id: int, address: int, size: int, data_type: ModbusDataType
+    ) -> Any:
         """
         Reads coils and decodes the value.
         :param slave_id: The slave ID of the device
@@ -124,7 +139,9 @@ class SGrModbusClient(ABC):
             )
             return decoder.decode(data_type, 0)
 
-    async def read_discrete_inputs(self, slave_id: int, address: int, size: int, data_type: ModbusDataType) -> Any:
+    async def read_discrete_inputs(
+        self, slave_id: int, address: int, size: int, data_type: ModbusDataType
+    ) -> Any:
         """
         Reads discrete inputs and decodes the value.
         :param slave_id: The slave ID of the device
@@ -133,16 +150,11 @@ class SGrModbusClient(ABC):
         :param data_type: The modbus type to decode
         :returns: Decoded value
         """
-        raise Exception('Discrete inputs not supported yet')
+        raise Exception("Discrete inputs not supported yet")
 
     # TODO Implement block transfers and remove this method
     async def _mult_value_decoder(
-        self,
-        addr: int,
-        size: int,
-        data_type: str,
-        register_type: str,
-        slave_id: int
+        self, addr: int, size: int, data_type: str, register_type: str, slave_id: int
     ) -> Optional[float]:
         """
         Reads register and decodes the value.
@@ -152,13 +164,9 @@ class SGrModbusClient(ABC):
         :returns: Decoded float
         """
         if register_type == "HoldRegister":
-            reg = self._client.read_holding_registers(
-                addr, size, slave=slave_id
-            )
+            reg = self._client.read_holding_registers(addr, size, slave=slave_id)
         else:
-            reg = self._client.read_input_registers(
-                addr, count=size, slave=slave_id
-            )
+            reg = self._client.read_input_registers(addr, count=size, slave=slave_id)
         decoder = PayloadDecoder.fromRegisters(
             reg.registers, byteorder=self._byte_order, wordorder=self._word_order
         )
@@ -206,7 +214,9 @@ class SGrModbusTCPClient(SGrModbusClient):
 
 
 class SGrModbusRTUClient(SGrModbusClient):
-    def __init__(self, serial_port: str, parity: str, baudrate: int, endianness: BitOrder):
+    def __init__(
+        self, serial_port: str, parity: str, baudrate: int, endianness: BitOrder
+    ):
         super().__init__(endianness)
         """
         Creates client
@@ -231,7 +241,9 @@ class SGrModbusRTUClient(SGrModbusClient):
     async def disconnect(self):
         with self._lock:
             await self._client.close(reconnect=False)
-            logger.debug("Disconnected from ModbusRTU on serial port: " + self._serial_port)
+            logger.debug(
+                "Disconnected from ModbusRTU on serial port: " + self._serial_port
+            )
 
     def is_connected(self):
         return self._client.connected

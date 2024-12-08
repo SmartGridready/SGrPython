@@ -1,9 +1,11 @@
 import configparser
 import json
+import logging
 import ssl
+import urllib
 from collections.abc import Mapping
 from typing import Any
-import logging
+
 import aiohttp
 import certifi
 import jmespath
@@ -15,19 +17,26 @@ from sgr_specification.v0.product import (
     DeviceFrame,
     HeaderList,
     HttpMethod,
+)
+from sgr_specification.v0.product import (
     RestApiDataPoint as RestApiDataPointSpec,
+)
+from sgr_specification.v0.product import (
     RestApiFunctionalProfile as RestApiFunctionalProfileSpec,
 )
+from sgr_specification.v0.product.rest_api_types import (
+    ParameterList,
+    RestApiServiceCall,
+)
+
 from sgr_commhandler.api import (
-    SGrBaseInterface,
     DataPoint,
     DataPointProtocol,
     FunctionalProfile,
+    SGrBaseInterface,
 )
 from sgr_commhandler.driver.rest.authentication import setup_authentication
 from sgr_commhandler.validators import build_validator
-from sgr_specification.v0.product.rest_api_types import ParameterList, RestApiServiceCall
-import urllib
 
 logger = logging.getLogger(__name__)
 
@@ -46,11 +55,7 @@ def build_rest_data_point(
 
 
 class RestResponse:
-    def __init__(
-        self,
-        headers: HeaderList,
-        body: str = None
-    ):
+    def __init__(self, headers: HeaderList, body: str = None):
         self.headers = headers
         self.body = body
 
@@ -63,7 +68,7 @@ class RestRequest:
         headers: HeaderList,
         query_parameters: ParameterList = None,
         form_parameters: ParameterList = None,
-        body: str = None
+        body: str = None,
     ):
         self.method = method
         self.url = url
@@ -99,9 +104,7 @@ class RestDataPoint(DataPointProtocol):
                     else HttpMethod.GET
                 ),
                 request_path=(
-                    service_call.request_path
-                    if service_call.request_path
-                    else ""
+                    service_call.request_path if service_call.request_path else ""
                 ),
                 request_header=(
                     service_call.request_header
@@ -119,10 +122,8 @@ class RestDataPoint(DataPointProtocol):
                     else ParameterList()
                 ),
                 response_query=(
-                    service_call.response_query
-                    if service_call.response_query
-                    else None
-                )
+                    service_call.response_query if service_call.response_query else None
+                ),
             )
         elif dp_config.rest_api_service_call:
             # old spec, for compatibility reasons
@@ -156,7 +157,7 @@ class RestDataPoint(DataPointProtocol):
                     dp_config.rest_api_service_call.response_query
                     if dp_config.rest_api_service_call.response_query
                     else None
-                )
+                ),
             )
 
         if len(dp_config.rest_api_write_service_call) > 0:
@@ -168,9 +169,7 @@ class RestDataPoint(DataPointProtocol):
                     else HttpMethod.GET
                 ),
                 request_path=(
-                    service_call.request_path
-                    if service_call.request_path
-                    else ""
+                    service_call.request_path if service_call.request_path else ""
                 ),
                 request_header=(
                     service_call.request_header
@@ -188,10 +187,8 @@ class RestDataPoint(DataPointProtocol):
                     else ParameterList()
                 ),
                 response_query=(
-                    service_call.response_query
-                    if service_call.response_query
-                    else None
-                )
+                    service_call.response_query if service_call.response_query else None
+                ),
             )
 
         if not self._read_call and not self._write_call:
@@ -200,12 +197,9 @@ class RestDataPoint(DataPointProtocol):
         self._fp_name = ""
         if (
             fp_spec.functional_profile is not None
-            and fp_spec.functional_profile.functional_profile_name
-            is not None
+            and fp_spec.functional_profile.functional_profile_name is not None
         ):
-            self._fp_name = (
-                fp_spec.functional_profile.functional_profile_name
-            )
+            self._fp_name = fp_spec.functional_profile.functional_profile_name
 
         self._dp_name = ""
         if (
@@ -221,42 +215,51 @@ class RestDataPoint(DataPointProtocol):
 
     async def get_val(self, skip_cache: bool = False):
         if not self._read_call:
-            raise Exception('No read call')
+            raise Exception("No read call")
         request = RestRequest(
             self._read_call.request_method,
             f"{self._interface.base_url}{self._read_call.request_path}",
             self._read_call.request_header,
             self._read_call.request_query,
             self._read_call.request_form,
-            self._read_call.request_body
+            self._read_call.request_body,
         )
         response = await self._interface.execute_request(request, skip_cache)
         if not response.body:
             return None
-        if self._read_call.response_query and self._read_call.response_query.query_type == ResponseQueryType.JMESPATH_EXPRESSION:
+        if (
+            self._read_call.response_query
+            and self._read_call.response_query.query_type
+            == ResponseQueryType.JMESPATH_EXPRESSION
+        ):
             query_expression = self._read_call.response_query.query
             return jmespath.search(query_expression, json.loads(response.body))
         ret_value = response.body
 
         # convert to DP units
         if (
-            self._dp_spec.data_point.unit_conversion_multiplicator and
-            self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
+            self._dp_spec.data_point.unit_conversion_multiplicator
+            and self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
         ):
-            ret_value = float(ret_value) * self._dp_spec.data_point.unit_conversion_multiplicator
+            ret_value = (
+                float(ret_value)
+                * self._dp_spec.data_point.unit_conversion_multiplicator
+            )
 
         return ret_value
 
     async def set_val(self, value: Any):
         if not self._write_call:
-            raise Exception('No write call')
+            raise Exception("No write call")
 
         # convert to device units
         if (
-            self._dp_spec.data_point.unit_conversion_multiplicator and
-            self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
+            self._dp_spec.data_point.unit_conversion_multiplicator
+            and self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
         ):
-            value = float(value) / self._dp_spec.data_point.unit_conversion_multiplicator
+            value = (
+                float(value) / self._dp_spec.data_point.unit_conversion_multiplicator
+            )
 
         # replace {{value}} placeholder
         request = RestRequest(
@@ -265,7 +268,9 @@ class RestDataPoint(DataPointProtocol):
             self._write_call.request_header,
             self._write_call.request_query,
             self._write_call.request_form,
-            body=str(self._write_call.request_body).replace('{{value}}', str(value)) if self._write_call.request_body else None
+            body=str(self._write_call.request_body).replace("{{value}}", str(value))
+            if self._write_call.request_body
+            else None,
         )
         # TODO use response body
         await self._interface.execute_request(request, skip_cache=True)
@@ -296,8 +301,7 @@ class RestFunctionalProfile(FunctionalProfile):
             raw_dps = self._fp_spec.data_point_list.data_point_list_element
 
         dps = [
-            build_rest_data_point(dp, self._fp_spec, self._interface)
-            for dp in raw_dps
+            build_rest_data_point(dp, self._fp_spec, self._interface) for dp in raw_dps
         ]
 
         self._data_points = {dp.name(): dp for dp in dps}
@@ -318,9 +322,8 @@ class SGrRestInterface(SGrBaseInterface):
     """
     SmartGridready External Interface Class for Rest API
     """
-    def __init__(
-        self, frame: DeviceFrame, configuration: configparser.ConfigParser
-    ):
+
+    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
         super().__init__(frame, configuration)
 
         self._session = None
@@ -372,9 +375,7 @@ class SGrRestInterface(SGrBaseInterface):
         await setup_authentication(self._raw_interface, self._session)
 
     async def execute_request(
-        self,
-        request: RestRequest,
-        skip_cache: bool
+        self, request: RestRequest, skip_cache: bool
     ) -> RestResponse:
         try:
             # All headers into dictionary
@@ -399,7 +400,7 @@ class SGrRestInterface(SGrBaseInterface):
             # override body
             if len(form_parameters) > 0:
                 request_body = urllib.parse.urlencode(form_parameters)
-                request_headers['Content-Type'] = 'application/x-www-form-urlencoded'
+                request_headers["Content-Type"] = "application/x-www-form-urlencoded"
 
             cache_key = (frozenset(request_headers), request.url)
             if not skip_cache and cache_key in self._cache:
@@ -410,15 +411,12 @@ class SGrRestInterface(SGrBaseInterface):
                 request.url,
                 headers=request_headers,
                 params=query_parameters,
-                data=request_body
+                data=request_body,
             ) as req:
                 req.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
                 logger.info(f"execute_request status: {req.status}")
                 res_body = await req.text()
-                response = RestResponse(
-                    headers=req.headers,
-                    body=res_body
-                )
+                response = RestResponse(headers=req.headers, body=res_body)
                 if not skip_cache:
                     self._cache[cache_key] = response
                 return response

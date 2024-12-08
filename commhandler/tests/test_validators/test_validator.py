@@ -14,7 +14,7 @@ from sgr_commhandler.validators.validator import (
 )
 
 
-'''
+"""
 Test Validators.
 
 Notes:
@@ -22,7 +22,7 @@ Notes:
 Boolean values can be converted from/to int and float values:
 - True == (i <> 0) or (f <> 0.0)
 - False == (i == 0) or (f == 0.0)
-'''
+"""
 
 
 def test_unsupported_validator():
@@ -70,11 +70,7 @@ def test_enum_validator():
     assert not validator.validate(None)
 
     # Test options
-    expected_options = [
-        ("RED", 1),
-        ("GREEN", 2),
-        ("BLUE", 3)
-    ]
+    expected_options = [("RED", 1), ("GREEN", 2), ("BLUE", 3)]
     assert set(validator.options()) == set(expected_options)
 
 
@@ -195,10 +191,7 @@ def test_boolean_validator():
 
 
 def test_bitmap_validator():
-    test_value: dict = {
-        'name1': True,
-        'name2': False
-    }
+    test_value: dict = {"name1": True, "name2": False}
 
     validator = BitmapValidator()
     assert validator.data_type() == DataTypes.BITMAP

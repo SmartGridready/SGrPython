@@ -4,7 +4,7 @@ from typing import Any
 import logging
 from sgr_specification.v0.generic import (
     DataDirectionProduct,
-    DataPointBase as ContactDataPointSpec
+    DataPointBase as ContactDataPointSpec,
 )
 from sgr_specification.v0.product import (
     DeviceFrame,
@@ -48,12 +48,9 @@ class ContactDataPoint(DataPointProtocol):
         self._fp_name = ""
         if (
             fp_spec.functional_profile is not None
-            and fp_spec.functional_profile.functional_profile_name
-            is not None
+            and fp_spec.functional_profile.functional_profile_name is not None
         ):
-            self._fp_name = (
-                fp_spec.functional_profile.functional_profile_name
-            )
+            self._fp_name = fp_spec.functional_profile.functional_profile_name
 
         self._dp_name = ""
         if (
@@ -68,10 +65,10 @@ class ContactDataPoint(DataPointProtocol):
         return self._fp_name, self._dp_name
 
     async def get_val(self, skip_cache: bool = False):
-        raise Exception('Not implemented')
+        raise Exception("Not implemented")
 
     async def set_val(self, value: Any):
-        raise Exception('Not implemented')
+        raise Exception("Not implemented")
 
     def direction(self) -> DataDirectionProduct:
         if (
@@ -122,9 +119,8 @@ class SGrContactInterface(SGrBaseInterface):
     SmartGridready External Interface Class for Contact Protocols
     Note: we do not implement a complete driver here, because it is very application-dependent!
     """
-    def __init__(
-        self, frame: DeviceFrame, configuration: configparser.ConfigParser
-    ):
+
+    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
         super().__init__(frame, configuration)
 
         if (

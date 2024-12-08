@@ -20,18 +20,13 @@ class EnumValidator(DataPointValidator):
     def __init__(self, type: EnumMapProduct):
         if type and type.enum_entry:
             self._valid_literals: set[str] = {
-                entry.literal
-                for entry in type.enum_entry
-                if entry.literal is not None
+                entry.literal for entry in type.enum_entry if entry.literal is not None
             }
             self._valid_ordinals: set[str] = {
-                entry.ordinal
-                for entry in type.enum_entry
-                if entry.ordinal is not None
+                entry.ordinal for entry in type.enum_entry if entry.ordinal is not None
             }
             self._options: list[tuple[str, int]] = [
-                (entry.literal, entry.ordinal)
-                for entry in type.enum_entry
+                (entry.literal, entry.ordinal) for entry in type.enum_entry
             ]
         else:
             self._valid_literals: set[str] = {}
@@ -41,9 +36,8 @@ class EnumValidator(DataPointValidator):
     def validate(self, value: Any) -> bool:
         if value is None:
             return False
-        return (
-            (isinstance(value, str) and value in self._valid_literals)
-            or (isinstance(value, int) and value in self._valid_ordinals)
+        return (isinstance(value, str) and value in self._valid_literals) or (
+            isinstance(value, int) and value in self._valid_ordinals
         )
 
     def data_type(self) -> DataTypes:
@@ -62,7 +56,7 @@ class IntValidator(DataPointValidator):
         else:
             # TODO verify that this even works with uint64
             self._lower_bound = 0
-            self._upper_bound = (2 ** self._size) - 1
+            self._upper_bound = (2**self._size) - 1
 
     def validate(self, value: Any) -> bool:
         if value is None:

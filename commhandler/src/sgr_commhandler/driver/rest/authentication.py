@@ -14,14 +14,10 @@ from sgr_specification.v0.product.rest_api_types import (
 
 logger = logging.getLogger(__name__)
 
-Authenticator: TypeAlias = Callable[
-    [RestApiInterface, ClientSession], Awaitable[bool]
-]
+Authenticator: TypeAlias = Callable[[RestApiInterface, ClientSession], Awaitable[bool]]
 
 
-async def authenticate_not(
-    interface: RestApiInterface, session: ClientSession
-) -> bool:
+async def authenticate_not(interface: RestApiInterface, session: ClientSession) -> bool:
     # skip authentication
     return True
 
@@ -74,9 +70,7 @@ async def authenticate_with_bearer_token(
                     response = await res.text()
                     token = jmespath.search("accessToken", json.loads(response))
                     if token:
-                        session.headers.update(
-                            {"Authorization": f"Bearer {token}"}
-                        )
+                        session.headers.update({"Authorization": f"Bearer {token}"})
 
                         logger.info("Token retrieved successfully")
                         return True
@@ -99,11 +93,9 @@ async def authenticate_with_bearer_token(
         return False
 
 
-supported_authentication_methods: dict[
-    RestApiAuthenticationMethod, Authenticator
-] = {
+supported_authentication_methods: dict[RestApiAuthenticationMethod, Authenticator] = {
     RestApiAuthenticationMethod.NO_SECURITY_SCHEME: authenticate_not,
-    RestApiAuthenticationMethod.BEARER_SECURITY_SCHEME: authenticate_with_bearer_token
+    RestApiAuthenticationMethod.BEARER_SECURITY_SCHEME: authenticate_with_bearer_token,
 }
 
 
