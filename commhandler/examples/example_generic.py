@@ -1,8 +1,8 @@
-import logging
 import asyncio
+import logging
 import os
-from sgr_commhandler.device_builder import DeviceBuilder
 
+from sgr_commhandler.device_builder import DeviceBuilder
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -16,7 +16,9 @@ async def run_test_loop():
 
     # We instantiate a Modbus device interface with a Modbus EID XML file
     eid_file_modbus = os.path.join(current_dir, "eid", "abb_terra_01.xml")
-    ini_file_modbus = os.path.join(current_dir, "ini", "abb_terra_01_example.ini")
+    ini_file_modbus = os.path.join(
+        current_dir, "ini", "abb_terra_01_example.ini"
+    )
     modbus_device = (
         DeviceBuilder()
         .eid_path(eid_file_modbus)
@@ -36,10 +38,15 @@ async def run_test_loop():
         current_dir, "eid", "SGr_04_mmmm_dddd_CLEMAPEnergyMonitorEIV0.2.1.xml"
     )
     ini_file_rest = os.path.join(
-        current_dir, "ini", "SGr_04_mmmm_dddd_CLEMAPEnergyMonitorEIV0.2.1_example.ini"
+        current_dir,
+        "ini",
+        "SGr_04_mmmm_dddd_CLEMAPEnergyMonitorEIV0.2.1_example.ini",
     )
     rest_device = (
-        DeviceBuilder().eid_path(eid_file_rest).properties_path(ini_file_rest).build()
+        DeviceBuilder()
+        .eid_path(eid_file_rest)
+        .properties_path(ini_file_rest)
+        .build()
     )
 
     # We connect to the REST device

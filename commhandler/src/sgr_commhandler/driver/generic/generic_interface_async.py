@@ -1,23 +1,28 @@
 import configparser
+import logging
 from collections.abc import Mapping
 from typing import Any
-import logging
+
 from sgr_specification.v0.generic import (
     DataDirectionProduct,
+)
+from sgr_specification.v0.generic import (
     DataPointBase as GenericDataPointSpec,
 )
 from sgr_specification.v0.product import (
     DeviceFrame,
+)
+from sgr_specification.v0.product import (
     GenericFunctionalProfile as GenericFunctionalProfileSpec,
 )
+
 from sgr_commhandler.api import (
-    SGrBaseInterface,
     DataPoint,
     DataPointProtocol,
     FunctionalProfile,
+    SGrBaseInterface,
 )
 from sgr_commhandler.validators import build_validator
-
 
 logger = logging.getLogger(__name__)
 
@@ -68,7 +73,8 @@ class GenericDataPoint(DataPointProtocol):
         # supports at least constant DPs
         if (
             self._dp_spec.data_point
-            and self._dp_spec.data_point.data_direction is DataDirectionProduct.C
+            and self._dp_spec.data_point.data_direction
+            is DataDirectionProduct.C
         ):
             return self._dp_spec.data_point.value
         raise Exception("Not supported")
@@ -126,7 +132,9 @@ class SGrGenericInterface(SGrBaseInterface):
     Actually has no communication protocol, just generic data
     """
 
-    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
+    def __init__(
+        self, frame: DeviceFrame, configuration: configparser.ConfigParser
+    ):
         super().__init__(frame, configuration)
 
         if (
@@ -134,7 +142,9 @@ class SGrGenericInterface(SGrBaseInterface):
             and self._root_spec.interface_list
             and self._root_spec.interface_list.generic_interface
         ):
-            self._raw_interface = self._root_spec.interface_list.generic_interface
+            self._raw_interface = (
+                self._root_spec.interface_list.generic_interface
+            )
         else:
             raise Exception("No generic interface")
 

@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from sgr_specification.v0.generic import EnumEntryProductRecord, EnumMapProduct
 
 from sgr_commhandler.api.data_types import DataTypes
@@ -12,7 +13,6 @@ from sgr_commhandler.validators.validator import (
     StringValidator,
     UnsupportedValidator,
 )
-
 
 """
 Test Validators.

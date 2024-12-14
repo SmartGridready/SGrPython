@@ -6,7 +6,6 @@ from sgr_specification.v0.generic import EnumMapProduct
 from sgr_commhandler.api import DataPointValidator
 from sgr_commhandler.api.data_types import DataTypes
 
-
 INT_SIZES: set[int] = {8, 16, 32, 64}
 FLOAT_SIZES: set[int] = {32, 64}
 
@@ -20,10 +19,14 @@ class EnumValidator(DataPointValidator):
     def __init__(self, type: EnumMapProduct):
         if type and type.enum_entry:
             self._valid_literals: set[str] = {
-                entry.literal for entry in type.enum_entry if entry.literal is not None
+                entry.literal
+                for entry in type.enum_entry
+                if entry.literal is not None
             }
             self._valid_ordinals: set[str] = {
-                entry.ordinal for entry in type.enum_entry if entry.ordinal is not None
+                entry.ordinal
+                for entry in type.enum_entry
+                if entry.ordinal is not None
             }
             self._options: list[tuple[str, int]] = [
                 (entry.literal, entry.ordinal) for entry in type.enum_entry

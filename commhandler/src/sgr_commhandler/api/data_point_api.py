@@ -1,7 +1,6 @@
-from abc import ABC, abstractmethod
 from asyncio import run
 from collections.abc import Callable
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, Protocol, TypeVar
 
 from sgr_specification.v0.generic import DataDirectionProduct
 
@@ -10,47 +9,36 @@ from sgr_commhandler.api.data_types import DataTypes
 T = TypeVar("T")
 
 
-class DataPointValidator(ABC):
-    @abstractmethod
-    def validate(self, value: Any) -> bool:
-        pass
+class DataPointValidator(Protocol):
+    def validate(self, value: Any) -> bool: ...
 
-    def data_type(self) -> DataTypes:
-        return None
+    def data_type(self) -> DataTypes: ...
 
     def options(self) -> list[Any] | None:
         return None
 
 
-class DataPointProtocol(ABC):
-    @abstractmethod
-    async def set_val(self, value: Any):
-        pass
+class DataPointProtocol(Protocol):
+    async def set_val(self, value: Any): ...
 
-    @abstractmethod
-    async def get_val(self, skip_cache: bool = False) -> Any:
-        pass
+    async def get_val(self, skip_cache: bool = False) -> Any: ...
 
-    @abstractmethod
-    def name(self) -> tuple[str, str]:
-        pass
+    def name(self) -> tuple[str, str]: ...
 
-    @abstractmethod
-    def direction(self) -> DataDirectionProduct:
-        pass
+    def direction(self) -> DataDirectionProduct: ...
 
     def can_subscribe(self) -> bool:
         return False
 
-    def subscribe(self, fn: Callable[[Any], None]):
-        pass
+    def subscribe(self, fn: Callable[[Any], None]): ...
 
-    def unsubscribe(self):
-        pass
+    def unsubscribe(self): ...
 
 
 class DataPoint(Generic[T]):
-    def __init__(self, protocol: DataPointProtocol, validator: DataPointValidator):
+    def __init__(
+        self, protocol: DataPointProtocol, validator: DataPointValidator
+    ):
         self._protocol = protocol
         self._validator = validator
 

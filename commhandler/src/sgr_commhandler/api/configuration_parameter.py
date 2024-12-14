@@ -1,10 +1,15 @@
-from sgr_specification.v0.product import ConfigurationList, ConfigurationListElement
+from sgr_specification.v0.product import (
+    ConfigurationList,
+    ConfigurationListElement,
+)
 
 
 def build_configurations_parameters(params: ConfigurationList):
     if params is None:
         return []
-    return [ConfigurationParameter(x) for x in params.configuration_list_element]
+    return [
+        ConfigurationParameter(x) for x in params.configuration_list_element
+    ]
 
 
 class ConfigurationParameter:

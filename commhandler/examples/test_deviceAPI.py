@@ -9,7 +9,9 @@ def run_test_loop():
     interface_file = "SGr_04_mmmm_dddd_CLEMAPEnergyMonitorEIV0.2.1.xml"
 
     builder = DeviceBuilder()
-    device = builder.eid_path(interface_file).properties_path(config_file).build()
+    device = (
+        builder.eid_path(interface_file).properties_path(config_file).build()
+    )
     device.connect()
 
     vals = device.get_values()

@@ -14,5 +14,5 @@ from sgr_commhandler.api.data_point_api import (
     DataPointProtocol,
     DataPointValidator,
 )
-from sgr_commhandler.api.device_api import SGrBaseInterface, DeviceInformation
+from sgr_commhandler.api.device_api import DeviceInformation, SGrBaseInterface
 from sgr_commhandler.api.functional_profile_api import FunctionalProfile

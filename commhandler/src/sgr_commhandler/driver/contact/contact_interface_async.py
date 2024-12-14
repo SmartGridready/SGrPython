@@ -1,23 +1,28 @@
 import configparser
+import logging
 from collections.abc import Mapping
 from typing import Any
-import logging
+
 from sgr_specification.v0.generic import (
     DataDirectionProduct,
+)
+from sgr_specification.v0.generic import (
     DataPointBase as ContactDataPointSpec,
 )
 from sgr_specification.v0.product import (
-    DeviceFrame,
     ContactFunctionalProfile as ContactFunctionalProfileSpec,
 )
+from sgr_specification.v0.product import (
+    DeviceFrame,
+)
+
 from sgr_commhandler.api import (
-    SGrBaseInterface,
     DataPoint,
     DataPointProtocol,
     FunctionalProfile,
+    SGrBaseInterface,
 )
 from sgr_commhandler.validators import build_validator
-
 
 logger = logging.getLogger(__name__)
 
@@ -120,7 +125,9 @@ class SGrContactInterface(SGrBaseInterface):
     Note: we do not implement a complete driver here, because it is very application-dependent!
     """
 
-    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
+    def __init__(
+        self, frame: DeviceFrame, configuration: configparser.ConfigParser
+    ):
         super().__init__(frame, configuration)
 
         if (
@@ -128,7 +135,9 @@ class SGrContactInterface(SGrBaseInterface):
             and self._root_spec.interface_list
             and self._root_spec.interface_list.contact_interface
         ):
-            self._raw_interface = self._root_spec.interface_list.contact_interface
+            self._raw_interface = (
+                self._root_spec.interface_list.contact_interface
+            )
         else:
             raise Exception("No contact interface")
         desc = self._raw_interface.contact_interface_description

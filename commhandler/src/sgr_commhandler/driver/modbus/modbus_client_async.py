@@ -1,12 +1,17 @@
-from abc import ABC, abstractmethod
-import threading
 import logging
+import threading
+from abc import ABC, abstractmethod
 from typing import Any, Optional
+
+from pymodbus.client import AsyncModbusSerialClient, AsyncModbusTcpClient
 from pymodbus.client.base import ModbusBaseClient
-from pymodbus.client import AsyncModbusTcpClient, AsyncModbusSerialClient
 from pymodbus.constants import Endian
-from sgr_commhandler.driver.modbus.payload_decoder import PayloadBuilder, PayloadDecoder
 from sgr_specification.v0.product.modbus_types import BitOrder, ModbusDataType
+
+from sgr_commhandler.driver.modbus.payload_decoder import (
+    PayloadBuilder,
+    PayloadDecoder,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +27,8 @@ class SGrModbusClient(ABC):
         )
         self._word_order: Endian = (
             Endian.LITTLE
-            if endianness in {BitOrder.CHANGE_WORD_ORDER, BitOrder.CHANGE_DWORD_ORDER}
+            if endianness
+            in {BitOrder.CHANGE_WORD_ORDER, BitOrder.CHANGE_DWORD_ORDER}
             else Endian.BIG
         )
 
@@ -48,7 +54,9 @@ class SGrModbusClient(ABC):
         :param data_type: The modbus type to encode
         :param value: The value to be written
         """
-        builder = PayloadBuilder(byteorder=self._byte_order, wordorder=self._word_order)
+        builder = PayloadBuilder(
+            byteorder=self._byte_order, wordorder=self._word_order
+        )
         builder.encode(value, data_type)
         with self._lock:
             await self._client.write_registers(
@@ -65,7 +73,9 @@ class SGrModbusClient(ABC):
         :param data_type: The modbus type to encode
         :param value: The value to be written
         """
-        builder = PayloadBuilder(byteorder=self._byte_order, wordorder=self._word_order)
+        builder = PayloadBuilder(
+            byteorder=self._byte_order, wordorder=self._word_order
+        )
         builder.encode(value, data_type)
         with self._lock:
             await self._client.write_coils(
@@ -135,7 +145,9 @@ class SGrModbusClient(ABC):
             )
         if response and not response.isError():
             decoder = PayloadDecoder.fromCoils(
-                response.bits, byteorder=self._byte_order, wordorder=self._word_order
+                response.bits,
+                byteorder=self._byte_order,
+                wordorder=self._word_order,
             )
             return decoder.decode(data_type, 0)
 
@@ -154,7 +166,12 @@ class SGrModbusClient(ABC):
 
     # TODO Implement block transfers and remove this method
     async def _mult_value_decoder(
-        self, addr: int, size: int, data_type: str, register_type: str, slave_id: int
+        self,
+        addr: int,
+        size: int,
+        data_type: str,
+        register_type: str,
+        slave_id: int,
     ) -> Optional[float]:
         """
         Reads register and decodes the value.
@@ -164,11 +181,17 @@ class SGrModbusClient(ABC):
         :returns: Decoded float
         """
         if register_type == "HoldRegister":
-            reg = self._client.read_holding_registers(addr, size, slave=slave_id)
+            reg = self._client.read_holding_registers(
+                addr, size, slave=slave_id
+            )
         else:
-            reg = self._client.read_input_registers(addr, count=size, slave=slave_id)
+            reg = self._client.read_input_registers(
+                addr, count=size, slave=slave_id
+            )
         decoder = PayloadDecoder.fromRegisters(
-            reg.registers, byteorder=self._byte_order, wordorder=self._word_order
+            reg.registers,
+            byteorder=self._byte_order,
+            wordorder=self._word_order,
         )
         # logger.debug(decoder.decode('float32', 0))
         if not reg.isError():
@@ -235,14 +258,17 @@ class SGrModbusRTUClient(SGrModbusClient):
     async def connect(self):
         with self._lock:
             is_connected = await self._client.connect()
-            logger.debug("Connected to ModbusRTU on serial port: " + self._serial_port)
+            logger.debug(
+                "Connected to ModbusRTU on serial port: " + self._serial_port
+            )
             return is_connected
 
     async def disconnect(self):
         with self._lock:
             await self._client.close(reconnect=False)
             logger.debug(
-                "Disconnected from ModbusRTU on serial port: " + self._serial_port
+                "Disconnected from ModbusRTU on serial port: "
+                + self._serial_port
             )
 
     def is_connected(self):

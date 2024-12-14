@@ -1,21 +1,26 @@
 import configparser
+import logging
 from collections.abc import Callable, Mapping
 from typing import Any
-import logging
+
 from sgr_specification.v0.generic import DataDirectionProduct
 from sgr_specification.v0.product import (
     DeviceFrame,
+)
+from sgr_specification.v0.product import (
     MessagingDataPoint as MessagingDataPointSpec,
+)
+from sgr_specification.v0.product import (
     MessagingFunctionalProfile as MessagingFunctionalProfileSpec,
 )
+
 from sgr_commhandler.api import (
-    SGrBaseInterface,
     DataPoint,
     DataPointProtocol,
     FunctionalProfile,
+    SGrBaseInterface,
 )
 from sgr_commhandler.validators import build_validator
-
 
 logger = logging.getLogger(__name__)
 
@@ -132,7 +137,9 @@ class SGrMessagingInterface(SGrBaseInterface):
     SmartGridready External Interface Class for Messaging Protocols
     """
 
-    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
+    def __init__(
+        self, frame: DeviceFrame, configuration: configparser.ConfigParser
+    ):
         super().__init__(frame, configuration)
 
         if (
@@ -140,7 +147,9 @@ class SGrMessagingInterface(SGrBaseInterface):
             and self._root_spec.interface_list
             and self._root_spec.interface_list.messaging_interface
         ):
-            self._raw_interface = self._root_spec.interface_list.messaging_interface
+            self._raw_interface = (
+                self._root_spec.interface_list.messaging_interface
+            )
         else:
             raise Exception("No messaging interface")
         desc = self._raw_interface.messaging_interface_description

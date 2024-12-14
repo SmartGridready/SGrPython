@@ -7,12 +7,13 @@ from sgr_commhandler.driver.modbus.modbus_client_async import (
     SGrModbusRTUClient,
 )
 
-
 logger = logging.getLogger(__name__)
 
 
 class ModbusClientWrapper:
-    def __init__(self, identifier: str, client: SGrModbusClient, shared: bool = False):
+    def __init__(
+        self, identifier: str, client: SGrModbusClient, shared: bool = False
+    ):
         self.identifier = identifier
         self.client = client
         self.shared = shared

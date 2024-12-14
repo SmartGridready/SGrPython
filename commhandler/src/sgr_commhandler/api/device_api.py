@@ -1,9 +1,9 @@
-from abc import ABC, abstractmethod
+import configparser
+from abc import abstractmethod
 from asyncio import run
 from collections.abc import Mapping
-import configparser
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Protocol
 
 from sgr_specification.v0.generic import DataDirectionProduct, DeviceCategory
 from sgr_specification.v0.product.product import DeviceFrame
@@ -27,8 +27,10 @@ class DeviceInformation:
     is_local: bool
 
 
-class SGrBaseInterface(ABC):
-    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
+class SGrBaseInterface(Protocol):
+    def __init__(
+        self, frame: DeviceFrame, configuration: configparser.ConfigParser
+    ):
         self._root_spec = frame
         self._configurations_params = build_configurations_parameters(
             frame.configuration_list
@@ -69,7 +71,9 @@ class SGrBaseInterface(ABC):
     def configuration_parameter(self) -> list[ConfigurationParameter]:
         return self._configuration_parameters
 
-    def get_function_profile(self, function_profile_name: str) -> FunctionalProfile:
+    def get_function_profile(
+        self, function_profile_name: str
+    ) -> FunctionalProfile:
         return self._function_profiles[function_profile_name]
 
     def get_data_point(self, dp: tuple[str, str]) -> DataPoint:
@@ -97,7 +101,9 @@ class SGrBaseInterface(ABC):
 
     def describe(
         self,
-    ) -> tuple[str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]]:
+    ) -> tuple[
+        str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]
+    ]:
         data = {}
         for fp in self.get_function_profiles().values():
             key, dps = fp.describe()

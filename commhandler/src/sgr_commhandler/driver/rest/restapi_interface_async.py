@@ -4,7 +4,8 @@ import logging
 import ssl
 import urllib
 from collections.abc import Mapping
-from typing import Any
+from io import UnsupportedOperation
+from typing import Any, Callable
 
 import aiohttp
 import certifi
@@ -104,7 +105,9 @@ class RestDataPoint(DataPointProtocol):
                     else HttpMethod.GET
                 ),
                 request_path=(
-                    service_call.request_path if service_call.request_path else ""
+                    service_call.request_path
+                    if service_call.request_path
+                    else ""
                 ),
                 request_header=(
                     service_call.request_header
@@ -122,7 +125,9 @@ class RestDataPoint(DataPointProtocol):
                     else ParameterList()
                 ),
                 response_query=(
-                    service_call.response_query if service_call.response_query else None
+                    service_call.response_query
+                    if service_call.response_query
+                    else None
                 ),
             )
         elif dp_config.rest_api_service_call:
@@ -169,7 +174,9 @@ class RestDataPoint(DataPointProtocol):
                     else HttpMethod.GET
                 ),
                 request_path=(
-                    service_call.request_path if service_call.request_path else ""
+                    service_call.request_path
+                    if service_call.request_path
+                    else ""
                 ),
                 request_header=(
                     service_call.request_header
@@ -187,7 +194,9 @@ class RestDataPoint(DataPointProtocol):
                     else ParameterList()
                 ),
                 response_query=(
-                    service_call.response_query if service_call.response_query else None
+                    service_call.response_query
+                    if service_call.response_query
+                    else None
                 ),
             )
 
@@ -258,7 +267,8 @@ class RestDataPoint(DataPointProtocol):
             and self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
         ):
             value = (
-                float(value) / self._dp_spec.data_point.unit_conversion_multiplicator
+                float(value)
+                / self._dp_spec.data_point.unit_conversion_multiplicator
             )
 
         # replace {{value}} placeholder
@@ -268,7 +278,9 @@ class RestDataPoint(DataPointProtocol):
             self._write_call.request_header,
             self._write_call.request_query,
             self._write_call.request_form,
-            body=str(self._write_call.request_body).replace("{{value}}", str(value))
+            body=str(self._write_call.request_body).replace(
+                "{{value}}", str(value)
+            )
             if self._write_call.request_body
             else None,
         )
@@ -282,6 +294,16 @@ class RestDataPoint(DataPointProtocol):
         ):
             raise Exception("missing data direction")
         return self._dp_spec.data_point.data_direction
+
+    def subscribe(self, fn: Callable[[Any], None]):
+        raise UnsupportedOperation(
+            "subscribe is no available for rest datapoint"
+        )
+
+    def unsubscribe(self):
+        raise UnsupportedOperation(
+            "unsubscribe is no available for rest datapoint"
+        )
 
 
 class RestFunctionalProfile(FunctionalProfile):
@@ -301,7 +323,8 @@ class RestFunctionalProfile(FunctionalProfile):
             raw_dps = self._fp_spec.data_point_list.data_point_list_element
 
         dps = [
-            build_rest_data_point(dp, self._fp_spec, self._interface) for dp in raw_dps
+            build_rest_data_point(dp, self._fp_spec, self._interface)
+            for dp in raw_dps
         ]
 
         self._data_points = {dp.name(): dp for dp in dps}
@@ -323,7 +346,9 @@ class SGrRestInterface(SGrBaseInterface):
     SmartGridready External Interface Class for Rest API
     """
 
-    def __init__(self, frame: DeviceFrame, configuration: configparser.ConfigParser):
+    def __init__(
+        self, frame: DeviceFrame, configuration: configparser.ConfigParser
+    ):
         super().__init__(frame, configuration)
 
         self._session = None
@@ -336,7 +361,9 @@ class SGrRestInterface(SGrBaseInterface):
             and self._root_spec.interface_list
             and self._root_spec.interface_list.rest_api_interface
         ):
-            self._raw_interface = self._root_spec.interface_list.rest_api_interface
+            self._raw_interface = (
+                self._root_spec.interface_list.rest_api_interface
+            )
         else:
             raise Exception("No REST interface")
         desc = self._raw_interface.rest_api_interface_description
@@ -400,7 +427,9 @@ class SGrRestInterface(SGrBaseInterface):
             # override body
             if len(form_parameters) > 0:
                 request_body = urllib.parse.urlencode(form_parameters)
-                request_headers["Content-Type"] = "application/x-www-form-urlencoded"
+                request_headers["Content-Type"] = (
+                    "application/x-www-form-urlencoded"
+                )
 
             cache_key = (frozenset(request_headers), request.url)
             if not skip_cache and cache_key in self._cache:

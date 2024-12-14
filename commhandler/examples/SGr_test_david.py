@@ -1,7 +1,6 @@
 # Smartgrid Ready Libraries
 from sgr_commhandler.modbus_interface import SgrModbusInterface
 
-
 if __name__ == "__main__":
     # Create interface instance
     interface_file = "SGr_HeatPump_Test.xml"

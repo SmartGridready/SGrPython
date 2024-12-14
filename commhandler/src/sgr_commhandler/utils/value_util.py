@@ -8,7 +8,9 @@ class RoundingScheme(Enum):
     near = "Near"
 
 
-def round_to_int(value: float, scheme: RoundingScheme = RoundingScheme.floor) -> int:
+def round_to_int(
+    value: float, scheme: RoundingScheme = RoundingScheme.floor
+) -> int:
     if scheme == RoundingScheme.floor:
         return floor(value)
     elif scheme == RoundingScheme.ceil:
