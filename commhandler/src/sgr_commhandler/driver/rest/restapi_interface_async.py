@@ -67,9 +67,9 @@ class RestRequest:
         method: HttpMethod,
         url: str,
         headers: HeaderList,
-        query_parameters: ParameterList = None,
-        form_parameters: ParameterList = None,
-        body: str = None,
+        query_parameters: ParameterList = ParameterList(),
+        form_parameters: ParameterList = ParameterList(),
+        body: Optional[str] = None,
     ):
         self.method = method
         self.url = url
@@ -93,8 +93,8 @@ class RestDataPoint(DataPointProtocol):
         if not dp_config:
             raise Exception('REST service call configuration missing')
 
-        self._read_call: RestApiServiceCall = None
-        self._write_call: RestApiServiceCall = None
+        self._read_call: RestApiServiceCall = RestApiServiceCall()
+        self._write_call: RestApiServiceCall = RestApiServiceCall()
 
         if len(dp_config.rest_api_read_service_call) > 0:
             service_call = dp_config.rest_api_read_service_call[0]
@@ -225,6 +225,8 @@ class RestDataPoint(DataPointProtocol):
     async def get_val(self, skip_cache: bool = False):
         if not self._read_call:
             raise Exception('No read call')
+
+        # TODO das scheint auch noch falsch muss ein reqeust jeweils alle parameter haben?
         request = RestRequest(
             self._read_call.request_method,
             f'{self._interface.base_url}{self._read_call.request_path}',
@@ -247,7 +249,8 @@ class RestDataPoint(DataPointProtocol):
 
         # convert to DP units
         if (
-            self._dp_spec.data_point.unit_conversion_multiplicator
+            self._dp_spec.data_point
+            and self._dp_spec.data_point.unit_conversion_multiplicator
             and self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
         ):
             ret_value = (
@@ -263,7 +266,8 @@ class RestDataPoint(DataPointProtocol):
 
         # convert to device units
         if (
-            self._dp_spec.data_point.unit_conversion_multiplicator
+            self._dp_spec.data_point is None
+            or self._dp_spec.data_point.unit_conversion_multiplicator
             and self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
         ):
             value = (
@@ -271,6 +275,7 @@ class RestDataPoint(DataPointProtocol):
                 / self._dp_spec.data_point.unit_conversion_multiplicator
             )
 
+        # TODO auch hier scheint alles no ein bisschen fehlerhaft
         # replace {{value}} placeholder
         request = RestRequest(
             self._write_call.request_method,
@@ -414,7 +419,7 @@ class SGrRestInterface(SGrBaseInterface):
                 for param_entry in request.query_parameters.parameter
             }
 
-            request_body: str = request.body
+            request_body: Optional[str] = request.body
 
             # All form parameters into dictionary
             form_parameters = {

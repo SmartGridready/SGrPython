@@ -306,6 +306,13 @@ class SGrModbusInterface(SGrBaseInterface):
         sharedRTU: bool = False,
     ):
         self._inititalize_device(frame, configuration)
+        if (
+            self.frame.interface_list is None
+            or self.frame.interface_list.modbus_interface is None
+            or self.frame.interface_list.modbus_interface.modbus_interface_description
+            is None
+        ):
+            raise Exception('Modbus interface is undefined')
 
         if self.frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu:
             self.slave_id = get_rtu_slave_id(
