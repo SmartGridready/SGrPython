@@ -1,3 +1,5 @@
+import configparser
+import re
 from collections.abc import Callable
 from enum import Enum
 
@@ -105,8 +107,7 @@ class DeviceBuilder:
         try:
             return parser.from_string(self._value, DeviceFrame)
         except Exception as e:
-            print(self._value)
-            print(e)
+            raise e
 
     def _file_loader(self) -> DeviceFrame:
         parser = XmlParser(context=XmlContext())

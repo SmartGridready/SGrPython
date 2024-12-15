@@ -6,7 +6,7 @@ from sgr_specification.v0.generic import DataDirectionProduct
 
 from sgr_commhandler.api.data_types import DataTypes
 
-T = TypeVar("T")
+T = TypeVar('T')
 
 
 class DataPointValidator(Protocol):
@@ -30,9 +30,11 @@ class DataPointProtocol(Protocol):
     def can_subscribe(self) -> bool:
         return False
 
-    def subscribe(self, fn: Callable[[Any], None]): ...
+    def subscribe(self, fn: Callable[[Any], None]):
+        raise Exception('Unsupported operatioin')
 
-    def unsubscribe(self): ...
+    def unsubscribe(self):
+        raise Exception('Unsupported operatioin')
 
 
 class DataPoint(Generic[T]):
@@ -50,7 +52,7 @@ class DataPoint(Generic[T]):
         if self._validator.validate(value):
             return value
         raise Exception(
-            f"invalid value read from device, {value}, validator: {self._validator.data_type()}"
+            f'invalid value read from device, {value}, validator: {self._validator.data_type()}'
         )
 
     def get_value(self) -> T:
@@ -59,7 +61,7 @@ class DataPoint(Generic[T]):
     async def set_value_async(self, value: T):
         if self._validator.validate(value):
             return await self._protocol.set_val(value)
-        raise Exception("invalid data to write to device")
+        raise Exception('invalid data to write to device')
 
     def set_value(self, value: T):
         return run(self.set_value_async(value))

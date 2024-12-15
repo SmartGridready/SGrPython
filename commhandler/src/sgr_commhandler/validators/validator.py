@@ -18,22 +18,24 @@ class UnsupportedValidator(DataPointValidator):
 class EnumValidator(DataPointValidator):
     def __init__(self, type: EnumMapProduct):
         if type and type.enum_entry:
+            self._valid_ordinals: set[int] = {
+                entry.ordinal
+                for entry in type.enum_entry
+                if entry.ordinal is not None
+            }
             self._valid_literals: set[str] = {
                 entry.literal
                 for entry in type.enum_entry
                 if entry.literal is not None
             }
-            self._valid_ordinals: set[str] = {
-                entry.ordinal
-                for entry in type.enum_entry
-                if entry.ordinal is not None
-            }
             self._options: list[tuple[str, int]] = [
-                (entry.literal, entry.ordinal) for entry in type.enum_entry
+                (entry.literal, entry.ordinal)
+                for entry in type.enum_entry
+                if entry.ordinal is not None and entry.literal is not None
             ]
         else:
-            self._valid_literals: set[str] = {}
-            self._valid_ordinals: set[str] = {}
+            self._valid_literals: set[str] = set()
+            self._valid_ordinals: set[int] = set()
             self._options: list[tuple[str, int]] = []
 
     def validate(self, value: Any) -> bool:
@@ -52,7 +54,7 @@ class EnumValidator(DataPointValidator):
 
 class IntValidator(DataPointValidator):
     def __init__(self, size: int, signed: bool = True):
-        self._size = size if size in INT_SIZES else INT_SIZES[0]
+        self._size = size if size in INT_SIZES else next(iter(INT_SIZES))
         if signed:
             self._lower_bound = -(2 ** (self._size - 1))
             self._upper_bound = (2 ** (self._size - 1)) - 1
@@ -77,7 +79,7 @@ class IntValidator(DataPointValidator):
 
 class FloatValidator(DataPointValidator):
     def __init__(self, size: int):
-        self._size = size if size in FLOAT_SIZES else FLOAT_SIZES[0]
+        self._size = size if size in FLOAT_SIZES else next(iter(FLOAT_SIZES))
 
     def validate(self, value: Any) -> bool:
         if value is None:

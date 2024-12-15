@@ -1,5 +1,4 @@
 import configparser
-from abc import abstractmethod
 from asyncio import run
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -28,60 +27,64 @@ class DeviceInformation:
 
 
 class SGrBaseInterface(Protocol):
-    def __init__(
+    frame: DeviceFrame
+    configurations_params: list[ConfigurationParameter]
+    device_information: DeviceInformation
+    function_profiles: Mapping[str, FunctionalProfile]
+
+    def _inititalize_device(
         self, frame: DeviceFrame, configuration: configparser.ConfigParser
     ):
-        self._root_spec = frame
-        self._configurations_params = build_configurations_parameters(
+        self.frame = frame
+        self.configurations_params = build_configurations_parameters(
             frame.configuration_list
         )
-        self._device_information = DeviceInformation(
-            name=frame.device_name,
-            manufacturer=frame.manufacturer_name,
-            software_revision=frame.device_information.software_revision,
-            hardware_revision=frame.device_information.hardware_revision,
-            device_category=frame.device_information.device_category,
-            is_local=frame.device_information.is_local_control,
+        self.device_information = DeviceInformation(
+            name=frame.device_name if frame.device_name else '',
+            manufacturer=frame.manufacturer_name
+            if frame.manufacturer_name
+            else '',
+            software_revision=frame.device_information.software_revision
+            if frame.device_information
+            and frame.device_information.software_revision
+            else '',
+            hardware_revision=frame.device_information.hardware_revision
+            if frame.device_information
+            and frame.device_information.hardware_revision
+            else '',
+            device_category=frame.device_information.device_category
+            if frame.device_information
+            and frame.device_information.device_category
+            else DeviceCategory.DEVICE_INFORMATION,
+            is_local=frame.device_information.is_local_control
+            if frame.device_information
+            and frame.device_information.is_local_control
+            else False,
         )
 
     def connect(self):
         run(self.connect_async())
 
-    @abstractmethod
-    async def connect_async(self):
-        pass
+    async def connect_async(self): ...
 
     def disconnect(self):
         run(self.disconnect_async())
 
-    @abstractmethod
-    async def disconnect_async(self):
-        pass
+    async def disconnect_async(self): ...
 
-    def get_function_profiles(self) -> Mapping[str, FunctionalProfile]:
-        return self._function_profiles
-
-    @abstractmethod
-    def is_connected(self) -> bool:
-        pass
-
-    def device_information(self) -> DeviceInformation:
-        return self._device_information
-
-    def configuration_parameter(self) -> list[ConfigurationParameter]:
-        return self._configuration_parameters
+    def is_connected(self) -> bool: ...
 
     def get_function_profile(
         self, function_profile_name: str
     ) -> FunctionalProfile:
-        return self._function_profiles[function_profile_name]
+        return self.function_profiles[function_profile_name]
 
     def get_data_point(self, dp: tuple[str, str]) -> DataPoint:
         return self.get_function_profile(dp[0]).get_data_point(dp[1])
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         data_points = {}
-        for fp in self._function_profiles.values():
+        for fp in self.function_profiles.values():
             data_points.update(fp.get_data_points())
         return data_points
 
@@ -90,7 +93,7 @@ class SGrBaseInterface(Protocol):
 
     async def get_values_async(self) -> dict[tuple[str, str], Any]:
         data = {}
-        for fp in self.get_function_profiles().values():
+        for fp in self.function_profiles.values():
             data.update(
                 {
                     (fp.name(), key): value
@@ -105,7 +108,7 @@ class SGrBaseInterface(Protocol):
         str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]
     ]:
         data = {}
-        for fp in self.get_function_profiles().values():
+        for fp in self.function_profiles.values():
             key, dps = fp.describe()
             data[key] = dps
-        return self.device_information().name, data
+        return self.device_information.name, data

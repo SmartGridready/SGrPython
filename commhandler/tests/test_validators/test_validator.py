@@ -29,7 +29,7 @@ def test_unsupported_validator():
     validator = UnsupportedValidator()
     assert validator.data_type() is None
     assert not validator.validate(123)
-    assert not validator.validate("test")
+    assert not validator.validate('test')
     assert not validator.validate(12.34)
     assert not validator.validate(True)
     assert not validator.validate(False)
@@ -44,9 +44,9 @@ def test_unsupported_validator_data_type():
 def test_enum_validator():
     # Create enum entries
     entries = [
-        EnumEntryProductRecord(literal="RED", ordinal=1),
-        EnumEntryProductRecord(literal="GREEN", ordinal=2),
-        EnumEntryProductRecord(literal="BLUE", ordinal=3),
+        EnumEntryProductRecord(literal='RED', ordinal=1),
+        EnumEntryProductRecord(literal='GREEN', ordinal=2),
+        EnumEntryProductRecord(literal='BLUE', ordinal=3),
     ]
     enum_type = EnumMapProduct(enum_entry=entries)
     validator = EnumValidator(type=enum_type)
@@ -55,22 +55,22 @@ def test_enum_validator():
     assert validator.data_type() == DataTypes.ENUM
 
     # Valid values
-    assert validator.validate("RED")
-    assert validator.validate("GREEN")
-    assert validator.validate("BLUE")
+    assert validator.validate('RED')
+    assert validator.validate('GREEN')
+    assert validator.validate('BLUE')
     assert validator.validate(1)
     assert validator.validate(2)
     assert validator.validate(3)
     assert validator.validate(True)
 
     # Invalid values
-    assert not validator.validate("YELLOW")
+    assert not validator.validate('YELLOW')
     assert not validator.validate(4)
     assert not validator.validate(False)
     assert not validator.validate(None)
 
     # Test options
-    expected_options = [("RED", 1), ("GREEN", 2), ("BLUE", 3)]
+    expected_options = [('RED', 1), ('GREEN', 2), ('BLUE', 3)]
     assert set(validator.options()) == set(expected_options)
 
 
@@ -79,7 +79,7 @@ def test_int_validator_unsigned_8bit():
     assert validator.data_type() == DataTypes.INT
     assert validator.validate(0)
     assert validator.validate(255)
-    assert validator.validate("255")
+    assert validator.validate('255')
     assert validator.validate(12.34)
     assert validator.validate(True)
     assert validator.validate(False)
@@ -94,7 +94,7 @@ def test_int_validator_signed_8bit():
     assert validator.data_type() == DataTypes.INT
     assert validator.validate(-128)
     assert validator.validate(127)
-    assert validator.validate("127")
+    assert validator.validate('127')
     assert validator.validate(12.34)
     assert validator.validate(-12.34)
     assert validator.validate(True)
@@ -111,7 +111,7 @@ def test_int_validator_unsigned_16bit():
     assert validator.data_type() == DataTypes.INT
     assert validator.validate(0)
     assert validator.validate(65535)
-    assert validator.validate("65535")
+    assert validator.validate('65535')
     assert validator.validate(12.34)
     assert validator.validate(True)
     assert validator.validate(False)
@@ -126,7 +126,7 @@ def test_int_validator_signed_16bit():
     assert validator.data_type() == DataTypes.INT
     assert validator.validate(-32768)
     assert validator.validate(32767)
-    assert validator.validate("32767")
+    assert validator.validate('32767')
     assert validator.validate(12.34)
     assert validator.validate(-12.34)
     assert validator.validate(True)
@@ -144,8 +144,8 @@ def test_float_validator_32bit():
     assert validator.validate(0.0)
     assert validator.validate(100)
     assert validator.validate(-200)
-    assert validator.validate("100.0")
-    assert validator.validate("-100")
+    assert validator.validate('100.0')
+    assert validator.validate('-100')
     assert validator.validate(True)
     assert validator.validate(False)
     assert not validator.validate(None)
@@ -159,8 +159,8 @@ def test_float_validator_64bit():
     assert validator.validate(0.0)
     assert validator.validate(100)
     assert validator.validate(-200)
-    assert validator.validate("100.0")
-    assert validator.validate("-100")
+    assert validator.validate('100.0')
+    assert validator.validate('-100')
     assert validator.validate(True)
     assert validator.validate(False)
     assert not validator.validate(None)
@@ -169,8 +169,8 @@ def test_float_validator_64bit():
 def test_string_validator():
     validator = StringValidator()
     assert validator.data_type() == DataTypes.STRING
-    assert validator.validate("hello")
-    assert validator.validate("")
+    assert validator.validate('hello')
+    assert validator.validate('')
     assert validator.validate(123)
     assert validator.validate(12.34)
     assert validator.validate(True)
@@ -183,23 +183,23 @@ def test_boolean_validator():
     assert validator.data_type() == DataTypes.BOOLEAN
     assert validator.validate(True)
     assert validator.validate(False)
-    assert validator.validate("True")
-    assert validator.validate("False")
+    assert validator.validate('True')
+    assert validator.validate('False')
     assert validator.validate(1)
     assert validator.validate(0)
     assert not validator.validate(None)
 
 
 def test_bitmap_validator():
-    test_value: dict = {"name1": True, "name2": False}
+    test_value: dict = {'name1': True, 'name2': False}
 
     validator = BitmapValidator()
     assert validator.data_type() == DataTypes.BITMAP
     assert validator.validate(test_value)
     assert not validator.validate(True)
     assert not validator.validate(False)
-    assert not validator.validate("True")
-    assert not validator.validate("False")
+    assert not validator.validate('True')
+    assert not validator.validate('False')
     assert not validator.validate(1)
     assert not validator.validate(0)
     assert not validator.validate(None)
@@ -213,8 +213,8 @@ def test_datetime_validator():
     assert validator.validate(test_value)
     assert not validator.validate(True)
     assert not validator.validate(False)
-    assert not validator.validate("True")
-    assert not validator.validate("False")
+    assert not validator.validate('True')
+    assert not validator.validate('False')
     assert not validator.validate(1)
     assert not validator.validate(0)
     assert not validator.validate(None)

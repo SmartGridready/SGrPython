@@ -2,6 +2,8 @@ import asyncio
 import logging
 from threading import Lock
 
+from sgr_specification.v0.product.modbus_types import BitOrder
+
 from sgr_commhandler.driver.modbus.modbus_client_async import (
     SGrModbusClient,
     SGrModbusRTUClient,
@@ -27,7 +29,7 @@ class ModbusClientWrapper:
             if device_id not in self.connected_devices:
                 self.connected_devices.add(device_id)
                 logger.debug(
-                    f"device {device_id} connected to shared Modbus client {self.identifier}"
+                    f'device {device_id} connected to shared Modbus client {self.identifier}'
                 )
                 await self.client.connect()
         else:
@@ -38,13 +40,13 @@ class ModbusClientWrapper:
             if device_id not in self.registered_devices:
                 return
             if device_id in self.connected_devices:
-                self.connected_devices.pop(device_id)
+                self.connected_devices.remove(device_id)
                 logger.debug(
-                    f"device {device_id} disconnected from shared Modbus client {self.identifier}"
+                    f'device {device_id} disconnected from shared Modbus client {self.identifier}'
                 )
                 if len(self.connected_devices) == 0:
                     logger.debug(
-                        f"last device disconnected from shared Modbus client {self.identifier}"
+                        f'last device disconnected from shared Modbus client {self.identifier}'
                     )
                     await self.client.disconnect()
         else:
@@ -72,14 +74,19 @@ def register_shared_client(
     with _global_shared_lock:
         client_wrapper = _global_shared_rtu_clients.get(serial_port)
         if client_wrapper is None:
-            modbus_client = SGrModbusRTUClient(serial_port, parity, baudrate)
+            modbus_client = SGrModbusRTUClient(
+                serial_port,
+                parity,
+                baudrate,
+                BitOrder.BIG_ENDIAN,  # TODO bit order was missing, i just added want.
+            )
             client_wrapper = ModbusClientWrapper(
                 serial_port, modbus_client, shared=True
             )
             _global_shared_rtu_clients[serial_port] = client_wrapper
         client_wrapper.registered_devices.add(device_id)
         logger.debug(
-            f"device {device_id} registered at shared Modbus client {client_wrapper.identifier}"
+            f'device {device_id} registered at shared Modbus client {client_wrapper.identifier}'
         )
 
         return client_wrapper
@@ -91,8 +98,8 @@ def unregister_shared_client(serial_port: str, device_id: str) -> None:
     with _global_shared_lock:
         client_wrapper = _global_shared_rtu_clients.get(serial_port)
         if client_wrapper is not None:
-            client_wrapper.connected_devices.pop(device_id)
-            client_wrapper.registered_devices.pop(device_id)
+            client_wrapper.connected_devices.remove(device_id)
+            client_wrapper.registered_devices.remove(device_id)
             if len(client_wrapper.registered_devices) == 0:
                 try:
                     asyncio.get_event_loop().run_until_complete(
@@ -100,11 +107,11 @@ def unregister_shared_client(serial_port: str, device_id: str) -> None:
                     )
                 except Exception:
                     logger.warning(
-                        f"could not disconnect shared transport {client_wrapper.identifier}"
+                        f'could not disconnect shared transport {client_wrapper.identifier}'
                     )
                 _global_shared_rtu_clients.pop(serial_port)
             logger.debug(
-                f"device {device_id} unregistered from shared Modbus client {client_wrapper.identifier}"
+                f'device {device_id} unregistered from shared Modbus client {client_wrapper.identifier}'
             )
 
 
@@ -115,11 +122,11 @@ def clean_up_shared_clients() -> None:
         for modbus_client_wrapper in _global_shared_rtu_clients:
             try:
                 asyncio.get_event_loop().run_until_complete(
-                    modbus_client_wrapper.disconnect()
+                    modbus_client_wrapper.disconnect()  # TODO here is something wrong
                 )
             except Exception:
                 logger.warning(
-                    f"could not disconnect shared client {modbus_client_wrapper.identifier}"
+                    f'could not disconnect shared client {modbus_client_wrapper.identifier}'
                 )
             finally:
                 _global_shared_rtu_clients.pop(modbus_client_wrapper.identifier)

@@ -1,6 +1,5 @@
 import configparser
 import logging
-from collections.abc import Mapping
 from typing import Any
 
 from sgr_specification.v0.generic import (
@@ -30,7 +29,7 @@ logger = logging.getLogger(__name__)
 def build_contact_data_point(
     data_point: ContactDataPointSpec,
     function_profile: ContactFunctionalProfileSpec,
-    interface: "SGrContactInterface",
+    interface: 'SGrContactInterface',
 ) -> DataPoint:
     protocol = ContactDataPoint(data_point, function_profile, interface)
     data_type = None
@@ -45,19 +44,19 @@ class ContactDataPoint(DataPointProtocol):
         self,
         dp_spec: ContactDataPointSpec,
         fp_spec: ContactFunctionalProfileSpec,
-        interface: "SGrContactInterface",
+        interface: 'SGrContactInterface',
     ):
         self._dp_spec = dp_spec
         self._fp_spec = fp_spec
 
-        self._fp_name = ""
+        self._fp_name = ''
         if (
             fp_spec.functional_profile is not None
             and fp_spec.functional_profile.functional_profile_name is not None
         ):
             self._fp_name = fp_spec.functional_profile.functional_profile_name
 
-        self._dp_name = ""
+        self._dp_name = ''
         if (
             self._dp_spec.data_point is not None
             and self._dp_spec.data_point.data_point_name is not None
@@ -70,17 +69,17 @@ class ContactDataPoint(DataPointProtocol):
         return self._fp_name, self._dp_name
 
     async def get_val(self, skip_cache: bool = False):
-        raise Exception("Not implemented")
+        raise Exception('Not implemented')
 
     async def set_val(self, value: Any):
-        raise Exception("Not implemented")
+        raise Exception('Not implemented')
 
     def direction(self) -> DataDirectionProduct:
         if (
             self._dp_spec.data_point is None
             or self._dp_spec.data_point.data_direction is None
         ):
-            raise Exception("missing data direction")
+            raise Exception('missing data direction')
         return self._dp_spec.data_point.data_direction
 
 
@@ -88,7 +87,7 @@ class ContactFunctionalProfile(FunctionalProfile):
     def __init__(
         self,
         fp_spec: ContactFunctionalProfileSpec,
-        interface: "SGrContactInterface",
+        interface: 'SGrContactInterface',
     ):
         self._fp_spec = fp_spec
         self._interface = interface
@@ -113,7 +112,7 @@ class ContactFunctionalProfile(FunctionalProfile):
             and self._fp_spec.functional_profile.functional_profile_name
         ):
             return self._fp_spec.functional_profile.functional_profile_name
-        return ""
+        return ''
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
@@ -128,21 +127,19 @@ class SGrContactInterface(SGrBaseInterface):
     def __init__(
         self, frame: DeviceFrame, configuration: configparser.ConfigParser
     ):
-        super().__init__(frame, configuration)
+        self._inititalize_device(frame, configuration)
 
         if (
-            self._root_spec.interface_list
-            and self._root_spec.interface_list
-            and self._root_spec.interface_list.contact_interface
+            self.frame.interface_list
+            and self.frame.interface_list
+            and self.frame.interface_list.contact_interface
         ):
-            self._raw_interface = (
-                self._root_spec.interface_list.contact_interface
-            )
+            self._raw_interface = self.frame.interface_list.contact_interface
         else:
-            raise Exception("No contact interface")
+            raise Exception('No contact interface')
         desc = self._raw_interface.contact_interface_description
         if desc is None:
-            raise Exception("No contact interface description")
+            raise Exception('No contact interface description')
 
         # TODO configure interface
         self.number_of_contacts = desc.number_of_contacts
@@ -155,7 +152,7 @@ class SGrContactInterface(SGrBaseInterface):
         ):
             raw_fps = self._raw_interface.functional_profile_list.functional_profile_list_element
         fps = [ContactFunctionalProfile(profile, self) for profile in raw_fps]
-        self._function_profiles = {fp.name(): fp for fp in fps}
+        self.function_profiles = {fp.name(): fp for fp in fps}
 
     def is_connected(self):
         return False
@@ -167,6 +164,3 @@ class SGrContactInterface(SGrBaseInterface):
     async def connect_async(self):
         # TODO implement after "driver"
         pass
-
-    def get_function_profiles(self) -> Mapping[str, FunctionalProfile]:
-        return self._function_profiles

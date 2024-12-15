@@ -1,10 +1,12 @@
+from typing import Optional
+
 from sgr_specification.v0.product import (
     ConfigurationList,
     ConfigurationListElement,
 )
 
 
-def build_configurations_parameters(params: ConfigurationList):
+def build_configurations_parameters(params: Optional[ConfigurationList]):
     if params is None:
         return []
     return [
@@ -22,7 +24,7 @@ class ConfigurationParameter:
         self.default_value = parameter.default_value
 
     def __str__(self):
-        return f"{self.label} - {self.match}"
+        return f'{self.label} - {self.match}'
 
     def __repr__(self):
-        return f"{self.label} - {self.match}"
+        return f'{self.label} - {self.match}'

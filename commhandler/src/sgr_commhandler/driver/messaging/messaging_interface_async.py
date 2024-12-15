@@ -1,6 +1,6 @@
 import configparser
 import logging
-from collections.abc import Callable, Mapping
+from collections.abc import Callable
 from typing import Any
 
 from sgr_specification.v0.generic import DataDirectionProduct
@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 def build_messaging_data_point(
     data_point: MessagingDataPointSpec,
     function_profile: MessagingFunctionalProfileSpec,
-    interface: "SGrMessagingInterface",
+    interface: 'SGrMessagingInterface',
 ) -> DataPoint:
     protocol = MessagingDataPoint(data_point, function_profile, interface)
     data_type = None
@@ -43,23 +43,23 @@ class MessagingDataPoint(DataPointProtocol):
         self,
         dp_spec: MessagingDataPointSpec,
         fp_spec: MessagingFunctionalProfileSpec,
-        interface: "SGrMessagingInterface",
+        interface: 'SGrMessagingInterface',
     ):
         self._dp_spec = dp_spec
         self._fp_spec = fp_spec
 
         dp_config = self._dp_spec.messaging_data_point_configuration
         if not dp_config:
-            raise Exception("Messaging data point configuration missing")
+            raise Exception('Messaging data point configuration missing')
 
-        self._fp_name = ""
+        self._fp_name = ''
         if (
             fp_spec.functional_profile is not None
             and fp_spec.functional_profile.functional_profile_name is not None
         ):
             self._fp_name = fp_spec.functional_profile.functional_profile_name
 
-        self._dp_name = ""
+        self._dp_name = ''
         if (
             dp_spec.data_point is not None
             and dp_spec.data_point.data_point_name is not None
@@ -72,17 +72,17 @@ class MessagingDataPoint(DataPointProtocol):
         return self._fp_name, self._dp_name
 
     async def get_val(self, skip_cache: bool = False):
-        raise Exception("Not implemented")
+        raise Exception('Not implemented')
 
     async def set_val(self, value: Any):
-        raise Exception("Not implemented")
+        raise Exception('Not implemented')
 
     def direction(self) -> DataDirectionProduct:
         if (
             self._dp_spec.data_point is None
             or self._dp_spec.data_point.data_direction is None
         ):
-            raise Exception("missing data direction")
+            raise Exception('missing data direction')
         return self._dp_spec.data_point.data_direction
 
     def can_subscribe(self) -> bool:
@@ -90,18 +90,18 @@ class MessagingDataPoint(DataPointProtocol):
 
     def subscribe(self, fn: Callable[[Any], None]):
         # TODO implement
-        pass
+        raise Exception('not implemented yet')
 
     def unsubscribe(self):
         # TODO implement
-        pass
+        raise Exception('not implemented yet')
 
 
 class MessagingFunctionalProfile(FunctionalProfile):
     def __init__(
         self,
         fp_spec: MessagingFunctionalProfileSpec,
-        interface: "SGrMessagingInterface",
+        interface: 'SGrMessagingInterface',
     ):
         self._fp_spec = fp_spec
         self._interface = interface
@@ -126,7 +126,7 @@ class MessagingFunctionalProfile(FunctionalProfile):
             and self._fp_spec.functional_profile.functional_profile_name
         ):
             return self._fp_spec.functional_profile.functional_profile_name
-        return ""
+        return ''
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
@@ -140,21 +140,21 @@ class SGrMessagingInterface(SGrBaseInterface):
     def __init__(
         self, frame: DeviceFrame, configuration: configparser.ConfigParser
     ):
-        super().__init__(frame, configuration)
+        self._inititalize_device(frame, configuration)
 
         if (
-            self._root_spec.interface_list
-            and self._root_spec.interface_list
-            and self._root_spec.interface_list.messaging_interface
+            self.frame.interface_list
+            and self.frame.interface_list
+            and self.frame.interface_list.messaging_interface
         ):
             self._raw_interface = (
-                self._root_spec.interface_list.messaging_interface
+                self.frame.interface_list.messaging_interface
             )
         else:
-            raise Exception("No messaging interface")
+            raise Exception('No messaging interface')
         desc = self._raw_interface.messaging_interface_description
         if desc is None:
-            raise Exception("No messaging interface description")
+            raise Exception('No messaging interface description')
 
         # TODO configure interface
 
@@ -165,7 +165,7 @@ class SGrMessagingInterface(SGrBaseInterface):
         ):
             raw_fps = self._raw_interface.functional_profile_list.functional_profile_list_element
         fps = [MessagingFunctionalProfile(profile, self) for profile in raw_fps]
-        self._function_profiles = {fp.name(): fp for fp in fps}
+        self.function_profiles = {fp.name(): fp for fp in fps}
 
     def is_connected(self):
         return False
@@ -177,6 +177,3 @@ class SGrMessagingInterface(SGrBaseInterface):
     async def connect_async(self):
         # TODO implement
         pass
-
-    def get_function_profiles(self) -> Mapping[str, FunctionalProfile]:
-        return self._function_profiles

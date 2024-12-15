@@ -1,6 +1,6 @@
 import logging
 import threading
-from abc import ABC, abstractmethod
+from abc import ABC
 from typing import Any, Optional
 
 from pymodbus.client import AsyncModbusSerialClient, AsyncModbusTcpClient
@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 class SGrModbusClient(ABC):
     def __init__(self, endianness: BitOrder):
         self._lock = threading.Lock()
-        self._client: ModbusBaseClient = None
+        self._client: Optional[ModbusBaseClient] = None
         self._byte_order: Endian = (
             Endian.BIG
             if endianness is None or endianness == BitOrder.BIG_ENDIAN
@@ -32,17 +32,11 @@ class SGrModbusClient(ABC):
             else Endian.BIG
         )
 
-    @abstractmethod
-    async def connect(self):
-        pass
+    async def connect(self): ...
 
-    @abstractmethod
-    async def disconnect(self):
-        pass
+    async def disconnect(self): ...
 
-    @abstractmethod
-    def is_connected(self):
-        pass
+    def is_connected(self) -> bool: ...
 
     async def write_holding_registers(
         self, slave_id: int, address: int, data_type: ModbusDataType, value: Any
@@ -54,10 +48,12 @@ class SGrModbusClient(ABC):
         :param data_type: The modbus type to encode
         :param value: The value to be written
         """
+        if self._client is None:
+            raise Exception('Client not initialized')
         builder = PayloadBuilder(
             byteorder=self._byte_order, wordorder=self._word_order
         )
-        builder.encode(value, data_type)
+        builder.sgr_encode(value, data_type)
         with self._lock:
             await self._client.write_registers(
                 address=address, values=builder.to_registers(), unit=slave_id
@@ -73,10 +69,12 @@ class SGrModbusClient(ABC):
         :param data_type: The modbus type to encode
         :param value: The value to be written
         """
+        if self._client is None:
+            raise Exception('Client not initialized')
         builder = PayloadBuilder(
             byteorder=self._byte_order, wordorder=self._word_order
         )
-        builder.encode(value, data_type)
+        builder.sgr_encode(value, data_type)
         with self._lock:
             await self._client.write_coils(
                 address=address, values=builder.to_coils(), unit=slave_id
@@ -93,6 +91,8 @@ class SGrModbusClient(ABC):
         :param data_type: The modbus type to decode
         :returns: Decoded value
         """
+        if self._client is None:
+            raise Exception('Client not initialized')
         with self._lock:
             response = await self._client.read_input_registers(
                 address, count=size, slave=slave_id
@@ -116,6 +116,8 @@ class SGrModbusClient(ABC):
         :param data_type: The modbus type to decode
         :returns: Decoded value
         """
+        if self._client is None:
+            raise Exception('Client not initialized')
         with self._lock:
             response = await self._client.read_holding_registers(
                 address, count=size, slave=slave_id
@@ -139,6 +141,8 @@ class SGrModbusClient(ABC):
         :param data_type: The modbus type to decode
         :returns: Decoded value
         """
+        if self._client is None:
+            raise Exception('Client not initialized')
         with self._lock:
             response = await self._client.read_coils(
                 address, count=size, slave=slave_id
@@ -147,7 +151,7 @@ class SGrModbusClient(ABC):
             decoder = PayloadDecoder.fromCoils(
                 response.bits,
                 byteorder=self._byte_order,
-                wordorder=self._word_order,
+                _wordorder=self._word_order,
             )
             return decoder.decode(data_type, 0)
 
@@ -162,7 +166,7 @@ class SGrModbusClient(ABC):
         :param data_type: The modbus type to decode
         :returns: Decoded value
         """
-        raise Exception("Discrete inputs not supported yet")
+        raise Exception('Discrete inputs not supported yet')
 
     # TODO Implement block transfers and remove this method
     async def _mult_value_decoder(
@@ -180,7 +184,9 @@ class SGrModbusClient(ABC):
         :param data_type: The modbus type to decode
         :returns: Decoded float
         """
-        if register_type == "HoldRegister":
+        if self._client is None:
+            raise Exception('Client not initialized')
+        if register_type == 'HoldRegister':
             reg = self._client.read_holding_registers(
                 addr, size, slave=slave_id
             )
@@ -188,6 +194,7 @@ class SGrModbusClient(ABC):
             reg = self._client.read_input_registers(
                 addr, count=size, slave=slave_id
             )
+        reg = await reg
         decoder = PayloadDecoder.fromRegisters(
             reg.registers,
             byteorder=self._byte_order,
@@ -223,17 +230,22 @@ class SGrModbusTCPClient(SGrModbusClient):
         )
 
     async def connect(self):
+        if self._client is None:
+            raise Exception('Client not initialized')
+
         with self._lock:
             await self._client.connect()
-            logger.debug("Connected to ModbusTCP on ip: " + self._ip)
+            logger.debug('Connected to ModbusTCP on ip: ' + self._ip)
 
     async def disconnect(self):
+        if self._client is None:
+            return
         with self._lock:
-            await self._client.close()
-            logger.debug("Disconnected from ModbusTCP on ip: " + self._ip)
+            self._client.close()
+            logger.debug('Disconnected from ModbusTCP on ip: ' + self._ip)
 
-    def is_connected(self):
-        return self._client.connected
+    def is_connected(self) -> bool:
+        return self._client is not None and self._client.connected
 
 
 class SGrModbusRTUClient(SGrModbusClient):
@@ -249,27 +261,30 @@ class SGrModbusRTUClient(SGrModbusClient):
         """
         self._serial_port = serial_port
         self._client = AsyncModbusSerialClient(
-            method="rtu",
+            method='rtu',
             port=serial_port,
             parity=parity,
             baudrate=baudrate,
         )  # changed source: https://stackoverflow.com/questions/58773476/why-do-i-get-pymodbus-modbusioexception-on-20-of-attempts
 
     async def connect(self):
+        if self._client is None:
+            raise Exception('Client not initialized')
         with self._lock:
-            is_connected = await self._client.connect()
+            _is_connected = await self._client.connect()
             logger.debug(
-                "Connected to ModbusRTU on serial port: " + self._serial_port
+                'Connected to ModbusRTU on serial port: ' + self._serial_port
             )
-            return is_connected
 
     async def disconnect(self):
+        if self._client is None:
+            raise Exception('Client not initialized')
         with self._lock:
-            await self._client.close(reconnect=False)
+            self._client.close(reconnect=False)
             logger.debug(
-                "Disconnected from ModbusRTU on serial port: "
+                'Disconnected from ModbusRTU on serial port: '
                 + self._serial_port
             )
 
-    def is_connected(self):
-        return self._client.connected
+    def is_connected(self) -> bool:
+        return self._client is not None and self._client.connected
