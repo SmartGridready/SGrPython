@@ -404,9 +404,7 @@ class SGrModbusInterface(SGrBaseInterface):
         await self._client_wrapper.connect(self._device_id)
 
     async def disconnect_async(self):
-        await (
-            self._client_wrapper.disconnect()
-        )  # TODO here is something wrong with this client wrapper
+        await self._client_wrapper.disconnect(self._device_id)
 
     async def read_data(
         self,

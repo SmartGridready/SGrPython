@@ -113,20 +113,3 @@ def unregister_shared_client(serial_port: str, device_id: str) -> None:
             logger.debug(
                 f'device {device_id} unregistered from shared Modbus client {client_wrapper.identifier}'
             )
-
-
-def clean_up_shared_clients() -> None:
-    global _global_shared_lock
-    global _global_shared_rtu_clients
-    with _global_shared_lock:
-        for modbus_client_wrapper in _global_shared_rtu_clients:
-            try:
-                asyncio.get_event_loop().run_until_complete(
-                    modbus_client_wrapper.disconnect()  # TODO here is something wrong
-                )
-            except Exception:
-                logger.warning(
-                    f'could not disconnect shared client {modbus_client_wrapper.identifier}'
-                )
-            finally:
-                _global_shared_rtu_clients.pop(modbus_client_wrapper.identifier)
