@@ -22,7 +22,7 @@ async def test_device_builder_modbus_tcp_dict():
     )
     assert test_device is not None
 
-    device_info = test_device.device_information()
+    device_info = test_device.device_information
     assert device_info is not None
     assert device_info.manufacturer == "ABB"
     assert device_info.name == "betaABBMeterTcpV0.3.0"
@@ -45,7 +45,7 @@ async def test_device_builder_modbus_tcp_ini():
     )
     assert test_device is not None
 
-    device_info = test_device.device_information()
+    device_info = test_device.device_information
     assert device_info is not None
     assert device_info.manufacturer == "ABB"
     assert device_info.name == "betaABBMeterTcpV0.3.0"
@@ -63,7 +63,7 @@ async def test_device_builder_rest_dict():
     )
     assert test_device is not None
 
-    device_info = test_device.device_information()
+    device_info = test_device.device_information
     assert device_info is not None
     assert device_info.manufacturer == "Shelly"
     assert device_info.name == "Shelly 1PM Local"
@@ -86,7 +86,7 @@ async def test_device_builder_rest_ini():
     )
     assert test_device is not None
 
-    device_info = test_device.device_information()
+    device_info = test_device.device_information
     assert device_info is not None
     assert device_info.manufacturer == "Shelly"
     assert device_info.name == "Shelly 1PM Local"
@@ -107,7 +107,7 @@ async def test_device_builder_messaging_dict():
     )
     assert test_device is not None
 
-    device_info = test_device.device_information()
+    device_info = test_device.device_information
     assert device_info is not None
     assert device_info.manufacturer == "HiveMQ"
     assert device_info.name == "HiveMQ Test Cloud"
@@ -128,7 +128,7 @@ async def test_device_builder_messaging_ini():
     )
     assert test_device is not None
 
-    device_info = test_device.device_information()
+    device_info = test_device.device_information
     assert device_info is not None
     assert device_info.manufacturer == "HiveMQ"
     assert device_info.name == "HiveMQ Test Cloud"
@@ -141,7 +141,7 @@ async def test_device_builder_contact_noprops():
     test_device = DeviceBuilder().eid_path(eid_path).build()
     assert test_device is not None
 
-    device_info = test_device.device_information()
+    device_info = test_device.device_information
     assert device_info is not None
     assert device_info.manufacturer == "Test"
     # TODO is this an UTF-8 problem?
@@ -155,7 +155,7 @@ async def test_device_builder_generic_noprops():
     test_device = DeviceBuilder().eid_path(eid_path).build()
     assert test_device is not None
 
-    device_info = test_device.device_information()
+    device_info = test_device.device_information
     assert device_info is not None
     assert device_info.manufacturer == "Test"
     assert device_info.name == "Test Device Generic"

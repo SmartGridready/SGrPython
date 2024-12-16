@@ -50,13 +50,13 @@ Create and activate virtual environment:
 
 ```bash
 cd SGrPython
-python -m venv venv
+python -m venv .venv
 
 # On Linux call this:
-source ./venv/bin/activate
+source ./.venv/bin/activate
 
 # On Windows call this:
-.\venv\Scripts\Activate.ps1
+.\.venv\Scripts\Activate.ps1
 ```
 
 Build package and install in virtual environment:
