@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<DeviceFrame xmlns="http://www.smartgridready.com/ns/V0/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/Product/Product.xsd">
+  <deviceName>Test SGCP Contacts</deviceName>
+  <manufacturerName>Test</manufacturerName>
+	<specificationOwnerIdentification>0</specificationOwnerIdentification>
+	<releaseNotes>
+		<state>Draft</state>
+		<changeLog>
+			<version>0.1.0</version>
+			<date>2024-11-11</date>
+			<author>Matthias Krebs, FHNW</author>
+			<comment>Draft for Development</comment>
+		</changeLog>
+	</releaseNotes>
+  <deviceInformation>
+    <legibleDescription>
+      <textElement>Test für Contacts</textElement>
+      <language>de</language>
+    </legibleDescription>
+    <deviceCategory>SGCP</deviceCategory>
+    <isLocalControl>true</isLocalControl>
+    <softwareRevision>0.0.0</softwareRevision>
+    <hardwareRevision>0.0.0</hardwareRevision>
+		<manufacturerSpecificationIdentification>Test</manufacturerSpecificationIdentification>
+    <levelOfOperation>2</levelOfOperation>
+    <versionNumber>
+      <primaryVersionNumber>0</primaryVersionNumber>
+      <secondaryVersionNumber>1</secondaryVersionNumber>
+      <subReleaseVersionNumber>0</subReleaseVersionNumber>
+    </versionNumber>
+  </deviceInformation>
+  <interfaceList>
+    <contactInterface>
+      <contactInterfaceDescription>
+        <numberOfContacts>4</numberOfContacts>
+        <contactStabilisationTimeMs>1000</contactStabilisationTimeMs>
+      </contactInterfaceDescription>
+      <functionalProfileList>
+        <functionalProfileListElement>
+          <functionalProfile>
+            <functionalProfileName>SGCPFlexLoad</functionalProfileName>
+            <functionalProfileIdentification>
+              <specificationOwnerIdentification>0</specificationOwnerIdentification>
+              <functionalProfileCategory>SGCP</functionalProfileCategory>
+              <functionalProfileType>BiDirFlexLoadMgmt</functionalProfileType>
+              <levelOfOperation>2</levelOfOperation>
+              <versionNumber>
+                <primaryVersionNumber>0</primaryVersionNumber>
+                <secondaryVersionNumber>1</secondaryVersionNumber>
+                <subReleaseVersionNumber>0</subReleaseVersionNumber>
+              </versionNumber>
+            </functionalProfileIdentification>
+            <legibleDescription>
+              <textElement>SGCP Bidirektional mit 2x2 Contacts</textElement>
+              <language>de</language>
+            </legibleDescription>
+          </functionalProfile>
+          <dataPointList>
+            <dataPointListElement>
+              <dataPoint>
+                <dataPointName>SGCP_FeedInOutStateLv2</dataPointName>
+                <dataDirection>RW</dataDirection>
+                <dataType>
+                  <enum>
+                    <enumEntry>
+                      <literal>LD_NORMAL</literal>
+                      <ordinal>0</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>LD_REDUCED</literal>
+                      <ordinal>1</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>LD_LOCKED</literal>
+                      <ordinal>2</ordinal>
+                    </enumEntry>
+                    <enumEntry>
+                      <literal>LD_MAX</literal>
+                      <ordinal>3</ordinal>
+                    </enumEntry>
+                  </enum>
+                </dataType>
+                <unit>NONE</unit>
+              </dataPoint>
+            </dataPointListElement>
+          </dataPointList>
+        </functionalProfileListElement>
+      </functionalProfileList>
+    </contactInterface>
+  </interfaceList>
+</DeviceFrame>  

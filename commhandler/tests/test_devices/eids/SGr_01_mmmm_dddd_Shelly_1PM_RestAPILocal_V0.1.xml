@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<DeviceFrame xmlns="http://www.smartgridready.com/ns/V0/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/Product/Product.xsd">
+	<deviceName>Shelly 1PM Local</deviceName>
+	<manufacturerName>Shelly</manufacturerName>
+	<specificationOwnerIdentification>0</specificationOwnerIdentification>
+	<releaseNotes>
+		<state>Draft</state>
+		<changeLog>
+			<version>0.1.0</version>
+			<date>2024-06-18</date>
+			<author>Matthias Krebs, FHNW</author>
+			<comment>Draft for Testlab</comment>
+		</changeLog>
+	</releaseNotes>
+	<deviceInformation>
+		<legibleDescription>
+			<textElement>
+				<![CDATA[ 
+          Der Shelly 1PM ist ein 1-phasiges Leistungsmessgerät mit schaltbarem Relais.
+          Die vorliegende EID ist auf die Ansteuerung via lokalem REST API ausgelegt.
+        ]]>
+			</textElement>
+			<language>de</language>
+			<uri>https://www.shelly.com/de-ch/products/product-overview/shelly-plus-1-pm</uri>
+		</legibleDescription>
+		<deviceCategory>SubMeterElectricity</deviceCategory>
+		<isLocalControl>true</isLocalControl>
+		<softwareRevision>1.0.0</softwareRevision>
+		<hardwareRevision>1.0.0</hardwareRevision>
+		<manufacturerSpecificationIdentification>Shelly</manufacturerSpecificationIdentification>
+		<levelOfOperation>1m</levelOfOperation>
+		<versionNumber>
+			<primaryVersionNumber>0</primaryVersionNumber>
+			<secondaryVersionNumber>1</secondaryVersionNumber>
+			<subReleaseVersionNumber>0</subReleaseVersionNumber>
+		</versionNumber>
+	</deviceInformation>
+	<configurationList>
+		<configurationListElement>
+			<name>baseUri</name>
+			<dataType>
+				<string/>
+			</dataType>
+			<configurationDescription>
+				<textElement>Base address for accessing the resource.</textElement>
+				<language>en</language>
+				<label>Base URI</label>
+			</configurationDescription>
+			<configurationDescription>
+				<textElement>Basis-Adresse für Zugriffe auf die Ressource.</textElement>
+				<language>de</language>
+				<label>Basis URI</label>
+			</configurationDescription>
+		</configurationListElement>
+	</configurationList>
+	<interfaceList>
+		<restApiInterface>
+			<restApiInterfaceDescription>
+				<restApiInterfaceSelection>URI</restApiInterfaceSelection>
+				<restApiUri>{{baseUri}}</restApiUri>
+				<restApiAuthenticationMethod>NoSecurityScheme</restApiAuthenticationMethod>
+			</restApiInterfaceDescription>
+			<functionalProfileList>
+				<functionalProfileListElement>
+					<functionalProfile>
+						<functionalProfileName>ActivePowerAC</functionalProfileName>
+						<functionalProfileIdentification>
+							<specificationOwnerIdentification>0</specificationOwnerIdentification>
+							<functionalProfileCategory>Metering</functionalProfileCategory>
+							<functionalProfileType>ActivePowerAC</functionalProfileType>
+							<levelOfOperation>m</levelOfOperation>
+							<versionNumber>
+								<primaryVersionNumber>1</primaryVersionNumber>
+								<secondaryVersionNumber>0</secondaryVersionNumber>
+								<subReleaseVersionNumber>0</subReleaseVersionNumber>
+							</versionNumber>
+						</functionalProfileIdentification>
+						<legibleDescription>
+							<textElement>
+								<![CDATA[	
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Messung der Wirkleistung</strong><br>
+                  Monitoring Funktionsprofil für Stromerzeuger und Stromverbraucher zur Kontrolle der Systemlast und/oder für regeltechnische 
+                  Zwecke.
+                  
+                  <p>Für Regelzwecke ist die Kenntnis der Messgenauigkeit zwingend und wird daher pro Datenpunkt als obligatorisches
+                     Attribut angegeben. Somit ist es möglich unterschiedliche Messgenauigkeiten für die Datenpunkte
+                     zu definieren.</p>
+                  
+                  <p>Dieses Funktionsprofil erlaubt sowohl die Messung der Totalleistung wie auch die Leistung der drei
+                     einzelnen Phasen. Eine der folgenden Varianten muss bei der Implementierung des Funktionsprofiles
+                     umgesetzt werden:
+                  <ul>
+                    <li>Einphasige Geräte geben die Totalleistung an (ActivePowerACtot)</li>
+                    <li>3-phasige Geräte ohne Totalleistungsmessung geben die Leistung pro Phase an (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
+                    <li>3-phasige Geräte mit Einzelphasen- und Totalleistungsmessung geben alle Datenpunkte an</li>
+                  </ul>
+                  </p>
+                ]]>
+							</textElement>
+							<language>de</language>
+						</legibleDescription>
+						<legibleDescription>
+							<textElement>
+								<![CDATA[	
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Active Power Measurement</strong><br>
+                  Monitoring functional profile for power generators and consumers for reflecting the active power.
+                  
+                  <p>Knowing the precisionPercent of measurements is necessary and therefore specified as a mandatory attribute
+                     per data point. Thus, different measurement precisions can be defined for the data points.</p>
+                  
+                  <p>With this functional profile you can measure the total active power as well as the active power of
+                     the three individual phases. One of the following options must be implemented for fulfilling the functional profile:
+                  <ul>
+                    <li>Single-phase devices use the total active power data point (ActivePowerACtot)</li>
+                    <li>Three-phase devices without measurement of the total active power use the data points per phase (ActivePowerACL1, ActivePowerACL2, ActivePowerACL3)</li>
+                    <li>Three-phase devices with measurement of the total active power use all data points</li>
+                  </ul>
+                  </p>
+                ]]>
+							</textElement>
+							<language>en</language>
+						</legibleDescription>
+					</functionalProfile>
+					<dataPointList>
+						<dataPointListElement>
+							<dataPoint>
+								<dataPointName>ActivePowerACtot</dataPointName>
+								<dataDirection>R</dataDirection>
+								<dataType>
+									<float64 />
+								</dataType>
+								<unit>WATTS</unit>
+								<minimumValue>0</minimumValue>
+								<maximumValue>4000</maximumValue>
+								<legibleDescription>
+									<textElement>Erfassung der gesamten Wirkleistung</textElement>
+									<language>de</language>
+								</legibleDescription>
+								<legibleDescription>
+									<textElement>Total active power measurement</textElement>
+									<language>en</language>
+								</legibleDescription>
+							</dataPoint>
+							<restApiDataPointConfiguration>
+								<dataType>JSON_number</dataType>
+								<restApiServiceCall>
+									<requestHeader>
+										<header>
+											<headerName>Accept</headerName>
+											<value>application/json</value>
+										</header>
+									</requestHeader>
+									<requestMethod>GET</requestMethod>
+									<requestPath>/status</requestPath>
+									<responseQuery>
+										<queryType>JMESPathExpression</queryType>
+										<query>meters[0].power</query>
+									</responseQuery>
+								</restApiServiceCall>
+							</restApiDataPointConfiguration>
+						</dataPointListElement>
+					</dataPointList>
+				</functionalProfileListElement>
+				<functionalProfileListElement>
+					<functionalProfile>
+						<functionalProfileName>ActiveEnergyAC</functionalProfileName>
+						<functionalProfileIdentification>
+							<specificationOwnerIdentification>0</specificationOwnerIdentification>
+							<functionalProfileCategory>Metering</functionalProfileCategory>
+							<functionalProfileType>ActiveEnergyAC</functionalProfileType>
+							<levelOfOperation>m</levelOfOperation>
+							<versionNumber>
+								<primaryVersionNumber>1</primaryVersionNumber>
+								<secondaryVersionNumber>0</secondaryVersionNumber>
+								<subReleaseVersionNumber>0</subReleaseVersionNumber>
+							</versionNumber>
+						</functionalProfileIdentification>
+						<legibleDescription>
+							<textElement>
+								<![CDATA[	
+                              <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                              <strong>Messung der Wirkenergie</strong><br>
+                              Monitoring Funktionsprofil für Stromerzeuger und Stromverbraucher zur Bilanzierung der Energiemenge.
+                  
+                              <p>Die Datenaufnahme erfolgt typischerweise durch einen Energiemanager (oder eine Abrechnungssoftware).</p>
+                  
+                              <p>Für Regelzwecke ist die Kenntnis der Messgenauigkeit zwingend und wird daher pro Datenpunkt als obligatorisches
+                                 Attribut angegeben. Somit ist es möglich unterschiedliche Messgenauigkeiten für die Datenpunkte
+                                 zu definieren.</p>
+                  
+                              <p>Dieses Funktionsprofil erlaubt sowohl die Messung der Gesamtenergie wie auch die Messung der Energie
+                                 der drei einzelnen Phasen. Eine der folgenden Varianten muss bei der Implementierung des Funktionsprofiles
+                                 umgesetzt werden:
+                              <ul>
+                                <li>1-phasige Geräte geben die Gesamtenergie an (ActiveEnergyACtot)</li>
+                                <li>3-phasige Geräte ohne Gesamtenergiemessung geben die Energiemenge pro Phase an (ActiveEnergyACL1, ActiveEnergyACL2, ActiveEnergyACL3)</li>
+                                <li>3-phasige Geräte mit Einzelphasen- und Gesamtenergiemessung geben alle Datenpunkte an</li>
+                              </ul>
+                              </p>
+                            ]]>
+							</textElement>
+							<language>de</language>
+						</legibleDescription>
+						<legibleDescription>
+							<textElement>
+								<![CDATA[	
+                  <img src="ressources/fp_product_to_cem.svg" style="float:left; padding:0.3em;"/>
+                  <strong>Energy measurement</strong><br>
+                  Monitoring functional profile for power generators and consumers for reflecting the energy balance.
+                  
+                  <p>Data is typically recorded by an energy manager (or a billing software).</p>
+                  
+                  <p>Knowing the precisionPercent of measurements is necessary and therefore specified as a mandatory attribute per data point.
+                     Thus, different measurement precisions can be defined for the data points. </p>
+                  
+                  <p>With this functional profile you can measure the total energy as well as the energy of the three
+                     individual phases. One of the following options must be implemented for fulfilling the functional profile:
+                  <ul>
+                    <li>Single-phase devices use the total energy data point (ActiveEnergyACtot)</li>
+                    <li>Three-phase devices without measurement of the total energy use the data points per (ActiveEnergyACL1, ActiveEnergyACL2, ActiveEnergyACL3)</li>
+                    <li>Three-phase devices with measurement of the total energy all data points</li>
+                  </ul>
+                  </p>
+                ]]>
+							</textElement>
+							<language>en</language>
+						</legibleDescription>
+					</functionalProfile>
+					<dataPointList>
+						<dataPointListElement>
+							<dataPoint>
+								<dataPointName>ActiveEnergyACtot</dataPointName>
+								<dataDirection>R</dataDirection>
+								<dataType>
+									<float64/>
+								</dataType>
+								<unit>WATT_HOURS</unit>
+								<unitConversionMultiplicator>0.01666666666667</unitConversionMultiplicator>
+								<legibleDescription>
+									<textElement>Erfassung der gesamten Wirkenergie</textElement>
+									<language>de</language>
+								</legibleDescription>
+								<legibleDescription>
+									<textElement>Total energy measurement</textElement>
+									<language>en</language>
+								</legibleDescription>
+							</dataPoint>
+							<restApiDataPointConfiguration>
+								<dataType>JSON_number</dataType>
+								<restApiServiceCall>
+									<requestHeader>
+										<header>
+											<headerName>Accept</headerName>
+											<value>application/json</value>
+										</header>
+									</requestHeader>
+									<requestMethod>GET</requestMethod>
+									<requestPath>/status</requestPath>
+									<responseQuery>
+										<queryType>JMESPathExpression</queryType>
+										<query>meters[0].total</query>
+									</responseQuery>
+								</restApiServiceCall>
+							</restApiDataPointConfiguration>
+						</dataPointListElement>
+					</dataPointList>
+				</functionalProfileListElement>
+				<functionalProfileListElement>
+					<functionalProfile>
+						<functionalProfileName>Relais</functionalProfileName>
+						<functionalProfileIdentification>
+							<specificationOwnerIdentification>0</specificationOwnerIdentification>
+							<functionalProfileCategory>Actuator</functionalProfileCategory>
+							<functionalProfileType>Relais</functionalProfileType>
+							<levelOfOperation>1m</levelOfOperation>
+							<versionNumber>
+								<primaryVersionNumber>0</primaryVersionNumber>
+								<secondaryVersionNumber>1</secondaryVersionNumber>
+								<subReleaseVersionNumber>0</subReleaseVersionNumber>
+							</versionNumber>
+						</functionalProfileIdentification>
+						<legibleDescription>
+							<textElement>Relais ein- oder ausschalten.</textElement>
+							<language>de</language>
+						</legibleDescription>
+						<legibleDescription>
+							<textElement>Switch relay on or off.</textElement>
+							<language>en</language>
+						</legibleDescription>
+					</functionalProfile>
+					<dataPointList>
+						<dataPointListElement>
+							<dataPoint>
+								<dataPointName>Relais</dataPointName>
+								<dataDirection>RW</dataDirection>
+								<dataType>
+									<boolean/>
+								</dataType>
+								<unit>NONE</unit>
+								<legibleDescription>
+									<textElement>Relais-Status</textElement>
+									<language>de</language>
+								</legibleDescription>
+								<legibleDescription>
+									<textElement>Relay state</textElement>
+									<language>en</language>
+								</legibleDescription>
+							</dataPoint>
+							<restApiDataPointConfiguration>
+								<dataType>JSON_boolean</dataType>
+								<restApiReadServiceCall>
+									<requestHeader>
+										<header>
+											<headerName>Accept</headerName>
+											<value>application/json</value>
+										</header>
+									</requestHeader>
+									<requestMethod>GET</requestMethod>
+									<requestPath>/relay/0</requestPath>
+									<responseQuery>
+										<queryType>JMESPathExpression</queryType>
+										<query>ison</query>
+									</responseQuery>
+								</restApiReadServiceCall>
+								<restApiWriteServiceCall>
+									<requestHeader>
+										<header>
+											<headerName>Accept</headerName>
+											<value>application/json</value>
+										</header>
+									</requestHeader>
+									<requestMethod>GET</requestMethod>
+									<requestPath>/relay/0</requestPath>
+									<requestQuery>
+										<parameter>
+											<name>turn</name>
+											<value>{{value}}</value>
+										</parameter>
+									</requestQuery>
+									<responseQuery>
+										<queryType>JMESPathExpression</queryType>
+										<query>ison</query>
+									</responseQuery>
+									<valueMapping>
+										<mapping>
+											<genericValue>false</genericValue>
+											<deviceValue>off</deviceValue>
+										</mapping>
+										<mapping>
+											<genericValue>true</genericValue>
+											<deviceValue>on</deviceValue>
+										</mapping>
+									</valueMapping>
+								</restApiWriteServiceCall>
+							</restApiDataPointConfiguration>
+						</dataPointListElement>
+					</dataPointList>
+				</functionalProfileListElement>
+			</functionalProfileList>
+		</restApiInterface>
+	</interfaceList>
+</DeviceFrame>

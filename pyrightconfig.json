@@ -1,0 +1,19 @@
+{
+  "include": [
+    "src",
+    "tests",
+    "commhandler"
+  ], // Folders to include in type checking
+  "exclude": [
+    "build",
+    "dist",
+    ".venv",
+    "commhandler/examples",
+    "commhandler/examples"
+    // "specification"
+  ], // Folders to exclude
+  "venvPath": "./", // Path to your virtual environment
+  "venv": ".venv", // Name of your virtual environment
+  "reportMissingImports": true, // Warn about missing imports
+  "reportOptionalSubscript": false, // Customize other warnings
+}

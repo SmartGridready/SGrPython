@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
+<DeviceFrame xmlns="http://www.smartgridready.com/ns/V0/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/Product/Product.xsd">
+	<deviceName>Test Device Generic</deviceName>
+	<manufacturerName>Test</manufacturerName>
+	<specificationOwnerIdentification>0</specificationOwnerIdentification>
+	<releaseNotes>
+		<state>Draft</state>
+		<changeLog>
+			<version>0.1.0</version>
+			<date>2024-11-11</date>
+			<author>Matthias Krebs, FHNW</author>
+			<comment>Draft for Development</comment>
+		</changeLog>
+	</releaseNotes>
+	<deviceInformation>
+		<legibleDescription>
+			<textElement>
+				<![CDATA[ 
+          Diese EID ist zum Testen des Generic-Interface gedacht.
+        ]]>
+			</textElement>
+			<language>de</language>
+			<uri>https://www.smartgridready.ch/</uri>
+		</legibleDescription>
+		<deviceCategory>Generic</deviceCategory>
+		<isLocalControl>true</isLocalControl>
+		<softwareRevision>1.0.0</softwareRevision>
+		<hardwareRevision>1.0.0</hardwareRevision>
+		<manufacturerSpecificationIdentification>Test</manufacturerSpecificationIdentification>
+		<levelOfOperation>m</levelOfOperation>
+		<versionNumber>
+			<primaryVersionNumber>0</primaryVersionNumber>
+			<secondaryVersionNumber>1</secondaryVersionNumber>
+			<subReleaseVersionNumber>0</subReleaseVersionNumber>
+		</versionNumber>
+	</deviceInformation>
+	<interfaceList>
+		<genericInterface>
+			<functionalProfileList>
+				<functionalProfileListElement>
+					<functionalProfile>
+						<functionalProfileName>Test</functionalProfileName>
+						<functionalProfileIdentification>
+							<specificationOwnerIdentification>0</specificationOwnerIdentification>
+							<functionalProfileCategory>DeviceInformation</functionalProfileCategory>
+							<functionalProfileType>Generic</functionalProfileType>
+							<levelOfOperation>m</levelOfOperation>
+							<versionNumber>
+								<primaryVersionNumber>0</primaryVersionNumber>
+								<secondaryVersionNumber>1</secondaryVersionNumber>
+								<subReleaseVersionNumber>0</subReleaseVersionNumber>
+							</versionNumber>
+						</functionalProfileIdentification>
+						<legibleDescription>
+							<textElement>Konstante.</textElement>
+							<language>de</language>
+						</legibleDescription>
+						<legibleDescription>
+							<textElement>Constant.</textElement>
+							<language>en</language>
+						</legibleDescription>
+					</functionalProfile>
+					<dataPointList>
+						<dataPointListElement>
+							<dataPoint>
+								<dataPointName>TestConst</dataPointName>
+								<dataDirection>C</dataDirection>
+								<dataType>
+									<int32/>
+								</dataType>
+								<value>1337</value>
+								<unit>NONE</unit>
+								<legibleDescription>
+									<textElement>Konstante</textElement>
+									<language>de</language>
+								</legibleDescription>
+								<legibleDescription>
+									<textElement>Constant</textElement>
+									<language>en</language>
+								</legibleDescription>
+							</dataPoint>
+						</dataPointListElement>
+					</dataPointList>
+				</functionalProfileListElement>
+			</functionalProfileList>
+		</genericInterface>
+	</interfaceList>
+</DeviceFrame>
