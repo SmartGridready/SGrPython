@@ -1,6 +1,9 @@
 name: Release Python SGrCommhandler
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
     inputs:
       tag:
