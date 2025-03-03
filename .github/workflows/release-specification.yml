@@ -90,9 +90,10 @@ jobs:
         run: python setup.py sdist bdist_wheel
 
       - name: Publish Specification Package to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.4.2
+        uses: pypa/gh-action-pypi-publish@v1.12.4
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
+          packages-dir: SGrPython/specification/dist/
 
       - name: Bump Patch Version
         if: ${{ false }}
