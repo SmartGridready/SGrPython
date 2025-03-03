@@ -27,12 +27,16 @@ jobs:
             echo "Original tag: ${{ github.event.client_payload.tag }}"
             TAG="${{ github.event.client_payload.tag }}"
           fi
-          SEMVER="${TAG:1}"  # This removes the first character, assuming it's 'v'
+          if [[ "${TAG}" =~ ^"v" ]]; then
+            SEMVER="${TAG:1}"  # This removes the first character, assuming it's 'v'
+          else
+            SEMVER="${TAG}"
+          fi
           echo "Semver: $SEMVER"
           echo "Tag: $TAG"
           echo "::set-output name=original_tag::$TAG"
           echo "::set-output name=semver::$SEMVER"
-#
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -70,7 +74,7 @@ jobs:
       - name: Modify Specification Setup File
         working-directory: SGrPython/specification
         run: |
-          sed -Ei "s/version='[^\']+',/version='${{ steps.set_tag.outputs.semver }}',/" setup.py
+          sed -Ei "s/version=\"[^\\"]+\",/version=\"${{ steps.set_tag.outputs.semver }}\",/" setup.py
           cat setup.py
           echo ${{ steps.set_tag.outputs.original_tag }}
 
