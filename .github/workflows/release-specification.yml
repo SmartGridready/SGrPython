@@ -84,14 +84,16 @@ jobs:
           password: ${{ secrets.PYPI_API_TOKEN }}
 
       - name: Bump Patch Version
+        if: ${{ false }}
         id: version_bump
-        working-directory: SGrPython
+        working-directory: SGrPython/commhandler
         run: |
           sed -i "s/SGrSpecificationPythontks4r==.*/SGrSpecificationPythontks4r==${{ steps.set_tag.outputs.semver }}/g" requirements.txt
           echo "Updated version to ${{ steps.set_tag.outputs.semver }} in requirements.txt"
           cat requirements.txt
 
       - name: Create a new Branch
+        if: ${{ false }}
         working-directory: SGrPython
         run: |
           git checkout -b version-update-${{ steps.set_tag.outputs.semver }}
@@ -102,6 +104,7 @@ jobs:
           git push --set-upstream origin version-update-${{ steps.set_tag.outputs.semver }}
 
       - name: Create Pull Request
+        if: ${{ false }}
         uses: actions/github-script@v6
         with:
           script: |
