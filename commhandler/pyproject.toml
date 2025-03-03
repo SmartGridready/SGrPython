@@ -20,7 +20,7 @@ dependencies = [
     "aiohttp>=3.0.0,<4.0.0",
     "certifi",
     "cachetools>=5.0.0,<6.0.0",
-    "SGrSpecificationPythontks4r==0.3.0",
+    "SGrSpecificationPythontks4r~=2.0",
 ]
 [tool.pyright]
 exclude = ["**/node_modules", "**/__pycache__", "example"]
