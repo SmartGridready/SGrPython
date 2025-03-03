@@ -8,6 +8,9 @@ on:
       tag:
         description: 'Tag to checkout and build'
         required: true
+      semver:
+        description: 'Package version to deploy'
+        required: false
 
 jobs:
   build-and-deploy:
@@ -27,10 +30,14 @@ jobs:
             echo "Original tag: ${{ github.event.client_payload.tag }}"
             TAG="${{ github.event.client_payload.tag }}"
           fi
-          if [[ "${TAG}" =~ ^"v" ]]; then
-            SEMVER="${TAG:1}"  # This removes the first character, assuming it's 'v'
+          if [ -z "${{ github.event.inputs.semver }}" ]; then
+            if [[ "${TAG}" =~ ^"v" ]]; then
+              SEMVER="${TAG:1}"  # This removes the first character, assuming it's 'v'
+            else
+              SEMVER="${TAG}"
+            fi
           else
-            SEMVER="${TAG}"
+            SEMVER="${{ github.event.inputs.semver }}"
           fi
           echo "Semver: $SEMVER"
           echo "Tag: $TAG"
@@ -74,7 +81,7 @@ jobs:
       - name: Modify Specification Setup File
         working-directory: SGrPython/specification
         run: |
-          sed -Ei "s/version=\"[^\\"]+\",/version=\"${{ steps.set_tag.outputs.semver }}\",/" setup.py
+          sed -Ei "s/version=\"[^\"]+\",/version=\"${{ steps.set_tag.outputs.semver }}\",/" setup.py
           cat setup.py
           echo ${{ steps.set_tag.outputs.original_tag }}
 
