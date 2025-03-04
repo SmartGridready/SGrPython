@@ -78,7 +78,6 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Commhandler Tests
-        if: ${{ false }}
         working-directory: commhandler
         run: pytest
 
