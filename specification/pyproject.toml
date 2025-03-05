@@ -13,4 +13,9 @@ authors = [{ name = "Robin Schoch" }]
 urls = { "Homepage" = "https://github.com/SmartGridready/SGrSpecifications" }
 dependencies = []
 
-[tool.ruff]
+[tool.setuptools]
+include-package-data = true
+
+# include XSD from package directory and 1 sub-directory
+[tool.setuptools.package-data]
+sgr_schema = ["*.xsd", "*/*.xsd"]

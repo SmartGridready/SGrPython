@@ -75,6 +75,10 @@ jobs:
         working-directory: SGrPython/specification/src
         run: xsdata generate ../../../SGrSpecifications/SchemaDatabase/SGr -r --package sgr_specification.v0
 
+      - name: Copy specification schema files
+        working-directory: SGrPython/specification/src/sgr_schema
+        run: cp -fR ../../../../SGrSpecifications/SchemaDatabase/SGr/* .
+
       - name: Check SGrPython Directory
         run: ls SGrPython
 
