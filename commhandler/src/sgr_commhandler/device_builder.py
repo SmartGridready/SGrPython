@@ -1,6 +1,9 @@
 import typing
 import configparser
 import re
+import xmlschema
+import importlib.resources
+import sgr_schema
 from collections.abc import Callable
 from enum import Enum
 
@@ -170,6 +173,7 @@ class DeviceBuilder:
 
 
 def parse_device_frame(content: str) -> DeviceFrame:
+    validate_schema(content)
     parser = XmlParser(context=XmlContext())
     return parser.from_string(content, DeviceFrame)
 
@@ -188,3 +192,9 @@ def build_properties(config: typing.List[ConfigurationParameter], properties: di
         elif config_param.default_value is not None:
             final_properties[config_param.name] = config_param.default_value
     return final_properties
+
+def validate_schema(content: str):
+    xsd_path = importlib.resources.files(sgr_schema).joinpath('SGrIncluder.xsd')
+    xsd = xmlschema.XMLSchema(xsd_path)
+    xsd.validate(content)
+
