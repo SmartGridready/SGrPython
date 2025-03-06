@@ -25,7 +25,7 @@ async def test_device_builder_modbus_tcp_dict():
     device_info = test_device.device_information
     assert device_info is not None
     assert device_info.manufacturer == "ABB"
-    assert device_info.name == "betaABBMeterTcpV0.3.0"
+    assert device_info.name == "ABB B23 TCP"
 
 
 @pytest.mark.asyncio
@@ -48,7 +48,7 @@ async def test_device_builder_modbus_tcp_ini():
     device_info = test_device.device_information
     assert device_info is not None
     assert device_info.manufacturer == "ABB"
-    assert device_info.name == "betaABBMeterTcpV0.3.0"
+    assert device_info.name == "ABB B23 TCP"
 
 
 @pytest.mark.asyncio
