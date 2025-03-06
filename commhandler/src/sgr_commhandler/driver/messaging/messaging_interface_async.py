@@ -1,4 +1,3 @@
-import configparser
 import logging
 from collections.abc import Callable
 from typing import Any
@@ -138,9 +137,9 @@ class SGrMessagingInterface(SGrBaseInterface):
     """
 
     def __init__(
-        self, frame: DeviceFrame, configuration: configparser.ConfigParser
+        self, frame: DeviceFrame
     ):
-        self._inititalize_device(frame, configuration)
+        self._inititalize_device(frame)
 
         if (
             self.frame.interface_list

@@ -1,4 +1,3 @@
-import configparser
 from asyncio import run
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -33,7 +32,7 @@ class SGrBaseInterface(Protocol):
     function_profiles: Mapping[str, FunctionalProfile]
 
     def _inititalize_device(
-        self, frame: DeviceFrame, configuration: configparser.ConfigParser
+        self, frame: DeviceFrame
     ):
         self.frame = frame
         self.configurations_params = build_configurations_parameters(

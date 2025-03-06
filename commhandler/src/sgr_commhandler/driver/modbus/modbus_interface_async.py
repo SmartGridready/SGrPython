@@ -1,4 +1,3 @@
-import configparser
 import logging
 import random
 import string
@@ -302,10 +301,9 @@ class SGrModbusInterface(SGrBaseInterface):
     def __init__(
         self,
         frame: DeviceFrame,
-        configuration: configparser.ConfigParser,
         sharedRTU: bool = False,
     ):
-        self._inititalize_device(frame, configuration)
+        self._inititalize_device(frame)
         if (
             self.frame.interface_list is None
             or self.frame.interface_list.modbus_interface is None

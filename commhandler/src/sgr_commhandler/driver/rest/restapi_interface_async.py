@@ -1,4 +1,3 @@
-import configparser
 import json
 import logging
 import ssl
@@ -352,9 +351,9 @@ class SGrRestInterface(SGrBaseInterface):
     """
 
     def __init__(
-        self, frame: DeviceFrame, configuration: configparser.ConfigParser
+        self, frame: DeviceFrame
     ):
-        self._inititalize_device(frame, configuration)
+        self._inititalize_device(frame)
         self._session = None
         self._ssl_context = ssl.create_default_context(cafile=certifi.where())
         self._connector = aiohttp.TCPConnector(ssl=self._ssl_context)

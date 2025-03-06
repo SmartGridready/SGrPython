@@ -1,4 +1,3 @@
-import configparser
 import logging
 from typing import Any
 
@@ -125,9 +124,9 @@ class SGrContactInterface(SGrBaseInterface):
     """
 
     def __init__(
-        self, frame: DeviceFrame, configuration: configparser.ConfigParser
+        self, frame: DeviceFrame
     ):
-        self._inititalize_device(frame, configuration)
+        self._inititalize_device(frame)
 
         if (
             self.frame.interface_list
