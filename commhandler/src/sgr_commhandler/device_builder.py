@@ -1,5 +1,9 @@
+import typing
 import configparser
 import re
+import xmlschema
+import importlib.resources
+import sgr_schema
 from collections.abc import Callable
 from enum import Enum
 
@@ -7,6 +11,7 @@ from sgr_specification.v0.product import DeviceFrame
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
 
+from sgr_commhandler.api.configuration_parameter import ConfigurationParameter, build_configurations_parameters
 from sgr_commhandler.api.device_api import SGrBaseInterface
 from sgr_commhandler.driver.contact.contact_interface_async import (
     SGrContactInterface,
@@ -23,9 +28,15 @@ from sgr_commhandler.driver.modbus.modbus_interface_async import (
 from sgr_commhandler.driver.rest.restapi_interface_async import SGrRestInterface
 
 
-class SGrConfiguration(Enum):
+class SGrXmlSource(Enum):
     UNKNOWN = 1
     STRING = 2
+    FILE = 3
+
+
+class SGrPropertiesSource(Enum):
+    UNKNOWN = 1
+    DICT = 2
     FILE = 3
 
 
@@ -48,42 +59,48 @@ SGrInterfaces = (
 device_builders: dict[
     SGrDeviceProtocol,
     Callable[
-        [DeviceFrame, configparser.ConfigParser],
+        [DeviceFrame],
         SGrInterfaces,
     ],
 ] = {
-    SGrDeviceProtocol.MODBUS: lambda frame, config: SGrModbusInterface(
-        frame, config, sharedRTU=True
+    SGrDeviceProtocol.MODBUS: lambda frame: SGrModbusInterface(
+        frame, sharedRTU=True
     ),
-    SGrDeviceProtocol.RESTAPI: lambda frame, config: SGrRestInterface(
-        frame, config
+    SGrDeviceProtocol.RESTAPI: lambda frame: SGrRestInterface(
+        frame
     ),
-    SGrDeviceProtocol.MESSAGING: lambda frame, config: SGrMessagingInterface(
-        frame, config
+    SGrDeviceProtocol.MESSAGING: lambda frame: SGrMessagingInterface(
+        frame
     ),
-    SGrDeviceProtocol.CONTACT: lambda frame, config: SGrContactInterface(
-        frame, config
+    SGrDeviceProtocol.CONTACT: lambda frame: SGrContactInterface(
+        frame
     ),
-    SGrDeviceProtocol.GENERIC: lambda frame, config: SGrGenericInterface(
-        frame, config
+    SGrDeviceProtocol.GENERIC: lambda frame: SGrGenericInterface(
+        frame
     ),
 }
 
 
 class DeviceBuilder:
     def __init__(self):
-        self._value: str | None = None
-        self._config_value: str | dict | None = None
-        self._type: SGrConfiguration = SGrConfiguration.UNKNOWN
-        self._config_type: SGrConfiguration = SGrConfiguration.UNKNOWN
+        self._eid_source: str | None = None
+        self._properties_source: str | dict | None = None
+        self._eid_type: SGrXmlSource = SGrXmlSource.UNKNOWN
+        self._properties_type: SGrPropertiesSource = SGrPropertiesSource.UNKNOWN
 
     def build(self) -> SGrBaseInterface:
-        spec, config = self._replace_variables()
-        self._value = spec
-        self._type = SGrConfiguration.FILE
-        xml = self._string_loader()
-        protocol = self._resolve_protocol(xml)
-        return device_builders[protocol](xml, config)
+        eid_content = self._load_eid_content()
+        properties = self._load_properties()
+        # parse EID - get configuration list
+        frame = parse_device_frame(eid_content)
+        # build final properties
+        config_params = build_configurations_parameters(frame.configuration_list)
+        properties = build_properties(config_params, properties)
+        # parse EID - final
+        eid_content = replace_variables(eid_content, properties)
+        frame = parse_device_frame(eid_content)
+        protocol = self._resolve_protocol(frame)
+        return device_builders[protocol](frame)
 
     def _resolve_protocol(self, frame: DeviceFrame) -> SGrDeviceProtocol:
         if frame.interface_list is None:
@@ -100,69 +117,84 @@ class DeviceBuilder:
             return SGrDeviceProtocol.GENERIC
         raise Exception('unsupported device interface')
 
-    def _string_loader(self) -> DeviceFrame:
-        parser = XmlParser(context=XmlContext())
-        if self._value is None:
-            raise Exception('missing specifcation')
-        try:
-            return parser.from_string(self._value, DeviceFrame)
-        except Exception as e:
-            raise e
-
-    def _file_loader(self) -> DeviceFrame:
-        parser = XmlParser(context=XmlContext())
-        return parser.parse(self._value, DeviceFrame)
-
-    def get_eid_content(self) -> str:
-        if self._value is None:
-            raise Exception('No EID configured')
-        if self._type == SGrConfiguration.FILE:
-            try:
-                input_file = open(self._value)
-                return input_file.read()
-            except Exception:
-                raise Exception('Invalid spec file path')
-        elif self._type == SGrConfiguration.STRING:
-            return self._value
-        return ''
-
     def eid_path(self, file_path: str):
-        self._value = file_path
-        self._type = SGrConfiguration.FILE
+        self._eid_source = file_path
+        self._eid_type = SGrXmlSource.FILE
         return self
 
     def eid(self, xml: str):
-        self._value = xml
-        self._type = SGrConfiguration.STRING
+        self._eid_source = xml
+        self._eid_type = SGrXmlSource.STRING
         return self
 
     def properties_path(self, file_path: str):
-        self._config_type = SGrConfiguration.FILE
-        self._config_value = file_path
+        self._properties_type = SGrPropertiesSource.FILE
+        self._properties_source = file_path
         return self
 
-    def properties(self, config: dict):
-        self._config_type = SGrConfiguration.STRING
-        self._config_value = config
+    def properties(self, properties: dict):
+        self._properties_type = SGrPropertiesSource.DICT
+        self._properties_source = properties
         return self
 
-    def _replace_variables(self) -> tuple[str, configparser.ConfigParser]:
-        config = configparser.ConfigParser()
-        params = self._config_value if self._config_value is not None else {}
-        if self._config_type is SGrConfiguration.FILE:
-            # read from ini file
-            params = params if isinstance(params, str) else ''
-            config.read(params)
-        elif self._config_type is SGrConfiguration.STRING:
-            # read from dictionary - no sections
-            params = dict(properties=params) if isinstance(params, dict) else {}
-            config.read_dict(params)
-        else:
-            config.clear()
-        # else no properties
-        spec = self.get_eid_content()
-        for section_name, section in config.items():
-            for param_name in section:
-                pattern = re.compile(r'{{' + param_name + r'}}')
-                spec = pattern.sub(config.get(section_name, param_name), spec)
-        return spec, config
+    def _load_eid_content(self) -> str:
+        if self._eid_source is None:
+            raise Exception('No EID defined')
+        content = ''
+        if self._eid_type == SGrXmlSource.FILE:
+            try:
+                input_file = open(self._eid_source)
+                content = input_file.read()
+            except Exception:
+                raise Exception('Invalid EID file path')
+        elif self._eid_type == SGrXmlSource.STRING:
+            content = self._eid_source
+        return content
+    
+    def _load_properties(self) -> dict:
+        if self._properties_source is None:
+            return {}
+        if self._properties_type == SGrPropertiesSource.FILE:
+            try:
+                input_file = open(str(self._properties_source))
+                config = configparser.ConfigParser()
+                config.read(input_file.read())
+                properties = {}
+                for section_name, section in config.items():
+                    for param_name in section:
+                        param_value = config.get(section_name, param_name)
+                        properties[param_name] = param_value
+                return properties
+            except Exception:
+                raise Exception('Invalid properties file path')
+        elif self._properties_type == SGrPropertiesSource.DICT:
+            return typing.cast(dict, self._properties_source)
+        return {}
+
+
+def parse_device_frame(content: str) -> DeviceFrame:
+    validate_schema(content)
+    parser = XmlParser(context=XmlContext())
+    return parser.from_string(content, DeviceFrame)
+
+def replace_variables(content: str, parameters: dict) -> str:
+    for name, value in parameters.items():
+        pattern = re.compile(r'{{' + str(name) + r'}}')
+        content = pattern.sub(str(value), content)
+    return content
+
+def build_properties(config: typing.List[ConfigurationParameter], properties: dict) -> dict:
+    final_properties = {}
+    for config_param in config:
+        prop_value = properties.get(config_param.name)
+        if prop_value is not None:
+            final_properties[config_param.name] = prop_value
+        elif config_param.default_value is not None:
+            final_properties[config_param.name] = config_param.default_value
+    return final_properties
+
+def validate_schema(content: str):
+    xsd_path = importlib.resources.files(sgr_schema).joinpath('SGrIncluder.xsd')
+    xsd = xmlschema.XMLSchema(xsd_path)
+    xsd.validate(content)
+

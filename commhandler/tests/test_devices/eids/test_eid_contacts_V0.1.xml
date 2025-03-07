@@ -5,16 +5,16 @@
   xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/Product/Product.xsd">
   <deviceName>Test SGCP Contacts</deviceName>
   <manufacturerName>Test</manufacturerName>
-	<specificationOwnerIdentification>0</specificationOwnerIdentification>
-	<releaseNotes>
-		<state>Draft</state>
-		<changeLog>
-			<version>0.1.0</version>
-			<date>2024-11-11</date>
-			<author>Matthias Krebs, FHNW</author>
-			<comment>Draft for Development</comment>
-		</changeLog>
-	</releaseNotes>
+  <specificationOwnerIdentification>0</specificationOwnerIdentification>
+  <releaseNotes>
+    <state>Draft</state>
+    <changeLog>
+      <version>0.1.0</version>
+      <date>2024-11-11</date>
+      <author>Matthias Krebs, FHNW</author>
+      <comment>Draft for Development</comment>
+    </changeLog>
+  </releaseNotes>
   <deviceInformation>
     <legibleDescription>
       <textElement>Test für Contacts</textElement>
@@ -24,7 +24,7 @@
     <isLocalControl>true</isLocalControl>
     <softwareRevision>0.0.0</softwareRevision>
     <hardwareRevision>0.0.0</hardwareRevision>
-		<manufacturerSpecificationIdentification>Test</manufacturerSpecificationIdentification>
+    <manufacturerSpecificationIdentification>Test</manufacturerSpecificationIdentification>
     <levelOfOperation>2</levelOfOperation>
     <versionNumber>
       <primaryVersionNumber>0</primaryVersionNumber>

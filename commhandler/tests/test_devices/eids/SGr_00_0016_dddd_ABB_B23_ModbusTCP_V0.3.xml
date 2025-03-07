@@ -3,7 +3,7 @@
 <DeviceFrame xmlns="http://www.smartgridready.com/ns/V0/"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../SchemaDatabase/SGr/Product/Product.xsd">
-  <deviceName>betaABBMeterTcpV0.3.0</deviceName>
+  <deviceName>ABB B23 TCP</deviceName>
   <manufacturerName>ABB</manufacturerName>
   <specificationOwnerIdentification>0</specificationOwnerIdentification>
   <releaseNotes>
@@ -62,12 +62,13 @@
       <secondaryVersionNumber>3</secondaryVersionNumber>
       <subReleaseVersionNumber>0</subReleaseVersionNumber>
     </versionNumber>
+    <testState>Verified</testState>
   </deviceInformation>
   <configurationList>
     <configurationListElement>
       <name>slave_id</name>
       <dataType>
-        <int16/>
+        <int16 />
       </dataType>
       <defaultValue>1</defaultValue>
       <configurationDescription>
@@ -79,9 +80,9 @@
     <configurationListElement>
       <name>tcp_address</name>
       <dataType>
-        <string/>
+        <string />
       </dataType>
-      <defaultValue></defaultValue>
+      <defaultValue>0.0.0.0</defaultValue>
       <configurationDescription>
         <textElement>The IP address</textElement>
         <language>en</language>
@@ -91,7 +92,7 @@
     <configurationListElement>
       <name>tcp_port</name>
       <dataType>
-        <int32/>
+        <int32 />
       </dataType>
       <defaultValue>502</defaultValue>
       <configurationDescription>
@@ -105,7 +106,7 @@
     <genericAttributeListElement>
       <name>SpecialQualityRequirement</name>
       <dataType>
-        <string/>
+        <string />
       </dataType>
       <value>METAS</value>
       <unit>NONE</unit>
@@ -113,7 +114,7 @@
     <genericAttributeListElement>
       <name>PrecisionPercent</name>
       <dataType>
-        <float32/>
+        <float32 />
       </dataType>
       <value>2.0</value>
       <unit>PERCENT</unit>
@@ -506,8 +507,6 @@
                   <float64 />
                 </dataType>
                 <unit>AMPERES</unit>
-                <minimumValue>0</minimumValue>
-                <maximumValue>65</maximumValue>
                 <legibleDescription>
                   <textElement>textElement</textElement>
                   <language>de</language>
@@ -560,9 +559,9 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>WATTS</unit>
+                <unit>KILOWATTS</unit>
                 <minimumValue>0</minimumValue>
-                <maximumValue>84825</maximumValue>
+                <maximumValue>84.825</maximumValue>
                 <legibleDescription>
                   <textElement>textElement</textElement>
                   <language>de</language>
@@ -590,9 +589,9 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>WATTS</unit>
+                <unit>KILOWATTS</unit>
                 <minimumValue>0</minimumValue>
-                <maximumValue>28275</maximumValue>
+                <maximumValue>28.275</maximumValue>
                 <legibleDescription>
                   <textElement>textElement</textElement>
                   <language>de</language>
@@ -620,9 +619,9 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>WATTS</unit>
+                <unit>KILOWATTS</unit>
                 <minimumValue>0</minimumValue>
-                <maximumValue>28275</maximumValue>
+                <maximumValue>28.275</maximumValue>
                 <legibleDescription>
                   <textElement>textElement</textElement>
                   <language>de</language>
@@ -650,9 +649,9 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>WATTS</unit>
+                <unit>KILOWATTS</unit>
                 <minimumValue>0</minimumValue>
-                <maximumValue>28275</maximumValue>
+                <maximumValue>28.275</maximumValue>
                 <legibleDescription>
                   <textElement>textElement</textElement>
                   <language>de</language>
@@ -705,7 +704,7 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>VOLT_AMPERES_REACTIVE</unit>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
                 <legibleDescription>
                   <textElement>textElement</textElement>
                   <language>de</language>
@@ -733,7 +732,7 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>VOLT_AMPERES_REACTIVE</unit>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
                 <alternativeNames>
                   <manufName>Totale Blindleistung</manufName>
                 </alternativeNames>
@@ -764,7 +763,7 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>VOLT_AMPERES_REACTIVE</unit>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
                 <legibleDescription>
                   <textElement>textElement</textElement>
                   <language>de</language>
@@ -792,7 +791,7 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>VOLT_AMPERES_REACTIVE</unit>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
                 <legibleDescription>
                   <textElement>textElement</textElement>
                   <language>de</language>
@@ -820,13 +819,13 @@
             <functionalProfileName>ApparentPowerAC</functionalProfileName>
             <functionalProfileIdentification>
               <specificationOwnerIdentification>0</specificationOwnerIdentification>
-              <functionalProfileCategory>SubMeterElectricity</functionalProfileCategory>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
               <functionalProfileType>ApparentPowerAC</functionalProfileType>
               <levelOfOperation>m</levelOfOperation>
               <versionNumber>
                 <primaryVersionNumber>0</primaryVersionNumber>
                 <secondaryVersionNumber>2</secondaryVersionNumber>
-                <subReleaseVersionNumber>1</subReleaseVersionNumber>
+                <subReleaseVersionNumber>2</subReleaseVersionNumber>
               </versionNumber>
             </functionalProfileIdentification>
             <alternativeNames>
@@ -845,7 +844,7 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>VOLT_AMPERES</unit>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
                 <legibleDescription>
                   <textElement>textElement</textElement>
                   <language>de</language>
@@ -873,7 +872,7 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>VOLT_AMPERES</unit>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
                 <legibleDescription>
                   <textElement>textElement</textElement>
                   <language>de</language>
@@ -901,7 +900,7 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>VOLT_AMPERES</unit>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
                 <legibleDescription>
                   <textElement>textElement</textElement>
                   <language>de</language>
@@ -929,7 +928,7 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>VOLT_AMPERES</unit>
+                <unit>KILOVOLT_AMPERES_REACTIVE</unit>
                 <legibleDescription>
                   <textElement>textElement</textElement>
                   <language>de</language>
@@ -1039,7 +1038,7 @@
               </dataPoint>
               <modbusDataPointConfiguration>
                 <modbusDataType>
-                  <int64 />
+                  <int64U />
                 </modbusDataType>
                 <address>20480</address>
                 <registerType>HoldRegister</registerType>
@@ -1071,7 +1070,7 @@
               </dataPoint>
               <modbusDataPointConfiguration>
                 <modbusDataType>
-                  <int64 />
+                  <int64U />
                 </modbusDataType>
                 <address>21600</address>
                 <registerType>HoldRegister</registerType>
@@ -1103,7 +1102,7 @@
               </dataPoint>
               <modbusDataPointConfiguration>
                 <modbusDataType>
-                  <int64 />
+                  <int64U />
                 </modbusDataType>
                 <address>21604</address>
                 <registerType>HoldRegister</registerType>
@@ -1135,7 +1134,7 @@
               </dataPoint>
               <modbusDataPointConfiguration>
                 <modbusDataType>
-                  <int64 />
+                  <int64U />
                 </modbusDataType>
                 <address>21608</address>
                 <registerType>HoldRegister</registerType>
@@ -1155,12 +1154,12 @@
             <functionalProfileName>ReactiveEnergyAC</functionalProfileName>
             <functionalProfileIdentification>
               <specificationOwnerIdentification>0</specificationOwnerIdentification>
-              <functionalProfileCategory>SubMeterElectricity</functionalProfileCategory>
+              <functionalProfileCategory>Metering</functionalProfileCategory>
               <functionalProfileType>ReactiveEnergyAC</functionalProfileType>
               <levelOfOperation>m</levelOfOperation>
               <versionNumber>
                 <primaryVersionNumber>0</primaryVersionNumber>
-                <secondaryVersionNumber>1</secondaryVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
                 <subReleaseVersionNumber>2</subReleaseVersionNumber>
               </versionNumber>
             </functionalProfileIdentification>
@@ -1183,7 +1182,7 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>KILOWATT_HOURS</unit>
+                <unit>KILOVOLT_AMPERES_REACTIVE_HOURS</unit>
                 <legibleDescription>
                   <textElement>Erfassung der gesamten Blindenergie</textElement>
                   <language>de</language>
@@ -1191,7 +1190,7 @@
               </dataPoint>
               <modbusDataPointConfiguration>
                 <modbusDataType>
-                  <int64 />
+                  <int64U />
                 </modbusDataType>
                 <address>20482</address>
                 <registerType>HoldRegister</registerType>
@@ -1211,7 +1210,7 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>KILOWATT_HOURS</unit>
+                <unit>KILOVOLT_AMPERES_REACTIVE_HOURS</unit>
                 <legibleDescription>
                   <textElement>Erfassung der Blindenergie Phase 1</textElement>
                   <language>de</language>
@@ -1219,7 +1218,7 @@
               </dataPoint>
               <modbusDataPointConfiguration>
                 <modbusDataType>
-                  <int64 />
+                  <int64U />
                 </modbusDataType>
                 <address>21636</address>
                 <registerType>HoldRegister</registerType>
@@ -1239,7 +1238,7 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>KILOWATT_HOURS</unit>
+                <unit>KILOVOLT_AMPERES_REACTIVE_HOURS</unit>
                 <legibleDescription>
                   <textElement>Erfassung der Blindenergie Phase 2</textElement>
                   <language>de</language>
@@ -1247,7 +1246,7 @@
               </dataPoint>
               <modbusDataPointConfiguration>
                 <modbusDataType>
-                  <int64 />
+                  <int64U />
                 </modbusDataType>
                 <address>21640</address>
                 <registerType>HoldRegister</registerType>
@@ -1267,7 +1266,7 @@
                 <dataType>
                   <float64 />
                 </dataType>
-                <unit>KILOWATT_HOURS</unit>
+                <unit>KILOVOLT_AMPERES_REACTIVE_HOURS</unit>
                 <legibleDescription>
                   <textElement>Erfassung der Blindenergie Phase 3</textElement>
                   <language>de</language>
@@ -1275,7 +1274,7 @@
               </dataPoint>
               <modbusDataPointConfiguration>
                 <modbusDataType>
-                  <int64 />
+                  <int64U />
                 </modbusDataType>
                 <address>21644</address>
                 <registerType>HoldRegister</registerType>
@@ -1300,8 +1299,8 @@
               <levelOfOperation>m</levelOfOperation>
               <versionNumber>
                 <primaryVersionNumber>0</primaryVersionNumber>
-                <secondaryVersionNumber>1</secondaryVersionNumber>
-                <subReleaseVersionNumber>1</subReleaseVersionNumber>
+                <secondaryVersionNumber>2</secondaryVersionNumber>
+                <subReleaseVersionNumber>2</subReleaseVersionNumber>
               </versionNumber>
             </functionalProfileIdentification>
             <legibleDescription>
@@ -1319,7 +1318,7 @@
             <genericAttributeListElement>
               <name>SpecialQualityRequirement</name>
               <dataType>
-                <string/>
+                <string />
               </dataType>
               <value>2014/32/EU : MeasuRIng Instruments Directive, B(Cl.1)</value>
               <unit>NONE</unit>
@@ -1343,7 +1342,7 @@
                 <genericAttributeListElement>
                   <name>PrecisionPercent</name>
                   <dataType>
-                    <float32/>
+                    <float32 />
                   </dataType>
                   <value>1.0</value>
                   <unit>PERCENT</unit>
@@ -1351,7 +1350,7 @@
               </genericAttributeList>
               <modbusDataPointConfiguration>
                 <modbusDataType>
-                  <int64 />
+                  <int64U />
                 </modbusDataType>
                 <address>20480</address>
                 <registerType>HoldRegister</registerType>
@@ -1381,7 +1380,7 @@
                 <genericAttributeListElement>
                   <name>PrecisionPercent</name>
                   <dataType>
-                    <float32/>
+                    <float32 />
                   </dataType>
                   <value>1.0</value>
                   <unit>PERCENT</unit>
@@ -1389,7 +1388,7 @@
               </genericAttributeList>
               <modbusDataPointConfiguration>
                 <modbusDataType>
-                  <int64 />
+                  <int64U />
                 </modbusDataType>
                 <address>20484</address>
                 <registerType>HoldRegister</registerType>
@@ -1420,7 +1419,7 @@
                 <genericAttributeListElement>
                   <name>PrecisionPercent</name>
                   <dataType>
-                    <float32/>
+                    <float32 />
                   </dataType>
                   <value>1.0</value>
                   <unit>PERCENT</unit>
@@ -1470,7 +1469,7 @@
               </dataPoint>
               <modbusDataPointConfiguration>
                 <modbusDataType>
-                  <int64 />
+                  <int64U />
                 </modbusDataType>
                 <address>20492</address>
                 <registerType>HoldRegister</registerType>
@@ -1494,7 +1493,7 @@
               </dataPoint>
               <modbusDataPointConfiguration>
                 <modbusDataType>
-                  <int64 />
+                  <int64U />
                 </modbusDataType>
                 <address>20496</address>
                 <registerType>HoldRegister</registerType>

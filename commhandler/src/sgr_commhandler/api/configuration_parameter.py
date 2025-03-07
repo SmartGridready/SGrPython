@@ -18,13 +18,13 @@ class ConfigurationParameter:
     def __init__(self, parameter: ConfigurationListElement):
         translation = parameter.configuration_description
         self.label = translation[0].label
-        self.match = parameter.name
+        self.name = parameter.name
         self.type = parameter.data_type
         self.description = translation[0].text_element
         self.default_value = parameter.default_value
 
     def __str__(self):
-        return f'{self.label} - {self.match}'
+        return f'{self.label} - {self.name}'
 
     def __repr__(self):
-        return f'{self.label} - {self.match}'
+        return f'{self.label} - {self.name}'

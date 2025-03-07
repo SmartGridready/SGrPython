@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="/xsl/SGr.xsl"?>
 <DeviceFrame xmlns="http://www.smartgridready.com/ns/V0/"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../../../../SGrSpecifications/SchemaDatabase/SGr/Product/Product.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.smartgridready.com/ns/V0/ ../../../../../SGrSpecifications/SchemaDatabase/SGr/Product/Product.xsd">
   <deviceName>HiveMQ Test Cloud</deviceName>
   <manufacturerName>HiveMQ</manufacturerName>
   <specificationOwnerIdentification>0</specificationOwnerIdentification>
@@ -89,7 +89,7 @@
               </dataPoint>
               <messagingDataPointConfiguration>
                 <messagingDataType>
-                  <number/>
+                  <number />
                 </messagingDataType>
                 <readCmdMessage>
                   <topic>stations/1/safecurrent/limit</topic>
@@ -121,13 +121,13 @@
                 <dataPointName>MaxReceiveTimeSec</dataPointName>
                 <dataDirection>RW</dataDirection>
                 <dataType>
-                  <int16U/>
+                  <int16U />
                 </dataType>
                 <unit>SECONDS</unit>
               </dataPoint>
               <messagingDataPointConfiguration>
                 <messagingDataType>
-                  <number/>
+                  <number />
                 </messagingDataType>
                 <readCmdMessage>
                   <topic>stations/1/max_receive_time</topic>
@@ -147,13 +147,13 @@
                 <dataPointName>ChargingCurrentMin</dataPointName>
                 <dataDirection>RW</dataDirection>
                 <dataType>
-                  <int16U/>
+                  <int16U />
                 </dataType>
                 <unit>AMPERES</unit>
               </dataPoint>
               <messagingDataPointConfiguration>
                 <messagingDataType>
-                  <number/>
+                  <number />
                 </messagingDataType>
                 <writeCmdMessage>
                   <!-- The datapoint needs to be writable for tests -->
@@ -180,13 +180,13 @@
                 <dataPointName>ChargingCurrentMax</dataPointName>
                 <dataDirection>RW</dataDirection>
                 <dataType>
-                  <int16U/>
+                  <int16U />
                 </dataType>
                 <unit>AMPERES</unit>
               </dataPoint>
               <messagingDataPointConfiguration>
                 <messagingDataType>
-                  <number/>
+                  <number />
                 </messagingDataType>
                 <writeCmdMessage>
                   <!-- The datapoint needs to be writable for tests -->

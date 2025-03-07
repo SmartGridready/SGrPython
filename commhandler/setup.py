@@ -8,7 +8,7 @@ def read_requirements() -> list[str]:
 
 setup(
     name="SGrPythontks4r",  # use SGrPythontks4r until organization has been created, then change to sgr-commhandler
-    version="0.2.0",
+    version="0.3.0",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     install_requires=read_requirements(),
