@@ -8,6 +8,9 @@ on:
       tag:
         description: 'Tag to checkout and build'
         required: true
+      semver:
+        description: 'Package version to deploy'
+        required: false
 
 jobs:
   build-and-deploy:
@@ -27,12 +30,20 @@ jobs:
             echo "Original tag: ${{ github.event.client_payload.tag }}"
             TAG="${{ github.event.client_payload.tag }}"
           fi
-          SEMVER="${TAG:1}"  # This removes the first character, assuming it's 'v'
+          if [ -z "${{ github.event.inputs.semver }}" ]; then
+            if [[ "${TAG}" =~ ^"v" ]]; then
+              SEMVER="${TAG:1}"  # This removes the first character, assuming it's 'v'
+            else
+              SEMVER="${TAG}"
+            fi
+          else
+            SEMVER="${{ github.event.inputs.semver }}"
+          fi
           echo "Semver: $SEMVER"
           echo "Tag: $TAG"
           echo "::set-output name=original_tag::$TAG"
           echo "::set-output name=semver::$SEMVER"
-#
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -64,13 +75,17 @@ jobs:
         working-directory: SGrPython/specification/src
         run: xsdata generate ../../../SGrSpecifications/SchemaDatabase/SGr -r --package sgr_specification.v0
 
+      - name: Copy specification schema files
+        working-directory: SGrPython/specification/src/sgr_schema
+        run: cp -fR ../../../../SGrSpecifications/SchemaDatabase/SGr/* .
+
       - name: Check SGrPython Directory
         run: ls SGrPython
 
       - name: Modify Specification Setup File
         working-directory: SGrPython/specification
         run: |
-          sed -Ei "s/version='[^\']+',/version='${{ steps.set_tag.outputs.semver }}',/" setup.py
+          sed -Ei "s/version=\"[^\"]+\",/version=\"${{ steps.set_tag.outputs.semver }}\",/" setup.py
           cat setup.py
           echo ${{ steps.set_tag.outputs.original_tag }}
 
@@ -79,19 +94,22 @@ jobs:
         run: python setup.py sdist bdist_wheel
 
       - name: Publish Specification Package to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.4.2
+        uses: pypa/gh-action-pypi-publish@v1.12.4
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
+          packages-dir: SGrPython/specification/dist/
 
       - name: Bump Patch Version
+        if: ${{ false }}
         id: version_bump
-        working-directory: SGrPython
+        working-directory: SGrPython/commhandler
         run: |
           sed -i "s/SGrSpecificationPythontks4r==.*/SGrSpecificationPythontks4r==${{ steps.set_tag.outputs.semver }}/g" requirements.txt
           echo "Updated version to ${{ steps.set_tag.outputs.semver }} in requirements.txt"
           cat requirements.txt
 
       - name: Create a new Branch
+        if: ${{ false }}
         working-directory: SGrPython
         run: |
           git checkout -b version-update-${{ steps.set_tag.outputs.semver }}
@@ -102,6 +120,7 @@ jobs:
           git push --set-upstream origin version-update-${{ steps.set_tag.outputs.semver }}
 
       - name: Create Pull Request
+        if: ${{ false }}
         uses: actions/github-script@v6
         with:
           script: |
