@@ -27,10 +27,10 @@ logger = logging.getLogger(__name__)
 
 def build_contact_data_point(
     data_point: ContactDataPointSpec,
-    function_profile: ContactFunctionalProfileSpec,
+    functional_profile: ContactFunctionalProfileSpec,
     interface: 'SGrContactInterface',
 ) -> DataPoint:
-    protocol = ContactDataPoint(data_point, function_profile, interface)
+    protocol = ContactDataPoint(data_point, functional_profile, interface)
     data_type = None
     if data_point.data_point and data_point.data_point.data_type:
         data_type = data_point.data_point.data_type
@@ -129,11 +129,11 @@ class SGrContactInterface(SGrBaseInterface):
         self._inititalize_device(frame)
 
         if (
-            self.frame.interface_list
-            and self.frame.interface_list
-            and self.frame.interface_list.contact_interface
+            self.device_frame.interface_list
+            and self.device_frame.interface_list
+            and self.device_frame.interface_list.contact_interface
         ):
-            self._raw_interface = self.frame.interface_list.contact_interface
+            self._raw_interface = self.device_frame.interface_list.contact_interface
         else:
             raise Exception('No contact interface')
         desc = self._raw_interface.contact_interface_description
@@ -151,7 +151,7 @@ class SGrContactInterface(SGrBaseInterface):
         ):
             raw_fps = self._raw_interface.functional_profile_list.functional_profile_list_element
         fps = [ContactFunctionalProfile(profile, self) for profile in raw_fps]
-        self.function_profiles = {fp.name(): fp for fp in fps}
+        self.functional_profiles = {fp.name(): fp for fp in fps}
 
     def is_connected(self):
         return False

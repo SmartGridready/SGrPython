@@ -147,3 +147,13 @@ class DateTimeValidator(DataPointValidator):
 
     def data_type(self) -> DataTypes:
         return DataTypes.DATE_TIME
+
+
+class JsonValidator(DataPointValidator):
+    def validate(self, value: Any) -> bool:
+        if value is None:
+            return False
+        return isinstance(value, dict)
+
+    def data_type(self) -> DataTypes:
+        return DataTypes.JSON

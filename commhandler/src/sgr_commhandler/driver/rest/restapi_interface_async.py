@@ -43,10 +43,10 @@ logger = logging.getLogger(__name__)
 
 def build_rest_data_point(
     data_point: RestApiDataPointSpec,
-    function_profile: RestApiFunctionalProfileSpec,
+    functional_profile: RestApiFunctionalProfileSpec,
     interface: 'SGrRestInterface',
 ) -> DataPoint:
-    protocol = RestDataPoint(data_point, function_profile, interface)
+    protocol = RestDataPoint(data_point, functional_profile, interface)
     data_type = None
     if data_point.data_point and data_point.data_point.data_type:
         data_type = data_point.data_point.data_type
@@ -301,12 +301,12 @@ class RestDataPoint(DataPointProtocol):
 
     def subscribe(self, fn: Callable[[Any], None]):
         raise UnsupportedOperation(
-            'subscribe is no available for rest datapoint'
+            'subscribe is no available for rest data point'
         )
 
     def unsubscribe(self):
         raise UnsupportedOperation(
-            'unsubscribe is no available for rest datapoint'
+            'unsubscribe is no available for rest data point'
         )
 
 
@@ -360,11 +360,11 @@ class SGrRestInterface(SGrBaseInterface):
         self._cache = TTLCache(maxsize=100, ttl=5)
 
         if (
-            self.frame.interface_list
-            and self.frame.interface_list
-            and self.frame.interface_list.rest_api_interface
+            self.device_frame.interface_list
+            and self.device_frame.interface_list
+            and self.device_frame.interface_list.rest_api_interface
         ):
-            self._raw_interface = self.frame.interface_list.rest_api_interface
+            self._raw_interface = self.device_frame.interface_list.rest_api_interface
         else:
             raise Exception('No REST interface')
         desc = self._raw_interface.rest_api_interface_description
@@ -381,7 +381,7 @@ class SGrRestInterface(SGrBaseInterface):
         ):
             raw_fps = self._raw_interface.functional_profile_list.functional_profile_list_element
         fps = [RestFunctionalProfile(profile, self) for profile in raw_fps]
-        self.function_profiles = {fp.name(): fp for fp in fps}
+        self.functional_profiles = {fp.name(): fp for fp in fps}
 
     def is_connected(self):
         return self._session is not None and not self._session.closed

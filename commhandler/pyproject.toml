@@ -31,3 +31,5 @@ exclude = ["**/node_modules", "**/__pycache__", "examples"]
 pythonpath = [ "src" ]
 asyncio_default_fixture_loop_scope = "session"
 asyncio_mode = "strict"
+log_cli = true
+log_cli_level = "DEBUG"

@@ -30,6 +30,76 @@
     <hardwareRevision>0.1.0</hardwareRevision>
     <levelOfOperation>4</levelOfOperation>
   </deviceInformation>
+  <configurationList>
+    <configurationListElement>
+      <name>host</name>
+      <dataType>
+        <string />
+      </dataType>
+      <defaultValue>localhost</defaultValue>
+      <configurationDescription>
+        <textElement>Message broker hostname or IP address.</textElement>
+        <language>en</language>
+        <label>Broker Hostname</label>
+      </configurationDescription>
+      <configurationDescription>
+        <textElement>Message-Broker Hostname oder IP-Adresse.</textElement>
+        <language>de</language>
+        <label>Broker-Hostname</label>
+      </configurationDescription>
+    </configurationListElement>
+    <configurationListElement>
+      <name>port</name>
+      <dataType>
+        <int32 />
+      </dataType>
+      <defaultValue>1883</defaultValue>
+      <configurationDescription>
+        <textElement>Message broker TCP port.</textElement>
+        <language>en</language>
+        <label>Broker Port</label>
+      </configurationDescription>
+      <configurationDescription>
+        <textElement>Message-Broker TCP-Port.</textElement>
+        <language>de</language>
+        <label>Broker-Port</label>
+      </configurationDescription>
+    </configurationListElement>
+    <configurationListElement>
+      <name>username</name>
+      <dataType>
+        <string />
+      </dataType>
+      <defaultValue></defaultValue>
+      <configurationDescription>
+        <textElement>Message broker user name.</textElement>
+        <language>en</language>
+        <label>Broker User</label>
+      </configurationDescription>
+      <configurationDescription>
+        <textElement>Message-Broker User-Name.</textElement>
+        <language>de</language>
+        <label>Broker-User</label>
+      </configurationDescription>
+    </configurationListElement>
+    <configurationListElement>
+      <name>password</name>
+      <dataType>
+        <string />
+      </dataType>
+      <defaultValue></defaultValue>
+      <configurationDescription>
+        <textElement>Message broker password.</textElement>
+        <language>en</language>
+        <label>Broker Password</label>
+      </configurationDescription>
+      <configurationDescription>
+        <textElement>Message-Broker Passwort.</textElement>
+        <language>de</language>
+        <label>Broker-Passwort</label>
+      </configurationDescription>
+    </configurationListElement>
+  </configurationList>
   <interfaceList>
     <messagingInterface>
       <messagingInterfaceDescription>
@@ -156,7 +226,7 @@
                   <number />
                 </messagingDataType>
                 <writeCmdMessage>
-                  <!-- The datapoint needs to be writable for tests -->
+                  <!-- The data point needs to be writable for tests -->
                   <topic>stations/1/charging_current</topic>
                   <template>{{value}}</template>
                 </writeCmdMessage>
@@ -189,7 +259,7 @@
                   <number />
                 </messagingDataType>
                 <writeCmdMessage>
-                  <!-- The datapoint needs to be writable for tests -->
+                  <!-- The data point needs to be writable for tests -->
                   <topic>stations/1/charging_current</topic>
                   <template>{{value}}</template>
                 </writeCmdMessage>
