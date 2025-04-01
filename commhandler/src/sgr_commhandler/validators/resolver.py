@@ -16,6 +16,20 @@ from sgr_commhandler.validators.validator import (
 
 
 def build_validator(type: Optional[DataTypeProduct]) -> DataPointValidator:
+    """
+    Builds a data point validator from a data type specification.
+
+    Parameters
+    ----------
+    type : Optional[DataTypeProduct]
+        the data type specification
+
+    Returns
+    -------
+    DataPointValidator
+        a data point validator
+    """
+
     if type is None:
         raise Exception("Missing datatype")
     if type.int8:
