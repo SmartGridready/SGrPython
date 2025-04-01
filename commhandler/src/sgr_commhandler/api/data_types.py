@@ -2,6 +2,8 @@ from enum import Enum
 
 
 class DataTypes(Enum):
+    """Defines the data point data types supported by the SGr specification."""
+
     INT = "INT"
     FLOAT = "FLOAT"
     STRING = "STRING"
