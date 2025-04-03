@@ -3,6 +3,7 @@ import threading
 from abc import ABC
 from typing import Any, Optional
 
+from pymodbus import FramerType
 from pymodbus.client import AsyncModbusSerialClient, AsyncModbusTcpClient
 from pymodbus.client.base import ModbusBaseClient
 from pymodbus.constants import Endian
@@ -56,7 +57,7 @@ class SGrModbusClient(ABC):
         builder.sgr_encode(value, data_type)
         with self._lock:
             await self._client.write_registers(
-                address=address, values=builder.to_registers(), unit=slave_id
+                address=address, values=builder.to_registers(), slave=slave_id
             )
 
     async def write_coils(
@@ -77,7 +78,7 @@ class SGrModbusClient(ABC):
         builder.sgr_encode(value, data_type)
         with self._lock:
             await self._client.write_coils(
-                address=address, values=builder.to_coils(), unit=slave_id
+                address=address, values=builder.to_coils(), slave=slave_id
             )
 
     async def read_input_registers(
@@ -173,22 +174,22 @@ class SGrModbusClient(ABC):
         self,
         addr: int,
         size: int,
-        data_type: str,
+        data_type: ModbusDataType,
         register_type: str,
         slave_id: int,
-    ) -> Optional[float]:
+    ) -> Optional[tuple[float,float,float]]:
         """
         Reads register and decodes the value.
         :param addr: The address to read from and decode
         :param size: The number of registers to read
         :param data_type: The modbus type to decode
-        :returns: Decoded float
+        :returns: Decoded float tuple
         """
         if self._client is None:
             raise Exception('Client not initialized')
         if register_type == 'HoldRegister':
             reg = self._client.read_holding_registers(
-                addr, size, slave=slave_id
+                addr, count=size, slave=slave_id
             )
         else:
             reg = self._client.read_input_registers(
@@ -261,8 +262,8 @@ class SGrModbusRTUClient(SGrModbusClient):
         """
         self._serial_port = serial_port
         self._client = AsyncModbusSerialClient(
-            method='rtu',
             port=serial_port,
+            framer=FramerType.RTU,
             parity=parity,
             baudrate=baudrate,
         )  # changed source: https://stackoverflow.com/questions/58773476/why-do-i-get-pymodbus-modbusioexception-on-20-of-attempts
@@ -271,7 +272,7 @@ class SGrModbusRTUClient(SGrModbusClient):
         if self._client is None:
             raise Exception('Client not initialized')
         with self._lock:
-            _is_connected = await self._client.connect()
+            await self._client.connect()
             logger.debug(
                 'Connected to ModbusRTU on serial port: ' + self._serial_port
             )
@@ -280,7 +281,7 @@ class SGrModbusRTUClient(SGrModbusClient):
         if self._client is None:
             raise Exception('Client not initialized')
         with self._lock:
-            self._client.close(reconnect=False)
+            self._client.close()
             logger.debug(
                 'Disconnected from ModbusRTU on serial port: '
                 + self._serial_port
