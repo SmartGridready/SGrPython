@@ -11,6 +11,7 @@ from sgr_commhandler.validators.validator import (
     FloatValidator,
     IntValidator,
     StringValidator,
+    JsonValidator
 )
 
 
@@ -47,4 +48,6 @@ def build_validator(type: Optional[DataTypeProduct]) -> DataPointValidator:
         return BitmapValidator()
     elif type.date_time:
         return DateTimeValidator()
+    elif type.json:
+        return JsonValidator()
     raise Exception("unsupported validator")

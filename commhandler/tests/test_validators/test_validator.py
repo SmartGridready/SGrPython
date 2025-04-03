@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 
 from sgr_specification.v0.generic import EnumEntryProductRecord, EnumMapProduct
@@ -12,6 +13,7 @@ from sgr_commhandler.validators.validator import (
     IntValidator,
     StringValidator,
     UnsupportedValidator,
+    JsonValidator
 )
 
 """
@@ -218,3 +220,11 @@ def test_datetime_validator():
     assert not validator.validate(1)
     assert not validator.validate(0)
     assert not validator.validate(None)
+
+
+def test_json_validator():
+    test_value = json.loads('{"textParam":"text","intParam":1234}')
+
+    validator = JsonValidator()
+    assert validator.data_type() == DataTypes.JSON
+    assert validator.validate(test_value)

@@ -9,3 +9,4 @@ class DataTypes(Enum):
     BOOLEAN = "BOOLEAN"
     BITMAP = "BITMAP"
     DATE_TIME = "DATE_TIME"
+    JSON = "JSON"

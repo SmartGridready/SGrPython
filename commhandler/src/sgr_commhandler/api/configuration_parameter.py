@@ -6,7 +6,7 @@ from sgr_specification.v0.product import (
 )
 
 
-def build_configurations_parameters(params: Optional[ConfigurationList]):
+def build_configuration_parameters(params: Optional[ConfigurationList]):
     if params is None:
         return []
     return [

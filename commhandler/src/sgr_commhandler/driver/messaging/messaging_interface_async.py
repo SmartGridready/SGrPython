@@ -26,10 +26,10 @@ logger = logging.getLogger(__name__)
 
 def build_messaging_data_point(
     data_point: MessagingDataPointSpec,
-    function_profile: MessagingFunctionalProfileSpec,
+    functional_profile: MessagingFunctionalProfileSpec,
     interface: 'SGrMessagingInterface',
 ) -> DataPoint:
-    protocol = MessagingDataPoint(data_point, function_profile, interface)
+    protocol = MessagingDataPoint(data_point, functional_profile, interface)
     data_type = None
     if data_point.data_point and data_point.data_point.data_type:
         data_type = data_point.data_point.data_type
@@ -142,12 +142,12 @@ class SGrMessagingInterface(SGrBaseInterface):
         self._inititalize_device(frame)
 
         if (
-            self.frame.interface_list
-            and self.frame.interface_list
-            and self.frame.interface_list.messaging_interface
+            self.device_frame.interface_list
+            and self.device_frame.interface_list
+            and self.device_frame.interface_list.messaging_interface
         ):
             self._raw_interface = (
-                self.frame.interface_list.messaging_interface
+                self.device_frame.interface_list.messaging_interface
             )
         else:
             raise Exception('No messaging interface')
@@ -164,7 +164,7 @@ class SGrMessagingInterface(SGrBaseInterface):
         ):
             raw_fps = self._raw_interface.functional_profile_list.functional_profile_list_element
         fps = [MessagingFunctionalProfile(profile, self) for profile in raw_fps]
-        self.function_profiles = {fp.name(): fp for fp in fps}
+        self.functional_profiles = {fp.name(): fp for fp in fps}
 
     def is_connected(self):
         return False

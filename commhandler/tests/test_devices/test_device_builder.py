@@ -27,6 +27,12 @@ async def test_device_builder_modbus_tcp_dict():
     assert device_info.manufacturer == "ABB"
     assert device_info.name == "ABB B23 TCP"
 
+    device_frame = test_device.device_frame
+    assert device_frame.interface_list.modbus_interface is not None
+    assert device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.slave_id == '1'
+    assert device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.address == '127.0.0.1'
+    assert device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.port == '502'
+
 
 @pytest.mark.asyncio
 async def test_device_builder_modbus_tcp_ini():
@@ -50,13 +56,19 @@ async def test_device_builder_modbus_tcp_ini():
     assert device_info.manufacturer == "ABB"
     assert device_info.name == "ABB B23 TCP"
 
+    device_frame = test_device.device_frame
+    assert device_frame.interface_list.modbus_interface is not None
+    assert device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.slave_id == '1'
+    assert device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.address == '127.0.0.1'
+    assert device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.port == '502'
+
 
 @pytest.mark.asyncio
 async def test_device_builder_rest_dict():
     eid_path = os.path.join(
         EID_BASE_PATH, "SGr_01_mmmm_dddd_Shelly_1PM_RestAPILocal_V0.1.xml"
     )
-    eid_properties = dict(baseUri="http://127.0.0.1")
+    eid_properties = dict(base_uri="http://127.0.0.1")
 
     test_device = (
         DeviceBuilder().eid_path(eid_path).properties(eid_properties).build()
@@ -67,6 +79,10 @@ async def test_device_builder_rest_dict():
     assert device_info is not None
     assert device_info.manufacturer == "Shelly"
     assert device_info.name == "Shelly 1PM Local"
+
+    device_frame = test_device.device_frame
+    assert device_frame.interface_list.rest_api_interface is not None
+    assert device_frame.interface_list.rest_api_interface.rest_api_interface_description.rest_api_uri == 'http://127.0.0.1'
 
 
 @pytest.mark.asyncio
@@ -91,6 +107,10 @@ async def test_device_builder_rest_ini():
     assert device_info.manufacturer == "Shelly"
     assert device_info.name == "Shelly 1PM Local"
 
+    device_frame = test_device.device_frame
+    assert device_frame.interface_list.rest_api_interface is not None
+    assert device_frame.interface_list.rest_api_interface.rest_api_interface_description.rest_api_uri == 'http://127.0.0.1'
+
 
 @pytest.mark.asyncio
 async def test_device_builder_messaging_dict():
@@ -112,6 +132,10 @@ async def test_device_builder_messaging_dict():
     assert device_info.manufacturer == "HiveMQ"
     assert device_info.name == "HiveMQ Test Cloud"
 
+    device_frame = test_device.device_frame
+    assert device_frame.interface_list.messaging_interface is not None
+    assert device_frame.interface_list.messaging_interface.messaging_interface_description.message_broker_list.message_broker_list_element[0].host == '152f30e8c480481886072e4f8250d91a.s1.eu.hivemq.cloud'
+
 
 @pytest.mark.asyncio
 async def test_device_builder_messaging_ini():
@@ -132,6 +156,10 @@ async def test_device_builder_messaging_ini():
     assert device_info is not None
     assert device_info.manufacturer == "HiveMQ"
     assert device_info.name == "HiveMQ Test Cloud"
+
+    device_frame = test_device.device_frame
+    assert device_frame.interface_list.messaging_interface is not None
+    assert device_frame.interface_list.messaging_interface.messaging_interface_description.message_broker_list.message_broker_list_element[0].host == '152f30e8c480481886072e4f8250d91a.s1.eu.hivemq.cloud'
 
 
 @pytest.mark.asyncio

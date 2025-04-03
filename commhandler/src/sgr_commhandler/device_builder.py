@@ -1,3 +1,4 @@
+import logging
 import typing
 import configparser
 import re
@@ -11,7 +12,7 @@ from sgr_specification.v0.product import DeviceFrame
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
 
-from sgr_commhandler.api.configuration_parameter import ConfigurationParameter, build_configurations_parameters
+from sgr_commhandler.api.configuration_parameter import ConfigurationParameter, build_configuration_parameters
 from sgr_commhandler.api.device_api import SGrBaseInterface
 from sgr_commhandler.driver.contact.contact_interface_async import (
     SGrContactInterface,
@@ -26,6 +27,8 @@ from sgr_commhandler.driver.modbus.modbus_interface_async import (
     SGrModbusInterface,
 )
 from sgr_commhandler.driver.rest.restapi_interface_async import SGrRestInterface
+
+logger = logging.getLogger(__name__)
 
 
 class SGrXmlSource(Enum):
@@ -94,7 +97,7 @@ class DeviceBuilder:
         # parse EID - get configuration list
         frame = parse_device_frame(eid_content)
         # build final properties
-        config_params = build_configurations_parameters(frame.configuration_list)
+        config_params = build_configuration_parameters(frame.configuration_list)
         properties = build_properties(config_params, properties)
         # parse EID - final
         eid_content = replace_variables(eid_content, properties)
@@ -150,24 +153,28 @@ class DeviceBuilder:
         elif self._eid_type == SGrXmlSource.STRING:
             content = self._eid_source
         return content
-    
+
     def _load_properties(self) -> dict:
         if self._properties_source is None:
+            logger.debug('no properties given')
             return {}
         if self._properties_type == SGrPropertiesSource.FILE:
             try:
-                input_file = open(str(self._properties_source))
+                prop_path = str(self._properties_source)
+                logger.debug(f'getting properties from file {prop_path}')
                 config = configparser.ConfigParser()
-                config.read(input_file.read())
+                config.read(prop_path)
                 properties = {}
                 for section_name, section in config.items():
                     for param_name in section:
                         param_value = config.get(section_name, param_name)
                         properties[param_name] = param_value
+                        logger.debug(f'found in property file: {param_name} = {param_value}')
                 return properties
-            except Exception:
-                raise Exception('Invalid properties file path')
+            except Exception as e:
+                raise Exception(f'Error reading properties file {self._properties_source}: {e}')
         elif self._properties_type == SGrPropertiesSource.DICT:
+            logger.debug('getting properties from dict')
             return typing.cast(dict, self._properties_source)
         return {}
 
@@ -181,6 +188,7 @@ def replace_variables(content: str, parameters: dict) -> str:
     for name, value in parameters.items():
         pattern = re.compile(r'{{' + str(name) + r'}}')
         content = pattern.sub(str(value), content)
+        logger.debug(f'replaced parameter: {str(name)} = {str(value)}')
     return content
 
 def build_properties(config: typing.List[ConfigurationParameter], properties: dict) -> dict:
@@ -191,10 +199,10 @@ def build_properties(config: typing.List[ConfigurationParameter], properties: di
             final_properties[config_param.name] = prop_value
         elif config_param.default_value is not None:
             final_properties[config_param.name] = config_param.default_value
+        logger.debug(f'EID parameter: {config_param.name} = {final_properties[config_param.name]}')
     return final_properties
 
 def validate_schema(content: str):
     xsd_path = importlib.resources.files(sgr_schema).joinpath('SGrIncluder.xsd')
     xsd = xmlschema.XMLSchema(xsd_path)
     xsd.validate(content)
-

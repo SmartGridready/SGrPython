@@ -126,10 +126,10 @@ def get_rtu_parity(modbus_rtu: ModbusRtu) -> str:
 
 def build_modbus_data_point(
     data_point: ModbusDataPointSpec,
-    function_profile: ModbusFunctionalProfileSpec,
+    functional_profile: ModbusFunctionalProfileSpec,
     interface: 'SGrModbusInterface',
 ) -> DataPoint:
-    protocol = ModbusDataPoint(data_point, function_profile, interface)
+    protocol = ModbusDataPoint(data_point, functional_profile, interface)
     validator = build_validator(
         data_point.data_point.data_type if data_point.data_point else None
     )
@@ -305,55 +305,55 @@ class SGrModbusInterface(SGrBaseInterface):
     ):
         self._inititalize_device(frame)
         if (
-            self.frame.interface_list is None
-            or self.frame.interface_list.modbus_interface is None
-            or self.frame.interface_list.modbus_interface.modbus_interface_description
+            self.device_frame.interface_list is None
+            or self.device_frame.interface_list.modbus_interface is None
+            or self.device_frame.interface_list.modbus_interface.modbus_interface_description
             is None
         ):
             raise Exception('Modbus interface is undefined')
 
-        if self.frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu:
+        if self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu:
             self.slave_id = get_rtu_slave_id(
-                self.frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
+                self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
             )
             self.serial_port = get_rtu_serial_port(
-                self.frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
+                self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
             )
             self.baudrate = get_rtu_baudrate(
-                self.frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
+                self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
             )
             self.parity = get_rtu_parity(
-                self.frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
+                self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
             )
-        elif self.frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp:
+        elif self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp:
             self.slave_id = get_tcp_slave_id(
-                self.frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp
+                self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp
             )
             self.ip_address = get_tcp_address(
-                self.frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp
+                self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp
             )
             self.ip_port = get_tcp_port(
-                self.frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp
+                self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp
             )
         else:
             raise Exception('not Modbus RTU or TCP!')
 
         self.byte_order = get_endian(
-            self.frame.interface_list.modbus_interface.modbus_interface_description
+            self.device_frame.interface_list.modbus_interface.modbus_interface_description
         )
 
         # build functional profiles
         fps = [
             ModbusFunctionalProfile(fp, self)
-            for fp in self.frame.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element
+            for fp in self.device_frame.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element
         ]
-        self.function_profiles = {fp.name(): fp for fp in fps}
+        self.functional_profiles = {fp.name(): fp for fp in fps}
 
         # unique string used in combination with shared Modbus client
         self._device_id = ''.join(random.choices(string.ascii_letters, k=8))
         self._client_wrapper: ModbusClientWrapper = None
         if (
-            self.frame.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection
+            self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection
             == ModbusInterfaceSelection.TCPIP
         ):
             self._client_wrapper = ModbusClientWrapper(
@@ -364,7 +364,7 @@ class SGrModbusInterface(SGrBaseInterface):
                 shared=False,
             )
         elif (
-            self.frame.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection
+            self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection
             == ModbusInterfaceSelection.RTU
         ):
             if sharedRTU:

@@ -9,7 +9,7 @@ from sgr_specification.v0.product.product import DeviceFrame
 from sgr_commhandler.api import DataPoint
 from sgr_commhandler.api.configuration_parameter import (
     ConfigurationParameter,
-    build_configurations_parameters,
+    build_configuration_parameters,
 )
 from sgr_commhandler.api.data_types import DataTypes
 from sgr_commhandler.api.functional_profile_api import FunctionalProfile
@@ -26,16 +26,16 @@ class DeviceInformation:
 
 
 class SGrBaseInterface(Protocol):
-    frame: DeviceFrame
-    configurations_params: list[ConfigurationParameter]
+    device_frame: DeviceFrame
+    configuration_parameters: list[ConfigurationParameter]
     device_information: DeviceInformation
-    function_profiles: Mapping[str, FunctionalProfile]
+    functional_profiles: Mapping[str, FunctionalProfile]
 
     def _inititalize_device(
         self, frame: DeviceFrame
     ):
-        self.frame = frame
-        self.configurations_params = build_configurations_parameters(
+        self.device_frame = frame
+        self.configuration_parameters = build_configuration_parameters(
             frame.configuration_list
         )
         self.device_information = DeviceInformation(
@@ -73,17 +73,17 @@ class SGrBaseInterface(Protocol):
 
     def is_connected(self) -> bool: ...
 
-    def get_function_profile(
-        self, function_profile_name: str
+    def get_functional_profile(
+        self, functional_profile_name: str
     ) -> FunctionalProfile:
-        return self.function_profiles[function_profile_name]
+        return self.functional_profiles[functional_profile_name]
 
     def get_data_point(self, dp: tuple[str, str]) -> DataPoint:
-        return self.get_function_profile(dp[0]).get_data_point(dp[1])
+        return self.get_functional_profile(dp[0]).get_data_point(dp[1])
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         data_points = {}
-        for fp in self.function_profiles.values():
+        for fp in self.functional_profiles.values():
             data_points.update(fp.get_data_points())
         return data_points
 
@@ -92,7 +92,7 @@ class SGrBaseInterface(Protocol):
 
     async def get_values_async(self) -> dict[tuple[str, str], Any]:
         data = {}
-        for fp in self.function_profiles.values():
+        for fp in self.functional_profiles.values():
             data.update(
                 {
                     (fp.name(), key): value
@@ -107,7 +107,7 @@ class SGrBaseInterface(Protocol):
         str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]
     ]:
         data = {}
-        for fp in self.function_profiles.values():
+        for fp in self.functional_profiles.values():
             key, dps = fp.describe()
             data[key] = dps
         return self.device_information.name, data

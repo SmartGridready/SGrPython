@@ -27,10 +27,10 @@ logger = logging.getLogger(__name__)
 
 def build_generic_data_point(
     data_point: GenericDataPointSpec,
-    function_profile: GenericFunctionalProfileSpec,
+    functional_profile: GenericFunctionalProfileSpec,
     interface: 'SGrGenericInterface',
 ) -> DataPoint:
-    protocol = GenericDataPoint(data_point, function_profile, interface)
+    protocol = GenericDataPoint(data_point, functional_profile, interface)
     data_type = None
     if data_point.data_point and data_point.data_point.data_type:
         data_type = data_point.data_point.data_type
@@ -136,11 +136,11 @@ class SGrGenericInterface(SGrBaseInterface):
         self._inititalize_device(frame)
 
         if (
-            self.frame.interface_list
-            and self.frame.interface_list
-            and self.frame.interface_list.generic_interface
+            self.device_frame.interface_list
+            and self.device_frame.interface_list
+            and self.device_frame.interface_list.generic_interface
         ):
-            self._raw_interface = self.frame.interface_list.generic_interface
+            self._raw_interface = self.device_frame.interface_list.generic_interface
         else:
             raise Exception('No generic interface')
 
@@ -151,7 +151,7 @@ class SGrGenericInterface(SGrBaseInterface):
         ):
             raw_fps = self._raw_interface.functional_profile_list.functional_profile_list_element
         fps = [GenericFunctionalProfile(profile, self) for profile in raw_fps]
-        self.function_profiles = {fp.name(): fp for fp in fps}
+        self.functional_profiles = {fp.name(): fp for fp in fps}
 
     def is_connected(self):
         return False
