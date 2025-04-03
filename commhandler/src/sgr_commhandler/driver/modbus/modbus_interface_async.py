@@ -4,7 +4,7 @@ import string
 from typing import Any, Optional
 
 from sgr_specification.v0.generic import DataDirectionProduct, Parity
-from sgr_specification.v0.generic.base_types import DataTypeProduct
+from sgr_specification.v0.generic.base_types import DataTypeProduct, Units
 from sgr_specification.v0.product import (
     DeviceFrame,
 )
@@ -173,10 +173,6 @@ class ModbusDataPoint(DataPointProtocol):
         ):
             self._dp_name = self._dp_spec.data_point.data_point_name
 
-        self._direction: DataDirectionProduct = DataDirectionProduct.C
-        if self._dp_spec.data_point and self._dp_spec.data_point.data_direction:
-            self._direction = self._dp_spec.data_point.data_direction
-
         self._fp_name: str = ''
         if (
             self._fp_spec.functional_profile
@@ -273,7 +269,20 @@ class ModbusDataPoint(DataPointProtocol):
         return self._fp_name, self._dp_name
 
     def direction(self) -> DataDirectionProduct:
-        return self._direction
+        if (
+            self._dp_spec.data_point is None
+            or self._dp_spec.data_point.data_direction is None
+        ):
+            raise Exception('missing data direction')
+        return self._dp_spec.data_point.data_direction
+    
+    def unit(self) -> Units:
+        if (
+            self._dp_spec.data_point is None
+            or self._dp_spec.data_point.unit is None
+        ):
+            return Units.NONE
+        return self._dp_spec.data_point.unit
 
 
 class ModbusFunctionalProfile(FunctionalProfile):
