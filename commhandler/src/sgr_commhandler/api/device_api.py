@@ -19,6 +19,21 @@ from sgr_commhandler.api.functional_profile_api import FunctionalProfile
 class DeviceInformation:
     """
     Implements a device information container.
+
+    Attributes
+    ----------
+    name : str
+        Defines the device name
+    manufacturer : str
+        Defines the manufacturer's name
+    software_revision : str
+        Defines the device software version
+    hardware_revision : str
+        Defines the device hardware version
+    device_category : DeviceCategory
+        Defines the device category
+    is_local : bool
+        Defines if the device is controlled locally or via cloud
     """
 
     name: str

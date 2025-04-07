@@ -22,13 +22,44 @@ Authenticator: TypeAlias = Callable[
 async def authenticate_not(
     interface: RestApiInterface, session: ClientSession
 ) -> bool:
-    # skip authentication
+    """
+    Skips authentication.
+
+    Parameters
+    ----------
+    interface : RestApiInterface
+        the device interface
+    session : ClientSession
+        the REST client session
+    
+    Returns
+    -------
+    bool
+        True if authenticated, False otherwise
+    """
+
     return True
 
 
 async def authenticate_with_bearer_token(
     interface: RestApiInterface, session: ClientSession
 ) -> bool:
+    """
+    Authenticates using Bearer token (JWT).
+
+    Parameters
+    ----------
+    interface : RestApiInterface
+        the device interface
+    session : ClientSession
+        the REST client session
+    
+    Returns
+    -------
+    bool
+        True if authenticated, False otherwise
+    """
+
     try:
         description = interface.rest_api_interface_description
         if description is None:
@@ -110,6 +141,22 @@ supported_authentication_methods: dict[
 async def setup_authentication(
     rest_api_interface: RestApiInterface, session: ClientSession
 ) -> bool:
+    """
+    Performs authentication asynchronously, depending on the configured method.
+
+    Parameters
+    ----------
+    interface : RestApiInterface
+        the device interface
+    session : ClientSession
+        the REST client session
+    
+    Returns
+    -------
+    bool
+        True if authenticated, False otherwise
+    """
+
     descr = rest_api_interface.rest_api_interface_description
     if descr is None:
         raise Exception("no REST interface description")

@@ -65,6 +65,7 @@ SGrInterfaces = (
     | SGrContactInterface
     | SGrGenericInterface
 )
+
 device_builders: dict[
     SGrDeviceProtocol,
     Callable[

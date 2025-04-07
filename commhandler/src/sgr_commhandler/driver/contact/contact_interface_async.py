@@ -30,6 +30,10 @@ def build_contact_data_point(
     functional_profile: ContactFunctionalProfileSpec,
     interface: 'SGrContactInterface',
 ) -> DataPoint:
+    """
+    Builds a data point of a contact interface.
+    """
+
     protocol = ContactDataPoint(data_point, functional_profile, interface)
     data_type = None
     if data_point.data_point and data_point.data_point.data_type:
@@ -39,6 +43,10 @@ def build_contact_data_point(
 
 
 class ContactDataPoint(DataPointProtocol):
+    """
+    Implements a data point of a contact interface.
+    """
+
     def __init__(
         self,
         dp_spec: ContactDataPointSpec,
@@ -91,6 +99,10 @@ class ContactDataPoint(DataPointProtocol):
 
 
 class ContactFunctionalProfile(FunctionalProfile):
+    """
+    Implements a functional profile of a contact interface.
+    """
+
     def __init__(
         self,
         fp_spec: ContactFunctionalProfileSpec,

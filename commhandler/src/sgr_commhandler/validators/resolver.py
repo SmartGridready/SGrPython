@@ -28,6 +28,11 @@ def build_validator(type: Optional[DataTypeProduct]) -> DataPointValidator:
     -------
     DataPointValidator
         a data point validator
+
+    Raises
+    ------
+    Exception
+        when data type has no supported validator
     """
 
     if type is None:

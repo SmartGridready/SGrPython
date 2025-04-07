@@ -16,13 +16,45 @@ class DataPointValidator(Protocol):
     """
 
     def validate(self, value: Any) -> bool:
+        """
+        Validates the compatibility of a value.
+
+        Parameters
+        ----------
+        value : Any
+            the value to validate
+
+        Returns
+        -------
+        bool
+            true if value is compatible, false otherwise
+        """
+
         ...
 
     def data_type(self) -> DataTypes:
+        """
+        Gets the validator's data type.
+
+        Returns
+        -------
+        DataTypes
+            the data type enumeration
+        """
+
         ...
 
-    def options(self) -> list[Any] | None:
-        return None
+    def options(self) -> list[Any]:
+        """
+        Gets the validator's options.
+
+        Returns
+        -------
+        list[Any]
+            the options
+        """
+
+        return []
 
 
 class DataPointProtocol(Protocol):
@@ -31,27 +63,90 @@ class DataPointProtocol(Protocol):
     """
 
     async def set_val(self, value: Any):
+        """
+        Writes the data point value.
+
+        Parameters
+        ----------
+        value : Any
+            the data point value to write
+        """
+
         ...
 
     async def get_val(self, skip_cache: bool = False) -> Any:
+        """
+        Reads the data point value.
+
+        Parameters
+        ----------
+        skip_cache : bool
+            does not use cache if true
+        
+        Returns
+        -------
+        Any
+            the data point value
+        """
+
         ...
 
     def name(self) -> tuple[str, str]:
+        """
+        Gets the functional profile and data point names.
+
+        Returns
+        -------
+        tuple[str, str]
+            the functional profile and data point names as tuple
+        """
+
         ...
 
     def direction(self) -> DataDirectionProduct:
+        """
+        Gets the data direction of the data point.
+
+        Returns
+        -------
+        DataDirectionProduct
+            the functional profile and data point names as tuple
+        """
+
         ...
 
     def unit(self) -> Units:
         ...
 
     def can_subscribe(self) -> bool:
+        """
+        Defines if subscribe() is allowed.
+
+        Returns
+        -------
+        bool
+            True if allowed, False otherwise
+        """
+
         return False
 
     def subscribe(self, fn: Callable[[Any], None]):
+        """
+        Subscribes to changes of the data point value.
+
+        Parameters
+        ----------
+        fn : Callable[[Any], None]
+            the callback method
+        """
+
         raise Exception('Unsupported operation')
 
     def unsubscribe(self):
+        """
+        Unsubscribes from changes of the data point value.
+        """
+
         raise Exception('Unsupported operation')
 
 
@@ -97,6 +192,11 @@ class DataPoint(Generic[T]):
         -------
         T
             the data point value
+        
+        Raises
+        ------
+        Exception
+            when read value is not compatible with data type
         """
 
         value = await self._protocol.get_val()
@@ -114,6 +214,11 @@ class DataPoint(Generic[T]):
         -------
         T
             the data point value
+        
+        Raises
+        ------
+        Exception
+            when read value is not compatible with data type
         """
 
         return run(self.get_value_async())
@@ -214,7 +319,4 @@ class DataPoint(Generic[T]):
             the data point options
         """
 
-        options = self._validator.options()
-        if options is None:
-            return []
-        return options
+        return self._validator.options()

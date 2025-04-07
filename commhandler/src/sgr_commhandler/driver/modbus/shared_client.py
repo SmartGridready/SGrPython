@@ -13,6 +13,10 @@ logger = logging.getLogger(__name__)
 
 
 class ModbusClientWrapper:
+    """
+    Implements a Modbus client wrapper for shared use.
+    """
+
     def __init__(
         self, identifier: str, client: SGrModbusClient, shared: bool = False
     ):

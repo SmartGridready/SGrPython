@@ -18,6 +18,10 @@ logger = logging.getLogger(__name__)
 
 
 class SGrModbusClient(ABC):
+    """
+    Defines an abstract base class for Modbus clients.
+    """
+
     def __init__(self, endianness: BitOrder, addr_offset: int):
         self._lock = threading.Lock()
         self._client: Optional[ModbusBaseClient] = None
@@ -44,11 +48,18 @@ class SGrModbusClient(ABC):
         self, slave_id: int, address: int, data_type: ModbusDataType, value: Any
     ) -> None:
         """
-        Encodes value to be written to holding register address
-        :param slave_id: The slave ID of the device
-        :param address: The address to read from and decode
-        :param data_type: The modbus type to encode
-        :param value: The value to be written
+        Encodes value to be written to holding register address.
+
+        Parameters
+        ----------
+        slave_id : int
+            The slave ID of the device
+        address : int
+            The address to read from and decode
+        data_type : ModbusDataType
+            The modbus type to encode
+        value : Any
+            The value to be written
         """
         if self._client is None:
             raise Exception('Client not initialized')
@@ -65,11 +76,18 @@ class SGrModbusClient(ABC):
         self, slave_id: int, address: int, data_type: ModbusDataType, value: Any
     ) -> None:
         """
-        Encodes value to be written to coil address
-        :param slave_id: The slave ID of the device
-        :param address: The address to read from and decode
-        :param data_type: The modbus type to encode
-        :param value: The value to be written
+        Encodes value to be written to coil address.
+
+        Parameters
+        ----------
+        slave_id : int
+            The slave ID of the device
+        address : int
+            The address to read from and decode
+        data_type : ModbusDataType
+            The modbus type to encode
+        value : Any
+            The value to be written
         """
         if self._client is None:
             raise Exception('Client not initialized')
@@ -87,11 +105,22 @@ class SGrModbusClient(ABC):
     ) -> Any:
         """
         Reads input registers and decodes the value.
-        :param slave_id: The slave ID of the device
-        :param address: The address to read from and decode
-        :param size: The number of registers to read
-        :param data_type: The modbus type to decode
-        :returns: Decoded value
+
+        Parameters
+        ----------
+        slave_id : int
+            The slave ID of the device
+        address : int
+            The address to read from and decode
+        size : int
+            The number of registers to read
+        data_type : ModbusDataType
+            The modbus type to decode
+        
+        Returns
+        -------
+        Any
+            Decoded value
         """
         if self._client is None:
             raise Exception('Client not initialized')
@@ -118,6 +147,7 @@ class SGrModbusClient(ABC):
         :param data_type: The modbus type to decode
         :returns: Decoded value
         """
+
         if self._client is None:
             raise Exception('Client not initialized')
         with self._lock:
@@ -143,6 +173,7 @@ class SGrModbusClient(ABC):
         :param data_type: The modbus type to decode
         :returns: Decoded value
         """
+
         if self._client is None:
             raise Exception('Client not initialized')
         with self._lock:
@@ -198,6 +229,7 @@ class SGrModbusClient(ABC):
         :param data_type: The modbus type to decode
         :returns: Decoded float tuple
         """
+
         if self._client is None:
             raise Exception('Client not initialized')
         if register_type == 'HoldRegister':
@@ -225,13 +257,19 @@ class SGrModbusClient(ABC):
 
 
 class SGrModbusTCPClient(SGrModbusClient):
+    """
+    Implements a Modbus TCP client.
+    """
+
     def __init__(self, ip: str, port: int, endianness: BitOrder = BitOrder.BIG_ENDIAN, addr_offset: int = 0):
         super().__init__(endianness, addr_offset)
         """
-        Creates client
+        Creates client.
         :param ip: The host to connect to (default 127.0.0.1)
         :param port: The modbus port to connect to (default 502)
         """
+
+        super().__init__(endianness)
         self._ip = ip
         self._port = port
         self._client = AsyncModbusTcpClient(
@@ -268,11 +306,21 @@ class SGrModbusRTUClient(SGrModbusClient):
     ):
         super().__init__(endianness, addr_offset)
         """
-        Creates client
-        :param serial_port: The serial port to connect to (e.g. COM1)
-        :param parity: The serial parity (e.g. EVEN)
-        :param baudrate: The serial baudrate (e.g. 19200)
+        Creates client.
+
+        Parameters
+        ----------
+        serial_port : str
+            The serial port to connect to (e.g. COM1)
+        parity : str
+            The serial parity (e.g. EVEN)
+        baudrate : int
+            The serial baudrate (e.g. 19200)
+        endianness : BitOrder
+            The data endianness
         """
+
+        super().__init__(endianness)
         self._serial_port = serial_port
         self._client = AsyncModbusSerialClient(
             port=serial_port,
