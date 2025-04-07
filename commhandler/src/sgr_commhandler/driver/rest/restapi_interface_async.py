@@ -79,6 +79,10 @@ class RestRequest:
 
 
 class RestDataPoint(DataPointProtocol):
+    """
+    Implements a data point of a REST API interface.
+    """
+
     def __init__(
         self,
         dp_spec: RestApiDataPointSpec,
@@ -311,6 +315,10 @@ class RestDataPoint(DataPointProtocol):
 
 
 class RestFunctionalProfile(FunctionalProfile):
+    """
+    Implements a functional profile of a REST API interface.
+    """
+
     def __init__(
         self,
         fp_spec: RestApiFunctionalProfileSpec,
@@ -347,7 +355,7 @@ class RestFunctionalProfile(FunctionalProfile):
 
 class SGrRestInterface(SGrBaseInterface):
     """
-    SmartGridready External Interface Class for Rest API
+    Implements a REST API device interface.
     """
 
     def __init__(
