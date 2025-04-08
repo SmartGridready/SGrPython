@@ -162,7 +162,8 @@ class DeviceBuilder:
             try:
                 prop_path = str(self._properties_source)
                 logger.debug(f'getting properties from file {prop_path}')
-                config = configparser.ConfigParser()
+                config = configparser.RawConfigParser()
+                config.optionxform = lambda option: option
                 config.read(prop_path)
                 properties = {}
                 for section_name, section in config.items():
