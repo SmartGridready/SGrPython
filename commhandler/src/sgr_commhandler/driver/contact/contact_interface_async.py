@@ -2,7 +2,7 @@ import logging
 from typing import Any
 
 from sgr_specification.v0.generic import (
-    DataDirectionProduct,
+    DataDirectionProduct, Units
 )
 from sgr_specification.v0.generic import (
     DataPointBase as ContactDataPointSpec,
@@ -80,6 +80,14 @@ class ContactDataPoint(DataPointProtocol):
         ):
             raise Exception('missing data direction')
         return self._dp_spec.data_point.data_direction
+
+    def unit(self) -> Units:
+        if (
+            self._dp_spec.data_point is None
+            or self._dp_spec.data_point.unit is None
+        ):
+            return Units.NONE
+        return self._dp_spec.data_point.unit
 
 
 class ContactFunctionalProfile(FunctionalProfile):

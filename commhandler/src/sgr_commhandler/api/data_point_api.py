@@ -2,7 +2,7 @@ from asyncio import run
 from collections.abc import Callable
 from typing import Any, Generic, Protocol, TypeVar
 
-from sgr_specification.v0.generic import DataDirectionProduct
+from sgr_specification.v0.generic import DataDirectionProduct, Units
 
 from sgr_commhandler.api.data_types import DataTypes
 
@@ -26,6 +26,8 @@ class DataPointProtocol(Protocol):
     def name(self) -> tuple[str, str]: ...
 
     def direction(self) -> DataDirectionProduct: ...
+
+    def unit(self) -> Units: ...
 
     def can_subscribe(self) -> bool:
         return False
@@ -77,11 +79,14 @@ class DataPoint(Generic[T]):
 
     def data_type(self) -> DataTypes:
         return self._validator.data_type()
+    
+    def unit(self) -> Units:
+        return self._protocol.unit()
 
     def describe(
         self,
-    ) -> tuple[tuple[str, str], DataDirectionProduct, DataTypes]:
-        return self.name(), self.direction(), self.data_type()
+    ) -> tuple[tuple[str, str], DataDirectionProduct, DataTypes, Units]:
+        return self.name(), self.direction(), self.data_type(), self.unit()
 
     def options(self) -> list[Any]:
         options = self._validator.options()

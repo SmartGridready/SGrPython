@@ -1,7 +1,11 @@
+import logging
 from typing import Any
 
 from pymodbus.payload import BinaryPayloadBuilder, BinaryPayloadDecoder
 from sgr_specification.v0.product.modbus_types import ModbusDataType
+
+
+logger = logging.getLogger(__name__)
 
 
 class PayloadDecoder(BinaryPayloadDecoder):
@@ -52,30 +56,30 @@ class PayloadBuilder(BinaryPayloadBuilder):
         :param modbus_type: 'int8', 'int8_u', 'int16', 'int16_u', 'int32', 'int32_u', 'int64', 'int64_u', 'float32', 'float64', 'boolean', 'string'
         """
         # TODO enum, date_time
-        if modbus_type == ModbusDataType.int8:
+        if modbus_type.int8:
             self.add_8bit_int(int(value))
-        elif modbus_type == ModbusDataType.int8_u:
+        elif modbus_type.int8_u:
             self.add_8bit_uint(int(value))
-        elif modbus_type == ModbusDataType.int16:
+        elif modbus_type.int16:
             self.add_16bit_int(int(value))
-        elif modbus_type == ModbusDataType.int16_u:
+        elif modbus_type.int16_u:
             self.add_16bit_uint(int(value))
-        elif modbus_type == ModbusDataType.int32:
+        elif modbus_type.int32:
             self.add_32bit_int(int(value))
-        elif modbus_type == ModbusDataType.int32_u:
+        elif modbus_type.int32_u:
             self.add_32bit_uint(int(value))
-        elif modbus_type == ModbusDataType.int64:
+        elif modbus_type.int64:
             self.add_64bit_int(int(value))
-        elif modbus_type == ModbusDataType.int64_u:
+        elif modbus_type.int64_u:
             self.add_64bit_uint(int(value))
-        elif modbus_type == ModbusDataType.float32:
+        elif modbus_type.float32:
             self.add_32bit_float(float(value))
-        elif modbus_type == ModbusDataType.float64:
+        elif modbus_type.float64:
             self.add_64bit_float(float(value))
-        elif modbus_type == ModbusDataType.boolean:
+        elif modbus_type.boolean:
             self.add_8bit_uint(bool(value))
-        elif modbus_type == ModbusDataType.string:
+        elif modbus_type.string:
             self.add_string(str(value))
         else:
-            print('Unsupported modbus type "%s"', modbus_type)
+            logger.error(f'Unsupported modbus type "{modbus_type}"')
         return self

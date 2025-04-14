@@ -10,7 +10,7 @@ import certifi
 import jmespath
 from aiohttp import ClientConnectionError, ClientResponseError
 from cachetools import TTLCache
-from sgr_specification.v0.generic import DataDirectionProduct
+from sgr_specification.v0.generic import DataDirectionProduct, Units
 from sgr_specification.v0.generic.base_types import ResponseQueryType
 from sgr_specification.v0.product import (
     DeviceFrame,
@@ -298,6 +298,14 @@ class RestDataPoint(DataPointProtocol):
         ):
             raise Exception('missing data direction')
         return self._dp_spec.data_point.data_direction
+    
+    def unit(self) -> Units:
+        if (
+            self._dp_spec.data_point is None
+            or self._dp_spec.data_point.unit is None
+        ):
+            return Units.NONE
+        return self._dp_spec.data_point.unit
 
     def subscribe(self, fn: Callable[[Any], None]):
         raise UnsupportedOperation(

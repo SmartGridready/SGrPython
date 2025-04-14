@@ -4,7 +4,7 @@ import string
 from typing import Any, Optional
 
 from sgr_specification.v0.generic import DataDirectionProduct, Parity
-from sgr_specification.v0.generic.base_types import DataTypeProduct
+from sgr_specification.v0.generic.base_types import DataTypeProduct, Units
 from sgr_specification.v0.product import (
     DeviceFrame,
 )
@@ -70,6 +70,14 @@ def get_endian(modbus: ModbusInterfaceDescription) -> BitOrder:
     if modbus.bit_order:
         return modbus.bit_order
     return BitOrder.BIG_ENDIAN
+
+
+def get_address_offset(modbus: ModbusInterfaceDescription) -> int:
+    """
+    returns the address offset.
+    is 0 by default and -1 when first register address is 1.
+    """
+    return -1 if modbus.first_register_address_is_one is not None and modbus.first_register_address_is_one else 0
 
 
 def get_tcp_address(modbus_tcp: ModbusTcp) -> str:
@@ -173,10 +181,6 @@ class ModbusDataPoint(DataPointProtocol):
         ):
             self._dp_name = self._dp_spec.data_point.data_point_name
 
-        self._direction: DataDirectionProduct = DataDirectionProduct.C
-        if self._dp_spec.data_point and self._dp_spec.data_point.data_direction:
-            self._direction = self._dp_spec.data_point.data_direction
-
         self._fp_name: str = ''
         if (
             self._fp_spec.functional_profile
@@ -273,7 +277,20 @@ class ModbusDataPoint(DataPointProtocol):
         return self._fp_name, self._dp_name
 
     def direction(self) -> DataDirectionProduct:
-        return self._direction
+        if (
+            self._dp_spec.data_point is None
+            or self._dp_spec.data_point.data_direction is None
+        ):
+            raise Exception('missing data direction')
+        return self._dp_spec.data_point.data_direction
+    
+    def unit(self) -> Units:
+        if (
+            self._dp_spec.data_point is None
+            or self._dp_spec.data_point.unit is None
+        ):
+            return Units.NONE
+        return self._dp_spec.data_point.unit
 
 
 class ModbusFunctionalProfile(FunctionalProfile):
@@ -342,6 +359,10 @@ class SGrModbusInterface(SGrBaseInterface):
             self.device_frame.interface_list.modbus_interface.modbus_interface_description
         )
 
+        self.address_offset = get_address_offset(
+            self.device_frame.interface_list.modbus_interface.modbus_interface_description
+        )
+
         # build functional profiles
         fps = [
             ModbusFunctionalProfile(fp, self)
@@ -359,7 +380,7 @@ class SGrModbusInterface(SGrBaseInterface):
             self._client_wrapper = ModbusClientWrapper(
                 '',
                 SGrModbusTCPClient(
-                    self.ip_address, self.ip_port, self.byte_order
+                    self.ip_address, self.ip_port, endianness=self.byte_order, addr_offset=self.address_offset
                 ),
                 shared=False,
             )
@@ -382,7 +403,8 @@ class SGrModbusInterface(SGrBaseInterface):
                         self.serial_port,
                         self.parity,
                         self.baudrate,
-                        self.byte_order,
+                        endianness=self.byte_order,
+                        addr_offset=self.address_offset
                     ),
                     shared=False,
                 )
