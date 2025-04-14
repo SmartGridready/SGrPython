@@ -30,6 +30,9 @@ def build_generic_data_point(
     functional_profile: GenericFunctionalProfileSpec,
     interface: 'SGrGenericInterface',
 ) -> DataPoint:
+    """
+    Builds a data point of a generic interface.
+    """
     protocol = GenericDataPoint(data_point, functional_profile, interface)
     data_type = None
     if data_point.data_point and data_point.data_point.data_type:
@@ -39,6 +42,10 @@ def build_generic_data_point(
 
 
 class GenericDataPoint(DataPointProtocol):
+    """
+    Implements a data point of a generic interface.
+    """
+
     def __init__(
         self,
         dp_spec: GenericDataPointSpec,
@@ -98,6 +105,10 @@ class GenericDataPoint(DataPointProtocol):
 
 
 class GenericFunctionalProfile(FunctionalProfile):
+    """
+    Implements a functional profile of a generic interface.
+    """
+
     def __init__(
         self,
         fp_spec: GenericFunctionalProfileSpec,

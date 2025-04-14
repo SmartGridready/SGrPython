@@ -9,13 +9,25 @@ logger = logging.getLogger(__name__)
 
 
 class PayloadDecoder(BinaryPayloadDecoder):
+    """
+    Implements a Modbus payload decoder.
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     def decode(self, modbus_type: ModbusDataType, byte_count: int):
         """
-        :param modbus_type: 'int8', 'int8_u', 'int16', 'int16_u', 'int32', 'int32_u', 'int64', 'int64_u', 'float32', 'boolean', 'float64', 'string'
+        Decodes a data value.
+
+        Parameters
+        ----------
+        modbus_type : ModbusDataType
+            the Modbus data type to decode
+        byte_count : int
+            the number of bytes
         """
+
         # TODO enum, date_time
         if modbus_type.int8:
             return self.decode_8bit_int()
@@ -46,6 +58,10 @@ class PayloadDecoder(BinaryPayloadDecoder):
 
 
 class PayloadBuilder(BinaryPayloadBuilder):
+    """
+    Implements a Modbus payload encoder.
+    """
+
     def __init__(self, *args, **kwarg):
         super().__init__(*args, **kwarg)
 
@@ -53,7 +69,14 @@ class PayloadBuilder(BinaryPayloadBuilder):
         self, value: Any, modbus_type: ModbusDataType
     ) -> "PayloadBuilder":
         """
-        :param modbus_type: 'int8', 'int8_u', 'int16', 'int16_u', 'int32', 'int32_u', 'int64', 'int64_u', 'float32', 'float64', 'boolean', 'string'
+        Encodes data type value.
+
+        Parameters
+        ----------
+        value : Any
+            the value to encode
+        modbus_type : ModbusDataType
+            The Modbus data type to encode
         """
         # TODO enum, date_time
         if modbus_type.int8:

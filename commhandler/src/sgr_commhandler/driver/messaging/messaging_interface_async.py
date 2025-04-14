@@ -29,6 +29,9 @@ def build_messaging_data_point(
     functional_profile: MessagingFunctionalProfileSpec,
     interface: 'SGrMessagingInterface',
 ) -> DataPoint:
+    """
+    Builds a data point of a messaging interface.
+    """
     protocol = MessagingDataPoint(data_point, functional_profile, interface)
     data_type = None
     if data_point.data_point and data_point.data_point.data_type:
@@ -38,6 +41,10 @@ def build_messaging_data_point(
 
 
 class MessagingDataPoint(DataPointProtocol):
+    """
+    Implements a data point of a messaging interface.
+    """
+
     def __init__(
         self,
         dp_spec: MessagingDataPointSpec,
@@ -105,6 +112,10 @@ class MessagingDataPoint(DataPointProtocol):
 
 
 class MessagingFunctionalProfile(FunctionalProfile):
+    """
+    Implements a functional profile of a messaging interface.
+    """
+
     def __init__(
         self,
         fp_spec: MessagingFunctionalProfileSpec,

@@ -137,6 +137,10 @@ def build_modbus_data_point(
     functional_profile: ModbusFunctionalProfileSpec,
     interface: 'SGrModbusInterface',
 ) -> DataPoint:
+    """
+    Builds a data point of a Modbus interface.
+    """
+
     protocol = ModbusDataPoint(data_point, functional_profile, interface)
     validator = build_validator(
         data_point.data_point.data_type if data_point.data_point else None
@@ -145,6 +149,15 @@ def build_modbus_data_point(
 
 
 def is_integer_type(data_type: DataTypeProduct | ModbusDataType) -> bool:
+    """
+    Checks if a data type is an integer.
+
+    Returns
+    -------
+    bool
+        True if integer, False otherwise
+    """
+
     return any(
         (
             data_type.int8 is not None,
@@ -160,10 +173,23 @@ def is_integer_type(data_type: DataTypeProduct | ModbusDataType) -> bool:
 
 
 def is_float_type(data_type: DataTypeProduct | ModbusDataType) -> bool:
+    """
+    Checks if a data type is a floating point value.
+
+    Returns
+    -------
+    bool
+        True if integer, False otherwise
+    """
+
     return data_type.float32 is not None or data_type.float64 is not None
 
 
 class ModbusDataPoint(DataPointProtocol):
+    """
+    Implements a data point of a Modbus interface.
+    """
+
     def __init__(
         self,
         dp_spec: ModbusDataPointSpec,
@@ -294,6 +320,10 @@ class ModbusDataPoint(DataPointProtocol):
 
 
 class ModbusFunctionalProfile(FunctionalProfile):
+    """
+    Implements a functional profile of a Modbus interface.
+    """
+
     def __init__(
         self,
         fp_spec: ModbusFunctionalProfileSpec,
@@ -315,6 +345,10 @@ class ModbusFunctionalProfile(FunctionalProfile):
 
 
 class SGrModbusInterface(SGrBaseInterface):
+    """
+    Implements a Modbus device interface.
+    """
+
     def __init__(
         self,
         frame: DeviceFrame,

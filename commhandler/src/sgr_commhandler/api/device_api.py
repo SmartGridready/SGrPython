@@ -17,6 +17,24 @@ from sgr_commhandler.api.functional_profile_api import FunctionalProfile
 
 @dataclass
 class DeviceInformation:
+    """
+    Implements a device information container.
+
+    Attributes
+    ----------
+    name : str
+        Defines the device name
+    manufacturer : str
+        Defines the manufacturer's name
+    software_revision : str
+        Defines the device software version
+    hardware_revision : str
+        Defines the device hardware version
+    device_category : DeviceCategory
+        Defines the device category
+    is_local : bool
+        Defines if the device is controlled locally or via cloud
+    """
     name: str
     manufacturer: str
     software_revision: str
@@ -26,6 +44,20 @@ class DeviceInformation:
 
 
 class SGrBaseInterface(Protocol):
+    """
+    Defines an abstract base class for all SGr device interfaces.
+
+    Attributes
+    ----------
+    device_frame : DeviceFrame
+        the device specification
+    configuration_parameters : list[ConfigurationParameter]
+        the configuration parameters with default values
+    device_information : DeviceInformation
+        the device information
+    functional_profiles : Mapping[str, FunctionalProfile]
+        the configured functional profiles
+    """
     device_frame: DeviceFrame
     configuration_parameters: list[ConfigurationParameter]
     device_information: DeviceInformation
@@ -62,35 +94,108 @@ class SGrBaseInterface(Protocol):
         )
 
     def connect(self):
+        """
+        Connects the device synchronously.
+        """
         run(self.connect_async())
 
-    async def connect_async(self): ...
+    async def connect_async(self):
+        """
+        Connects the device asynchronously.
+        """
+        ...
 
     def disconnect(self):
+        """
+        Disconnects the device synchronously.
+        """
         run(self.disconnect_async())
 
-    async def disconnect_async(self): ...
+    async def disconnect_async(self):
+        """
+        Disconnects the device asynchronously.
+        """
+        ...
 
-    def is_connected(self) -> bool: ...
+    def is_connected(self) -> bool:
+        """
+        Gets the connection state.
+
+        Returns
+        -------
+        bool
+            the connection state
+        """
+        ...
 
     def get_functional_profile(
         self, functional_profile_name: str
     ) -> FunctionalProfile:
+        """
+        Gets a functional profile.
+
+        Parameters
+        ----------
+        functional_profile_name : str
+            the functional profile name
+
+        Returns
+        -------
+        FunctionalProfile
+            a functional profile
+        """
         return self.functional_profiles[functional_profile_name]
 
     def get_data_point(self, dp: tuple[str, str]) -> DataPoint:
+        """
+        Gets a data point.
+
+        Parameters
+        ----------
+        dp : tuple[str, str]
+            the functional profile and data point name
+
+        Returns
+        -------
+        DataPoint
+            a data point
+        """
         return self.get_functional_profile(dp[0]).get_data_point(dp[1])
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
+        """
+        Gets all data points.
+
+        Returns
+        -------
+        dict[tuple[str, str], DataPoint]
+            all data points
+        """
         data_points = {}
         for fp in self.functional_profiles.values():
             data_points.update(fp.get_data_points())
         return data_points
 
     def get_values(self) -> dict[tuple[str, str], Any]:
+        """
+        Gets all data point values synchronously.
+
+        Returns
+        -------
+        dict[tuple[str, str], Any]
+            all data point values
+        """
         return run(self.get_values_async())
 
     async def get_values_async(self) -> dict[tuple[str, str], Any]:
+        """
+        Gets all data point values asynchronously.
+
+        Returns
+        -------
+        dict[tuple[str, str], Any]
+            all data point values
+        """
         data = {}
         for fp in self.functional_profiles.values():
             data.update(
@@ -106,6 +211,14 @@ class SGrBaseInterface(Protocol):
     ) -> tuple[
         str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]
     ]:
+        """
+        Gets the device description and all data.
+
+        Returns
+        -------
+        tuple[str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]]
+            a tuple of device name and all data point values
+        """
         data = {}
         for fp in self.functional_profiles.values():
             key, dps = fp.describe()
