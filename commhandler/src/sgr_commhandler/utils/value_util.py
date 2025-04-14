@@ -1,5 +1,9 @@
+import logging
 from enum import Enum
 from math import ceil, floor
+
+
+logger = logging.getLogger(__name__)
 
 
 class RoundingScheme(Enum):
@@ -18,8 +22,5 @@ def round_to_int(
     elif scheme == RoundingScheme.near:
         return round(value)
     else:
-        print(
-            "tried rounding with a invalid scheme (%s) using floor instead",
-            scheme,
-        )
+        logger.warning(f'tried rounding with a invalid scheme ({scheme}) using floor instead')
         return int(floor(value))
