@@ -279,7 +279,7 @@ class RestDataPoint(DataPointProtocol):
             )
 
         # TODO auch hier scheint alles no ein bisschen fehlerhaft
-        # replace {{value}} placeholder
+        # replace [[value]] placeholder
         request = RestRequest(
             self._write_call.request_method,
             f'{self._interface.base_url}{self._write_call.request_path}',
@@ -287,7 +287,7 @@ class RestDataPoint(DataPointProtocol):
             self._write_call.request_query,
             self._write_call.request_form,
             body=str(self._write_call.request_body).replace(
-                '{{value}}', str(value)
+                '[[value]]', str(value)
             )
             if self._write_call.request_body
             else None,
