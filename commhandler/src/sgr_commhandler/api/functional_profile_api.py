@@ -21,7 +21,6 @@ class FunctionalProfile(Protocol):
         str
             the functional profile name
         """
-
         ...
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
@@ -33,7 +32,6 @@ class FunctionalProfile(Protocol):
         dict[tuple[str, str], DataPoint]
             all data points
         """
-
         ...
 
     def get_data_point(self, dp_name: str) -> DataPoint:
@@ -50,7 +48,6 @@ class FunctionalProfile(Protocol):
         DataPoint
             a data point
         """
-
         return self.get_data_points()[(self.name(), dp_name)]
 
     async def get_value_async(self) -> dict[str, DataPoint]:
@@ -62,7 +59,6 @@ class FunctionalProfile(Protocol):
         dict[str, DataPoint]
             all data point values by name
         """
-
         return {
             key[1]: await dp.get_value_async()
             for key, dp in self.get_data_points().items()
@@ -77,7 +73,6 @@ class FunctionalProfile(Protocol):
         dict[str, DataPoint]
             all data point values by name
         """
-
         return run(self.get_value_async())
 
     def describe(
@@ -91,6 +86,5 @@ class FunctionalProfile(Protocol):
         tuple[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]
             the functional profile information
         """
-
         infos = map(lambda dp: dp.describe(), self.get_data_points().values())
         return self.name(), {dp[0][1]: (dp[1], dp[2]) for dp in infos}

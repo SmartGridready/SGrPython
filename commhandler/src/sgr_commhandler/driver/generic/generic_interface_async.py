@@ -33,7 +33,6 @@ def build_generic_data_point(
     """
     Builds a data point of a generic interface.
     """
-
     protocol = GenericDataPoint(data_point, functional_profile, interface)
     data_type = None
     if data_point.data_point and data_point.data_point.data_type:

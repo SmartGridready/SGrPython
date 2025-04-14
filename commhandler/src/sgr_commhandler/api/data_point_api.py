@@ -29,7 +29,6 @@ class DataPointValidator(Protocol):
         bool
             true if value is compatible, false otherwise
         """
-
         ...
 
     def data_type(self) -> DataTypes:
@@ -41,7 +40,6 @@ class DataPointValidator(Protocol):
         DataTypes
             the data type enumeration
         """
-
         ...
 
     def options(self) -> list[Any]:
@@ -53,7 +51,6 @@ class DataPointValidator(Protocol):
         list[Any]
             the options
         """
-
         return []
 
 
@@ -71,7 +68,6 @@ class DataPointProtocol(Protocol):
         value : Any
             the data point value to write
         """
-
         ...
 
     async def get_val(self, skip_cache: bool = False) -> Any:
@@ -88,7 +84,6 @@ class DataPointProtocol(Protocol):
         Any
             the data point value
         """
-
         ...
 
     def name(self) -> tuple[str, str]:
@@ -100,7 +95,6 @@ class DataPointProtocol(Protocol):
         tuple[str, str]
             the functional profile and data point names as tuple
         """
-
         ...
 
     def direction(self) -> DataDirectionProduct:
@@ -110,12 +104,19 @@ class DataPointProtocol(Protocol):
         Returns
         -------
         DataDirectionProduct
-            the functional profile and data point names as tuple
+            the data point direction
         """
-
         ...
 
     def unit(self) -> Units:
+        """
+        Gets the unit of measurement of the data point.
+
+        Returns
+        -------
+        Units
+            the unit
+        """
         ...
 
     def can_subscribe(self) -> bool:
@@ -127,7 +128,6 @@ class DataPointProtocol(Protocol):
         bool
             True if allowed, False otherwise
         """
-
         return False
 
     def subscribe(self, fn: Callable[[Any], None]):
@@ -139,14 +139,12 @@ class DataPointProtocol(Protocol):
         fn : Callable[[Any], None]
             the callback method
         """
-
         raise Exception('Unsupported operation')
 
     def unsubscribe(self):
         """
         Unsubscribes from changes of the data point value.
         """
-
         raise Exception('Unsupported operation')
 
 
@@ -168,7 +166,6 @@ class DataPoint(Generic[T]):
         validator : DataPointValidator
             the data point's value validator
         """
-
         self._protocol = protocol
         self._validator = validator
 
@@ -181,7 +178,6 @@ class DataPoint(Generic[T]):
         tuple[str, str]
             the functional profile and data point name
         """
-
         return self._protocol.name()
 
     async def get_value_async(self) -> T:
@@ -198,7 +194,6 @@ class DataPoint(Generic[T]):
         Exception
             when read value is not compatible with data type
         """
-
         value = await self._protocol.get_val()
         if self._validator.validate(value):
             return value
@@ -220,7 +215,6 @@ class DataPoint(Generic[T]):
         Exception
             when read value is not compatible with data type
         """
-
         return run(self.get_value_async())
 
     async def set_value_async(self, value: T):
@@ -232,7 +226,6 @@ class DataPoint(Generic[T]):
         value: T
             the data point value
         """
-
         if self._validator.validate(value):
             return await self._protocol.set_val(value)
         raise Exception('invalid data to write to device')
@@ -246,7 +239,6 @@ class DataPoint(Generic[T]):
         value: T
             the data point value
         """
-
         return run(self.set_value_async(value))
 
     def subscribe(self, fn: Callable[[Any], None]):
@@ -258,14 +250,12 @@ class DataPoint(Generic[T]):
         fn : Callable[[Any], None]
             the handler method
         """
-
         self._protocol.subscribe(fn)
 
     def unsubscribe(self):
         """
         Unsubscribes from data point value changes.
         """
-
         self._protocol.unsubscribe()
 
     def direction(self) -> DataDirectionProduct:
@@ -277,7 +267,6 @@ class DataPoint(Generic[T]):
         DataDirectionProduct
             the data point direction
         """
-
         return self._protocol.direction()
 
     def data_type(self) -> DataTypes:
@@ -289,10 +278,17 @@ class DataPoint(Generic[T]):
         DataTypes
             the data point data type
         """
-
         return self._validator.data_type()
     
     def unit(self) -> Units:
+        """
+        Gets the unit of measurement of the data point.
+
+        Returns
+        -------
+        Units
+            the unit
+        """
         return self._protocol.unit()
 
     def describe(
@@ -306,7 +302,6 @@ class DataPoint(Generic[T]):
         tuple[tuple[str, str], DataDirectionProduct, DataTypes, Units]
             the data point information
         """
-
         return self.name(), self.direction(), self.data_type(), self.unit()
 
     def options(self) -> list[Any]:
@@ -318,5 +313,4 @@ class DataPoint(Generic[T]):
         list[Any]
             the data point options
         """
-
         return self._validator.options()

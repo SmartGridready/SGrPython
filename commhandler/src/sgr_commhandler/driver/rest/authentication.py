@@ -156,7 +156,6 @@ async def setup_authentication(
     bool
         True if authenticated, False otherwise
     """
-
     descr = rest_api_interface.rest_api_interface_description
     if descr is None:
         raise Exception("no REST interface description")

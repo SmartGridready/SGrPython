@@ -34,7 +34,6 @@ def build_validator(type: Optional[DataTypeProduct]) -> DataPointValidator:
     Exception
         when data type has no supported validator
     """
-
     if type is None:
         raise Exception("Missing datatype")
     if type.int8:

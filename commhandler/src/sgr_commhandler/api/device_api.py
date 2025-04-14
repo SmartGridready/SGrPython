@@ -35,7 +35,6 @@ class DeviceInformation:
     is_local : bool
         Defines if the device is controlled locally or via cloud
     """
-
     name: str
     manufacturer: str
     software_revision: str
@@ -59,7 +58,6 @@ class SGrBaseInterface(Protocol):
     functional_profiles : Mapping[str, FunctionalProfile]
         the configured functional profiles
     """
-
     device_frame: DeviceFrame
     configuration_parameters: list[ConfigurationParameter]
     device_information: DeviceInformation
@@ -99,28 +97,24 @@ class SGrBaseInterface(Protocol):
         """
         Connects the device synchronously.
         """
-
         run(self.connect_async())
 
     async def connect_async(self):
         """
         Connects the device asynchronously.
         """
-
         ...
 
     def disconnect(self):
         """
         Disconnects the device synchronously.
         """
-
         run(self.disconnect_async())
 
     async def disconnect_async(self):
         """
         Disconnects the device asynchronously.
         """
-
         ...
 
     def is_connected(self) -> bool:
@@ -132,7 +126,6 @@ class SGrBaseInterface(Protocol):
         bool
             the connection state
         """
-
         ...
 
     def get_functional_profile(
@@ -151,7 +144,6 @@ class SGrBaseInterface(Protocol):
         FunctionalProfile
             a functional profile
         """
-
         return self.functional_profiles[functional_profile_name]
 
     def get_data_point(self, dp: tuple[str, str]) -> DataPoint:
@@ -168,7 +160,6 @@ class SGrBaseInterface(Protocol):
         DataPoint
             a data point
         """
-
         return self.get_functional_profile(dp[0]).get_data_point(dp[1])
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
@@ -180,7 +171,6 @@ class SGrBaseInterface(Protocol):
         dict[tuple[str, str], DataPoint]
             all data points
         """
-
         data_points = {}
         for fp in self.functional_profiles.values():
             data_points.update(fp.get_data_points())
@@ -195,7 +185,6 @@ class SGrBaseInterface(Protocol):
         dict[tuple[str, str], Any]
             all data point values
         """
-
         return run(self.get_values_async())
 
     async def get_values_async(self) -> dict[tuple[str, str], Any]:
@@ -207,7 +196,6 @@ class SGrBaseInterface(Protocol):
         dict[tuple[str, str], Any]
             all data point values
         """
-
         data = {}
         for fp in self.functional_profiles.values():
             data.update(
@@ -231,7 +219,6 @@ class SGrBaseInterface(Protocol):
         tuple[str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]]
             a tuple of device name and all data point values
         """
-        
         data = {}
         for fp in self.functional_profiles.values():
             key, dps = fp.describe()

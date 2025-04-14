@@ -33,7 +33,6 @@ logger = logging.getLogger(__name__)
 
 class SGrXmlSource(Enum):
     """Defines an EID XML source."""
-
     UNKNOWN = 1
     STRING = 2
     FILE = 3
@@ -41,7 +40,6 @@ class SGrXmlSource(Enum):
 
 class SGrPropertiesSource(Enum):
     """Defines an EID properties source."""
-
     UNKNOWN = 1
     DICT = 2
     FILE = 3
@@ -49,7 +47,6 @@ class SGrPropertiesSource(Enum):
 
 class SGrDeviceProtocol(Enum):
     """Defines a communication interface type."""
-
     MODBUS = 0
     RESTAPI = 1
     MESSAGING = 2
@@ -100,7 +97,6 @@ class DeviceBuilder:
         """
         Constructs a new device builder.
         """
-
         self._eid_source: str | None = None
         self._properties_source: str | dict | None = None
         self._eid_type: SGrXmlSource = SGrXmlSource.UNKNOWN
@@ -158,7 +154,6 @@ class DeviceBuilder:
         DeviceBuilder
             the same builder instance
         """
-        
         self._eid_source = file_path
         self._eid_type = SGrXmlSource.FILE
         return self
@@ -177,7 +172,6 @@ class DeviceBuilder:
         DeviceBuilder
             the same builder instance
         """
-
         self._eid_source = xml
         self._eid_type = SGrXmlSource.STRING
         return self
@@ -196,7 +190,6 @@ class DeviceBuilder:
         DeviceBuilder
             the same builder instance
         """
-
         self._properties_type = SGrPropertiesSource.FILE
         self._properties_source = file_path
         return self
@@ -215,7 +208,6 @@ class DeviceBuilder:
         DeviceBuilder
             the same builder instance
         """
-
         self._properties_type = SGrPropertiesSource.DICT
         self._properties_source = properties
         return self
@@ -274,7 +266,6 @@ def parse_device_frame(content: str) -> DeviceFrame:
     DeviceFrame
         a device frame of the SGr specification
     """
-
     validate_schema(content)
     parser = XmlParser(context=XmlContext())
     return parser.from_string(content, DeviceFrame)
@@ -296,7 +287,6 @@ def replace_variables(content: str, parameters: dict) -> str:
     str
         the updated EID XML content
     """
-
     for name, value in parameters.items():
         pattern = re.compile(r'{{' + str(name) + r'}}')
         content = pattern.sub(str(value), content)
@@ -322,7 +312,6 @@ def build_properties(config: list[ConfigurationParameter], properties: dict) -> 
     dict
         the final properties
     """
-
     final_properties = {}
     for config_param in config:
         prop_value = properties.get(config_param.name)
@@ -343,7 +332,6 @@ def validate_schema(content: str):
     content: str
         the EID XML content
     """
-
     xsd_path = importlib.resources.files(sgr_schema).joinpath('SGrIncluder.xsd')
     xsd = xmlschema.XMLSchema(xsd_path)
     xsd.validate(content)

@@ -10,7 +10,6 @@ class RoundingScheme(Enum):
     """
     Defines the kind of rounding method.
     """
-
     floor = "floor"
     ceil = "ceil"
     near = "Near"
@@ -29,7 +28,6 @@ def round_to_int(
     scheme : RoundingScheme
         the method of rounding, defaults to floor
     """
-
     if scheme == RoundingScheme.floor:
         return floor(value)
     elif scheme == RoundingScheme.ceil:

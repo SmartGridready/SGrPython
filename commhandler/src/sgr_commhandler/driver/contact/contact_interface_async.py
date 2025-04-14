@@ -33,7 +33,6 @@ def build_contact_data_point(
     """
     Builds a data point of a contact interface.
     """
-
     protocol = ContactDataPoint(data_point, functional_profile, interface)
     data_type = None
     if data_point.data_point and data_point.data_point.data_type:

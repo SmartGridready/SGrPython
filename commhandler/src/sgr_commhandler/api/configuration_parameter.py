@@ -20,7 +20,6 @@ def build_configuration_parameters(params: Optional[ConfigurationList]) -> list[
     list[ConfigurationParameter]
         a list of configuration parameters
     """
-
     if params is None:
         return []
     return [
@@ -41,8 +40,7 @@ class ConfigurationParameter:
         ----------
         parameter : ConfigurationListElement
             A configuration list element of the SGr specification
-        """
-        
+        """  
         translation = parameter.configuration_description
         self.label = translation[0].label
         self.name = parameter.name
@@ -59,7 +57,6 @@ class ConfigurationParameter:
         str
             A string
         """
-
         return f'{self.label} - {self.name}'
 
     def __repr__(self):
@@ -71,5 +68,4 @@ class ConfigurationParameter:
         str
             A string
         """
-
         return f'{self.label} - {self.name}'
