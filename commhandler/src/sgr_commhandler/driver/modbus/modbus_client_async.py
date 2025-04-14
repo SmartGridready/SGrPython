@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 class SGrModbusClient(ABC):
-    def __init__(self, endianness: BitOrder):
+    def __init__(self, endianness: BitOrder, addr_offset: int):
         self._lock = threading.Lock()
         self._client: Optional[ModbusBaseClient] = None
         self._byte_order: Endian = (
@@ -32,6 +32,7 @@ class SGrModbusClient(ABC):
             in {BitOrder.CHANGE_WORD_ORDER, BitOrder.CHANGE_DWORD_ORDER}
             else Endian.BIG
         )
+        self._addr_offset = addr_offset
 
     async def connect(self): ...
 
@@ -57,7 +58,7 @@ class SGrModbusClient(ABC):
         builder.sgr_encode(value, data_type)
         with self._lock:
             await self._client.write_registers(
-                address=address, values=builder.to_registers(), slave=slave_id
+                address+self._addr_offset, builder.to_registers(), slave=slave_id
             )
 
     async def write_coils(
@@ -78,7 +79,7 @@ class SGrModbusClient(ABC):
         builder.sgr_encode(value, data_type)
         with self._lock:
             await self._client.write_coils(
-                address=address, values=builder.to_coils(), slave=slave_id
+                address+self._addr_offset, builder.to_coils(), slave=slave_id
             )
 
     async def read_input_registers(
@@ -96,7 +97,7 @@ class SGrModbusClient(ABC):
             raise Exception('Client not initialized')
         with self._lock:
             response = await self._client.read_input_registers(
-                address, count=size, slave=slave_id
+                address+self._addr_offset, count=size, slave=slave_id
             )
         if response and not response.isError():
             decoder = PayloadDecoder.fromRegisters(
@@ -121,7 +122,7 @@ class SGrModbusClient(ABC):
             raise Exception('Client not initialized')
         with self._lock:
             response = await self._client.read_holding_registers(
-                address, count=size, slave=slave_id
+                address+self._addr_offset, count=size, slave=slave_id
             )
         if response and not response.isError():
             decoder = PayloadDecoder.fromRegisters(
@@ -146,7 +147,7 @@ class SGrModbusClient(ABC):
             raise Exception('Client not initialized')
         with self._lock:
             response = await self._client.read_coils(
-                address, count=size, slave=slave_id
+                address+self._addr_offset, count=size, slave=slave_id
             )
         if response and not response.isError():
             decoder = PayloadDecoder.fromCoils(
@@ -167,7 +168,19 @@ class SGrModbusClient(ABC):
         :param data_type: The modbus type to decode
         :returns: Decoded value
         """
-        raise Exception('Discrete inputs not supported yet')
+        if self._client is None:
+            raise Exception('Client not initialized')
+        with self._lock:
+            response = await self._client.read_discrete_inputs(
+                address+self._addr_offset, count=size, slave=slave_id
+            )
+        if response and not response.isError():
+            decoder = PayloadDecoder.fromCoils(
+                response.bits,
+                byteorder=self._byte_order,
+                _wordorder=self._word_order,
+            )
+            return decoder.decode(data_type, 0)
 
     # TODO Implement block transfers and remove this method
     async def _mult_value_decoder(
@@ -212,8 +225,8 @@ class SGrModbusClient(ABC):
 
 
 class SGrModbusTCPClient(SGrModbusClient):
-    def __init__(self, ip: str, port: int, endianness: BitOrder):
-        super().__init__(endianness)
+    def __init__(self, ip: str, port: int, endianness: BitOrder = BitOrder.BIG_ENDIAN, addr_offset: int = 0):
+        super().__init__(endianness, addr_offset)
         """
         Creates client
         :param ip: The host to connect to (default 127.0.0.1)
@@ -251,9 +264,9 @@ class SGrModbusTCPClient(SGrModbusClient):
 
 class SGrModbusRTUClient(SGrModbusClient):
     def __init__(
-        self, serial_port: str, parity: str, baudrate: int, endianness: BitOrder
+        self, serial_port: str, parity: str, baudrate: int, endianness: BitOrder = BitOrder.BIG_ENDIAN, addr_offset: int = 0
     ):
-        super().__init__(endianness)
+        super().__init__(endianness, addr_offset)
         """
         Creates client
         :param serial_port: The serial port to connect to (e.g. COM1)

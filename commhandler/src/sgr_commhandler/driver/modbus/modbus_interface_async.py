@@ -72,6 +72,14 @@ def get_endian(modbus: ModbusInterfaceDescription) -> BitOrder:
     return BitOrder.BIG_ENDIAN
 
 
+def get_address_offset(modbus: ModbusInterfaceDescription) -> int:
+    """
+    returns the address offset.
+    is 0 by default and -1 when first register address is 1.
+    """
+    return -1 if modbus.first_register_address_is_one is not None and modbus.first_register_address_is_one else 0
+
+
 def get_tcp_address(modbus_tcp: ModbusTcp) -> str:
     """
     returns the selected ip address.
@@ -351,6 +359,10 @@ class SGrModbusInterface(SGrBaseInterface):
             self.device_frame.interface_list.modbus_interface.modbus_interface_description
         )
 
+        self.address_offset = get_address_offset(
+            self.device_frame.interface_list.modbus_interface.modbus_interface_description
+        )
+
         # build functional profiles
         fps = [
             ModbusFunctionalProfile(fp, self)
@@ -368,7 +380,7 @@ class SGrModbusInterface(SGrBaseInterface):
             self._client_wrapper = ModbusClientWrapper(
                 '',
                 SGrModbusTCPClient(
-                    self.ip_address, self.ip_port, self.byte_order
+                    self.ip_address, self.ip_port, endianness=self.byte_order, addr_offset=self.address_offset
                 ),
                 shared=False,
             )
@@ -391,7 +403,8 @@ class SGrModbusInterface(SGrBaseInterface):
                         self.serial_port,
                         self.parity,
                         self.baudrate,
-                        self.byte_order,
+                        endianness=self.byte_order,
+                        addr_offset=self.address_offset
                     ),
                     shared=False,
                 )
