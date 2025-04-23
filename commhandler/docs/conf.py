@@ -10,6 +10,9 @@ project = 'SGr CommHandler'
 copyright = '2025, Verein SmartGridready'
 author = 'Matthias Krebs'
 
+release = '0.4'
+version = '0.4.0'
+
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
@@ -25,5 +28,5 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'classic'
+html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
