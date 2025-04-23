@@ -97,8 +97,8 @@ jobs:
 
       - name: Build Python Docs
         id: pythondoc
-        working-directory: commhandler/src
-        run: pdoc sgr_commhandler -o ../docs
+        working-directory: commhandler/docs
+        run: make html
 
       - name: Publish Python Docs on Github Pages
         # publish after committing to master or creating tag commhandler-{version}, if output version was defined
@@ -106,5 +106,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages  # Change this if using a different branch
-          folder: commhandler/docs  # Path where Python docs are generated
+          folder: commhandler/docs/_build/html  # Path where Python docs are generated
           target-folder: docs/commhandler
