@@ -7,30 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Added
+
+- implemented REST interface basic authentication
+
+### Changed
+
+- requires updated SGr specification
+
+
+## [0.3.1] - 2025-04-16
+
 ### Fixed
 
+- fixed syntax errors in write method of Modbus interface
 - fixed Modbus data types in write method
 - fixed configuration parameter replacement in EID content when certain characters are used
 
 ### Added
 
-- implemented Modbus address offset
-
-### Changed
-
-- requires updated SGr specification
-- data point "{{value}}" placeholders must be replaced with "\[\[value\]\]"
-
-
-## [0.3.1] - 2025-04-07
-
-### Fixed
-
-- fixed syntax errors in write method of Modbus interface
-
-### Added
-
 - implemented data point unit
+
+## Changed
+
+- data point "{{value}}" placeholders must be replaced with "\[\[value\]\]"
+- implemented Modbus address offset
 
 
 ## [0.3.0] - 2025-04-01
