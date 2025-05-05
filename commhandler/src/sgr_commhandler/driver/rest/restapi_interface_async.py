@@ -371,8 +371,6 @@ class SGrRestInterface(SGrBaseInterface):
     ):
         self._inititalize_device(frame)
         self._session = None
-        self._ssl_context = ssl.create_default_context(cafile=certifi.where())
-        self._connector = aiohttp.TCPConnector(ssl=self._ssl_context)
         self._cache = TTLCache(maxsize=100, ttl=5)
 
         if (
@@ -389,6 +387,12 @@ class SGrRestInterface(SGrBaseInterface):
         self.base_url = desc.rest_api_uri
         if self.base_url is None:
             raise Exception('Invalid base URL')
+        ssl_verify = (desc.rest_api_verify_certificate.strip().lower() == 'true') if desc.rest_api_verify_certificate is not None else True
+        if ssl_verify:
+            ssl_context = ssl.create_default_context(cafile=certifi.where())
+            self._connector = aiohttp.TCPConnector(ssl=ssl_context)
+        else:
+            self._connector = aiohttp.TCPConnector(verify_ssl=False)
 
         raw_fps = []
         if (
@@ -457,7 +461,7 @@ class SGrRestInterface(SGrBaseInterface):
                 request.url,
                 headers=request_headers,
                 params=query_parameters,
-                data=request_body,
+                data=request_body
             ) as req:
                 req.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
                 logger.info(f'execute_request status: {req.status}')

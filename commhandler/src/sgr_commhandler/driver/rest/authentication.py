@@ -1,3 +1,4 @@
+import base64
 import json
 import logging
 from typing import Awaitable, Callable, TypeAlias
@@ -97,7 +98,7 @@ async def authenticate_with_bearer_token(
         async with session.post(
             url=authentication_url,
             headers=headers,
-            json=data,
+            json=data
         ) as res:
             if 200 <= res.status < 300:
                 logger.info(f"Authentication successful: Status {res.status}")
@@ -130,11 +131,49 @@ async def authenticate_with_bearer_token(
         return False
 
 
+async def authenticate_with_basic_auth(
+    interface: RestApiInterface, session: ClientSession
+) -> bool:
+    """
+    Authenticates using Basic Authentication.
+
+    Parameters
+    ----------
+    interface : RestApiInterface
+        the device interface
+    session : ClientSession
+        the REST client session
+    
+    Returns
+    -------
+    bool
+        True if authenticated, False otherwise
+    """
+
+    description = interface.rest_api_interface_description
+    if description is None:
+        raise Exception("no interface description")
+    basic_option = description.rest_api_basic
+    if basic_option is None:
+        raise Exception("no Basic option")
+    username = basic_option.rest_basic_username if basic_option.rest_basic_username is not None else ''
+    password = basic_option.rest_basic_password if basic_option.rest_basic_password is not None else ''
+
+    # cannot use aiohttp.BasicAuth here, must set headers
+    credentials = f'{username}:{password}'
+    session.headers.update(
+        {"Authorization": f"Basic {base64.urlsafe_b64encode(bytes(credentials, 'utf-8')).decode('utf-8')}"}
+    )
+
+    return True
+
+
 supported_authentication_methods: dict[
     RestApiAuthenticationMethod, Authenticator
 ] = {
     RestApiAuthenticationMethod.NO_SECURITY_SCHEME: authenticate_not,
     RestApiAuthenticationMethod.BEARER_SECURITY_SCHEME: authenticate_with_bearer_token,
+    RestApiAuthenticationMethod.BASIC_SECURITY_SCHEME: authenticate_with_basic_auth
 }
 
 
