@@ -147,6 +147,3 @@ cython_debug/
 
 # macOS
 .DS_Store
-
-# custom
-docs
