@@ -3,7 +3,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "SGrSpecificationPythontks4r"
+name = "sgr-specification"
 dynamic = ["version"]
 description = "SmartGridready Specification Library"
 readme = "README.md"

@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="SGrSpecificationPythontks4r",  # use SGrSpecificationPythontks4r until organization has been created, then change to sgr-specification
+    name="sgr-specification",
     version="2.1.0",
     packages=find_packages(where="src"),
     package_dir={"": "src"},

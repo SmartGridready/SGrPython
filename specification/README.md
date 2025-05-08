@@ -66,7 +66,7 @@ cd SGrPython/specification
 pip install -e .
 ```
 
-You can use the package `SGrSpecificationPythontks4r` from within the virtual environment now.
+You can use the package `sgr-specification` from within the virtual environment now.
 
 **Note:**
 The designated package name `sgr-specification` must not be used until the _PyPI_ administrators have

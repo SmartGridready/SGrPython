@@ -1,13 +1,11 @@
 from setuptools import setup, find_packages
 
-
 def read_requirements() -> list[str]:
     with open("./requirements.txt", "r") as file:
         return file.read().splitlines()
 
-
 setup(
-    name="SGrPythontks4r",  # use SGrPythontks4r until organization has been created, then change to sgr-commhandler
+    name="sgr-commhandler",
     version="0.4.0",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
