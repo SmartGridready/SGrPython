@@ -40,7 +40,7 @@ source ./.venv/bin/activate
 .\.venv\Scripts\Activate.ps1
 ```
 
-Make sure you have the _specification_ library `SGrSpecificationPythontks4r` installed in your virtual environment.
+Make sure you have the _specification_ library `sgr-specification` installed in your virtual environment.
 See [specification](../specification/README.md) for instructions.
 
 
@@ -67,7 +67,7 @@ cd SGrPython/commhandler
 pip install -e .
 ```
 
-You can use the package `SGrPythontks4r` from within the virtual environment now.
+You can use the package `sgr-commhandler` from within the virtual environment now.
 
 **Note:**
 The designated package name `sgr-commhandler` must not be used until the _PyPI_ administrators have
