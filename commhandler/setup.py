@@ -10,17 +10,17 @@ setup(
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     install_requires=read_requirements(),
-    url="https://github.com/SmartGridready/SGrPython#readme",
+    url="https://github.com/SmartGridready/SGrPython/commhandler#readme",
     project_urls={
         "Issue Tracker": "https://github.com/SmartGridready/SGrPython/issues",
         "Source": "https://github.com/SmartGridready/SGrPython",
+        "Docs": "https://smartgridready.github.io/SGrPython/docs/commhandler/"
     },
     license="BSD-3",
     license_files=["LICENSE.md"],
-    author="Robin Schoch",
-    author_email="",
+    author="Verein SmartGridready",
     description="SGr Commhandler",
-    long_description="SGr Commhandler Library",
+    long_description="Communication Handler Library",
     long_description_content_type="text/plain",
     python_requires=">=3.9",
 )

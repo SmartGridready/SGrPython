@@ -8,10 +8,22 @@ dynamic = ["version"]
 description = "SmartGridready Specification Library"
 readme = "README.md"
 requires-python = ">=3.9"
-license = { text = "BSD" }
-authors = [{ name = "Robin Schoch" }]
-urls = { "Homepage" = "https://github.com/SmartGridready/SGrSpecifications" }
+license = "BSD-3-Clause"
+authors = [
+    { name = "Robin Schoch" },
+    { name = "Matthias Krebs" }
+]
+maintainers = [
+    { name = "Matthias Krebs" }
+]
 dependencies = []
+
+[project.urls]
+Homepage = "https://www.smartgridready.ch/"
+Documentation = "https://smartgridready.github.io/"
+Repository = https://github.com/SmartGridready/SGrSpecification.git
+Issues = https://github.com/SmartGridready/SGrSpecification/issues
+Changelog = https://github.com/SmartGridready/SGrPython/blob/master/specification/CHANGELOG.md
 
 [tool.setuptools]
 include-package-data = true

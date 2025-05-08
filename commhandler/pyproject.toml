@@ -8,9 +8,14 @@ dynamic = ["version"]
 description = "SmartGridready CommHandler Library"
 readme = "README.md"
 requires-python = ">=3.9"
-license = { text = "BSD" }
-authors = [{ name = "Robin Schoch" }]
-urls = { "Homepage" = "https://github.com/SmartGridready/SGrPython" }
+license = "BSD-3-Clause"
+authors = [
+    { name = "Robin Schoch" },
+    { name = "Matthias Krebs" }
+]
+maintainers = [
+    { name = "Matthias Krebs" }
+]
 dependencies = [
     "Jinja2>=3.0.0,<4.0.0",
     "jmespath>=1.0.0,<2.0.0",
@@ -23,6 +28,13 @@ dependencies = [
     "cachetools>=5.0.0,<6.0.0",
     "sgr-specification>=2.1.0,<3.0.0"
 ]
+
+[project.urls]
+Homepage = "https://www.smartgridready.ch/"
+Documentation = "https://smartgridready.github.io/SGrPython/docs/commhandler/"
+Repository = https://github.com/SmartGridready/SGrPython.git
+Issues = https://github.com/SmartGridready/SGrPython/issues
+Changelog = https://github.com/SmartGridready/SGrPython/blob/master/commhandler/CHANGELOG.md
 
 [tool.pyright]
 exclude = ["**/node_modules", "**/__pycache__", "examples"]
