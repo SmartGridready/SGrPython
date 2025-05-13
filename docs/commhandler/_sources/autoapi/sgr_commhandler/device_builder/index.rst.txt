@@ -1,0 +1,270 @@
+sgr_commhandler.device_builder
+==============================
+
+.. py:module:: sgr_commhandler.device_builder
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   sgr_commhandler.device_builder.logger
+   sgr_commhandler.device_builder.SGrInterfaces
+   sgr_commhandler.device_builder.device_builders
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.device_builder.SGrXmlSource
+   sgr_commhandler.device_builder.SGrPropertiesSource
+   sgr_commhandler.device_builder.SGrDeviceProtocol
+   sgr_commhandler.device_builder.DeviceBuilder
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sgr_commhandler.device_builder.parse_device_frame
+   sgr_commhandler.device_builder.replace_variables
+   sgr_commhandler.device_builder.build_properties
+   sgr_commhandler.device_builder.validate_schema
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: SGrXmlSource(*args, **kwds)
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   Defines an EID XML source.
+
+
+   .. py:attribute:: UNKNOWN
+      :value: 1
+
+
+
+   .. py:attribute:: STRING
+      :value: 2
+
+
+
+   .. py:attribute:: FILE
+      :value: 3
+
+
+
+.. py:class:: SGrPropertiesSource(*args, **kwds)
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   Defines an EID properties source.
+
+
+   .. py:attribute:: UNKNOWN
+      :value: 1
+
+
+
+   .. py:attribute:: DICT
+      :value: 2
+
+
+
+   .. py:attribute:: FILE
+      :value: 3
+
+
+
+.. py:class:: SGrDeviceProtocol(*args, **kwds)
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   Defines a communication interface type.
+
+
+   .. py:attribute:: MODBUS
+      :value: 0
+
+
+
+   .. py:attribute:: RESTAPI
+      :value: 1
+
+
+
+   .. py:attribute:: MESSAGING
+      :value: 2
+
+
+
+   .. py:attribute:: CONTACT
+      :value: 3
+
+
+
+   .. py:attribute:: GENERIC
+      :value: 4
+
+
+
+   .. py:attribute:: UNKNOWN
+      :value: 5
+
+
+
+.. py:data:: SGrInterfaces
+
+.. py:data:: device_builders
+   :type:  dict[SGrDeviceProtocol, collections.abc.Callable[[sgr_specification.v0.product.DeviceFrame], SGrInterfaces]]
+
+.. py:class:: DeviceBuilder
+
+   Implements an SGr device builder with a fluent interface.
+
+
+   .. py:attribute:: _eid_source
+      :type:  str | None
+      :value: None
+
+
+
+   .. py:attribute:: _properties_source
+      :type:  str | dict | None
+      :value: None
+
+
+
+   .. py:attribute:: _eid_type
+      :type:  SGrXmlSource
+
+
+   .. py:attribute:: _properties_type
+      :type:  SGrPropertiesSource
+
+
+   .. py:method:: build()
+
+      Constructs an SGr device instance from the builder.
+
+      :returns: an instance of an SGr device
+      :rtype: SGrBaseInterface
+
+
+
+   .. py:method:: _resolve_protocol(frame)
+
+
+   .. py:method:: eid_path(file_path)
+
+      Sets the EID source to a file path.
+
+      :param file_path: the path to the EID XML file
+      :type file_path: str
+
+      :returns: the same builder instance
+      :rtype: DeviceBuilder
+
+
+
+   .. py:method:: eid(xml)
+
+      Sets the EID source to an XML string.
+
+      :param xml: the EID XML content
+      :type xml: str
+
+      :returns: the same builder instance
+      :rtype: DeviceBuilder
+
+
+
+   .. py:method:: properties_path(file_path)
+
+      Sets the EID properties to a file path.
+
+      :param file_path: the path to the property file
+      :type file_path: str
+
+      :returns: the same builder instance
+      :rtype: DeviceBuilder
+
+
+
+   .. py:method:: properties(properties)
+
+      Sets the EID properties to a key-value map.
+
+      :param properties: the properties
+      :type properties: dict
+
+      :returns: the same builder instance
+      :rtype: DeviceBuilder
+
+
+
+   .. py:method:: _load_eid_content()
+
+
+   .. py:method:: _load_properties()
+
+
+.. py:function:: parse_device_frame(content)
+
+   Parses EID XML content into a device frame.
+
+   :param content: the EID XML content
+   :type content: str
+
+   :returns: a device frame of the SGr specification
+   :rtype: DeviceFrame
+
+
+.. py:function:: replace_variables(content, parameters)
+
+   Replaces parameter placeholders in EID XML content.
+
+   :param content: the EID XML content
+   :type content: str
+   :param parameters: the configuration parameters
+   :type parameters: dict
+
+   :returns: the updated EID XML content
+   :rtype: str
+
+
+.. py:function:: build_properties(config, properties)
+
+   Builds EID configuration properties.
+   Only parameters defined in the EID configuration list are kept.
+   Parameters not defined in the properties are set to the default value.
+
+   :param config: the EID configuration parameters
+   :type config: list[ConfigurationParameter]
+   :param properties: the properties to configure
+   :type properties: dict
+
+   :returns: the final properties
+   :rtype: dict
+
+
+.. py:function:: validate_schema(content)
+
+   Validates EID XML content against the specification XML schema.
+
+   :param content: the EID XML content
+   :type content: str
+
+

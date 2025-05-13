@@ -1,0 +1,489 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sgr_commhandler.device_builder &mdash; SGr CommHandler 0.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=7f00635f"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="sgr_commhandler.driver" href="../driver/index.html" />
+    <link rel="prev" title="sgr_commhandler.api.functional_profile_api" href="../api/functional_profile_api/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            SGr CommHandler
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">sgr_commhandler</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../api/index.html">sgr_commhandler.api</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">sgr_commhandler.device_builder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../driver/index.html">sgr_commhandler.driver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../utils/index.html">sgr_commhandler.utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../validators/index.html">sgr_commhandler.validators</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SGr CommHandler</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">sgr_commhandler</a></li>
+      <li class="breadcrumb-item active">sgr_commhandler.device_builder</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/sgr_commhandler/device_builder/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-sgr_commhandler.device_builder">
+<span id="sgr-commhandler-device-builder"></span><h1>sgr_commhandler.device_builder<a class="headerlink" href="#module-sgr_commhandler.device_builder" title="Link to this heading"></a></h1>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.device_builder.logger" title="sgr_commhandler.device_builder.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.device_builder.SGrInterfaces" title="sgr_commhandler.device_builder.SGrInterfaces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SGrInterfaces</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.device_builder.device_builders" title="sgr_commhandler.device_builder.device_builders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_builders</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.device_builder.SGrXmlSource" title="sgr_commhandler.device_builder.SGrXmlSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SGrXmlSource</span></code></a></p></td>
+<td><p>Defines an EID XML source.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.device_builder.SGrPropertiesSource" title="sgr_commhandler.device_builder.SGrPropertiesSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SGrPropertiesSource</span></code></a></p></td>
+<td><p>Defines an EID properties source.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.device_builder.SGrDeviceProtocol" title="sgr_commhandler.device_builder.SGrDeviceProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SGrDeviceProtocol</span></code></a></p></td>
+<td><p>Defines a communication interface type.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.device_builder.DeviceBuilder" title="sgr_commhandler.device_builder.DeviceBuilder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceBuilder</span></code></a></p></td>
+<td><p>Implements an SGr device builder with a fluent interface.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.device_builder.parse_device_frame" title="sgr_commhandler.device_builder.parse_device_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_device_frame</span></code></a>(content)</p></td>
+<td><p>Parses EID XML content into a device frame.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.device_builder.replace_variables" title="sgr_commhandler.device_builder.replace_variables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">replace_variables</span></code></a>(content, parameters)</p></td>
+<td><p>Replaces parameter placeholders in EID XML content.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.device_builder.build_properties" title="sgr_commhandler.device_builder.build_properties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_properties</span></code></a>(config, properties)</p></td>
+<td><p>Builds EID configuration properties.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.device_builder.validate_schema" title="sgr_commhandler.device_builder.validate_schema"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_schema</span></code></a>(content)</p></td>
+<td><p>Validates EID XML content against the specification XML schema.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.logger">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#sgr_commhandler.device_builder.logger" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrXmlSource">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">SGrXmlSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.SGrXmlSource" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Defines an EID XML source.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrXmlSource.UNKNOWN">
+<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#sgr_commhandler.device_builder.SGrXmlSource.UNKNOWN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrXmlSource.STRING">
+<span class="sig-name descname"><span class="pre">STRING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#sgr_commhandler.device_builder.SGrXmlSource.STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrXmlSource.FILE">
+<span class="sig-name descname"><span class="pre">FILE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#sgr_commhandler.device_builder.SGrXmlSource.FILE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrPropertiesSource">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">SGrPropertiesSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.SGrPropertiesSource" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Defines an EID properties source.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrPropertiesSource.UNKNOWN">
+<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#sgr_commhandler.device_builder.SGrPropertiesSource.UNKNOWN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrPropertiesSource.DICT">
+<span class="sig-name descname"><span class="pre">DICT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#sgr_commhandler.device_builder.SGrPropertiesSource.DICT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrPropertiesSource.FILE">
+<span class="sig-name descname"><span class="pre">FILE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#sgr_commhandler.device_builder.SGrPropertiesSource.FILE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrDeviceProtocol">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">SGrDeviceProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.SGrDeviceProtocol" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Defines a communication interface type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrDeviceProtocol.MODBUS">
+<span class="sig-name descname"><span class="pre">MODBUS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#sgr_commhandler.device_builder.SGrDeviceProtocol.MODBUS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrDeviceProtocol.RESTAPI">
+<span class="sig-name descname"><span class="pre">RESTAPI</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#sgr_commhandler.device_builder.SGrDeviceProtocol.RESTAPI" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrDeviceProtocol.MESSAGING">
+<span class="sig-name descname"><span class="pre">MESSAGING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#sgr_commhandler.device_builder.SGrDeviceProtocol.MESSAGING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrDeviceProtocol.CONTACT">
+<span class="sig-name descname"><span class="pre">CONTACT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#sgr_commhandler.device_builder.SGrDeviceProtocol.CONTACT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrDeviceProtocol.GENERIC">
+<span class="sig-name descname"><span class="pre">GENERIC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#sgr_commhandler.device_builder.SGrDeviceProtocol.GENERIC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrDeviceProtocol.UNKNOWN">
+<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#sgr_commhandler.device_builder.SGrDeviceProtocol.UNKNOWN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrInterfaces">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">SGrInterfaces</span></span><a class="headerlink" href="#sgr_commhandler.device_builder.SGrInterfaces" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.device_builders">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">device_builders</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sgr_commhandler.device_builder.SGrDeviceProtocol" title="sgr_commhandler.device_builder.SGrDeviceProtocol"><span class="pre">SGrDeviceProtocol</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">collections.abc.Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">sgr_specification.v0.product.DeviceFrame</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SGrInterfaces</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#sgr_commhandler.device_builder.device_builders" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">DeviceBuilder</span></span><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder" title="Link to this definition"></a></dt>
+<dd><p>Implements an SGr device builder with a fluent interface.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder._eid_source">
+<span class="sig-name descname"><span class="pre">_eid_source</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder._eid_source" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder._properties_source">
+<span class="sig-name descname"><span class="pre">_properties_source</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder._properties_source" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder._eid_type">
+<span class="sig-name descname"><span class="pre">_eid_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#sgr_commhandler.device_builder.SGrXmlSource" title="sgr_commhandler.device_builder.SGrXmlSource"><span class="pre">SGrXmlSource</span></a></em><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder._eid_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder._properties_type">
+<span class="sig-name descname"><span class="pre">_properties_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#sgr_commhandler.device_builder.SGrPropertiesSource" title="sgr_commhandler.device_builder.SGrPropertiesSource"><span class="pre">SGrPropertiesSource</span></a></em><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder._properties_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder.build" title="Link to this definition"></a></dt>
+<dd><p>Constructs an SGr device instance from the builder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>an instance of an SGr device</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../api/device_api/index.html#sgr_commhandler.api.device_api.SGrBaseInterface" title="sgr_commhandler.api.device_api.SGrBaseInterface">SGrBaseInterface</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder._resolve_protocol">
+<span class="sig-name descname"><span class="pre">_resolve_protocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder._resolve_protocol" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>frame</strong> (<em>sgr_specification.v0.product.DeviceFrame</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#sgr_commhandler.device_builder.SGrDeviceProtocol" title="sgr_commhandler.device_builder.SGrDeviceProtocol">SGrDeviceProtocol</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder.eid_path">
+<span class="sig-name descname"><span class="pre">eid_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder.eid_path" title="Link to this definition"></a></dt>
+<dd><p>Sets the EID source to a file path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – the path to the EID XML file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the same builder instance</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sgr_commhandler.device_builder.DeviceBuilder" title="sgr_commhandler.device_builder.DeviceBuilder">DeviceBuilder</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder.eid">
+<span class="sig-name descname"><span class="pre">eid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xml</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder.eid" title="Link to this definition"></a></dt>
+<dd><p>Sets the EID source to an XML string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>xml</strong> (<em>str</em>) – the EID XML content</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the same builder instance</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sgr_commhandler.device_builder.DeviceBuilder" title="sgr_commhandler.device_builder.DeviceBuilder">DeviceBuilder</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder.properties_path">
+<span class="sig-name descname"><span class="pre">properties_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder.properties_path" title="Link to this definition"></a></dt>
+<dd><p>Sets the EID properties to a file path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – the path to the property file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the same builder instance</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sgr_commhandler.device_builder.DeviceBuilder" title="sgr_commhandler.device_builder.DeviceBuilder">DeviceBuilder</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder.properties">
+<span class="sig-name descname"><span class="pre">properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">properties</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder.properties" title="Link to this definition"></a></dt>
+<dd><p>Sets the EID properties to a key-value map.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>properties</strong> (<em>dict</em>) – the properties</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the same builder instance</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sgr_commhandler.device_builder.DeviceBuilder" title="sgr_commhandler.device_builder.DeviceBuilder">DeviceBuilder</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder._load_eid_content">
+<span class="sig-name descname"><span class="pre">_load_eid_content</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder._load_eid_content" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder._load_properties">
+<span class="sig-name descname"><span class="pre">_load_properties</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder._load_properties" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.parse_device_frame">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">parse_device_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.parse_device_frame" title="Link to this definition"></a></dt>
+<dd><p>Parses EID XML content into a device frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>content</strong> (<em>str</em>) – the EID XML content</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a device frame of the SGr specification</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DeviceFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.replace_variables">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">replace_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.replace_variables" title="Link to this definition"></a></dt>
+<dd><p>Replaces parameter placeholders in EID XML content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>content</strong> (<em>str</em>) – the EID XML content</p></li>
+<li><p><strong>parameters</strong> (<em>dict</em>) – the configuration parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the updated EID XML content</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.build_properties">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">build_properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.build_properties" title="Link to this definition"></a></dt>
+<dd><p>Builds EID configuration properties.
+Only parameters defined in the EID configuration list are kept.
+Parameters not defined in the properties are set to the default value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<em>list</em><em>[</em><a class="reference internal" href="../api/configuration_parameter/index.html#sgr_commhandler.api.configuration_parameter.ConfigurationParameter" title="sgr_commhandler.api.configuration_parameter.ConfigurationParameter"><em>ConfigurationParameter</em></a><em>]</em>) – the EID configuration parameters</p></li>
+<li><p><strong>properties</strong> (<em>dict</em>) – the properties to configure</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the final properties</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.device_builder.validate_schema">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">validate_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.validate_schema" title="Link to this definition"></a></dt>
+<dd><p>Validates EID XML content against the specification XML schema.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>content</strong> (<em>str</em>) – the EID XML content</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../api/functional_profile_api/index.html" class="btn btn-neutral float-left" title="sgr_commhandler.api.functional_profile_api" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../driver/index.html" class="btn btn-neutral float-right" title="sgr_commhandler.driver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Verein SmartGridready.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

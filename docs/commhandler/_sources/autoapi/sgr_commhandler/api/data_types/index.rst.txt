@@ -1,0 +1,65 @@
+sgr_commhandler.api.data_types
+==============================
+
+.. py:module:: sgr_commhandler.api.data_types
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.api.data_types.DataTypes
+
+
+Module Contents
+---------------
+
+.. py:class:: DataTypes(*args, **kwds)
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   Defines the data point data types supported by the SGr specification.
+
+
+   .. py:attribute:: INT
+      :value: 'INT'
+
+
+
+   .. py:attribute:: FLOAT
+      :value: 'FLOAT'
+
+
+
+   .. py:attribute:: STRING
+      :value: 'STRING'
+
+
+
+   .. py:attribute:: ENUM
+      :value: 'ENUM'
+
+
+
+   .. py:attribute:: BOOLEAN
+      :value: 'BOOLEAN'
+
+
+
+   .. py:attribute:: BITMAP
+      :value: 'BITMAP'
+
+
+
+   .. py:attribute:: DATE_TIME
+      :value: 'DATE_TIME'
+
+
+
+   .. py:attribute:: JSON
+      :value: 'JSON'
+
+
+

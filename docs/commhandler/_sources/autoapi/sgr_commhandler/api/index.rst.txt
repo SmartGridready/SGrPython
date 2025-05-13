@@ -1,0 +1,388 @@
+sgr_commhandler.api
+===================
+
+.. py:module:: sgr_commhandler.api
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/sgr_commhandler/api/configuration_parameter/index
+   /autoapi/sgr_commhandler/api/data_point_api/index
+   /autoapi/sgr_commhandler/api/data_types/index
+   /autoapi/sgr_commhandler/api/device_api/index
+   /autoapi/sgr_commhandler/api/functional_profile_api/index
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.api.ConfigurationParameter
+   sgr_commhandler.api.DataPoint
+   sgr_commhandler.api.DataPointProtocol
+   sgr_commhandler.api.DataPointValidator
+   sgr_commhandler.api.FunctionalProfile
+
+
+Package Contents
+----------------
+
+.. py:class:: ConfigurationParameter(parameter)
+
+   Implements an EID configuration parameter.
+
+
+   .. py:attribute:: label
+
+
+   .. py:attribute:: name
+
+
+   .. py:attribute:: type
+
+
+   .. py:attribute:: description
+
+
+   .. py:attribute:: default_value
+
+
+   .. py:method:: __str__()
+
+      Converts to string.
+
+      :returns: A string
+      :rtype: str
+
+
+
+   .. py:method:: __repr__()
+
+      Gets an object description as string.
+
+      :returns: A string
+      :rtype: str
+
+
+
+.. py:class:: DataPoint(protocol, validator)
+
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`T`\ ]
+
+
+   Implements a data point of a generic data type.
+
+
+   .. py:attribute:: _protocol
+
+
+   .. py:attribute:: _validator
+
+
+   .. py:method:: name()
+
+      Gets the data point name.
+
+      :returns: the functional profile and data point name
+      :rtype: tuple[str, str]
+
+
+
+   .. py:method:: get_value_async()
+      :async:
+
+
+      Gets the data point value asynchronously.
+
+      :returns: the data point value
+      :rtype: T
+
+      :raises Exception: when read value is not compatible with data type
+
+
+
+   .. py:method:: get_value()
+
+      Gets the data point value synchronously.
+
+      :returns: the data point value
+      :rtype: T
+
+      :raises Exception: when read value is not compatible with data type
+
+
+
+   .. py:method:: set_value_async(value)
+      :async:
+
+
+      Sets the data point value asynchronously.
+
+      :param value: the data point value
+      :type value: T
+
+
+
+   .. py:method:: set_value(value)
+
+      Sets the data point value synchronously.
+
+      :param value: the data point value
+      :type value: T
+
+
+
+   .. py:method:: subscribe(fn)
+
+      Subscribes to data point value changes.
+
+      :param fn: the handler method
+      :type fn: Callable[[Any], None]
+
+
+
+   .. py:method:: unsubscribe()
+
+      Unsubscribes from data point value changes.
+
+
+
+   .. py:method:: direction()
+
+      Gets the data point direction.
+
+      :returns: the data point direction
+      :rtype: DataDirectionProduct
+
+
+
+   .. py:method:: data_type()
+
+      Gets the data point data type.
+
+      :returns: the data point data type
+      :rtype: DataTypes
+
+
+
+   .. py:method:: unit()
+
+      Gets the unit of measurement of the data point.
+
+      :returns: the unit
+      :rtype: Units
+
+
+
+   .. py:method:: describe()
+
+      Describes the data point.
+
+      :returns: the data point information
+      :rtype: tuple[tuple[str, str], DataDirectionProduct, DataTypes, Units]
+
+
+
+   .. py:method:: options()
+
+      Describes the data point options.
+
+      :returns: the data point options
+      :rtype: list[Any]
+
+
+
+.. py:class:: DataPointProtocol
+
+   Bases: :py:obj:`Protocol`
+
+
+   Defines an interface for data point protocols.
+
+
+   .. py:method:: set_val(value)
+      :async:
+
+
+      Writes the data point value.
+
+      :param value: the data point value to write
+      :type value: Any
+
+
+
+   .. py:method:: get_val(skip_cache = False)
+      :async:
+
+
+      Reads the data point value.
+
+      :param skip_cache: does not use cache if true
+      :type skip_cache: bool
+
+      :returns: the data point value
+      :rtype: Any
+
+
+
+   .. py:method:: name()
+
+      Gets the functional profile and data point names.
+
+      :returns: the functional profile and data point names as tuple
+      :rtype: tuple[str, str]
+
+
+
+   .. py:method:: direction()
+
+      Gets the data direction of the data point.
+
+      :returns: the data point direction
+      :rtype: DataDirectionProduct
+
+
+
+   .. py:method:: unit()
+
+      Gets the unit of measurement of the data point.
+
+      :returns: the unit
+      :rtype: Units
+
+
+
+   .. py:method:: can_subscribe()
+
+      Defines if subscribe() is allowed.
+
+      :returns: True if allowed, False otherwise
+      :rtype: bool
+
+
+
+   .. py:method:: subscribe(fn)
+
+      Subscribes to changes of the data point value.
+
+      :param fn: the callback method
+      :type fn: Callable[[Any], None]
+
+
+
+   .. py:method:: unsubscribe()
+
+      Unsubscribes from changes of the data point value.
+
+
+
+.. py:class:: DataPointValidator
+
+   Bases: :py:obj:`Protocol`
+
+
+   Defines an interface for data point validators.
+
+
+   .. py:method:: validate(value)
+
+      Validates the compatibility of a value.
+
+      :param value: the value to validate
+      :type value: Any
+
+      :returns: true if value is compatible, false otherwise
+      :rtype: bool
+
+
+
+   .. py:method:: data_type()
+
+      Gets the validator's data type.
+
+      :returns: the data type enumeration
+      :rtype: DataTypes
+
+
+
+   .. py:method:: options()
+
+      Gets the validator's options.
+
+      :returns: the options
+      :rtype: list[Any]
+
+
+
+.. py:class:: FunctionalProfile
+
+   Bases: :py:obj:`asyncio.protocols.Protocol`
+
+
+   Implements a functional profile.
+
+
+   .. py:method:: name()
+
+      Gets the functional profile name.
+
+      :returns: the functional profile name
+      :rtype: str
+
+
+
+   .. py:method:: get_data_points()
+
+      Gets all data points.
+
+      :returns: all data points
+      :rtype: dict[tuple[str, str], DataPoint]
+
+
+
+   .. py:method:: get_data_point(dp_name)
+
+      Gets a data point.
+
+      :param dp_name: the data point name
+      :type dp_name: str
+
+      :returns: a data point
+      :rtype: DataPoint
+
+
+
+   .. py:method:: get_value_async()
+      :async:
+
+
+      Gets all data point values of the functional profile asynchronously.
+
+      :returns: all data point values by name
+      :rtype: dict[str, DataPoint]
+
+
+
+   .. py:method:: get_value()
+
+      Gets all data point values of the functional profile synchronously.
+
+      :returns: all data point values by name
+      :rtype: dict[str, DataPoint]
+
+
+
+   .. py:method:: describe()
+
+      Describes the functional profile.
+
+      :returns: the functional profile information
+      :rtype: tuple[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]
+
+
+

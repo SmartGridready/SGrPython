@@ -1,0 +1,99 @@
+sgr_commhandler.driver.rest.authentication
+==========================================
+
+.. py:module:: sgr_commhandler.driver.rest.authentication
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.rest.authentication.logger
+   sgr_commhandler.driver.rest.authentication.Authenticator
+   sgr_commhandler.driver.rest.authentication.supported_authentication_methods
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.rest.authentication.authenticate_not
+   sgr_commhandler.driver.rest.authentication.authenticate_with_bearer_token
+   sgr_commhandler.driver.rest.authentication.authenticate_with_basic_auth
+   sgr_commhandler.driver.rest.authentication.setup_authentication
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:type:: Authenticator
+   :canonical: Callable[[RestApiInterface, ClientSession], Awaitable[bool]]
+
+
+.. py:function:: authenticate_not(interface, session)
+   :async:
+
+
+   Skips authentication.
+
+   :param interface: the device interface
+   :type interface: RestApiInterface
+   :param session: the REST client session
+   :type session: ClientSession
+
+   :returns: True if authenticated, False otherwise
+   :rtype: bool
+
+
+.. py:function:: authenticate_with_bearer_token(interface, session)
+   :async:
+
+
+   Authenticates using Bearer token (JWT).
+
+   :param interface: the device interface
+   :type interface: RestApiInterface
+   :param session: the REST client session
+   :type session: ClientSession
+
+   :returns: True if authenticated, False otherwise
+   :rtype: bool
+
+
+.. py:function:: authenticate_with_basic_auth(interface, session)
+   :async:
+
+
+   Authenticates using Basic Authentication.
+
+   :param interface: the device interface
+   :type interface: RestApiInterface
+   :param session: the REST client session
+   :type session: ClientSession
+
+   :returns: True if authenticated, False otherwise
+   :rtype: bool
+
+
+.. py:data:: supported_authentication_methods
+   :type:  dict[sgr_specification.v0.product.rest_api_types.RestApiAuthenticationMethod, Authenticator]
+
+.. py:function:: setup_authentication(rest_api_interface, session)
+   :async:
+
+
+   Performs authentication asynchronously, depending on the configured method.
+
+   :param interface: the device interface
+   :type interface: RestApiInterface
+   :param session: the REST client session
+   :type session: ClientSession
+
+   :returns: True if authenticated, False otherwise
+   :rtype: bool
+
+

@@ -1,0 +1,74 @@
+sgr_commhandler.api.configuration_parameter
+===========================================
+
+.. py:module:: sgr_commhandler.api.configuration_parameter
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.api.configuration_parameter.ConfigurationParameter
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sgr_commhandler.api.configuration_parameter.build_configuration_parameters
+
+
+Module Contents
+---------------
+
+.. py:function:: build_configuration_parameters(params)
+
+   Constructs a configuration parameter list.
+
+   :param params: The configuration list of an EID
+   :type params: Optional[ConfigurationList]
+
+   :returns: a list of configuration parameters
+   :rtype: list[ConfigurationParameter]
+
+
+.. py:class:: ConfigurationParameter(parameter)
+
+   Implements an EID configuration parameter.
+
+
+   .. py:attribute:: label
+
+
+   .. py:attribute:: name
+
+
+   .. py:attribute:: type
+
+
+   .. py:attribute:: description
+
+
+   .. py:attribute:: default_value
+
+
+   .. py:method:: __str__()
+
+      Converts to string.
+
+      :returns: A string
+      :rtype: str
+
+
+
+   .. py:method:: __repr__()
+
+      Gets an object description as string.
+
+      :returns: A string
+      :rtype: str
+
+
+

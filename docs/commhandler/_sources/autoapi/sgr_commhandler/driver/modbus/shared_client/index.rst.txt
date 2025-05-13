@@ -1,0 +1,82 @@
+sgr_commhandler.driver.modbus.shared_client
+===========================================
+
+.. py:module:: sgr_commhandler.driver.modbus.shared_client
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.modbus.shared_client.logger
+   sgr_commhandler.driver.modbus.shared_client._global_shared_lock
+   sgr_commhandler.driver.modbus.shared_client._global_shared_rtu_clients
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.modbus.shared_client.register_shared_client
+   sgr_commhandler.driver.modbus.shared_client.unregister_shared_client
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: ModbusClientWrapper(identifier, client, shared = False)
+
+   Implements a Modbus client wrapper for shared use.
+
+
+   .. py:attribute:: identifier
+
+
+   .. py:attribute:: client
+
+
+   .. py:attribute:: shared
+      :value: False
+
+
+
+   .. py:attribute:: registered_devices
+
+
+   .. py:attribute:: connected_devices
+
+
+   .. py:method:: connect(device_id)
+      :async:
+
+
+
+   .. py:method:: disconnect(device_id)
+      :async:
+
+
+
+   .. py:method:: is_connected(device_id)
+
+
+.. py:data:: _global_shared_lock
+
+.. py:data:: _global_shared_rtu_clients
+   :type:  dict[str, ModbusClientWrapper]
+
+.. py:function:: register_shared_client(serial_port, parity, baudrate, device_id)
+
+.. py:function:: unregister_shared_client(serial_port, device_id)
+

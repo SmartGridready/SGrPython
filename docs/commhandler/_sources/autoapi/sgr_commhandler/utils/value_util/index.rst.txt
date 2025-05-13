@@ -1,0 +1,68 @@
+sgr_commhandler.utils.value_util
+================================
+
+.. py:module:: sgr_commhandler.utils.value_util
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   sgr_commhandler.utils.value_util.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.utils.value_util.RoundingScheme
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sgr_commhandler.utils.value_util.round_to_int
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: RoundingScheme(*args, **kwds)
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   Defines the kind of rounding method.
+
+
+   .. py:attribute:: floor
+      :value: 'floor'
+
+
+
+   .. py:attribute:: ceil
+      :value: 'ceil'
+
+
+
+   .. py:attribute:: near
+      :value: 'Near'
+
+
+
+.. py:function:: round_to_int(value, scheme = RoundingScheme.floor)
+
+   Rounds a floating-point value to an integer, using a given rounding method.
+
+   :param value: the floating-point value to round
+   :type value: float
+   :param scheme: the method of rounding, defaults to floor
+   :type scheme: RoundingScheme
+
+

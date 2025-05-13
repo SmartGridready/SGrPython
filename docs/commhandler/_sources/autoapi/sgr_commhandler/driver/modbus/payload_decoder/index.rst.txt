@@ -1,0 +1,66 @@
+sgr_commhandler.driver.modbus.payload_decoder
+=============================================
+
+.. py:module:: sgr_commhandler.driver.modbus.payload_decoder
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.modbus.payload_decoder.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.modbus.payload_decoder.PayloadDecoder
+   sgr_commhandler.driver.modbus.payload_decoder.PayloadBuilder
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: PayloadDecoder(*args, **kwargs)
+
+   Bases: :py:obj:`pymodbus.payload.BinaryPayloadDecoder`
+
+
+   Implements a Modbus payload decoder.
+
+
+   .. py:method:: decode(modbus_type, byte_count)
+
+      Decodes a data value.
+
+      :param modbus_type: the Modbus data type to decode
+      :type modbus_type: ModbusDataType
+      :param byte_count: the number of bytes
+      :type byte_count: int
+
+
+
+.. py:class:: PayloadBuilder(*args, **kwarg)
+
+   Bases: :py:obj:`pymodbus.payload.BinaryPayloadBuilder`
+
+
+   Implements a Modbus payload encoder.
+
+
+   .. py:method:: sgr_encode(value, modbus_type)
+
+      Encodes data type value.
+
+      :param value: the value to encode
+      :type value: Any
+      :param modbus_type: The Modbus data type to encode
+      :type modbus_type: ModbusDataType
+
+
+

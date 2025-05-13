@@ -1,0 +1,84 @@
+sgr_commhandler.api.functional_profile_api
+==========================================
+
+.. py:module:: sgr_commhandler.api.functional_profile_api
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.api.functional_profile_api.FunctionalProfile
+
+
+Module Contents
+---------------
+
+.. py:class:: FunctionalProfile
+
+   Bases: :py:obj:`asyncio.protocols.Protocol`
+
+
+   Implements a functional profile.
+
+
+   .. py:method:: name()
+
+      Gets the functional profile name.
+
+      :returns: the functional profile name
+      :rtype: str
+
+
+
+   .. py:method:: get_data_points()
+
+      Gets all data points.
+
+      :returns: all data points
+      :rtype: dict[tuple[str, str], DataPoint]
+
+
+
+   .. py:method:: get_data_point(dp_name)
+
+      Gets a data point.
+
+      :param dp_name: the data point name
+      :type dp_name: str
+
+      :returns: a data point
+      :rtype: DataPoint
+
+
+
+   .. py:method:: get_value_async()
+      :async:
+
+
+      Gets all data point values of the functional profile asynchronously.
+
+      :returns: all data point values by name
+      :rtype: dict[str, DataPoint]
+
+
+
+   .. py:method:: get_value()
+
+      Gets all data point values of the functional profile synchronously.
+
+      :returns: all data point values by name
+      :rtype: dict[str, DataPoint]
+
+
+
+   .. py:method:: describe()
+
+      Describes the functional profile.
+
+      :returns: the functional profile information
+      :rtype: tuple[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]
+
+
+

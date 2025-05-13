@@ -1,0 +1,172 @@
+sgr_commhandler.validators.validator
+====================================
+
+.. py:module:: sgr_commhandler.validators.validator
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   sgr_commhandler.validators.validator.INT_SIZES
+   sgr_commhandler.validators.validator.FLOAT_SIZES
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.validators.validator.UnsupportedValidator
+   sgr_commhandler.validators.validator.EnumValidator
+   sgr_commhandler.validators.validator.IntValidator
+   sgr_commhandler.validators.validator.FloatValidator
+   sgr_commhandler.validators.validator.StringValidator
+   sgr_commhandler.validators.validator.BooleanValidator
+   sgr_commhandler.validators.validator.BitmapValidator
+   sgr_commhandler.validators.validator.DateTimeValidator
+   sgr_commhandler.validators.validator.JsonValidator
+
+
+Module Contents
+---------------
+
+.. py:data:: INT_SIZES
+   :type:  set[int]
+
+.. py:data:: FLOAT_SIZES
+   :type:  set[int]
+
+.. py:class:: UnsupportedValidator
+
+   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+
+
+   Implements a default validator for all unsupported data types.
+
+
+   .. py:method:: validate(value)
+
+
+.. py:class:: EnumValidator(type)
+
+   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+
+
+   Implements a validator for enumeration values.
+
+
+   .. py:method:: validate(value)
+
+
+   .. py:method:: data_type()
+
+
+   .. py:method:: options()
+
+
+.. py:class:: IntValidator(size, signed = True)
+
+   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+
+
+   Implements a validator for integer values.
+
+
+   .. py:attribute:: _size
+
+
+   .. py:method:: validate(value)
+
+
+   .. py:method:: data_type()
+
+
+.. py:class:: FloatValidator(size)
+
+   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+
+
+   Implements a validator for floating-point values.
+
+
+   .. py:attribute:: _size
+
+
+   .. py:method:: validate(value)
+
+
+   .. py:method:: data_type()
+
+
+.. py:class:: StringValidator
+
+   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+
+
+   Implements a validator for text strings.
+
+
+   .. py:method:: validate(value)
+
+
+   .. py:method:: data_type()
+
+
+.. py:class:: BooleanValidator
+
+   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+
+
+   Implements a validator for boolean values.
+
+
+   .. py:method:: validate(value)
+
+
+   .. py:method:: data_type()
+
+
+.. py:class:: BitmapValidator
+
+   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+
+
+   Implements a validator for bitmap values.
+
+
+   .. py:method:: validate(value)
+
+
+   .. py:method:: data_type()
+
+
+.. py:class:: DateTimeValidator
+
+   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+
+
+   Implements a validator for date/time values.
+
+
+   .. py:method:: validate(value)
+
+
+   .. py:method:: data_type()
+
+
+.. py:class:: JsonValidator
+
+   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+
+
+   Implements a validator for JSON values.
+
+
+   .. py:method:: validate(value)
+
+
+   .. py:method:: data_type()
+
+

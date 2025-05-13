@@ -1,0 +1,216 @@
+sgr_commhandler.driver.messaging.messaging_interface_async
+==========================================================
+
+.. py:module:: sgr_commhandler.driver.messaging.messaging_interface_async
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.messaging.messaging_interface_async.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.messaging.messaging_interface_async.MessagingDataPoint
+   sgr_commhandler.driver.messaging.messaging_interface_async.MessagingFunctionalProfile
+   sgr_commhandler.driver.messaging.messaging_interface_async.SGrMessagingInterface
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.messaging.messaging_interface_async.build_messaging_data_point
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:function:: build_messaging_data_point(data_point, functional_profile, interface)
+
+   Builds a data point of a messaging interface.
+
+
+.. py:class:: MessagingDataPoint(dp_spec, fp_spec, interface)
+
+   Bases: :py:obj:`sgr_commhandler.api.DataPointProtocol`
+
+
+   Implements a data point of a messaging interface.
+
+
+   .. py:attribute:: _dp_spec
+
+
+   .. py:attribute:: _fp_spec
+
+
+   .. py:attribute:: _fp_name
+      :value: ''
+
+
+
+   .. py:attribute:: _dp_name
+      :value: ''
+
+
+
+   .. py:attribute:: _interface
+
+
+   .. py:method:: name()
+
+      Gets the functional profile and data point names.
+
+      :returns: the functional profile and data point names as tuple
+      :rtype: tuple[str, str]
+
+
+
+   .. py:method:: get_val(skip_cache = False)
+      :async:
+
+
+      Reads the data point value.
+
+      :param skip_cache: does not use cache if true
+      :type skip_cache: bool
+
+      :returns: the data point value
+      :rtype: Any
+
+
+
+   .. py:method:: set_val(value)
+      :async:
+
+
+      Writes the data point value.
+
+      :param value: the data point value to write
+      :type value: Any
+
+
+
+   .. py:method:: direction()
+
+      Gets the data direction of the data point.
+
+      :returns: the data point direction
+      :rtype: DataDirectionProduct
+
+
+
+   .. py:method:: unit()
+
+      Gets the unit of measurement of the data point.
+
+      :returns: the unit
+      :rtype: Units
+
+
+
+   .. py:method:: can_subscribe()
+
+      Defines if subscribe() is allowed.
+
+      :returns: True if allowed, False otherwise
+      :rtype: bool
+
+
+
+   .. py:method:: subscribe(fn)
+
+      Subscribes to changes of the data point value.
+
+      :param fn: the callback method
+      :type fn: Callable[[Any], None]
+
+
+
+   .. py:method:: unsubscribe()
+
+      Unsubscribes from changes of the data point value.
+
+
+
+.. py:class:: MessagingFunctionalProfile(fp_spec, interface)
+
+   Bases: :py:obj:`sgr_commhandler.api.FunctionalProfile`
+
+
+   Implements a functional profile of a messaging interface.
+
+
+   .. py:attribute:: _fp_spec
+
+
+   .. py:attribute:: _interface
+
+
+   .. py:attribute:: _data_points
+
+
+   .. py:method:: name()
+
+      Gets the functional profile name.
+
+      :returns: the functional profile name
+      :rtype: str
+
+
+
+   .. py:method:: get_data_points()
+
+      Gets all data points.
+
+      :returns: all data points
+      :rtype: dict[tuple[str, str], DataPoint]
+
+
+
+.. py:class:: SGrMessagingInterface(frame)
+
+   Bases: :py:obj:`sgr_commhandler.api.SGrBaseInterface`
+
+
+   SmartGridready External Interface Class for Messaging Protocols
+
+
+   .. py:attribute:: functional_profiles
+
+
+   .. py:method:: is_connected()
+
+      Gets the connection state.
+
+      :returns: the connection state
+      :rtype: bool
+
+
+
+   .. py:method:: disconnect_async()
+      :async:
+
+
+      Disconnects the device asynchronously.
+
+
+
+   .. py:method:: connect_async()
+      :async:
+
+
+      Connects the device asynchronously.
+
+
+

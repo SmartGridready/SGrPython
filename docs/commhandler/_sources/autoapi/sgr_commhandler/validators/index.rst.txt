@@ -1,0 +1,40 @@
+sgr_commhandler.validators
+==========================
+
+.. py:module:: sgr_commhandler.validators
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/sgr_commhandler/validators/resolver/index
+   /autoapi/sgr_commhandler/validators/validator/index
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sgr_commhandler.validators.build_validator
+
+
+Package Contents
+----------------
+
+.. py:function:: build_validator(type)
+
+   Builds a data point validator from a data type specification.
+
+   :param type: the data type specification
+   :type type: Optional[DataTypeProduct]
+
+   :returns: a data point validator
+   :rtype: DataPointValidator
+
+   :raises Exception: when data type has no supported validator
+
+

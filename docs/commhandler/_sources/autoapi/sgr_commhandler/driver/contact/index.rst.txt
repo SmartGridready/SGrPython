@@ -1,0 +1,185 @@
+sgr_commhandler.driver.contact
+==============================
+
+.. py:module:: sgr_commhandler.driver.contact
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/sgr_commhandler/driver/contact/contact_interface_async/index
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.contact.ContactDataPoint
+   sgr_commhandler.driver.contact.ContactFunctionalProfile
+   sgr_commhandler.driver.contact.SGrContactInterface
+
+
+Package Contents
+----------------
+
+.. py:class:: ContactDataPoint(dp_spec, fp_spec, interface)
+
+   Bases: :py:obj:`sgr_commhandler.api.DataPointProtocol`
+
+
+   Implements a data point of a contact interface.
+
+
+   .. py:attribute:: _dp_spec
+
+
+   .. py:attribute:: _fp_spec
+
+
+   .. py:attribute:: _fp_name
+      :value: ''
+
+
+
+   .. py:attribute:: _dp_name
+      :value: ''
+
+
+
+   .. py:attribute:: _interface
+
+
+   .. py:method:: name()
+
+      Gets the functional profile and data point names.
+
+      :returns: the functional profile and data point names as tuple
+      :rtype: tuple[str, str]
+
+
+
+   .. py:method:: get_val(skip_cache = False)
+      :async:
+
+
+      Reads the data point value.
+
+      :param skip_cache: does not use cache if true
+      :type skip_cache: bool
+
+      :returns: the data point value
+      :rtype: Any
+
+
+
+   .. py:method:: set_val(value)
+      :async:
+
+
+      Writes the data point value.
+
+      :param value: the data point value to write
+      :type value: Any
+
+
+
+   .. py:method:: direction()
+
+      Gets the data direction of the data point.
+
+      :returns: the data point direction
+      :rtype: DataDirectionProduct
+
+
+
+   .. py:method:: unit()
+
+      Gets the unit of measurement of the data point.
+
+      :returns: the unit
+      :rtype: Units
+
+
+
+.. py:class:: ContactFunctionalProfile(fp_spec, interface)
+
+   Bases: :py:obj:`sgr_commhandler.api.FunctionalProfile`
+
+
+   Implements a functional profile of a contact interface.
+
+
+   .. py:attribute:: _fp_spec
+
+
+   .. py:attribute:: _interface
+
+
+   .. py:attribute:: _data_points
+
+
+   .. py:method:: name()
+
+      Gets the functional profile name.
+
+      :returns: the functional profile name
+      :rtype: str
+
+
+
+   .. py:method:: get_data_points()
+
+      Gets all data points.
+
+      :returns: all data points
+      :rtype: dict[tuple[str, str], DataPoint]
+
+
+
+.. py:class:: SGrContactInterface(frame)
+
+   Bases: :py:obj:`sgr_commhandler.api.SGrBaseInterface`
+
+
+   SmartGridready External Interface Class for Contact Protocols
+   Note: we do not implement a complete driver here, because it is very application-dependent!
+
+
+   .. py:attribute:: number_of_contacts
+
+
+   .. py:attribute:: contact_stabilization_time
+
+
+   .. py:attribute:: functional_profiles
+
+
+   .. py:method:: is_connected()
+
+      Gets the connection state.
+
+      :returns: the connection state
+      :rtype: bool
+
+
+
+   .. py:method:: disconnect_async()
+      :async:
+
+
+      Disconnects the device asynchronously.
+
+
+
+   .. py:method:: connect_async()
+      :async:
+
+
+      Connects the device asynchronously.
+
+
+

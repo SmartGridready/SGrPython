@@ -1,0 +1,233 @@
+sgr_commhandler.api.device_api
+==============================
+
+.. py:module:: sgr_commhandler.api.device_api
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.api.device_api.DeviceInformation
+   sgr_commhandler.api.device_api.SGrBaseInterface
+
+
+Module Contents
+---------------
+
+.. py:class:: DeviceInformation
+
+   Implements a device information container.
+
+   .. attribute:: name
+
+      Defines the device name
+
+      :type: str
+
+   .. attribute:: manufacturer
+
+      Defines the manufacturer's name
+
+      :type: str
+
+   .. attribute:: software_revision
+
+      Defines the device software version
+
+      :type: str
+
+   .. attribute:: hardware_revision
+
+      Defines the device hardware version
+
+      :type: str
+
+   .. attribute:: device_category
+
+      Defines the device category
+
+      :type: DeviceCategory
+
+   .. attribute:: is_local
+
+      Defines if the device is controlled locally or via cloud
+
+      :type: bool
+
+
+   .. py:attribute:: name
+      :type:  str
+
+
+   .. py:attribute:: manufacturer
+      :type:  str
+
+
+   .. py:attribute:: software_revision
+      :type:  str
+
+
+   .. py:attribute:: hardware_revision
+      :type:  str
+
+
+   .. py:attribute:: device_category
+      :type:  sgr_specification.v0.generic.DeviceCategory
+
+
+   .. py:attribute:: is_local
+      :type:  bool
+
+
+.. py:class:: SGrBaseInterface
+
+   Bases: :py:obj:`Protocol`
+
+
+   Defines an abstract base class for all SGr device interfaces.
+
+   .. attribute:: device_frame
+
+      the device specification
+
+      :type: DeviceFrame
+
+   .. attribute:: configuration_parameters
+
+      the configuration parameters with default values
+
+      :type: list[ConfigurationParameter]
+
+   .. attribute:: device_information
+
+      the device information
+
+      :type: DeviceInformation
+
+   .. attribute:: functional_profiles
+
+      the configured functional profiles
+
+      :type: Mapping[str, FunctionalProfile]
+
+
+   .. py:attribute:: device_frame
+      :type:  sgr_specification.v0.product.product.DeviceFrame
+
+
+   .. py:attribute:: configuration_parameters
+      :type:  list[sgr_commhandler.api.configuration_parameter.ConfigurationParameter]
+
+
+   .. py:attribute:: device_information
+      :type:  DeviceInformation
+
+
+   .. py:attribute:: functional_profiles
+      :type:  collections.abc.Mapping[str, sgr_commhandler.api.functional_profile_api.FunctionalProfile]
+
+
+   .. py:method:: _inititalize_device(frame)
+
+
+   .. py:method:: connect()
+
+      Connects the device synchronously.
+
+
+
+   .. py:method:: connect_async()
+      :async:
+
+
+      Connects the device asynchronously.
+
+
+
+   .. py:method:: disconnect()
+
+      Disconnects the device synchronously.
+
+
+
+   .. py:method:: disconnect_async()
+      :async:
+
+
+      Disconnects the device asynchronously.
+
+
+
+   .. py:method:: is_connected()
+
+      Gets the connection state.
+
+      :returns: the connection state
+      :rtype: bool
+
+
+
+   .. py:method:: get_functional_profile(functional_profile_name)
+
+      Gets a functional profile.
+
+      :param functional_profile_name: the functional profile name
+      :type functional_profile_name: str
+
+      :returns: a functional profile
+      :rtype: FunctionalProfile
+
+
+
+   .. py:method:: get_data_point(dp)
+
+      Gets a data point.
+
+      :param dp: the functional profile and data point name
+      :type dp: tuple[str, str]
+
+      :returns: a data point
+      :rtype: DataPoint
+
+
+
+   .. py:method:: get_data_points()
+
+      Gets all data points.
+
+      :returns: all data points
+      :rtype: dict[tuple[str, str], DataPoint]
+
+
+
+   .. py:method:: get_values()
+
+      Gets all data point values synchronously.
+
+      :returns: all data point values
+      :rtype: dict[tuple[str, str], Any]
+
+
+
+   .. py:method:: get_values_async()
+      :async:
+
+
+      Gets all data point values asynchronously.
+
+      :returns: all data point values
+      :rtype: dict[tuple[str, str], Any]
+
+
+
+   .. py:method:: describe()
+
+      Gets the device description and all data.
+
+      :returns: a tuple of device name and all data point values
+      :rtype: tuple[str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]]
+
+
+
