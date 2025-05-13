@@ -21,12 +21,16 @@ dependencies = []
 [project.urls]
 Homepage = "https://www.smartgridready.ch/"
 Documentation = "https://smartgridready.github.io/"
-Repository = https://github.com/SmartGridready/SGrSpecification.git
-Issues = https://github.com/SmartGridready/SGrSpecification/issues
-Changelog = https://github.com/SmartGridready/SGrPython/blob/master/specification/CHANGELOG.md
+Repository = "https://github.com/SmartGridready/SGrSpecification.git"
+Issues = "https://github.com/SmartGridready/SGrSpecification/issues"
+Changelog = "https://github.com/SmartGridready/SGrPython/blob/master/specification/CHANGELOG.md"
 
 [tool.setuptools]
+package-dir = {"" = "src"}
 include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 # include XSD from package directory and 1 sub-directory
 [tool.setuptools.package-data]
