@@ -1,4 +1,3 @@
-from asyncio import run
 from collections.abc import Callable
 from typing import Any, Generic, Protocol, TypeVar
 
@@ -201,22 +200,6 @@ class DataPoint(Generic[T]):
             f'invalid value read from device, {value}, validator: {self._validator.data_type()}'
         )
 
-    def get_value(self) -> T:
-        """
-        Gets the data point value synchronously.
-
-        Returns
-        -------
-        T
-            the data point value
-        
-        Raises
-        ------
-        Exception
-            when read value is not compatible with data type
-        """
-        return run(self.get_value_async())
-
     async def set_value_async(self, value: T):
         """
         Sets the data point value asynchronously.
@@ -229,17 +212,6 @@ class DataPoint(Generic[T]):
         if self._validator.validate(value):
             return await self._protocol.set_val(value)
         raise Exception('invalid data to write to device')
-
-    def set_value(self, value: T):
-        """
-        Sets the data point value synchronously.
-
-        Parameters
-        ----------
-        value: T
-            the data point value
-        """
-        return run(self.set_value_async(value))
 
     def subscribe(self, fn: Callable[[Any], None]):
         """

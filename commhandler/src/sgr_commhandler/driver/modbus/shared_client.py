@@ -26,7 +26,7 @@ class ModbusClientWrapper:
         self.registered_devices = set()
         self.connected_devices = set()
 
-    async def connect(self, device_id: str):
+    async def connect_async(self, device_id: str):
         if self.shared:
             if device_id not in self.registered_devices:
                 return
@@ -39,7 +39,7 @@ class ModbusClientWrapper:
         else:
             await self.client.connect()
 
-    async def disconnect(self, device_id: str):
+    async def disconnect_async(self, device_id: str):
         if self.shared:
             if device_id not in self.registered_devices:
                 return
