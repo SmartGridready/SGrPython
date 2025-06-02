@@ -3,7 +3,7 @@ from typing import Any
 
 from sgr_specification.v0.generic import EnumMapProduct
 
-from sgr_commhandler.api import DataPointValidator
+from sgr_commhandler.api.data_point_api import DataPointValidator
 from sgr_commhandler.api.data_types import DataTypes
 
 INT_SIZES: set[int] = {8, 16, 32, 64}

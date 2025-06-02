@@ -26,7 +26,9 @@ from sgr_commhandler.driver.messaging.messaging_interface_async import (
 from sgr_commhandler.driver.modbus.modbus_interface_async import (
     SGrModbusInterface,
 )
-from sgr_commhandler.driver.rest.restapi_interface_async import SGrRestInterface
+from sgr_commhandler.driver.rest.restapi_interface_async import (
+    SGrRestInterface
+)
 
 logger = logging.getLogger(__name__)
 

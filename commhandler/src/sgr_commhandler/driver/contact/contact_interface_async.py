@@ -13,12 +13,15 @@ from sgr_specification.v0.product import (
 from sgr_specification.v0.product import (
     DeviceFrame,
 )
-
-from sgr_commhandler.api import (
+from sgr_commhandler.api.data_point_api import (
     DataPoint,
     DataPointProtocol,
-    FunctionalProfile,
-    SGrBaseInterface,
+)
+from sgr_commhandler.api.functional_profile_api import (
+    FunctionalProfile
+)
+from sgr_commhandler.api.device_api import (
+    SGrBaseInterface
 )
 from sgr_commhandler.validators import build_validator
 
