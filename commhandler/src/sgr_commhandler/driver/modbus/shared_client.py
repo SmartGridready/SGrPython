@@ -106,9 +106,11 @@ def unregister_shared_client(serial_port: str, device_id: str) -> None:
             client_wrapper.registered_devices.remove(device_id)
             if len(client_wrapper.registered_devices) == 0:
                 try:
-                    asyncio.get_event_loop().run_until_complete(
-                        client_wrapper.client.disconnect()
-                    )
+                    loop = asyncio.get_event_loop()
+                    if loop.is_running():
+                        loop.create_task(client_wrapper.client.disconnect())
+                    else:
+                        loop.run_until_complete(client_wrapper.client.disconnect())
                 except Exception:
                     logger.warning(
                         f'could not disconnect shared transport {client_wrapper.identifier}'
