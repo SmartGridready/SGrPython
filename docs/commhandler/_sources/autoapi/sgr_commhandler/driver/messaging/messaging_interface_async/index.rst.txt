@@ -42,7 +42,7 @@ Module Contents
 
 .. py:class:: MessagingDataPoint(dp_spec, fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.DataPointProtocol`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`
 
 
    Implements a data point of a messaging interface.
@@ -145,7 +145,7 @@ Module Contents
 
 .. py:class:: MessagingFunctionalProfile(fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.FunctionalProfile`
+   Bases: :py:obj:`sgr_commhandler.api.functional_profile_api.FunctionalProfile`
 
 
    Implements a functional profile of a messaging interface.
@@ -180,7 +180,7 @@ Module Contents
 
 .. py:class:: SGrMessagingInterface(frame)
 
-   Bases: :py:obj:`sgr_commhandler.api.SGrBaseInterface`
+   Bases: :py:obj:`sgr_commhandler.api.device_api.SGrBaseInterface`
 
 
    SmartGridready External Interface Class for Messaging Protocols

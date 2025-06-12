@@ -40,7 +40,7 @@ Module Contents
 
 .. py:class:: UnsupportedValidator
 
-   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointValidator`
 
 
    Implements a default validator for all unsupported data types.
@@ -60,7 +60,7 @@ Module Contents
 
 .. py:class:: EnumValidator(type)
 
-   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointValidator`
 
 
    Implements a validator for enumeration values.
@@ -98,7 +98,7 @@ Module Contents
 
 .. py:class:: IntValidator(size, signed = True)
 
-   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointValidator`
 
 
    Implements a validator for integer values.
@@ -130,7 +130,7 @@ Module Contents
 
 .. py:class:: FloatValidator(size)
 
-   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointValidator`
 
 
    Implements a validator for floating-point values.
@@ -162,7 +162,7 @@ Module Contents
 
 .. py:class:: StringValidator
 
-   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointValidator`
 
 
    Implements a validator for text strings.
@@ -191,7 +191,7 @@ Module Contents
 
 .. py:class:: BooleanValidator
 
-   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointValidator`
 
 
    Implements a validator for boolean values.
@@ -220,7 +220,7 @@ Module Contents
 
 .. py:class:: BitmapValidator
 
-   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointValidator`
 
 
    Implements a validator for bitmap values.
@@ -249,7 +249,7 @@ Module Contents
 
 .. py:class:: DateTimeValidator
 
-   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointValidator`
 
 
    Implements a validator for date/time values.
@@ -278,7 +278,7 @@ Module Contents
 
 .. py:class:: JsonValidator
 
-   Bases: :py:obj:`sgr_commhandler.api.DataPointValidator`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointValidator`
 
 
    Implements a validator for JSON values.

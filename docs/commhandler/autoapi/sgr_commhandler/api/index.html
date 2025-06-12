@@ -117,6 +117,12 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.api.DataPointValidator" title="sgr_commhandler.api.DataPointValidator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataPointValidator</span></code></a></p></td>
 <td><p>Defines an interface for data point validators.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.api.DeviceInformation" title="sgr_commhandler.api.DeviceInformation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceInformation</span></code></a></p></td>
+<td><p>Implements a device information container.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.api.SGrBaseInterface" title="sgr_commhandler.api.SGrBaseInterface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SGrBaseInterface</span></code></a></p></td>
+<td><p>Defines an abstract base class for all SGr device interfaces.</p></td>
+</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.api.FunctionalProfile" title="sgr_commhandler.api.FunctionalProfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FunctionalProfile</span></code></a></p></td>
 <td><p>Implements a functional profile.</p></td>
 </tr>
@@ -497,6 +503,291 @@
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list[Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sgr_commhandler.api.DeviceInformation">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.</span></span><span class="sig-name descname"><span class="pre">DeviceInformation</span></span><a class="headerlink" href="#sgr_commhandler.api.DeviceInformation" title="Link to this definition"></a></dt>
+<dd><p>Implements a device information container.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.DeviceInformation.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#sgr_commhandler.api.DeviceInformation.name" title="Link to this definition"></a></dt>
+<dd><p>Defines the device name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.DeviceInformation.manufacturer">
+<span class="sig-name descname"><span class="pre">manufacturer</span></span><a class="headerlink" href="#sgr_commhandler.api.DeviceInformation.manufacturer" title="Link to this definition"></a></dt>
+<dd><p>Defines the manufacturer’s name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.DeviceInformation.software_revision">
+<span class="sig-name descname"><span class="pre">software_revision</span></span><a class="headerlink" href="#sgr_commhandler.api.DeviceInformation.software_revision" title="Link to this definition"></a></dt>
+<dd><p>Defines the device software version</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.DeviceInformation.hardware_revision">
+<span class="sig-name descname"><span class="pre">hardware_revision</span></span><a class="headerlink" href="#sgr_commhandler.api.DeviceInformation.hardware_revision" title="Link to this definition"></a></dt>
+<dd><p>Defines the device hardware version</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.DeviceInformation.device_category">
+<span class="sig-name descname"><span class="pre">device_category</span></span><a class="headerlink" href="#sgr_commhandler.api.DeviceInformation.device_category" title="Link to this definition"></a></dt>
+<dd><p>Defines the device category</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DeviceCategory</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.DeviceInformation.is_local">
+<span class="sig-name descname"><span class="pre">is_local</span></span><a class="headerlink" href="#sgr_commhandler.api.DeviceInformation.is_local" title="Link to this definition"></a></dt>
+<dd><p>Defines if the device is controlled locally or via cloud</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">manufacturer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">software_revision</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">hardware_revision</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">device_category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sgr_specification.v0.generic.DeviceCategory</span></em><a class="headerlink" href="#id4" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">is_local</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#id5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sgr_commhandler.api.SGrBaseInterface">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.</span></span><span class="sig-name descname"><span class="pre">SGrBaseInterface</span></span><a class="headerlink" href="#sgr_commhandler.api.SGrBaseInterface" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<p>Defines an abstract base class for all SGr device interfaces.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.SGrBaseInterface.device_frame">
+<span class="sig-name descname"><span class="pre">device_frame</span></span><a class="headerlink" href="#sgr_commhandler.api.SGrBaseInterface.device_frame" title="Link to this definition"></a></dt>
+<dd><p>the device specification</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DeviceFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.SGrBaseInterface.configuration_parameters">
+<span class="sig-name descname"><span class="pre">configuration_parameters</span></span><a class="headerlink" href="#sgr_commhandler.api.SGrBaseInterface.configuration_parameters" title="Link to this definition"></a></dt>
+<dd><p>the configuration parameters with default values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="#sgr_commhandler.api.ConfigurationParameter" title="sgr_commhandler.api.ConfigurationParameter">ConfigurationParameter</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.SGrBaseInterface.device_information">
+<span class="sig-name descname"><span class="pre">device_information</span></span><a class="headerlink" href="#sgr_commhandler.api.SGrBaseInterface.device_information" title="Link to this definition"></a></dt>
+<dd><p>the device information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sgr_commhandler.api.DeviceInformation" title="sgr_commhandler.api.DeviceInformation">DeviceInformation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.SGrBaseInterface.functional_profiles">
+<span class="sig-name descname"><span class="pre">functional_profiles</span></span><a class="headerlink" href="#sgr_commhandler.api.SGrBaseInterface.functional_profiles" title="Link to this definition"></a></dt>
+<dd><p>the configured functional profiles</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Mapping[str, <a class="reference internal" href="#sgr_commhandler.api.FunctionalProfile" title="sgr_commhandler.api.FunctionalProfile">FunctionalProfile</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">device_frame</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sgr_specification.v0.product.product.DeviceFrame</span></em><a class="headerlink" href="#id6" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">configuration_parameters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="configuration_parameter/index.html#sgr_commhandler.api.configuration_parameter.ConfigurationParameter" title="sgr_commhandler.api.configuration_parameter.ConfigurationParameter"><span class="pre">sgr_commhandler.api.configuration_parameter.ConfigurationParameter</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id7" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">device_information</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#sgr_commhandler.api.DeviceInformation" title="sgr_commhandler.api.DeviceInformation"><span class="pre">DeviceInformation</span></a></em><a class="headerlink" href="#id8" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">functional_profiles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="functional_profile_api/index.html#sgr_commhandler.api.functional_profile_api.FunctionalProfile" title="sgr_commhandler.api.functional_profile_api.FunctionalProfile"><span class="pre">sgr_commhandler.api.functional_profile_api.FunctionalProfile</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id9" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.api.SGrBaseInterface._inititalize_device">
+<span class="sig-name descname"><span class="pre">_inititalize_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.SGrBaseInterface._inititalize_device" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>frame</strong> (<em>sgr_specification.v0.product.product.DeviceFrame</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.api.SGrBaseInterface.connect_async">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.SGrBaseInterface.connect_async" title="Link to this definition"></a></dt>
+<dd><p>Connects the device asynchronously.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.api.SGrBaseInterface.disconnect_async">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.SGrBaseInterface.disconnect_async" title="Link to this definition"></a></dt>
+<dd><p>Disconnects the device asynchronously.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.api.SGrBaseInterface.is_connected">
+<span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.SGrBaseInterface.is_connected" title="Link to this definition"></a></dt>
+<dd><p>Gets the connection state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the connection state</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.api.SGrBaseInterface.get_functional_profile">
+<span class="sig-name descname"><span class="pre">get_functional_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">functional_profile_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.SGrBaseInterface.get_functional_profile" title="Link to this definition"></a></dt>
+<dd><p>Gets a functional profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>functional_profile_name</strong> (<em>str</em>) – the functional profile name</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a functional profile</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sgr_commhandler.api.FunctionalProfile" title="sgr_commhandler.api.FunctionalProfile">FunctionalProfile</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.api.SGrBaseInterface.get_data_point">
+<span class="sig-name descname"><span class="pre">get_data_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.SGrBaseInterface.get_data_point" title="Link to this definition"></a></dt>
+<dd><p>Gets a data point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dp</strong> (<em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – the functional profile and data point name</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a data point</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sgr_commhandler.api.DataPoint" title="sgr_commhandler.api.DataPoint">DataPoint</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.api.SGrBaseInterface.get_data_points">
+<span class="sig-name descname"><span class="pre">get_data_points</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.SGrBaseInterface.get_data_points" title="Link to this definition"></a></dt>
+<dd><p>Gets all data points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>all data points</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[tuple[str, str], <a class="reference internal" href="#sgr_commhandler.api.DataPoint" title="sgr_commhandler.api.DataPoint">DataPoint</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.api.SGrBaseInterface.get_values_async">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_values_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.SGrBaseInterface.get_values_async" title="Link to this definition"></a></dt>
+<dd><p>Gets all data point values asynchronously.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>all data point values</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[tuple[str, str], Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.api.SGrBaseInterface.describe">
+<span class="sig-name descname"><span class="pre">describe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.SGrBaseInterface.describe" title="Link to this definition"></a></dt>
+<dd><p>Gets the device description and all data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a tuple of device name and all data point values</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple[str, dict[str, dict[str, tuple[DataDirectionProduct, <a class="reference internal" href="data_types/index.html#sgr_commhandler.api.data_types.DataTypes" title="sgr_commhandler.api.data_types.DataTypes">DataTypes</a>]]]]</p>
 </dd>
 </dl>
 </dd></dl>

@@ -42,7 +42,7 @@ Module Contents
 
 .. py:class:: GenericDataPoint(dp_spec, fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.DataPointProtocol`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`
 
 
    Implements a data point of a generic interface.
@@ -121,7 +121,7 @@ Module Contents
 
 .. py:class:: GenericFunctionalProfile(fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.FunctionalProfile`
+   Bases: :py:obj:`sgr_commhandler.api.functional_profile_api.FunctionalProfile`
 
 
    Implements a functional profile of a generic interface.
@@ -156,7 +156,7 @@ Module Contents
 
 .. py:class:: SGrGenericInterface(frame)
 
-   Bases: :py:obj:`sgr_commhandler.api.SGrBaseInterface`
+   Bases: :py:obj:`sgr_commhandler.api.device_api.SGrBaseInterface`
 
 
    SmartGridready External Interface Class for Generic Protocols

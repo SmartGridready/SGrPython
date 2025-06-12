@@ -29,7 +29,7 @@ Package Contents
 
 .. py:class:: RestDataPoint(dp_spec, fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.DataPointProtocol`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`
 
 
    Implements a data point of a REST API interface.
@@ -131,7 +131,7 @@ Package Contents
 
 .. py:class:: RestFunctionalProfile(fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.FunctionalProfile`
+   Bases: :py:obj:`sgr_commhandler.api.functional_profile_api.FunctionalProfile`
 
 
    Implements a functional profile of a REST API interface.
@@ -166,7 +166,7 @@ Package Contents
 
 .. py:class:: SGrRestInterface(frame)
 
-   Bases: :py:obj:`sgr_commhandler.api.SGrBaseInterface`
+   Bases: :py:obj:`sgr_commhandler.api.device_api.SGrBaseInterface`
 
 
    Implements a REST API device interface.

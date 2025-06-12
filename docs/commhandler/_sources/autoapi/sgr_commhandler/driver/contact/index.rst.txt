@@ -28,7 +28,7 @@ Package Contents
 
 .. py:class:: ContactDataPoint(dp_spec, fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.DataPointProtocol`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`
 
 
    Implements a data point of a contact interface.
@@ -107,7 +107,7 @@ Package Contents
 
 .. py:class:: ContactFunctionalProfile(fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.FunctionalProfile`
+   Bases: :py:obj:`sgr_commhandler.api.functional_profile_api.FunctionalProfile`
 
 
    Implements a functional profile of a contact interface.
@@ -142,7 +142,7 @@ Package Contents
 
 .. py:class:: SGrContactInterface(frame)
 
-   Bases: :py:obj:`sgr_commhandler.api.SGrBaseInterface`
+   Bases: :py:obj:`sgr_commhandler.api.device_api.SGrBaseInterface`
 
 
    SmartGridready External Interface Class for Contact Protocols

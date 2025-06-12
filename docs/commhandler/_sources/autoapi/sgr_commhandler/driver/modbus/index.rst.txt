@@ -31,7 +31,7 @@ Package Contents
 
 .. py:class:: ModbusDataPoint(dp_spec, fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.DataPointProtocol`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`
 
 
    Implements a data point of a Modbus interface.
@@ -65,20 +65,16 @@ Package Contents
 
 
    .. py:attribute:: _data_type
-      :type:  Optional[sgr_specification.v0.product.modbus_types.ModbusDataType]
-      :value: None
-
+      :type:  sgr_specification.v0.product.modbus_types.ModbusDataType
 
 
    .. py:attribute:: _size
-      :value: -1
+      :value: 0
 
 
 
    .. py:attribute:: _register_type
       :type:  sgr_specification.v0.product.modbus_types.RegisterType
-      :value: None
-
 
 
    .. py:method:: set_val(value)
@@ -135,7 +131,7 @@ Package Contents
 
 .. py:class:: ModbusFunctionalProfile(fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.FunctionalProfile`
+   Bases: :py:obj:`sgr_commhandler.api.functional_profile_api.FunctionalProfile`
 
 
    Implements a functional profile of a Modbus interface.
@@ -170,7 +166,7 @@ Package Contents
 
 .. py:class:: SGrModbusInterface(frame, sharedRTU = False)
 
-   Bases: :py:obj:`sgr_commhandler.api.SGrBaseInterface`
+   Bases: :py:obj:`sgr_commhandler.api.device_api.SGrBaseInterface`
 
 
    Implements a Modbus device interface.
@@ -189,12 +185,6 @@ Package Contents
 
    .. py:attribute:: _device_id
       :value: ''
-
-
-
-   .. py:attribute:: _client_wrapper
-      :type:  sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper
-      :value: None
 
 
 
