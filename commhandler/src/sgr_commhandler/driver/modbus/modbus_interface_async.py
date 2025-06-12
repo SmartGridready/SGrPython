@@ -23,12 +23,15 @@ from sgr_specification.v0.product.modbus_types import (
     ModbusTcp,
     RegisterType,
 )
-
-from sgr_commhandler.api import (
+from sgr_commhandler.api.data_point_api import (
     DataPoint,
     DataPointProtocol,
-    FunctionalProfile,
-    SGrBaseInterface,
+)
+from sgr_commhandler.api.functional_profile_api import (
+    FunctionalProfile
+)
+from sgr_commhandler.api.device_api import (
+    SGrBaseInterface
 )
 from sgr_commhandler.driver.modbus.modbus_client_async import (
     SGrModbusRTUClient,
@@ -148,7 +151,7 @@ def build_modbus_data_point(
     return DataPoint(protocol, validator)
 
 
-def is_integer_type(data_type: DataTypeProduct | ModbusDataType) -> bool:
+def is_integer_type(data_type: DataTypeProduct | ModbusDataType | None) -> bool:
     """
     Checks if a data type is an integer.
 
@@ -158,6 +161,8 @@ def is_integer_type(data_type: DataTypeProduct | ModbusDataType) -> bool:
         True if integer, False otherwise
     """
 
+    if data_type is None:
+        return False
     return any(
         (
             data_type.int8 is not None,
@@ -172,7 +177,7 @@ def is_integer_type(data_type: DataTypeProduct | ModbusDataType) -> bool:
     )
 
 
-def is_float_type(data_type: DataTypeProduct | ModbusDataType) -> bool:
+def is_float_type(data_type: DataTypeProduct | ModbusDataType | None) -> bool:
     """
     Checks if a data type is a floating point value.
 
@@ -182,6 +187,8 @@ def is_float_type(data_type: DataTypeProduct | ModbusDataType) -> bool:
         True if integer, False otherwise
     """
 
+    if data_type is None:
+        return False
     return data_type.float32 is not None or data_type.float64 is not None
 
 
@@ -225,7 +232,7 @@ class ModbusDataPoint(DataPointProtocol):
                 self._dp_spec.modbus_data_point_configuration.address
             )
 
-        self._data_type: Optional[ModbusDataType] = None
+        self._data_type: ModbusDataType
         if (
             self._dp_spec.modbus_data_point_configuration
             and self._dp_spec.modbus_data_point_configuration.modbus_data_type
@@ -233,15 +240,17 @@ class ModbusDataPoint(DataPointProtocol):
             self._data_type = (
                 self._dp_spec.modbus_data_point_configuration.modbus_data_type
             )
+        else:
+            raise ValueError('Modbus data type not defined')
 
-        self._size = -1
+        self._size = 0
         if (
             self._dp_spec.modbus_data_point_configuration
             and self._dp_spec.modbus_data_point_configuration.number_of_registers
         ):
             self._size = self._dp_spec.modbus_data_point_configuration.number_of_registers
 
-        self._register_type: RegisterType = None
+        self._register_type: RegisterType
         if (
             self._dp_spec.modbus_data_point_configuration
             and self._dp_spec.modbus_data_point_configuration.register_type
@@ -249,23 +258,26 @@ class ModbusDataPoint(DataPointProtocol):
             self._register_type = (
                 self._dp_spec.modbus_data_point_configuration.register_type
             )
+        else:
+            raise ValueError('Modbus register type not defined')
 
     async def set_val(self, value: Any):
         # convert to device units
-        if (
-            self._dp_spec.data_point.unit_conversion_multiplicator
-            and self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
-        ):
-            value = (
-                float(value)
-                / self._dp_spec.data_point.unit_conversion_multiplicator
-            )
+        unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
+            self._dp_spec.data_point
+            and self._dp_spec.data_point.unit_conversion_multiplicator
+        ) else 1.0
+
+        if unit_conv_factor != 1.0:
+            value = float(value)  / unit_conv_factor
 
         # round to int if modbus type is int and DP type is not
         if is_float_type(
             self._dp_spec.data_point.data_type
+            if self._dp_spec.data_point and self._dp_spec.data_point.data_type else None
         ) and not is_integer_type(
             self._dp_spec.modbus_data_point_configuration.modbus_data_type
+            if self._dp_spec.modbus_data_point_configuration and self._dp_spec.modbus_data_point_configuration.modbus_data_type else None
         ):
             value = value_util.round_to_int(float(value))
 
@@ -280,20 +292,21 @@ class ModbusDataPoint(DataPointProtocol):
         )
 
         # convert to DP units
-        if (
-            self._dp_spec.data_point.unit_conversion_multiplicator
-            and self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
-        ):
-            ret_value = (
-                float(ret_value)
-                * self._dp_spec.data_point.unit_conversion_multiplicator
-            )
+        unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
+            self._dp_spec.data_point
+            and self._dp_spec.data_point.unit_conversion_multiplicator
+        ) else 1.0
+
+        if unit_conv_factor != 1.0:
+            ret_value = float(ret_value) * unit_conv_factor
 
         # round to int if DP type is int and modbus type is not
         if is_integer_type(
             self._dp_spec.data_point.data_type
+            if self._dp_spec.data_point else None
         ) and not is_float_type(
             self._dp_spec.modbus_data_point_configuration.modbus_data_type
+            if self._dp_spec.modbus_data_point_configuration else None
         ):
             ret_value = value_util.round_to_int(float(ret_value))
 
@@ -333,12 +346,18 @@ class ModbusFunctionalProfile(FunctionalProfile):
         self._interface = interface
         dps = [
             build_modbus_data_point(dp, self._fp_spec, self._interface)
-            for dp in self._fp_spec.data_point_list.data_point_list_element
+            for dp in (
+                self._fp_spec.data_point_list.data_point_list_element
+                if self._fp_spec.data_point_list else []
+            )
         ]
         self._data_points = {dp.name(): dp for dp in dps}
 
     def name(self) -> str:
-        return self._fp_spec.functional_profile.functional_profile_name
+        return self._fp_spec.functional_profile.functional_profile_name if (
+            self._fp_spec.functional_profile
+            and self._fp_spec.functional_profile.functional_profile_name
+        ) else ''
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
@@ -400,13 +419,15 @@ class SGrModbusInterface(SGrBaseInterface):
         # build functional profiles
         fps = [
             ModbusFunctionalProfile(fp, self)
-            for fp in self.device_frame.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element
+            for fp in (
+                self.device_frame.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element
+                if self.device_frame.interface_list.modbus_interface.functional_profile_list else []
+            )
         ]
         self.functional_profiles = {fp.name(): fp for fp in fps}
 
         # unique string used in combination with shared Modbus client
         self._device_id = ''.join(random.choices(string.ascii_letters, k=8))
-        self._client_wrapper: ModbusClientWrapper = None
         if (
             self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_interface_selection
             == ModbusInterfaceSelection.TCPIP

@@ -2,7 +2,7 @@ from typing import Optional
 
 from sgr_specification.v0.generic import DataTypeProduct
 
-from sgr_commhandler.api import DataPointValidator
+from sgr_commhandler.api.data_point_api import DataPointValidator
 from sgr_commhandler.validators.validator import (
     BitmapValidator,
     BooleanValidator,

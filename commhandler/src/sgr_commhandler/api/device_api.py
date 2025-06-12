@@ -5,7 +5,7 @@ from typing import Any, Protocol
 from sgr_specification.v0.generic import DataDirectionProduct, DeviceCategory
 from sgr_specification.v0.product.product import DeviceFrame
 
-from sgr_commhandler.api import DataPoint
+from sgr_commhandler.api.data_point_api import DataPoint
 from sgr_commhandler.api.configuration_parameter import (
     ConfigurationParameter,
     build_configuration_parameters,

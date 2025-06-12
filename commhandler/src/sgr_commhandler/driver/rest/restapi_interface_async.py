@@ -10,6 +10,7 @@ import certifi
 import jmespath
 from aiohttp import ClientConnectionError, ClientResponseError
 from cachetools import TTLCache
+from multidict import CIMultiDict
 from sgr_specification.v0.generic import DataDirectionProduct, Units
 from sgr_specification.v0.generic.base_types import ResponseQueryType
 from sgr_specification.v0.product import (
@@ -28,12 +29,15 @@ from sgr_specification.v0.product.rest_api_types import (
     ParameterList,
     RestApiServiceCall,
 )
-
-from sgr_commhandler.api import (
+from sgr_commhandler.api.data_point_api import (
     DataPoint,
     DataPointProtocol,
-    FunctionalProfile,
-    SGrBaseInterface,
+)
+from sgr_commhandler.api.functional_profile_api import (
+    FunctionalProfile
+)
+from sgr_commhandler.api.device_api import (
+    SGrBaseInterface
 )
 from sgr_commhandler.driver.rest.authentication import setup_authentication
 from sgr_commhandler.validators import build_validator
@@ -231,11 +235,11 @@ class RestDataPoint(DataPointProtocol):
 
         # TODO das scheint auch noch falsch muss ein reqeust jeweils alle parameter haben?
         request = RestRequest(
-            self._read_call.request_method,
+            self._read_call.request_method if self._read_call.request_method else HttpMethod.GET,
             f'{self._interface.base_url}{self._read_call.request_path}',
-            self._read_call.request_header,
-            self._read_call.request_query,
-            self._read_call.request_form,
+            self._read_call.request_header if self._read_call.request_header else HeaderList(),
+            self._read_call.request_query if self._read_call.request_query else ParameterList(),
+            self._read_call.request_form if self._read_call.request_form else ParameterList(),
             self._read_call.request_body,
         )
         response = await self._interface.execute_request(request, skip_cache)
@@ -246,7 +250,7 @@ class RestDataPoint(DataPointProtocol):
             and self._read_call.response_query.query_type
             == ResponseQueryType.JMESPATH_EXPRESSION
         ):
-            query_expression = self._read_call.response_query.query
+            query_expression = self._read_call.response_query.query if self._read_call.response_query.query else ''
             return jmespath.search(query_expression, json.loads(response.body))
         ret_value = response.body
 
@@ -268,24 +272,21 @@ class RestDataPoint(DataPointProtocol):
             raise Exception('No write call')
 
         # convert to device units
-        if (
-            self._dp_spec.data_point is None
-            or self._dp_spec.data_point.unit_conversion_multiplicator
-            and self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
-        ):
-            value = (
-                float(value)
-                / self._dp_spec.data_point.unit_conversion_multiplicator
-            )
+        unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
+            self._dp_spec.data_point
+            and self._dp_spec.data_point.unit_conversion_multiplicator
+        ) else 1.0
+        if unit_conv_factor != 1.0:
+            value = float(value) / unit_conv_factor
 
-        # TODO auch hier scheint alles no ein bisschen fehlerhaft
         # replace [[value]] placeholder
+        # TODO also replace placeholder in other request parts
         request = RestRequest(
-            self._write_call.request_method,
+            self._write_call.request_method if self._write_call.request_method else HttpMethod.GET,
             f'{self._interface.base_url}{self._write_call.request_path}',
-            self._write_call.request_header,
-            self._write_call.request_query,
-            self._write_call.request_form,
+            self._write_call.request_header if self._write_call.request_header else HeaderList(),
+            self._write_call.request_query if self._write_call.request_query else ParameterList(),
+            self._write_call.request_form if self._write_call.request_form else ParameterList(),
             body=str(self._write_call.request_body).replace(
                 '[[value]]', str(value)
             )
@@ -427,16 +428,16 @@ class SGrRestInterface(SGrBaseInterface):
             if self._session is None:
                 raise Exception('no connection to device established')
             # All headers into dictionary
-            request_headers = {
-                header_entry.header_name: header_entry.value
-                for header_entry in request.headers.header
-            }
+            request_headers = CIMultiDict()
+            for header_entry in request.headers.header:
+                if header_entry.header_name:
+                    request_headers.add(header_entry.header_name, header_entry.value)
 
             # All query parameters into dictionary
-            query_parameters = {
-                param_entry.name: param_entry.value
-                for param_entry in request.query_parameters.parameter
-            }
+            query_parameters = CIMultiDict()
+            for param_entry in request.query_parameters.parameter:
+                if param_entry.name:
+                    query_parameters.add(param_entry.name, param_entry.value)
 
             request_body: Optional[str] = request.body
 
