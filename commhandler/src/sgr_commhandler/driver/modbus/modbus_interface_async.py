@@ -455,10 +455,10 @@ class SGrModbusInterface(SGrBaseInterface):
         return self._client_wrapper.is_connected(self._device_id)
 
     async def connect_async(self):
-        await self._client_wrapper.connect(self._device_id)
+        await self._client_wrapper.connect_async(self._device_id)
 
     async def disconnect_async(self):
-        await self._client_wrapper.disconnect(self._device_id)
+        await self._client_wrapper.disconnect_async(self._device_id)
 
     async def read_data(
         self,

@@ -1,4 +1,3 @@
-from asyncio import run
 from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any, Protocol
@@ -93,23 +92,11 @@ class SGrBaseInterface(Protocol):
             else False,
         )
 
-    def connect(self):
-        """
-        Connects the device synchronously.
-        """
-        run(self.connect_async())
-
     async def connect_async(self):
         """
         Connects the device asynchronously.
         """
         ...
-
-    def disconnect(self):
-        """
-        Disconnects the device synchronously.
-        """
-        run(self.disconnect_async())
 
     async def disconnect_async(self):
         """
@@ -176,17 +163,6 @@ class SGrBaseInterface(Protocol):
             data_points.update(fp.get_data_points())
         return data_points
 
-    def get_values(self) -> dict[tuple[str, str], Any]:
-        """
-        Gets all data point values synchronously.
-
-        Returns
-        -------
-        dict[tuple[str, str], Any]
-            all data point values
-        """
-        return run(self.get_values_async())
-
     async def get_values_async(self) -> dict[tuple[str, str], Any]:
         """
         Gets all data point values asynchronously.
@@ -201,7 +177,9 @@ class SGrBaseInterface(Protocol):
             data.update(
                 {
                     (fp.name(), key): value
-                    for key, value in (await fp.get_value_async()).items()
+                    for key, value in (
+                        await fp.get_values_async()
+                    ).items()
                 }
             )
         return data
