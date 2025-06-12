@@ -48,6 +48,15 @@ Module Contents
 
    .. py:method:: validate(value)
 
+      Validates the compatibility of a value.
+
+      :param value: the value to validate
+      :type value: Any
+
+      :returns: true if value is compatible, false otherwise
+      :rtype: bool
+
+
 
 .. py:class:: EnumValidator(type)
 
@@ -59,11 +68,32 @@ Module Contents
 
    .. py:method:: validate(value)
 
+      Validates the compatibility of a value.
+
+      :param value: the value to validate
+      :type value: Any
+
+      :returns: true if value is compatible, false otherwise
+      :rtype: bool
+
+
 
    .. py:method:: data_type()
 
+      Gets the validator's data type.
+
+      :returns: the data type enumeration
+      :rtype: DataTypes
+
+
 
    .. py:method:: options()
+
+      Gets the validator's options.
+
+      :returns: the options
+      :rtype: list[Any]
+
 
 
 .. py:class:: IntValidator(size, signed = True)
@@ -79,8 +109,23 @@ Module Contents
 
    .. py:method:: validate(value)
 
+      Validates the compatibility of a value.
+
+      :param value: the value to validate
+      :type value: Any
+
+      :returns: true if value is compatible, false otherwise
+      :rtype: bool
+
+
 
    .. py:method:: data_type()
+
+      Gets the validator's data type.
+
+      :returns: the data type enumeration
+      :rtype: DataTypes
+
 
 
 .. py:class:: FloatValidator(size)
@@ -96,8 +141,23 @@ Module Contents
 
    .. py:method:: validate(value)
 
+      Validates the compatibility of a value.
+
+      :param value: the value to validate
+      :type value: Any
+
+      :returns: true if value is compatible, false otherwise
+      :rtype: bool
+
+
 
    .. py:method:: data_type()
+
+      Gets the validator's data type.
+
+      :returns: the data type enumeration
+      :rtype: DataTypes
+
 
 
 .. py:class:: StringValidator
@@ -110,8 +170,23 @@ Module Contents
 
    .. py:method:: validate(value)
 
+      Validates the compatibility of a value.
+
+      :param value: the value to validate
+      :type value: Any
+
+      :returns: true if value is compatible, false otherwise
+      :rtype: bool
+
+
 
    .. py:method:: data_type()
+
+      Gets the validator's data type.
+
+      :returns: the data type enumeration
+      :rtype: DataTypes
+
 
 
 .. py:class:: BooleanValidator
@@ -124,8 +199,23 @@ Module Contents
 
    .. py:method:: validate(value)
 
+      Validates the compatibility of a value.
+
+      :param value: the value to validate
+      :type value: Any
+
+      :returns: true if value is compatible, false otherwise
+      :rtype: bool
+
+
 
    .. py:method:: data_type()
+
+      Gets the validator's data type.
+
+      :returns: the data type enumeration
+      :rtype: DataTypes
+
 
 
 .. py:class:: BitmapValidator
@@ -138,8 +228,23 @@ Module Contents
 
    .. py:method:: validate(value)
 
+      Validates the compatibility of a value.
+
+      :param value: the value to validate
+      :type value: Any
+
+      :returns: true if value is compatible, false otherwise
+      :rtype: bool
+
+
 
    .. py:method:: data_type()
+
+      Gets the validator's data type.
+
+      :returns: the data type enumeration
+      :rtype: DataTypes
+
 
 
 .. py:class:: DateTimeValidator
@@ -152,8 +257,23 @@ Module Contents
 
    .. py:method:: validate(value)
 
+      Validates the compatibility of a value.
+
+      :param value: the value to validate
+      :type value: Any
+
+      :returns: true if value is compatible, false otherwise
+      :rtype: bool
+
+
 
    .. py:method:: data_type()
+
+      Gets the validator's data type.
+
+      :returns: the data type enumeration
+      :rtype: DataTypes
+
 
 
 .. py:class:: JsonValidator
@@ -166,7 +286,22 @@ Module Contents
 
    .. py:method:: validate(value)
 
+      Validates the compatibility of a value.
+
+      :param value: the value to validate
+      :type value: Any
+
+      :returns: true if value is compatible, false otherwise
+      :rtype: bool
+
+
 
    .. py:method:: data_type()
+
+      Gets the validator's data type.
+
+      :returns: the data type enumeration
+      :rtype: DataTypes
+
 
 

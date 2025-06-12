@@ -106,31 +106,11 @@ Package Contents
 
 
 
-   .. py:method:: get_value()
-
-      Gets the data point value synchronously.
-
-      :returns: the data point value
-      :rtype: T
-
-      :raises Exception: when read value is not compatible with data type
-
-
-
    .. py:method:: set_value_async(value)
       :async:
 
 
       Sets the data point value asynchronously.
-
-      :param value: the data point value
-      :type value: T
-
-
-
-   .. py:method:: set_value(value)
-
-      Sets the data point value synchronously.
 
       :param value: the data point value
       :type value: T
@@ -321,7 +301,7 @@ Package Contents
 
 .. py:class:: FunctionalProfile
 
-   Bases: :py:obj:`asyncio.protocols.Protocol`
+   Bases: :py:obj:`Protocol`
 
 
    Implements a functional profile.
@@ -357,20 +337,11 @@ Package Contents
 
 
 
-   .. py:method:: get_value_async()
+   .. py:method:: get_values_async()
       :async:
 
 
       Gets all data point values of the functional profile asynchronously.
-
-      :returns: all data point values by name
-      :rtype: dict[str, DataPoint]
-
-
-
-   .. py:method:: get_value()
-
-      Gets all data point values of the functional profile synchronously.
 
       :returns: all data point values by name
       :rtype: dict[str, DataPoint]

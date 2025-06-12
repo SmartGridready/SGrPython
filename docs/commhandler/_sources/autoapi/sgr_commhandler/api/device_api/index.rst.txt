@@ -132,23 +132,11 @@ Module Contents
    .. py:method:: _inititalize_device(frame)
 
 
-   .. py:method:: connect()
-
-      Connects the device synchronously.
-
-
-
    .. py:method:: connect_async()
       :async:
 
 
       Connects the device asynchronously.
-
-
-
-   .. py:method:: disconnect()
-
-      Disconnects the device synchronously.
 
 
 
@@ -199,15 +187,6 @@ Module Contents
 
       :returns: all data points
       :rtype: dict[tuple[str, str], DataPoint]
-
-
-
-   .. py:method:: get_values()
-
-      Gets all data point values synchronously.
-
-      :returns: all data point values
-      :rtype: dict[tuple[str, str], Any]
 
 
 

@@ -17,7 +17,7 @@ Module Contents
 
 .. py:class:: FunctionalProfile
 
-   Bases: :py:obj:`asyncio.protocols.Protocol`
+   Bases: :py:obj:`Protocol`
 
 
    Implements a functional profile.
@@ -53,20 +53,11 @@ Module Contents
 
 
 
-   .. py:method:: get_value_async()
+   .. py:method:: get_values_async()
       :async:
 
 
       Gets all data point values of the functional profile asynchronously.
-
-      :returns: all data point values by name
-      :rtype: dict[str, DataPoint]
-
-
-
-   .. py:method:: get_value()
-
-      Gets all data point values of the functional profile synchronously.
 
       :returns: all data point values by name
       :rtype: dict[str, DataPoint]

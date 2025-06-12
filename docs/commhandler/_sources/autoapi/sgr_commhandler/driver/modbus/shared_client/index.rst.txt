@@ -58,12 +58,12 @@ Module Contents
    .. py:attribute:: connected_devices
 
 
-   .. py:method:: connect(device_id)
+   .. py:method:: connect_async(device_id)
       :async:
 
 
 
-   .. py:method:: disconnect(device_id)
+   .. py:method:: disconnect_async(device_id)
       :async:
 
 
