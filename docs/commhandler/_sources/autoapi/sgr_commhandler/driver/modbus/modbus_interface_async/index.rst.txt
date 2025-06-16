@@ -256,6 +256,12 @@ Module Contents
    Implements a Modbus device interface.
 
 
+   .. py:attribute:: _client_wrapper
+      :type:  sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper
+      :value: None
+
+
+
    .. py:attribute:: byte_order
 
 

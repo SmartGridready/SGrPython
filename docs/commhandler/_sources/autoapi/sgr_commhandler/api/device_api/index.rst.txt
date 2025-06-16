@@ -129,7 +129,7 @@ Module Contents
       :type:  collections.abc.Mapping[str, sgr_commhandler.api.functional_profile_api.FunctionalProfile]
 
 
-   .. py:method:: _inititalize_device(frame)
+   .. py:method:: _initialize_device(frame)
 
 
    .. py:method:: connect_async()
