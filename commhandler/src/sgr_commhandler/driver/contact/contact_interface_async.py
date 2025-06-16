@@ -148,7 +148,7 @@ class SGrContactInterface(SGrBaseInterface):
     def __init__(
         self, frame: DeviceFrame
     ):
-        self._inititalize_device(frame)
+        self._initialize_device(frame)
 
         if (
             self.device_frame.interface_list

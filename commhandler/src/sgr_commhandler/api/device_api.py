@@ -62,7 +62,7 @@ class SGrBaseInterface(Protocol):
     device_information: DeviceInformation
     functional_profiles: Mapping[str, FunctionalProfile]
 
-    def _inititalize_device(
+    def _initialize_device(
         self, frame: DeviceFrame
     ):
         self.device_frame = frame

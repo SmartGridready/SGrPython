@@ -124,12 +124,14 @@ def get_rtu_parity(modbus_rtu: ModbusRtu) -> str:
     returns the parity.
     """
     parity = modbus_rtu.parity_selected
+    if not parity:
+        return 'N'
     match parity:
-        case Parity.NONE:
+        case Parity.NONE.name:
             return 'N'
-        case Parity.EVEN:
+        case Parity.EVEN.name:
             return 'E'
-        case Parity.ODD:
+        case Parity.ODD.name:
             return 'O'
         case _:
             raise NotImplementedError
@@ -373,7 +375,8 @@ class SGrModbusInterface(SGrBaseInterface):
         frame: DeviceFrame,
         sharedRTU: bool = False,
     ):
-        self._inititalize_device(frame)
+        self._client_wrapper: ModbusClientWrapper = None # type: ignore
+        self._initialize_device(frame)
         if (
             self.device_frame.interface_list is None
             or self.device_frame.interface_list.modbus_interface is None
