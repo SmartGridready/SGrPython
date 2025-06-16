@@ -1,4 +1,3 @@
-import asyncio
 import logging
 from threading import Lock
 
@@ -102,19 +101,12 @@ def unregister_shared_client(serial_port: str, device_id: str) -> None:
     with _global_shared_lock:
         client_wrapper = _global_shared_rtu_clients.get(serial_port)
         if client_wrapper is not None:
-            client_wrapper.connected_devices.remove(device_id)
-            client_wrapper.registered_devices.remove(device_id)
+            if device_id in client_wrapper.connected_devices:
+                client_wrapper.connected_devices.remove(device_id)
+            if device_id in client_wrapper.registered_devices:
+                client_wrapper.registered_devices.remove(device_id)
             if len(client_wrapper.registered_devices) == 0:
-                try:
-                    loop = asyncio.get_event_loop()
-                    if loop.is_running():
-                        loop.create_task(client_wrapper.client.disconnect())
-                    else:
-                        loop.run_until_complete(client_wrapper.client.disconnect())
-                except Exception:
-                    logger.warning(
-                        f'could not disconnect shared transport {client_wrapper.identifier}'
-                    )
+                # removed explicit disconnect, as running event loop may no longer exist
                 _global_shared_rtu_clients.pop(serial_port)
             logger.debug(
                 f'device {device_id} unregistered from shared Modbus client {client_wrapper.identifier}'

@@ -370,7 +370,7 @@ class SGrRestInterface(SGrBaseInterface):
     def __init__(
         self, frame: DeviceFrame
     ):
-        self._inititalize_device(frame)
+        self._initialize_device(frame)
         self._session = None
         self._cache = TTLCache(maxsize=100, ttl=5)
 
