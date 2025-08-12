@@ -11,7 +11,7 @@ from sgr_specification.v0.product import (
     DeviceFrame,
 )
 from sgr_specification.v0.product import (
-    GenericFunctionalProfile as GenericFunctionalProfileSpec,
+    GenericFunctionalProfile as GenericFunctionalProfileSpec
 )
 from sgr_commhandler.api.data_point_api import (
     DataPoint,
@@ -44,7 +44,7 @@ def build_generic_data_point(
     return DataPoint(protocol, validator)
 
 
-class GenericDataPoint(DataPointProtocol):
+class GenericDataPoint(DataPointProtocol[GenericDataPointSpec]):
     """
     Implements a data point of a generic interface.
     """
@@ -76,6 +76,9 @@ class GenericDataPoint(DataPointProtocol):
 
     def name(self) -> tuple[str, str]:
         return self._fp_name, self._dp_name
+    
+    def get_specification(self) -> GenericDataPointSpec:
+        return self._dp_spec
 
     async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False):
         # supports at least constant DPs
@@ -107,7 +110,7 @@ class GenericDataPoint(DataPointProtocol):
         return self._dp_spec.data_point.unit
 
 
-class GenericFunctionalProfile(FunctionalProfile):
+class GenericFunctionalProfile(FunctionalProfile[GenericFunctionalProfileSpec]):
     """
     Implements a functional profile of a generic interface.
     """
@@ -144,6 +147,9 @@ class GenericFunctionalProfile(FunctionalProfile):
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
+    
+    def get_specification(self) -> GenericFunctionalProfileSpec:
+        return self._fp_spec
 
 
 class SGrGenericInterface(SGrBaseInterface):

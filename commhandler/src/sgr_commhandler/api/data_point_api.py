@@ -7,7 +7,8 @@ from sgr_commhandler.api.dynamic_parameter import DynamicParameter
 from sgr_commhandler.api.data_types import DataTypes
 
 """Defines a generic data type."""
-T = TypeVar('T')
+TValue = TypeVar('TValue')
+TSpec = TypeVar('TSpec', covariant=True)
 
 
 class DataPointValidator(Protocol):
@@ -54,10 +55,20 @@ class DataPointValidator(Protocol):
         return []
 
 
-class DataPointProtocol(Protocol):
+class DataPointProtocol(Protocol[TSpec]):
     """
     Defines an interface for data point protocols.
     """
+    def get_specification(self) -> TSpec:
+        """
+        Gets the data point specification.
+        
+        Returns
+        -------
+        TSpec
+            the interface-specific specification
+        """
+        ...
 
     async def set_val(self, value: Any):
         """
@@ -161,20 +172,20 @@ class DataPointProtocol(Protocol):
         raise Exception('Unsupported operation')
 
 
-class DataPoint(Generic[T]):
+class DataPoint(Generic[TValue, TSpec]):
     """
     Implements a data point of a generic data type.
     """
 
     def __init__(
-        self, protocol: DataPointProtocol, validator: DataPointValidator
+        self, protocol: DataPointProtocol[TSpec], validator: DataPointValidator
     ):
         """
         Constructs a data point.
 
         Parameters
         ----------
-        protocol : DataPointProtocol
+        protocol : DataPointProtocol[TSpec]
             the underlying protocol
         validator : DataPointValidator
             the data point's value validator
@@ -199,7 +210,7 @@ class DataPoint(Generic[T]):
 
         Returns
         -------
-        T
+        TValue
             the data point value
         
         Raises
@@ -214,13 +225,13 @@ class DataPoint(Generic[T]):
             f'invalid value read from device, {value}, validator: {self._validator.data_type()}'
         )
 
-    async def set_value_async(self, value: T):
+    async def set_value_async(self, value: TValue):
         """
         Sets the data point value asynchronously.
 
         Parameters
         ----------
-        value: T
+        value: TValue
             the data point value
         """
         if self._validator.validate(value):
@@ -311,3 +322,15 @@ class DataPoint(Generic[T]):
             the dynamic parameters
         """
         return self._protocol.dynamic_parameters()
+
+    def get_specification(self) -> TSpec:
+        """
+        Gets the data point specification.
+
+        Returns
+        -------
+        TSpec
+            the data point specification
+        """
+        return self._protocol.get_specification()
+
