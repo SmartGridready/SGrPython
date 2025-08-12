@@ -1,14 +1,15 @@
 from typing import Optional, Protocol
 
 from sgr_specification.v0.generic import DataDirectionProduct
+from sgr_specification.v0.generic.functional_profile import FunctionalProfileBase
 
 from sgr_commhandler.api.data_point_api import DataPoint
 from sgr_commhandler.api.data_types import DataTypes
 
 """Defines a generic data type."""
-TSpec = TypeVar('TSpec', covariant=True)
+TFpSpec = TypeVar('TFpSpec', covariant=True, bound=FunctionalProfileBase)
 
-class FunctionalProfile(Protocol[TSpec]):
+class FunctionalProfile(Protocol[TFpSpec]):
     """
     Implements a functional profile.
     """
@@ -84,13 +85,13 @@ class FunctionalProfile(Protocol[TSpec]):
         infos = map(lambda dp: dp.describe(), self.get_data_points().values())
         return self.name(), {dp[0][1]: (dp[1], dp[2]) for dp in infos}
 
-    def get_specification(self) -> TSpec:
+    def get_specification(self) -> TFpSpec:
         """
         Gets the functional profile specification.
 
         Returns
         -------
-        TSpec
+        TFpSpec
             the functional profile specification
         """
         ...
