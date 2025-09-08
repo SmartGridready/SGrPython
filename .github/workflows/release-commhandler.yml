@@ -91,7 +91,7 @@ jobs:
       - name: Publish Commhandler Package to PyPI
         # publish after committing to master or creating tag commhandler-{version}, if output version was defined
         if: (steps.build.outcome == 'success') && (github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/commhandler-')) && (steps.set_tag.outputs.semver != '')
-        uses: pypa/gh-action-pypi-publish@v1.12.4
+        uses: pypa/gh-action-pypi-publish@v1.13.0
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: commhandler/dist/

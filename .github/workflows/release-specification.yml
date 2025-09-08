@@ -98,7 +98,7 @@ jobs:
       - name: Publish Specification Package to PyPI
         # publish if output version was defined
         if: (steps.build.outcome == 'success') && (steps.set_tag.outputs.semver != '')
-        uses: pypa/gh-action-pypi-publish@v1.12.4
+        uses: pypa/gh-action-pypi-publish@v1.13.0
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: SGrPython/specification/dist/
