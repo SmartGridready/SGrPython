@@ -82,7 +82,7 @@ async def authenticate_with_bearer_token(
         logger.debug("auth URL = " + authentication_url)
 
         # All headers into dictionary
-        request_headers = CIMultiDict()
+        request_headers: CIMultiDict[str] = CIMultiDict()
         if service_call.request_header:
             for header_entry in service_call.request_header.header:
                 if header_entry.header_name:

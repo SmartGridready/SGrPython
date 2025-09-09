@@ -13,7 +13,7 @@ INI_BASE_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "ini")
 @pytest.mark.asyncio
 async def test_device_builder_modbus_tcp_dict():
     eid_path = os.path.join(
-        EID_BASE_PATH, "SGr_00_0016_dddd_ABB_B23_ModbusTCP_V0.3.xml"
+        EID_BASE_PATH, "SGr_00_0016_dddd_ABB_B23_ModbusTCP_V0.4.xml"
     )
     eid_properties = dict(slave_id="1", tcp_address="127.0.0.1", tcp_port="502")
 
@@ -37,10 +37,10 @@ async def test_device_builder_modbus_tcp_dict():
 @pytest.mark.asyncio
 async def test_device_builder_modbus_tcp_ini():
     eid_path = os.path.join(
-        EID_BASE_PATH, "SGr_00_0016_dddd_ABB_B23_ModbusTCP_V0.3.xml"
+        EID_BASE_PATH, "SGr_00_0016_dddd_ABB_B23_ModbusTCP_V0.4.xml"
     )
     eid_properties_path = os.path.join(
-        INI_BASE_PATH, "SGr_00_0016_dddd_ABB_B23_ModbusTCP_V0.3.ini"
+        INI_BASE_PATH, "SGr_00_0016_dddd_ABB_B23_ModbusTCP_V0.4.ini"
     )
 
     test_device = (

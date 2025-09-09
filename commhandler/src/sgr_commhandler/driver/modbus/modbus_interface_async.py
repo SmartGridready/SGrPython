@@ -287,7 +287,7 @@ class ModbusDataPoint(DataPointProtocol):
             self._register_type, self._address, self._data_type, value
         )
 
-    async def get_val(self, parameters: Optional[Dict[str, str]] = None, skip_cache: bool = False) -> Any:
+    async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
         # TODO implement skip_cache
         ret_value = await self._interface.read_data(
             self._register_type, self._address, self._size, self._data_type

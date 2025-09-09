@@ -1,4 +1,4 @@
-from typing import Protocol
+from typing import Optional, Protocol
 
 from sgr_specification.v0.generic import DataDirectionProduct
 
@@ -49,7 +49,7 @@ class FunctionalProfile(Protocol):
         """
         return self.get_data_points()[(self.name(), dp_name)]
 
-    async def get_values_async(self) -> dict[str, DataPoint]:
+    async def get_values_async(self, parameters: Optional[dict[str, str]] = None) -> dict[str, DataPoint]:
         """
         Gets all data point values of the functional profile asynchronously.
 
@@ -61,7 +61,7 @@ class FunctionalProfile(Protocol):
         data = {}
         for key, dp in self.get_data_points().items():
             try:
-                value = await dp.get_value_async()
+                value = await dp.get_value_async(parameters)
                 data[key] = value
             except Exception as e:
                 # TODO log error - None should not be a valid DP value
