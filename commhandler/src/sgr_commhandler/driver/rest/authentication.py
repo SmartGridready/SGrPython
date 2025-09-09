@@ -7,9 +7,9 @@ import aiohttp
 import jmespath
 from aiohttp.client import ClientSession
 from jmespath.exceptions import JMESPathError
+from multidict import CIMultiDict
 from sgr_specification.v0.product import RestApiInterface
 from sgr_specification.v0.product.rest_api_types import (
-    HeaderList,
     RestApiAuthenticationMethod,
 )
 
@@ -81,14 +81,12 @@ async def authenticate_with_bearer_token(
         authentication_url = f"{base_url}{request_path}"
         logger.debug("auth URL = " + authentication_url)
 
-        headers = {
-            header_entry.header_name: header_entry.value
-            for header_entry in (
-                service_call.request_header
-                if service_call.request_header
-                else HeaderList()
-            ).header
-        }
+        # All headers into dictionary
+        request_headers = CIMultiDict()
+        if service_call.request_header:
+            for header_entry in service_call.request_header.header:
+                if header_entry.header_name:
+                    request_headers.add(header_entry.header_name, header_entry.value)
 
         request_body = service_call.request_body
         if request_body is None:
@@ -97,7 +95,7 @@ async def authenticate_with_bearer_token(
         data = json.loads(request_body)
         async with session.post(
             url=authentication_url,
-            headers=headers,
+            headers=request_headers,
             json=data
         ) as res:
             if 200 <= res.status < 300:

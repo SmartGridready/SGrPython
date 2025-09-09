@@ -2,7 +2,7 @@ import json
 import logging
 import ssl
 from io import UnsupportedOperation
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Dict, Optional
 from urllib.parse import urlencode
 
 import aiohttp
@@ -229,9 +229,11 @@ class RestDataPoint(DataPointProtocol):
     def name(self) -> tuple[str, str]:
         return self._fp_name, self._dp_name
 
-    async def get_val(self, skip_cache: bool = False):
+    async def get_val(self, parameters: Optional[Dict[str, str]] = None, skip_cache: bool = False):
         if not self._read_call:
             raise Exception('No read call')
+        
+        # TODO use dynamic parameters
 
         # TODO das scheint auch noch falsch muss ein reqeust jeweils alle parameter haben?
         request = RestRequest(
@@ -442,11 +444,12 @@ class SGrRestInterface(SGrBaseInterface):
             request_body: Optional[str] = request.body
 
             # All form parameters into dictionary
-            form_parameters = {
-                param_entry.name: param_entry.value
-                for param_entry in request.form_parameters.parameter
-            }
-            # override body
+            form_parameters = CIMultiDict()
+            for param_entry in request.form_parameters.parameter:
+                if param_entry.name:
+                    form_parameters.add(param_entry.name, param_entry.value)
+
+            # override body when form parameters are set
             if len(form_parameters) > 0:
                 request_body = urlencode(form_parameters)
                 request_headers['Content-Type'] = (
