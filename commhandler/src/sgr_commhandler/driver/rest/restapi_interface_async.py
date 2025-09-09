@@ -257,8 +257,12 @@ class RestDataPoint(DataPointProtocol):
             and self._read_call.response_query.query_type
             == ResponseQueryType.JMESPATH_EXPRESSION
         ):
-            query_expression = self._read_call.response_query.query if self._read_call.response_query.query else ''
+            query_expression = substitute_parameters(
+                self._read_call.response_query.query if self._read_call.response_query.query else '',
+                substitutions
+            )
             return jmespath.search(query_expression, json.loads(response.body))
+
         ret_value = response.body
 
         # convert to DP units
