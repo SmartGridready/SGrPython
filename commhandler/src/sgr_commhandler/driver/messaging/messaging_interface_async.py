@@ -79,7 +79,7 @@ class MessagingDataPoint(DataPointProtocol[MessagingDataPointSpec]):
 
     def name(self) -> tuple[str, str]:
         return self._fp_name, self._dp_name
-    
+
     def get_specification(self) -> MessagingDataPointSpec:
         return self._dp_spec
 
@@ -154,7 +154,7 @@ class MessagingFunctionalProfile(FunctionalProfile[MessagingFunctionalProfileSpe
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
-    
+
     def get_specification(self) -> MessagingFunctionalProfileSpec:
         return self._fp_spec
 

@@ -76,7 +76,7 @@ class ContactDataPoint(DataPointProtocol[ContactDataPointSpec]):
 
     def name(self) -> tuple[str, str]:
         return self._fp_name, self._dp_name
-    
+
     def get_specification(self) -> ContactDataPointSpec:
         return self._dp_spec
 

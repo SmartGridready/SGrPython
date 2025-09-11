@@ -240,7 +240,7 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
 
     def name(self) -> tuple[str, str]:
         return self._fp_name, self._dp_name
-    
+
     def get_specification(self) -> RestApiDataPointSpec:
         return self._dp_spec
 

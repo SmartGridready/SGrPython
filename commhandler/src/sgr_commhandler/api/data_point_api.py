@@ -322,7 +322,7 @@ class DataPoint(Generic[TDpSpec]):
         """
         return self._protocol.dynamic_parameters()
 
-    def get_specification(self) -> TSpec:
+    def get_specification(self) -> TDpSpec:
         """
         Gets the data point specification.
 
@@ -332,4 +332,3 @@ class DataPoint(Generic[TDpSpec]):
             the data point specification
         """
         return self._protocol.get_specification()
-

@@ -76,7 +76,7 @@ class GenericDataPoint(DataPointProtocol[GenericDataPointSpec]):
 
     def name(self) -> tuple[str, str]:
         return self._fp_name, self._dp_name
-    
+
     def get_specification(self) -> GenericDataPointSpec:
         return self._dp_spec
 
@@ -147,7 +147,7 @@ class GenericFunctionalProfile(FunctionalProfile[GenericFunctionalProfileSpec]):
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
-    
+
     def get_specification(self) -> GenericFunctionalProfileSpec:
         return self._fp_spec
 

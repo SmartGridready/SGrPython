@@ -1,4 +1,4 @@
-from typing import Optional, Protocol
+from typing import Optional, Protocol, TypeVar
 
 from sgr_specification.v0.generic import DataDirectionProduct
 from sgr_specification.v0.generic.functional_profile import FunctionalProfileBase
