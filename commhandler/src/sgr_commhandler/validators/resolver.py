@@ -36,36 +36,36 @@ def build_validator(type: Optional[DataTypeProduct]) -> DataPointValidator:
     """
     if type is None:
         raise Exception("Missing datatype")
-    if type.int8:
+    if type.int8 is not None:
         return IntValidator(8, signed=True)
-    elif type.int16:
+    elif type.int16 is not None:
         return IntValidator(16, signed=True)
-    elif type.int32:
+    elif type.int32 is not None:
         return IntValidator(32, signed=True)
-    elif type.int64:
+    elif type.int64 is not None:
         return IntValidator(64, signed=True)
-    elif type.enum:
+    elif type.enum is not None:
         return EnumValidator(type.enum)
-    elif type.int8_u:
+    elif type.int8_u is not None:
         return IntValidator(8, signed=False)
-    elif type.int16_u:
+    elif type.int16_u is not None:
         return IntValidator(16, signed=False)
-    elif type.int32_u:
+    elif type.int32_u is not None:
         return IntValidator(32, signed=False)
-    elif type.int64_u:
+    elif type.int64_u is not None:
         return IntValidator(64, signed=False)
-    elif type.float32:
+    elif type.float32 is not None:
         return FloatValidator(32)
-    elif type.float64:
+    elif type.float64 is not None:
         return FloatValidator(64)
-    elif type.string:
+    elif type.string is not None:
         return StringValidator()
-    elif type.boolean:
+    elif type.boolean is not None:
         return BooleanValidator()
-    elif type.bitmap:
+    elif type.bitmap is not None:
         return BitmapValidator()
-    elif type.date_time:
+    elif type.date_time is not None:
         return DateTimeValidator()
-    elif type.json:
+    elif type.json is not None:
         return JsonValidator()
-    raise Exception("unsupported validator")
+    raise Exception(f'unsupported validator: {type}')

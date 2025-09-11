@@ -15,7 +15,6 @@ from sgr_specification.v0.generic import DataDirectionProduct, Units
 from sgr_specification.v0.generic.base_types import ResponseQueryType
 from sgr_specification.v0.product import (
     DeviceFrame,
-    HeaderEntry,
     HeaderList,
     HttpMethod,
 )
@@ -39,6 +38,11 @@ from sgr_commhandler.api.functional_profile_api import (
 from sgr_commhandler.api.device_api import (
     SGrBaseInterface
 )
+from sgr_commhandler.api.dynamic_parameter import (
+    DynamicParameter,
+    build_dynamic_parameters,
+    build_dynamic_parameter_substitutions
+)
 from sgr_commhandler.driver.rest.authentication import setup_authentication
 from sgr_commhandler.validators import build_validator
 
@@ -58,8 +62,14 @@ def build_rest_data_point(
     return DataPoint(protocol, validator)
 
 
+def substitute_parameters(template: str, substitutions: dict[str, str]) -> str:
+    conv_template = template
+    for name, value in substitutions.items():
+        conv_template = conv_template.replace(f'[[{name}]]', value)
+    return conv_template
+
 class RestResponse:
-    def __init__(self, headers: HeaderList, body: Optional[str] = None):
+    def __init__(self, headers: CIMultiDict[str] = CIMultiDict(), body: Optional[str] = None):
         self.headers = headers
         self.body = body
 
@@ -67,11 +77,11 @@ class RestResponse:
 class RestRequest:
     def __init__(
         self,
-        method: HttpMethod,
+        method: str,
         url: str,
-        headers: HeaderList,
-        query_parameters: ParameterList = ParameterList(),
-        form_parameters: ParameterList = ParameterList(),
+        headers: CIMultiDict[str] = CIMultiDict(),
+        query_parameters: CIMultiDict[str] = CIMultiDict(),
+        form_parameters: CIMultiDict[str] = CIMultiDict(),
         body: Optional[str] = None,
     ):
         self.method = method
@@ -209,6 +219,8 @@ class RestDataPoint(DataPointProtocol):
 
         if not self._read_call and not self._write_call:
             raise Exception('No REST service call configured')
+        
+        self._dynamic_parameters = build_dynamic_parameters(self._dp_spec.data_point.parameter_list)
 
         self._fp_name = ''
         if (
@@ -229,19 +241,14 @@ class RestDataPoint(DataPointProtocol):
     def name(self) -> tuple[str, str]:
         return self._fp_name, self._dp_name
 
-    async def get_val(self, skip_cache: bool = False):
+    async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False):
         if not self._read_call:
             raise Exception('No read call')
 
-        # TODO das scheint auch noch falsch muss ein reqeust jeweils alle parameter haben?
-        request = RestRequest(
-            self._read_call.request_method if self._read_call.request_method else HttpMethod.GET,
-            f'{self._interface.base_url}{self._read_call.request_path}',
-            self._read_call.request_header if self._read_call.request_header else HeaderList(),
-            self._read_call.request_query if self._read_call.request_query else ParameterList(),
-            self._read_call.request_form if self._read_call.request_form else ParameterList(),
-            self._read_call.request_body,
-        )
+        substitutions = build_dynamic_parameter_substitutions(self._dynamic_parameters, parameters)
+
+        request = self._build_request(self._read_call, substitutions)
+
         response = await self._interface.execute_request(request, skip_cache)
         if not response.body:
             return None
@@ -250,8 +257,12 @@ class RestDataPoint(DataPointProtocol):
             and self._read_call.response_query.query_type
             == ResponseQueryType.JMESPATH_EXPRESSION
         ):
-            query_expression = self._read_call.response_query.query if self._read_call.response_query.query else ''
+            query_expression = substitute_parameters(
+                self._read_call.response_query.query if self._read_call.response_query.query else '',
+                substitutions
+            )
             return jmespath.search(query_expression, json.loads(response.body))
+
         ret_value = response.body
 
         # convert to DP units
@@ -279,20 +290,12 @@ class RestDataPoint(DataPointProtocol):
         if unit_conv_factor != 1.0:
             value = float(value) / unit_conv_factor
 
-        # replace [[value]] placeholder
-        # TODO also replace placeholder in other request parts
-        request = RestRequest(
-            self._write_call.request_method if self._write_call.request_method else HttpMethod.GET,
-            f'{self._interface.base_url}{self._write_call.request_path}',
-            self._write_call.request_header if self._write_call.request_header else HeaderList(),
-            self._write_call.request_query if self._write_call.request_query else ParameterList(),
-            self._write_call.request_form if self._write_call.request_form else ParameterList(),
-            body=str(self._write_call.request_body).replace(
-                '[[value]]', str(value)
-            )
-            if self._write_call.request_body
-            else None,
-        )
+        # add value to substitutions
+        substitutions = {
+            'value': str(value)
+        }
+        request = self._build_request(self._write_call, substitutions=substitutions)
+
         # TODO use response body
         await self._interface.execute_request(request, skip_cache=True)
 
@@ -312,6 +315,9 @@ class RestDataPoint(DataPointProtocol):
             return Units.NONE
         return self._dp_spec.data_point.unit
 
+    def dynamic_parameters(self) -> list[DynamicParameter]:
+        return self._dynamic_parameters
+
     def subscribe(self, fn: Callable[[Any], None]):
         raise UnsupportedOperation(
             'subscribe is no available for rest data point'
@@ -320,6 +326,58 @@ class RestDataPoint(DataPointProtocol):
     def unsubscribe(self):
         raise UnsupportedOperation(
             'unsubscribe is no available for rest data point'
+        )
+
+    def _build_request(self, call_spec: RestApiServiceCall, substitutions: dict[str, str]) -> RestRequest:
+
+        # copy from DP spec.
+        method = call_spec.request_method if call_spec.request_method else HttpMethod.GET
+        req_path = str(call_spec.request_path) if call_spec.request_path else ''
+        headers = call_spec.request_header if call_spec.request_header else HeaderList()
+        query = call_spec.request_query if call_spec.request_query else ParameterList()
+        form = call_spec.request_form if call_spec.request_form else ParameterList()
+        body=str(call_spec.request_body) if call_spec.request_body else None
+
+        # All headers into dictionary, with substitution
+        request_headers: CIMultiDict[str] = CIMultiDict()
+        for header_entry in headers.header:
+            if header_entry.header_name:
+                request_headers.add(header_entry.header_name, substitute_parameters(header_entry.value, substitutions))
+
+        # All query parameters into dictionary, with substitution
+        query_parameters: CIMultiDict[str] = CIMultiDict()
+        for param_entry in query.parameter:
+            if param_entry.name:
+                query_parameters.add(param_entry.name, substitute_parameters(param_entry.value, substitutions))
+
+        # All form parameters into dictionary, with substitution
+        form_parameters: CIMultiDict[str] = CIMultiDict()
+        for param_entry in form.parameter:
+            if param_entry.name:
+                form_parameters.add(param_entry.name, substitute_parameters(param_entry.value, substitutions))
+
+        # request path, with substitution
+        request_path = substitute_parameters(req_path, substitutions)
+
+        # request body, with substitution
+        request_body: Optional[str] = substitute_parameters(body, substitutions) if body is not None else None
+
+        # override body when form parameters are set
+        if len(form_parameters) > 0:
+            request_body = urlencode(form_parameters)
+            request_headers['Content-Type'] = (
+                'application/x-www-form-urlencoded'
+            )
+
+        base_url = f'{self._interface.base_url}{request_path}'
+
+        return RestRequest(
+            method.value,
+            base_url,
+            request_headers,
+            query_parameters,
+            form_parameters,
+            request_body
         )
 
 
@@ -427,54 +485,26 @@ class SGrRestInterface(SGrBaseInterface):
         try:
             if self._session is None:
                 raise Exception('no connection to device established')
-            # All headers into dictionary
-            request_headers = CIMultiDict()
-            for header_entry in request.headers.header:
-                if header_entry.header_name:
-                    request_headers.add(header_entry.header_name, header_entry.value)
 
-            # All query parameters into dictionary
-            query_parameters = CIMultiDict()
-            for param_entry in request.query_parameters.parameter:
-                if param_entry.name:
-                    query_parameters.add(param_entry.name, param_entry.value)
-
-            request_body: Optional[str] = request.body
-
-            # All form parameters into dictionary
-            form_parameters = {
-                param_entry.name: param_entry.value
-                for param_entry in request.form_parameters.parameter
-            }
-            # override body
-            if len(form_parameters) > 0:
-                request_body = urlencode(form_parameters)
-                request_headers['Content-Type'] = (
-                    'application/x-www-form-urlencoded'
-                )
-
-            cache_key = (frozenset(request_headers), request.url)
+            cache_key = (frozenset(request.headers), request.url)
             if not skip_cache and cache_key in self._cache:
                 return self._cache[cache_key]
 
             async with self._session.request(
-                request.method.value,
+                request.method,
                 request.url,
-                headers=request_headers,
-                params=query_parameters,
-                data=request_body
+                headers=request.headers,
+                params=request.query_parameters,
+                data=request.body
             ) as req:
                 req.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
                 logger.info(f'execute_request status: {req.status}')
                 res_body = await req.text()
 
-                sgr_headers = []
+                res_headers = CIMultiDict()
                 for name, value in req.headers.items():
-                    sgr_headers.append(
-                        HeaderEntry(header_name=name, value=value)
-                    )
-                header_list = HeaderList(header=sgr_headers)
-                response = RestResponse(headers=header_list, body=res_body)
+                    res_headers.add(name, value)
+                response = RestResponse(headers=res_headers, body=res_body)
                 if not skip_cache:
                     self._cache[cache_key] = response
                 return response

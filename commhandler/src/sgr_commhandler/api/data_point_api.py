@@ -1,8 +1,9 @@
 from collections.abc import Callable
-from typing import Any, Generic, Protocol, TypeVar
+from typing import Any, Generic, Optional, Protocol, TypeVar
 
 from sgr_specification.v0.generic import DataDirectionProduct, Units
 
+from sgr_commhandler.api.dynamic_parameter import DynamicParameter
 from sgr_commhandler.api.data_types import DataTypes
 
 """Defines a generic data type."""
@@ -69,12 +70,14 @@ class DataPointProtocol(Protocol):
         """
         ...
 
-    async def get_val(self, skip_cache: bool = False) -> Any:
+    async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
         """
         Reads the data point value.
 
         Parameters
         ----------
+        parameters : Optional[dict[str, str]]
+            optional dynamic parameters of the request
         skip_cache : bool
             does not use cache if true
         
@@ -117,6 +120,17 @@ class DataPointProtocol(Protocol):
             the unit
         """
         ...
+
+    def dynamic_parameters(self) -> list[DynamicParameter]:
+        """
+        Gets the dynamic parameters of the data point.
+
+        Returns
+        -------
+        list[DynamicParameter]
+            the dynamic parameters
+        """
+        return []
 
     def can_subscribe(self) -> bool:
         """
@@ -179,7 +193,7 @@ class DataPoint(Generic[T]):
         """
         return self._protocol.name()
 
-    async def get_value_async(self) -> T:
+    async def get_value_async(self, parameters: Optional[dict[str, str]] = None) -> T:
         """
         Gets the data point value asynchronously.
 
@@ -193,7 +207,7 @@ class DataPoint(Generic[T]):
         Exception
             when read value is not compatible with data type
         """
-        value = await self._protocol.get_val()
+        value = await self._protocol.get_val(parameters)
         if self._validator.validate(value):
             return value
         raise Exception(
@@ -286,3 +300,14 @@ class DataPoint(Generic[T]):
             the data point options
         """
         return self._validator.options()
+
+    def dynamic_parameters(self) -> list[DynamicParameter]:
+        """
+        Gets the dynamic parameters of the data point.
+
+        Returns
+        -------
+        list[DynamicParameter]
+            the dynamic parameters
+        """
+        return self._protocol.dynamic_parameters()

@@ -7,13 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Fixed
+
+- validator is chosen according to data point type
+- REST interface can return JSON as string
+
 ### Added
 
 - implemented REST interface basic authentication
+- implemented dynamic parameters in REST calls
 
 ### Changed
 
-- requires updated SGr specification
+- requires updated SGr specification `2.1.20250902`
 
 
 ## [0.3.1] - 2025-04-16
@@ -22,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - fixed syntax errors in write method of Modbus interface
 - fixed Modbus data types in write method
-- fixed configuration parameter replacement in EID content when certain characters are used
+- fixed configuration parameter substitution in EID content when certain characters are used
 
 ### Added
 
@@ -38,7 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- fixed configuration parameter replacement in EID content when certain characters are used
+- fixed configuration parameter substitution in EID content when certain characters are used
 
 ### Added
 

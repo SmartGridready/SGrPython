@@ -1,5 +1,5 @@
 import logging
-from typing import Any
+from typing import Any, Dict, Optional
 
 from sgr_specification.v0.generic import (
     DataDirectionProduct, Units
@@ -77,7 +77,7 @@ class ContactDataPoint(DataPointProtocol):
     def name(self) -> tuple[str, str]:
         return self._fp_name, self._dp_name
 
-    async def get_val(self, skip_cache: bool = False):
+    async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False):
         raise Exception('Not implemented')
 
     async def set_val(self, value: Any):
