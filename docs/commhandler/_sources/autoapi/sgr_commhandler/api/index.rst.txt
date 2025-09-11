@@ -14,6 +14,7 @@ Submodules
    /autoapi/sgr_commhandler/api/data_point_api/index
    /autoapi/sgr_commhandler/api/data_types/index
    /autoapi/sgr_commhandler/api/device_api/index
+   /autoapi/sgr_commhandler/api/dynamic_parameter/index
    /autoapi/sgr_commhandler/api/functional_profile_api/index
 
 
@@ -23,6 +24,7 @@ Classes
 .. autoapisummary::
 
    sgr_commhandler.api.ConfigurationParameter
+   sgr_commhandler.api.DynamicParameter
    sgr_commhandler.api.DataPoint
    sgr_commhandler.api.DataPointProtocol
    sgr_commhandler.api.DataPointValidator
@@ -37,6 +39,44 @@ Package Contents
 .. py:class:: ConfigurationParameter(parameter)
 
    Implements an EID configuration parameter.
+
+
+   .. py:attribute:: label
+
+
+   .. py:attribute:: name
+
+
+   .. py:attribute:: type
+
+
+   .. py:attribute:: description
+
+
+   .. py:attribute:: default_value
+
+
+   .. py:method:: __str__()
+
+      Converts to string.
+
+      :returns: A string
+      :rtype: str
+
+
+
+   .. py:method:: __repr__()
+
+      Gets an object description as string.
+
+      :returns: A string
+      :rtype: str
+
+
+
+.. py:class:: DynamicParameter(parameter)
+
+   Implements a dynamic parameter of data points.
 
 
    .. py:attribute:: label
@@ -95,7 +135,7 @@ Package Contents
 
 
 
-   .. py:method:: get_value_async()
+   .. py:method:: get_value_async(parameters = None)
       :async:
 
 
@@ -179,6 +219,15 @@ Package Contents
 
 
 
+   .. py:method:: dynamic_parameters()
+
+      Gets the dynamic parameters of the data point.
+
+      :returns: the dynamic parameters
+      :rtype: list[DynamicParameter]
+
+
+
 .. py:class:: DataPointProtocol
 
    Bases: :py:obj:`Protocol`
@@ -198,12 +247,14 @@ Package Contents
 
 
 
-   .. py:method:: get_val(skip_cache = False)
+   .. py:method:: get_val(parameters = None, skip_cache = False)
       :async:
 
 
       Reads the data point value.
 
+      :param parameters: optional dynamic parameters of the request
+      :type parameters: Optional[dict[str, str]]
       :param skip_cache: does not use cache if true
       :type skip_cache: bool
 
@@ -236,6 +287,15 @@ Package Contents
 
       :returns: the unit
       :rtype: Units
+
+
+
+   .. py:method:: dynamic_parameters()
+
+      Gets the dynamic parameters of the data point.
+
+      :returns: the dynamic parameters
+      :rtype: list[DynamicParameter]
 
 
 
@@ -475,7 +535,7 @@ Package Contents
 
 
 
-   .. py:method:: get_values_async()
+   .. py:method:: get_values_async(parameters = None)
       :async:
 
 
@@ -533,7 +593,7 @@ Package Contents
 
 
 
-   .. py:method:: get_values_async()
+   .. py:method:: get_values_async(parameters = None)
       :async:
 
 

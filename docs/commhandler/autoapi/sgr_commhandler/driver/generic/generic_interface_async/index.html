@@ -207,11 +207,14 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.generic.generic_interface_async.GenericDataPoint.get_val">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.generic.generic_interface_async.GenericDataPoint.get_val" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.generic.generic_interface_async.GenericDataPoint.get_val" title="Link to this definition"></a></dt>
 <dd><p>Reads the data point value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>skip_cache</strong> (<em>bool</em>) – does not use cache if true</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parameters</strong> (<em>Optional</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>) – optional dynamic parameters of the request</p></li>
+<li><p><strong>skip_cache</strong> (<em>bool</em>) – does not use cache if true</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the data point value</p>

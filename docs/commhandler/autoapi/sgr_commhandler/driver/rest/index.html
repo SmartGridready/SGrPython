@@ -152,6 +152,11 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.RestDataPoint._dynamic_parameters">
+<span class="sig-name descname"><span class="pre">_dynamic_parameters</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#sgr_commhandler.driver.rest.RestDataPoint._dynamic_parameters" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.RestDataPoint._fp_name">
 <span class="sig-name descname"><span class="pre">_fp_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#sgr_commhandler.driver.rest.RestDataPoint._fp_name" title="Link to this definition"></a></dt>
 <dd></dd></dl>
@@ -182,11 +187,14 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.RestDataPoint.get_val">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.RestDataPoint.get_val" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.RestDataPoint.get_val" title="Link to this definition"></a></dt>
 <dd><p>Reads the data point value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>skip_cache</strong> (<em>bool</em>) – does not use cache if true</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parameters</strong> (<em>Optional</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>) – optional dynamic parameters of the request</p></li>
+<li><p><strong>skip_cache</strong> (<em>bool</em>) – does not use cache if true</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the data point value</p>
@@ -237,6 +245,20 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.RestDataPoint.dynamic_parameters">
+<span class="sig-name descname"><span class="pre">dynamic_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.RestDataPoint.dynamic_parameters" title="Link to this definition"></a></dt>
+<dd><p>Gets the dynamic parameters of the data point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the dynamic parameters</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[<a class="reference internal" href="../../api/dynamic_parameter/index.html#sgr_commhandler.api.dynamic_parameter.DynamicParameter" title="sgr_commhandler.api.dynamic_parameter.DynamicParameter">DynamicParameter</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.RestDataPoint.subscribe">
 <span class="sig-name descname"><span class="pre">subscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.RestDataPoint.subscribe" title="Link to this definition"></a></dt>
 <dd><p>Subscribes to changes of the data point value.</p>
@@ -251,6 +273,22 @@
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.RestDataPoint.unsubscribe">
 <span class="sig-name descname"><span class="pre">unsubscribe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.RestDataPoint.unsubscribe" title="Link to this definition"></a></dt>
 <dd><p>Unsubscribes from changes of the data point value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.RestDataPoint._build_request">
+<span class="sig-name descname"><span class="pre">_build_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">call_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">substitutions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.RestDataPoint._build_request" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>call_spec</strong> (<em>sgr_specification.v0.product.rest_api_types.RestApiServiceCall</em>)</p></li>
+<li><p><strong>substitutions</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="restapi_interface_async/index.html#sgr_commhandler.driver.rest.restapi_interface_async.RestRequest" title="sgr_commhandler.driver.rest.restapi_interface_async.RestRequest">RestRequest</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

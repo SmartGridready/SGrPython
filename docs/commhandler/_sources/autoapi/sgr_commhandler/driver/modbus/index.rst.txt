@@ -88,12 +88,14 @@ Package Contents
 
 
 
-   .. py:method:: get_val(skip_cache = False)
+   .. py:method:: get_val(parameters = None, skip_cache = False)
       :async:
 
 
       Reads the data point value.
 
+      :param parameters: optional dynamic parameters of the request
+      :type parameters: Optional[dict[str, str]]
       :param skip_cache: does not use cache if true
       :type skip_cache: bool
 

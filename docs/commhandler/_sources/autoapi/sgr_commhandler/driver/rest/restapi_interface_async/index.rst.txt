@@ -30,6 +30,7 @@ Functions
 .. autoapisummary::
 
    sgr_commhandler.driver.rest.restapi_interface_async.build_rest_data_point
+   sgr_commhandler.driver.rest.restapi_interface_async.substitute_parameters
 
 
 Module Contents
@@ -39,7 +40,9 @@ Module Contents
 
 .. py:function:: build_rest_data_point(data_point, functional_profile, interface)
 
-.. py:class:: RestResponse(headers, body = None)
+.. py:function:: substitute_parameters(template, substitutions)
+
+.. py:class:: RestResponse(headers = CIMultiDict(), body = None)
 
    .. py:attribute:: headers
 
@@ -49,7 +52,7 @@ Module Contents
 
 
 
-.. py:class:: RestRequest(method, url, headers, query_parameters = ParameterList(), form_parameters = ParameterList(), body = None)
+.. py:class:: RestRequest(method, url, headers = CIMultiDict(), query_parameters = CIMultiDict(), form_parameters = CIMultiDict(), body = None)
 
    .. py:attribute:: method
 
@@ -93,6 +96,11 @@ Module Contents
       :type:  sgr_specification.v0.product.rest_api_types.RestApiServiceCall
 
 
+   .. py:attribute:: _dynamic_parameters
+      :value: []
+
+
+
    .. py:attribute:: _fp_name
       :value: ''
 
@@ -115,12 +123,14 @@ Module Contents
 
 
 
-   .. py:method:: get_val(skip_cache = False)
+   .. py:method:: get_val(parameters = None, skip_cache = False)
       :async:
 
 
       Reads the data point value.
 
+      :param parameters: optional dynamic parameters of the request
+      :type parameters: Optional[dict[str, str]]
       :param skip_cache: does not use cache if true
       :type skip_cache: bool
 
@@ -158,6 +168,15 @@ Module Contents
 
 
 
+   .. py:method:: dynamic_parameters()
+
+      Gets the dynamic parameters of the data point.
+
+      :returns: the dynamic parameters
+      :rtype: list[DynamicParameter]
+
+
+
    .. py:method:: subscribe(fn)
 
       Subscribes to changes of the data point value.
@@ -171,6 +190,9 @@ Module Contents
 
       Unsubscribes from changes of the data point value.
 
+
+
+   .. py:method:: _build_request(call_spec, substitutions)
 
 
 .. py:class:: RestFunctionalProfile(fp_spec, interface)

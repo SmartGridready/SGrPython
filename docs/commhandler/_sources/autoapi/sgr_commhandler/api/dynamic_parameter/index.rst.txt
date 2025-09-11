@@ -1,0 +1,100 @@
+sgr_commhandler.api.dynamic_parameter
+=====================================
+
+.. py:module:: sgr_commhandler.api.dynamic_parameter
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   sgr_commhandler.api.dynamic_parameter.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.api.dynamic_parameter.DynamicParameter
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sgr_commhandler.api.dynamic_parameter.build_dynamic_parameters
+   sgr_commhandler.api.dynamic_parameter.build_dynamic_parameter_substitutions
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:function:: build_dynamic_parameters(params)
+
+   Constructs a dynamic parameter list.
+
+   :param params: The dynamic parameter list of a data point
+   :type params: Optional[DynamicParameterDescriptionList]
+
+   :returns: a list of dynamic parameters
+   :rtype: list[DynamicParameter]
+
+
+.. py:function:: build_dynamic_parameter_substitutions(dynamic_parameters, input_parameters)
+
+   Builds dynamic parameter substitutions, to be used in data point requests.
+   Only parameters defined in the dynamic parameter list are kept.
+   Parameters not defined in the properties are set to the default value.
+
+   :param dynamic_parameters: the dynamic parameters as specified
+   :type dynamic_parameters: list[DynamicParameter]
+   :param input_parameters: the actual parameters given to the request
+   :type input_parameters: Optional[dict[str, str]]
+
+   :returns: the final substitutions as dictionary
+   :rtype: Dict[str, str]
+
+
+.. py:class:: DynamicParameter(parameter)
+
+   Implements a dynamic parameter of data points.
+
+
+   .. py:attribute:: label
+
+
+   .. py:attribute:: name
+
+
+   .. py:attribute:: type
+
+
+   .. py:attribute:: description
+
+
+   .. py:attribute:: default_value
+
+
+   .. py:method:: __str__()
+
+      Converts to string.
+
+      :returns: A string
+      :rtype: str
+
+
+
+   .. py:method:: __repr__()
+
+      Gets an object description as string.
+
+      :returns: A string
+      :rtype: str
+
+
+

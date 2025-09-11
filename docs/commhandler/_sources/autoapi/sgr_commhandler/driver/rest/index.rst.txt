@@ -49,6 +49,11 @@ Package Contents
       :type:  sgr_specification.v0.product.rest_api_types.RestApiServiceCall
 
 
+   .. py:attribute:: _dynamic_parameters
+      :value: []
+
+
+
    .. py:attribute:: _fp_name
       :value: ''
 
@@ -71,12 +76,14 @@ Package Contents
 
 
 
-   .. py:method:: get_val(skip_cache = False)
+   .. py:method:: get_val(parameters = None, skip_cache = False)
       :async:
 
 
       Reads the data point value.
 
+      :param parameters: optional dynamic parameters of the request
+      :type parameters: Optional[dict[str, str]]
       :param skip_cache: does not use cache if true
       :type skip_cache: bool
 
@@ -114,6 +121,15 @@ Package Contents
 
 
 
+   .. py:method:: dynamic_parameters()
+
+      Gets the dynamic parameters of the data point.
+
+      :returns: the dynamic parameters
+      :rtype: list[DynamicParameter]
+
+
+
    .. py:method:: subscribe(fn)
 
       Subscribes to changes of the data point value.
@@ -127,6 +143,9 @@ Package Contents
 
       Unsubscribes from changes of the data point value.
 
+
+
+   .. py:method:: _build_request(call_spec, substitutions)
 
 
 .. py:class:: RestFunctionalProfile(fp_spec, interface)
