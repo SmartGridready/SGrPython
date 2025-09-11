@@ -17,7 +17,7 @@ EID_BASE_PATH = os.path.join(
 
 def _load_device():
     eid_path = os.path.join(
-        EID_BASE_PATH, "SGr_00_0016_dddd_ABB_B23_ModbusTCP_V0.3.xml"
+        EID_BASE_PATH, "SGr_00_0016_dddd_ABB_B23_ModbusTCP_V0.4.xml"
     )
     eid_properties = dict(slave_id="1", tcp_address="127.0.0.1", tcp_port="502")
     return DeviceBuilder().eid_path(eid_path).properties(eid_properties).build()
