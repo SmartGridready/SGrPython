@@ -60,4 +60,4 @@ def test_jmespath_mapping():
     ])
 
     json_mapped = jmespath_mapping.map_json_response(json_input, jmes_mappings)
-    assert json_mapped is json_expected
+    assert json_mapped == json_expected
