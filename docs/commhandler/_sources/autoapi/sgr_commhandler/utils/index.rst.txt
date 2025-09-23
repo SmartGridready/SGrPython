@@ -10,6 +10,7 @@ Submodules
 .. toctree::
    :maxdepth: 1
 
+   /autoapi/sgr_commhandler/utils/jmespath_mapping/index
    /autoapi/sgr_commhandler/utils/value_util/index
 
 

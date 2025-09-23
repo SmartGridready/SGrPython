@@ -1,0 +1,486 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sgr_commhandler.utils.jmespath_mapping &mdash; SGr CommHandler 0.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=7f00635f"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="sgr_commhandler.utils.value_util" href="../value_util/index.html" />
+    <link rel="prev" title="sgr_commhandler.utils" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            SGr CommHandler
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">sgr_commhandler</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../api/index.html">sgr_commhandler.api</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../device_builder/index.html">sgr_commhandler.device_builder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../driver/index.html">sgr_commhandler.driver</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html">sgr_commhandler.utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../validators/index.html">sgr_commhandler.validators</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">SGr CommHandler</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">sgr_commhandler</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">sgr_commhandler.utils</a></li>
+      <li class="breadcrumb-item active">sgr_commhandler.utils.jmespath_mapping</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/sgr_commhandler/utils/jmespath_mapping/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-sgr_commhandler.utils.jmespath_mapping">
+<span id="sgr-commhandler-utils-jmespath-mapping"></span><h1>sgr_commhandler.utils.jmespath_mapping<a class="headerlink" href="#module-sgr_commhandler.utils.jmespath_mapping" title="Link to this heading"></a></h1>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey" title="sgr_commhandler.utils.jmespath_mapping.RecordKey"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RecordKey</span></code></a></p></td>
+<td><p>Implements a key with indices. Ported from Java.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping.map_json_response" title="sgr_commhandler.utils.jmespath_mapping.map_json_response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">map_json_response</span></code></a>(response, mappings)</p></td>
+<td><p>Converts the structure of a JSON string using JMESpath mappings.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping._map_to_flat_list" title="sgr_commhandler.utils.jmespath_mapping._map_to_flat_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_map_to_flat_list</span></code></a>(json_str, keyword_map)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping._enhance_with_namings" title="sgr_commhandler.utils.jmespath_mapping._enhance_with_namings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_enhance_with_namings</span></code></a>(flat_representation, names)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping._flatten_named_records" title="sgr_commhandler.utils.jmespath_mapping._flatten_named_records"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_flatten_named_records</span></code></a>(cur_key, values, names)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping._parse_json_tree" title="sgr_commhandler.utils.jmespath_mapping._parse_json_tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_parse_json_tree</span></code></a>(node, parent_data, iteration, keyword_map)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping._get_keywords_for_iteration" title="sgr_commhandler.utils.jmespath_mapping._get_keywords_for_iteration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_get_keywords_for_iteration</span></code></a>(iteration, keyword_map)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping._determine_required_iterations" title="sgr_commhandler.utils.jmespath_mapping._determine_required_iterations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_determine_required_iterations</span></code></a>(keyword_map)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping._get_number_of_elements" title="sgr_commhandler.utils.jmespath_mapping._get_number_of_elements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_get_number_of_elements</span></code></a>(node, parent_idx, keyword, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping._process_child_elements" title="sgr_commhandler.utils.jmespath_mapping._process_child_elements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_process_child_elements</span></code></a>(node, iteration, record_map, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping._add_child_element" title="sgr_commhandler.utils.jmespath_mapping._add_child_element"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_add_child_element</span></code></a>(node, record_map, key, kw, iteration)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping._get_first_level_elements" title="sgr_commhandler.utils.jmespath_mapping._get_first_level_elements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_get_first_level_elements</span></code></a>(keywords)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping._get_second_level_elements" title="sgr_commhandler.utils.jmespath_mapping._get_second_level_elements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_get_second_level_elements</span></code></a>(keywords)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping._add_second_level_nodes" title="sgr_commhandler.utils.jmespath_mapping._add_second_level_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_add_second_level_nodes</span></code></a>(first_level_node, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping._build_json_node" title="sgr_commhandler.utils.jmespath_mapping._build_json_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_build_json_node</span></code></a>(keyword_map, flat_data_records)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping.RecordKey">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">RecordKey</span></span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements a key with indices. Ported from Java.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping.RecordKey._indices">
+<span class="sig-name descname"><span class="pre">_indices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey._indices" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping.RecordKey.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey.add" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> (<em>int</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping.RecordKey.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iteration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey.index" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>iteration</strong> (<em>int</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping.RecordKey.key">
+<span class="sig-name descname"><span class="pre">key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey.key" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping.RecordKey.__eq__">
+<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey.__eq__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping.RecordKey.__hash__">
+<span class="sig-name descname"><span class="pre">__hash__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey.__hash__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping.RecordKey.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey.__str__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping.RecordKey.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey.__repr__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping.map_json_response">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">map_json_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mappings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping.map_json_response" title="Link to this definition"></a></dt>
+<dd><p>Converts the structure of a JSON string using JMESpath mappings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>response</strong> (<em>str</em>) – the JSON string to convert</p></li>
+<li><p><strong>mappings</strong> (<em>list</em><em>[</em><em>JmespathMappingRecord</em><em>]</em>) – the data point’s configured mappings</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the mapped JSON string</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping._map_to_flat_list">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">_map_to_flat_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyword_map</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping._map_to_flat_list" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>json_str</strong> (<em>str</em>)</p></li>
+<li><p><strong>keyword_map</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Optional[dict[<a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey" title="sgr_commhandler.utils.jmespath_mapping.RecordKey">RecordKey</a>, dict[str, Any]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping._enhance_with_namings">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">_enhance_with_namings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flat_representation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping._enhance_with_namings" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flat_representation</strong> (<em>dict</em><em>[</em><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey" title="sgr_commhandler.utils.jmespath_mapping.RecordKey"><em>RecordKey</em></a><em>, </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>names</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[int, dict[str, Any]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping._flatten_named_records">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">_flatten_named_records</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cur_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping._flatten_named_records" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cur_key</strong> (<em>int</em>)</p></li>
+<li><p><strong>values</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>names</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple[int, dict[int, dict[str, Any]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping._parse_json_tree">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">_parse_json_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iteration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyword_map</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping._parse_json_tree" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> (<em>Any</em>)</p></li>
+<li><p><strong>parent_data</strong> (<em>Optional</em><em>[</em><em>dict</em><em>[</em><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey" title="sgr_commhandler.utils.jmespath_mapping.RecordKey"><em>RecordKey</em></a><em>, </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>iteration</strong> (<em>int</em>)</p></li>
+<li><p><strong>keyword_map</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Optional[dict[<a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey" title="sgr_commhandler.utils.jmespath_mapping.RecordKey">RecordKey</a>, dict[str, Any]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping._get_keywords_for_iteration">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">_get_keywords_for_iteration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iteration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyword_map</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping._get_keywords_for_iteration" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iteration</strong> (<em>int</em>)</p></li>
+<li><p><strong>keyword_map</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[tuple[str, str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping._determine_required_iterations">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">_determine_required_iterations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyword_map</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping._determine_required_iterations" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>keyword_map</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping._get_number_of_elements">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">_get_number_of_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyword</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iteration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping._get_number_of_elements" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> (<em>Any</em>)</p></li>
+<li><p><strong>parent_idx</strong> (<em>int</em>)</p></li>
+<li><p><strong>keyword</strong> (<em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>iteration</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping._process_child_elements">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">_process_child_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iteration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_rec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping._process_child_elements" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> (<em>Any</em>)</p></li>
+<li><p><strong>iteration</strong> (<em>int</em>)</p></li>
+<li><p><strong>record_map</strong> (<em>dict</em><em>[</em><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey" title="sgr_commhandler.utils.jmespath_mapping.RecordKey"><em>RecordKey</em></a><em>, </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>parent_idx</strong> (<em>int</em>)</p></li>
+<li><p><strong>parent_rec</strong> (<em>Optional</em><em>[</em><em>tuple</em><em>[</em><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey" title="sgr_commhandler.utils.jmespath_mapping.RecordKey"><em>RecordKey</em></a><em>, </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping._add_child_element">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">_add_child_element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iteration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping._add_child_element" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> (<em>Any</em>)</p></li>
+<li><p><strong>record_map</strong> (<em>dict</em><em>[</em><a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey" title="sgr_commhandler.utils.jmespath_mapping.RecordKey"><em>RecordKey</em></a><em>, </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>key</strong> (<a class="reference internal" href="#sgr_commhandler.utils.jmespath_mapping.RecordKey" title="sgr_commhandler.utils.jmespath_mapping.RecordKey"><em>RecordKey</em></a>)</p></li>
+<li><p><strong>kw</strong> (<em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>iteration</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping._get_first_level_elements">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">_get_first_level_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping._get_first_level_elements" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>keywords</strong> (<em>list</em><em>[</em><em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping._get_second_level_elements">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">_get_second_level_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping._get_second_level_elements" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>keywords</strong> (<em>list</em><em>[</em><em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, dict[str, str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping._add_second_level_nodes">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">_add_second_level_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first_level_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flat_records_belonging_to_group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyword_map</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping._add_second_level_nodes" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>first_level_node</strong> (<em>dict</em>)</p></li>
+<li><p><strong>flat_records_belonging_to_group</strong> (<em>list</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>keyword_map</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.jmespath_mapping._build_json_node">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.jmespath_mapping.</span></span><span class="sig-name descname"><span class="pre">_build_json_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyword_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flat_data_records</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.jmespath_mapping._build_json_node" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keyword_map</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>flat_data_records</strong> (<em>list</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="sgr_commhandler.utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../value_util/index.html" class="btn btn-neutral float-right" title="sgr_commhandler.utils.value_util" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Verein SmartGridready.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

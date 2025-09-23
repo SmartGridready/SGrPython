@@ -1,0 +1,112 @@
+sgr_commhandler.utils.jmespath_mapping
+======================================
+
+.. py:module:: sgr_commhandler.utils.jmespath_mapping
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.utils.jmespath_mapping.RecordKey
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sgr_commhandler.utils.jmespath_mapping.map_json_response
+   sgr_commhandler.utils.jmespath_mapping._map_to_flat_list
+   sgr_commhandler.utils.jmespath_mapping._enhance_with_namings
+   sgr_commhandler.utils.jmespath_mapping._flatten_named_records
+   sgr_commhandler.utils.jmespath_mapping._parse_json_tree
+   sgr_commhandler.utils.jmespath_mapping._get_keywords_for_iteration
+   sgr_commhandler.utils.jmespath_mapping._determine_required_iterations
+   sgr_commhandler.utils.jmespath_mapping._get_number_of_elements
+   sgr_commhandler.utils.jmespath_mapping._process_child_elements
+   sgr_commhandler.utils.jmespath_mapping._add_child_element
+   sgr_commhandler.utils.jmespath_mapping._get_first_level_elements
+   sgr_commhandler.utils.jmespath_mapping._get_second_level_elements
+   sgr_commhandler.utils.jmespath_mapping._add_second_level_nodes
+   sgr_commhandler.utils.jmespath_mapping._build_json_node
+
+
+Module Contents
+---------------
+
+.. py:class:: RecordKey
+
+   Bases: :py:obj:`object`
+
+
+   Implements a key with indices. Ported from Java.
+
+
+   .. py:attribute:: _indices
+      :type:  list[str]
+      :value: []
+
+
+
+   .. py:method:: add(idx)
+
+
+   .. py:method:: index(iteration)
+
+
+   .. py:method:: key()
+
+
+   .. py:method:: __eq__(other)
+
+
+   .. py:method:: __hash__()
+
+
+   .. py:method:: __str__()
+
+
+   .. py:method:: __repr__()
+
+
+.. py:function:: map_json_response(response, mappings)
+
+   Converts the structure of a JSON string using JMESpath mappings.
+
+   :param response: the JSON string to convert
+   :type response: str
+   :param mappings: the data point's configured mappings
+   :type mappings: list[JmespathMappingRecord]
+
+   :returns: the mapped JSON string
+   :rtype: str
+
+
+.. py:function:: _map_to_flat_list(json_str, keyword_map)
+
+.. py:function:: _enhance_with_namings(flat_representation, names)
+
+.. py:function:: _flatten_named_records(cur_key, values, names)
+
+.. py:function:: _parse_json_tree(node, parent_data, iteration, keyword_map)
+
+.. py:function:: _get_keywords_for_iteration(iteration, keyword_map)
+
+.. py:function:: _determine_required_iterations(keyword_map)
+
+.. py:function:: _get_number_of_elements(node, parent_idx, keyword, iteration)
+
+.. py:function:: _process_child_elements(node, iteration, record_map, keywords, parent_idx, parent_rec)
+
+.. py:function:: _add_child_element(node, record_map, key, kw, iteration)
+
+.. py:function:: _get_first_level_elements(keywords)
+
+.. py:function:: _get_second_level_elements(keywords)
+
+.. py:function:: _add_second_level_nodes(first_level_node, flat_records_belonging_to_group, keyword_map)
+
+.. py:function:: _build_json_node(keyword_map, flat_data_records)
+
