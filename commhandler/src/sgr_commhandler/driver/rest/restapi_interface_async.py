@@ -45,6 +45,7 @@ from sgr_commhandler.api.dynamic_parameter import (
 )
 from sgr_commhandler.driver.rest.authentication import setup_authentication
 from sgr_commhandler.validators import build_validator
+from sgr_commhandler.utils import jmespath_mapping
 
 logger = logging.getLogger(__name__)
 
@@ -265,8 +266,25 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
                 substitutions
             )
             return jmespath.search(query_expression, json.loads(response.body))
+        elif (
+            self._read_call.response_query
+            and self._read_call.response_query.query_type
+            == ResponseQueryType.JMESPATH_MAPPING
+        ):
+            # JMESPath mappings
+            mappings = self._read_call.response_query.jmes_path_mappings.mapping if self._read_call.response_query.jmes_path_mappings else []
+            return jmespath_mapping.map_json_response(response.body, mappings)
 
+        # plain response
         ret_value = response.body
+
+        # apply value mappings
+        if self._read_call.value_mapping:
+            mappings = self._read_call.value_mapping.mapping
+            for m in mappings.items():
+                if m.device_value == ret_value:
+                    ret_value = m.generic_value
+                    break
 
         # convert to DP units
         if (
@@ -293,12 +311,19 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
         if unit_conv_factor != 1.0:
             value = float(value) / unit_conv_factor
 
+        # apply value mappings
+        value = str(value)
+        if self._read_call.value_mapping:
+            mappings = self._read_call.value_mapping.mapping
+            for m in mappings.items():
+                if m.generic_value == value:
+                    value = m.device_value
+                    break
         # add value to substitutions
         substitutions = {
-            'value': str(value)
+            'value': value
         }
         request = self._build_request(self._write_call, substitutions=substitutions)
-
         # TODO use response body
         await self._interface.execute_request(request, skip_cache=True)
 
