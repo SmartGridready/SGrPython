@@ -202,3 +202,14 @@ class SGrBaseInterface(Protocol):
             key, dps = fp.describe()
             data[key] = dps
         return self.device_information.name, data
+
+    def get_specification(self) -> DeviceFrame:
+        """
+        Gets the complete SGr specification of the device.
+
+        Returns
+        -------
+        DeviceFrame
+            the device specification
+        """
+        return self.device_frame

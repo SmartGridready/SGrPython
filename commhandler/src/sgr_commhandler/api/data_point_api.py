@@ -1,13 +1,13 @@
 from collections.abc import Callable
 from typing import Any, Generic, Optional, Protocol, TypeVar
 
-from sgr_specification.v0.generic import DataDirectionProduct, Units
+from sgr_specification.v0.generic import DataDirectionProduct, Units, DataPointBase
 
 from sgr_commhandler.api.dynamic_parameter import DynamicParameter
 from sgr_commhandler.api.data_types import DataTypes
 
 """Defines a generic data type."""
-T = TypeVar('T')
+TDpSpec = TypeVar('TDpSpec', covariant=True, bound=DataPointBase)
 
 
 class DataPointValidator(Protocol):
@@ -54,10 +54,20 @@ class DataPointValidator(Protocol):
         return []
 
 
-class DataPointProtocol(Protocol):
+class DataPointProtocol(Protocol[TDpSpec]):
     """
     Defines an interface for data point protocols.
     """
+    def get_specification(self) -> TDpSpec:
+        """
+        Gets the data point specification.
+        
+        Returns
+        -------
+        TDpSpec
+            the interface-specific specification
+        """
+        ...
 
     async def set_val(self, value: Any):
         """
@@ -161,20 +171,20 @@ class DataPointProtocol(Protocol):
         raise Exception('Unsupported operation')
 
 
-class DataPoint(Generic[T]):
+class DataPoint(Generic[TDpSpec]):
     """
     Implements a data point of a generic data type.
     """
 
     def __init__(
-        self, protocol: DataPointProtocol, validator: DataPointValidator
+        self, protocol: DataPointProtocol[TDpSpec], validator: DataPointValidator
     ):
         """
         Constructs a data point.
 
         Parameters
         ----------
-        protocol : DataPointProtocol
+        protocol : DataPointProtocol[TDpSpec]
             the underlying protocol
         validator : DataPointValidator
             the data point's value validator
@@ -193,13 +203,13 @@ class DataPoint(Generic[T]):
         """
         return self._protocol.name()
 
-    async def get_value_async(self, parameters: Optional[dict[str, str]] = None) -> T:
+    async def get_value_async(self, parameters: Optional[dict[str, str]] = None) -> Any:
         """
         Gets the data point value asynchronously.
 
         Returns
         -------
-        T
+        Any
             the data point value
         
         Raises
@@ -214,13 +224,13 @@ class DataPoint(Generic[T]):
             f'invalid value read from device, {value}, validator: {self._validator.data_type()}'
         )
 
-    async def set_value_async(self, value: T):
+    async def set_value_async(self, value: Any):
         """
         Sets the data point value asynchronously.
 
         Parameters
         ----------
-        value: T
+        value: Any
             the data point value
         """
         if self._validator.validate(value):
@@ -311,3 +321,14 @@ class DataPoint(Generic[T]):
             the dynamic parameters
         """
         return self._protocol.dynamic_parameters()
+
+    def get_specification(self) -> TDpSpec:
+        """
+        Gets the data point specification.
+
+        Returns
+        -------
+        TDpSpec
+            the data point specification
+        """
+        return self._protocol.get_specification()

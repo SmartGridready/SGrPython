@@ -92,7 +92,7 @@ class RestRequest:
         self.body = body
 
 
-class RestDataPoint(DataPointProtocol):
+class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
     """
     Implements a data point of a REST API interface.
     """
@@ -240,6 +240,9 @@ class RestDataPoint(DataPointProtocol):
 
     def name(self) -> tuple[str, str]:
         return self._fp_name, self._dp_name
+
+    def get_specification(self) -> RestApiDataPointSpec:
+        return self._dp_spec
 
     async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False):
         if not self._read_call:
@@ -418,6 +421,9 @@ class RestFunctionalProfile(FunctionalProfile):
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
+
+    def get_specification(self) -> RestApiFunctionalProfileSpec:
+        return self._fp_spec
 
 
 class SGrRestInterface(SGrBaseInterface):

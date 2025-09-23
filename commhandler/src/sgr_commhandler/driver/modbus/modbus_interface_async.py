@@ -194,7 +194,7 @@ def is_float_type(data_type: DataTypeProduct | ModbusDataType | None) -> bool:
     return data_type.float32 is not None or data_type.float64 is not None
 
 
-class ModbusDataPoint(DataPointProtocol):
+class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
     """
     Implements a data point of a Modbus interface.
     """
@@ -262,6 +262,9 @@ class ModbusDataPoint(DataPointProtocol):
             )
         else:
             raise ValueError('Modbus register type not defined')
+
+    def get_specification(self) -> ModbusDataPointSpec:
+        return self._dp_spec
 
     async def set_val(self, value: Any):
         # convert to device units
@@ -334,7 +337,7 @@ class ModbusDataPoint(DataPointProtocol):
         return self._dp_spec.data_point.unit
 
 
-class ModbusFunctionalProfile(FunctionalProfile):
+class ModbusFunctionalProfile(FunctionalProfile[ModbusFunctionalProfileSpec]):
     """
     Implements a functional profile of a Modbus interface.
     """
@@ -363,6 +366,9 @@ class ModbusFunctionalProfile(FunctionalProfile):
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
+
+    def get_specification(self) -> ModbusFunctionalProfileSpec:
+        return self._fp_spec
 
 
 class SGrModbusInterface(SGrBaseInterface):

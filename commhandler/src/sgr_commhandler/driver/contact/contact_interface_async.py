@@ -44,7 +44,7 @@ def build_contact_data_point(
     return DataPoint(protocol, validator)
 
 
-class ContactDataPoint(DataPointProtocol):
+class ContactDataPoint(DataPointProtocol[ContactDataPointSpec]):
     """
     Implements a data point of a contact interface.
     """
@@ -77,6 +77,9 @@ class ContactDataPoint(DataPointProtocol):
     def name(self) -> tuple[str, str]:
         return self._fp_name, self._dp_name
 
+    def get_specification(self) -> ContactDataPointSpec:
+        return self._dp_spec
+
     async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False):
         raise Exception('Not implemented')
 
@@ -100,7 +103,7 @@ class ContactDataPoint(DataPointProtocol):
         return self._dp_spec.data_point.unit
 
 
-class ContactFunctionalProfile(FunctionalProfile):
+class ContactFunctionalProfile(FunctionalProfile[ContactFunctionalProfileSpec]):
     """
     Implements a functional profile of a contact interface.
     """
@@ -137,6 +140,9 @@ class ContactFunctionalProfile(FunctionalProfile):
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
+
+    def get_specification(self) -> ContactFunctionalProfileSpec:
+        return self._fp_spec
 
 
 class SGrContactInterface(SGrBaseInterface):
