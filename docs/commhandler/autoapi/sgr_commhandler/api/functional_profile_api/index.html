@@ -90,6 +90,16 @@
              
   <section id="module-sgr_commhandler.api.functional_profile_api">
 <span id="sgr-commhandler-api-functional-profile-api"></span><h1>sgr_commhandler.api.functional_profile_api<a class="headerlink" href="#module-sgr_commhandler.api.functional_profile_api" title="Link to this heading"></a></h1>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.api.functional_profile_api.TFpSpec" title="sgr_commhandler.api.functional_profile_api.TFpSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TFpSpec</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
@@ -102,10 +112,15 @@
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="sgr_commhandler.api.functional_profile_api.TFpSpec">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.functional_profile_api.</span></span><span class="sig-name descname"><span class="pre">TFpSpec</span></span><a class="headerlink" href="#sgr_commhandler.api.functional_profile_api.TFpSpec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.api.functional_profile_api.FunctionalProfile">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.functional_profile_api.</span></span><span class="sig-name descname"><span class="pre">FunctionalProfile</span></span><a class="headerlink" href="#sgr_commhandler.api.functional_profile_api.FunctionalProfile" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Protocol</span></code>[<a class="reference internal" href="#sgr_commhandler.api.functional_profile_api.TFpSpec" title="sgr_commhandler.api.functional_profile_api.TFpSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TFpSpec</span></code></a>]</p>
 <p>Implements a functional profile.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.api.functional_profile_api.FunctionalProfile.name">
@@ -179,6 +194,20 @@
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>tuple[str, dict[str, tuple[DataDirectionProduct, <a class="reference internal" href="../data_types/index.html#sgr_commhandler.api.data_types.DataTypes" title="sgr_commhandler.api.data_types.DataTypes">DataTypes</a>]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.api.functional_profile_api.FunctionalProfile.get_specification">
+<span class="sig-name descname"><span class="pre">get_specification</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.functional_profile_api.FunctionalProfile.get_specification" title="Link to this definition"></a></dt>
+<dd><p>Gets the functional profile specification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the functional profile specification</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>TFpSpec</p>
 </dd>
 </dl>
 </dd></dl>

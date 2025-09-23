@@ -28,7 +28,7 @@ Package Contents
 
 .. py:class:: ContactDataPoint(dp_spec, fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`\ [\ :py:obj:`sgr_specification.v0.generic.DataPointBase`\ ]
 
 
    Implements a data point of a contact interface.
@@ -59,6 +59,15 @@ Package Contents
 
       :returns: the functional profile and data point names as tuple
       :rtype: tuple[str, str]
+
+
+
+   .. py:method:: get_specification()
+
+      Gets the data point specification.
+
+      :returns: the interface-specific specification
+      :rtype: TDpSpec
 
 
 
@@ -109,7 +118,7 @@ Package Contents
 
 .. py:class:: ContactFunctionalProfile(fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.functional_profile_api.FunctionalProfile`
+   Bases: :py:obj:`sgr_commhandler.api.functional_profile_api.FunctionalProfile`\ [\ :py:obj:`sgr_specification.v0.product.ContactFunctionalProfile`\ ]
 
 
    Implements a functional profile of a contact interface.
@@ -139,6 +148,15 @@ Package Contents
 
       :returns: all data points
       :rtype: dict[tuple[str, str], DataPoint]
+
+
+
+   .. py:method:: get_specification()
+
+      Gets the functional profile specification.
+
+      :returns: the functional profile specification
+      :rtype: TFpSpec
 
 
 

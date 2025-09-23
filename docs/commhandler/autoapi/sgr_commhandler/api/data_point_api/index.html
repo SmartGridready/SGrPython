@@ -94,7 +94,7 @@
 <h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.api.data_point_api.T" title="sgr_commhandler.api.data_point_api.T"><code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.api.data_point_api.TDpSpec" title="sgr_commhandler.api.data_point_api.TDpSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TDpSpec</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -119,8 +119,8 @@
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
 <dl class="py data">
-<dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.T">
-<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.data_point_api.</span></span><span class="sig-name descname"><span class="pre">T</span></span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.T" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.TDpSpec">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.data_point_api.</span></span><span class="sig-name descname"><span class="pre">TDpSpec</span></span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.TDpSpec" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
@@ -178,8 +178,22 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPointProtocol">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.data_point_api.</span></span><span class="sig-name descname"><span class="pre">DataPointProtocol</span></span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Protocol</span></code>[<a class="reference internal" href="#sgr_commhandler.api.data_point_api.TDpSpec" title="sgr_commhandler.api.data_point_api.TDpSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TDpSpec</span></code></a>]</p>
 <p>Defines an interface for data point protocols.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPointProtocol.get_specification">
+<span class="sig-name descname"><span class="pre">get_specification</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol.get_specification" title="Link to this definition"></a></dt>
+<dd><p>Gets the data point specification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the interface-specific specification</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>TDpSpec</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPointProtocol.set_val">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol.set_val" title="Link to this definition"></a></dt>
@@ -303,12 +317,12 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPoint">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.data_point_api.</span></span><span class="sig-name descname"><span class="pre">DataPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPoint" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Generic</span></code>[<a class="reference internal" href="#sgr_commhandler.api.data_point_api.T" title="sgr_commhandler.api.data_point_api.T"><code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code></a>]</p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Generic</span></code>[<a class="reference internal" href="#sgr_commhandler.api.data_point_api.TDpSpec" title="sgr_commhandler.api.data_point_api.TDpSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TDpSpec</span></code></a>]</p>
 <p>Implements a data point of a generic data type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>protocol</strong> (<a class="reference internal" href="#sgr_commhandler.api.data_point_api.DataPointProtocol" title="sgr_commhandler.api.data_point_api.DataPointProtocol"><em>DataPointProtocol</em></a>)</p></li>
+<li><p><strong>protocol</strong> (<a class="reference internal" href="#sgr_commhandler.api.data_point_api.DataPointProtocol" title="sgr_commhandler.api.data_point_api.DataPointProtocol"><em>DataPointProtocol</em></a><em>[</em><em>TDpSpec</em><em>]</em>)</p></li>
 <li><p><strong>validator</strong> (<a class="reference internal" href="#sgr_commhandler.api.data_point_api.DataPointValidator" title="sgr_commhandler.api.data_point_api.DataPointValidator"><em>DataPointValidator</em></a>)</p></li>
 </ul>
 </dd>
@@ -346,7 +360,7 @@
 <dd class="field-odd"><p>the data point value</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>T</p>
+<dd class="field-even"><p>Any</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>Exception</strong> – when read value is not compatible with data type</p>
@@ -363,7 +377,7 @@
 <dd><p>Sets the data point value asynchronously.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> (<em>T</em>) – the data point value</p>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – the data point value</p>
 </dd>
 </dl>
 </dd></dl>
@@ -465,6 +479,20 @@
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list[<a class="reference internal" href="../dynamic_parameter/index.html#sgr_commhandler.api.dynamic_parameter.DynamicParameter" title="sgr_commhandler.api.dynamic_parameter.DynamicParameter">DynamicParameter</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPoint.get_specification">
+<span class="sig-name descname"><span class="pre">get_specification</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPoint.get_specification" title="Link to this definition"></a></dt>
+<dd><p>Gets the data point specification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the data point specification</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>TDpSpec</p>
 </dd>
 </dl>
 </dd></dl>

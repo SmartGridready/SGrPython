@@ -210,3 +210,12 @@ Module Contents
 
 
 
+   .. py:method:: get_specification()
+
+      Gets the complete SGr specification of the device.
+
+      :returns: the device specification
+      :rtype: DeviceFrame
+
+
+

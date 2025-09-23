@@ -114,7 +114,7 @@ Package Contents
 
 .. py:class:: DataPoint(protocol, validator)
 
-   Bases: :py:obj:`Generic`\ [\ :py:obj:`T`\ ]
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`TDpSpec`\ ]
 
 
    Implements a data point of a generic data type.
@@ -142,7 +142,7 @@ Package Contents
       Gets the data point value asynchronously.
 
       :returns: the data point value
-      :rtype: T
+      :rtype: Any
 
       :raises Exception: when read value is not compatible with data type
 
@@ -155,7 +155,7 @@ Package Contents
       Sets the data point value asynchronously.
 
       :param value: the data point value
-      :type value: T
+      :type value: Any
 
 
 
@@ -228,12 +228,30 @@ Package Contents
 
 
 
+   .. py:method:: get_specification()
+
+      Gets the data point specification.
+
+      :returns: the data point specification
+      :rtype: TDpSpec
+
+
+
 .. py:class:: DataPointProtocol
 
-   Bases: :py:obj:`Protocol`
+   Bases: :py:obj:`Protocol`\ [\ :py:obj:`TDpSpec`\ ]
 
 
    Defines an interface for data point protocols.
+
+
+   .. py:method:: get_specification()
+
+      Gets the data point specification.
+
+      :returns: the interface-specific specification
+      :rtype: TDpSpec
+
 
 
    .. py:method:: set_val(value)
@@ -555,9 +573,18 @@ Package Contents
 
 
 
+   .. py:method:: get_specification()
+
+      Gets the complete SGr specification of the device.
+
+      :returns: the device specification
+      :rtype: DeviceFrame
+
+
+
 .. py:class:: FunctionalProfile
 
-   Bases: :py:obj:`Protocol`
+   Bases: :py:obj:`Protocol`\ [\ :py:obj:`TFpSpec`\ ]
 
 
    Implements a functional profile.
@@ -610,6 +637,15 @@ Package Contents
 
       :returns: the functional profile information
       :rtype: tuple[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]
+
+
+
+   .. py:method:: get_specification()
+
+      Gets the functional profile specification.
+
+      :returns: the functional profile specification
+      :rtype: TFpSpec
 
 
 

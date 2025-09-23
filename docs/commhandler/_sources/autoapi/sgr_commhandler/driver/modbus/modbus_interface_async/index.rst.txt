@@ -115,7 +115,7 @@ Module Contents
 
 .. py:class:: ModbusDataPoint(dp_spec, fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`\ [\ :py:obj:`sgr_specification.v0.product.ModbusDataPoint`\ ]
 
 
    Implements a data point of a Modbus interface.
@@ -159,6 +159,15 @@ Module Contents
 
    .. py:attribute:: _register_type
       :type:  sgr_specification.v0.product.modbus_types.RegisterType
+
+
+   .. py:method:: get_specification()
+
+      Gets the data point specification.
+
+      :returns: the interface-specific specification
+      :rtype: TDpSpec
+
 
 
    .. py:method:: set_val(value)
@@ -217,7 +226,7 @@ Module Contents
 
 .. py:class:: ModbusFunctionalProfile(fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.functional_profile_api.FunctionalProfile`
+   Bases: :py:obj:`sgr_commhandler.api.functional_profile_api.FunctionalProfile`\ [\ :py:obj:`sgr_specification.v0.product.ModbusFunctionalProfile`\ ]
 
 
    Implements a functional profile of a Modbus interface.
@@ -247,6 +256,15 @@ Module Contents
 
       :returns: all data points
       :rtype: dict[tuple[str, str], DataPoint]
+
+
+
+   .. py:method:: get_specification()
+
+      Gets the functional profile specification.
+
+      :returns: the functional profile specification
+      :rtype: TFpSpec
 
 
 

@@ -4,6 +4,14 @@ sgr_commhandler.api.functional_profile_api
 .. py:module:: sgr_commhandler.api.functional_profile_api
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   sgr_commhandler.api.functional_profile_api.TFpSpec
+
+
 Classes
 -------
 
@@ -15,9 +23,11 @@ Classes
 Module Contents
 ---------------
 
+.. py:data:: TFpSpec
+
 .. py:class:: FunctionalProfile
 
-   Bases: :py:obj:`Protocol`
+   Bases: :py:obj:`Protocol`\ [\ :py:obj:`TFpSpec`\ ]
 
 
    Implements a functional profile.
@@ -70,6 +80,15 @@ Module Contents
 
       :returns: the functional profile information
       :rtype: tuple[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]
+
+
+
+   .. py:method:: get_specification()
+
+      Gets the functional profile specification.
+
+      :returns: the functional profile specification
+      :rtype: TFpSpec
 
 
 
