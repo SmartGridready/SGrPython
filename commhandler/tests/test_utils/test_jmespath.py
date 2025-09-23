@@ -67,12 +67,9 @@ def test_jmespath_mapping_2():
     jmes_mappings = [
         JmespathMappingRecord(from_value="prices[*].start_timestamp", to="[*].start_timestamp"),
         JmespathMappingRecord(from_value="prices[*].end_timestamp", to="[*].end_timestamp"),
-        #JmespathMappingRecord(from_value="prices[*].integrated[*].value", to="[*].integrated[*].value"),
-        #JmespathMappingRecord(from_value="prices[*].integrated[*].unit", to="[*].integrated[*].unit"),
-        #JmespathMappingRecord(from_value="prices[*].integrated[*].component", to="[*].integrated[*].component")
-        JmespathMappingRecord(from_value="prices[*].*[*].value", to="[*].*[*].value"),
-        JmespathMappingRecord(from_value="prices[*].*[*].unit", to="[*].*[*].unit"),
-        JmespathMappingRecord(from_value="prices[*].*[*].component", to="[*].*[*].component")
+        JmespathMappingRecord(from_value="prices[*].integrated[*].value", to="[*].integrated[*].value"),
+        JmespathMappingRecord(from_value="prices[*].integrated[*].unit", to="[*].integrated[*].unit"),
+        JmespathMappingRecord(from_value="prices[*].integrated[*].component", to="[*].integrated[*].component")
     ]
     json_input = json.dumps({
         "status": "ok",

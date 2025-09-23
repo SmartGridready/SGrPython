@@ -311,7 +311,6 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
         if unit_conv_factor != 1.0:
             value = float(value) / unit_conv_factor
 
-
         # apply value mappings
         value = str(value)
         if self._read_call.value_mapping:
@@ -324,7 +323,8 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
         substitutions = {
             'value': value
         }
-        request = self._build_request(self._write_call, substitutions=substitutions)        # TODO use response body
+        request = self._build_request(self._write_call, substitutions=substitutions)
+        # TODO use response body
         await self._interface.execute_request(request, skip_cache=True)
 
     def direction(self) -> DataDirectionProduct:
