@@ -1,8 +1,7 @@
 import json
 import logging
 import ssl
-from io import UnsupportedOperation
-from typing import Any, Callable, Optional
+from typing import Any, Optional
 from urllib.parse import urlencode
 
 import aiohttp
@@ -245,7 +244,7 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
     def get_specification(self) -> RestApiDataPointSpec:
         return self._dp_spec
 
-    async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False):
+    async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
         if not self._read_call:
             raise Exception('No read call')
 
@@ -345,16 +344,6 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
 
     def dynamic_parameters(self) -> list[DynamicParameter]:
         return self._dynamic_parameters
-
-    def subscribe(self, fn: Callable[[Any], None]):
-        raise UnsupportedOperation(
-            'subscribe is no available for rest data point'
-        )
-
-    def unsubscribe(self):
-        raise UnsupportedOperation(
-            'unsubscribe is no available for rest data point'
-        )
 
     def _build_request(self, call_spec: RestApiServiceCall, substitutions: dict[str, str]) -> RestRequest:
 

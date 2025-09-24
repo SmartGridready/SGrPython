@@ -14,6 +14,7 @@ from sgr_specification.v0.product import (
 )
 from sgr_commhandler.api.data_point_api import (
     DataPoint,
+    DataPointConsumer,
     DataPointProtocol,
 )
 from sgr_commhandler.api.functional_profile_api import (
@@ -83,7 +84,7 @@ class MessagingDataPoint(DataPointProtocol[MessagingDataPointSpec]):
     def get_specification(self) -> MessagingDataPointSpec:
         return self._dp_spec
 
-    async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False):
+    async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
         raise Exception('Not implemented')
 
     async def set_val(self, value: Any):
@@ -108,7 +109,7 @@ class MessagingDataPoint(DataPointProtocol[MessagingDataPointSpec]):
     def can_subscribe(self) -> bool:
         return True
 
-    def subscribe(self, fn: Callable[[Any], None]):
+    def subscribe(self, consumer: DataPointConsumer):
         # TODO implement
         raise Exception('not implemented yet')
 

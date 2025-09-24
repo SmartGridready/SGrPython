@@ -3,6 +3,7 @@ from typing import Optional, Protocol, TypeVar
 from sgr_specification.v0.generic import DataDirectionProduct
 from sgr_specification.v0.generic.functional_profile import FunctionalProfileBase
 
+from sgr_commhandler.api.value import DataPointValue
 from sgr_commhandler.api.data_point_api import DataPoint
 from sgr_commhandler.api.data_types import DataTypes
 
@@ -52,13 +53,13 @@ class FunctionalProfile(Protocol[TFpSpec]):
         """
         return self.get_data_points()[(self.name(), dp_name)]
 
-    async def get_values_async(self, parameters: Optional[dict[str, str]] = None) -> dict[str, DataPoint]:
+    async def get_values_async(self, parameters: Optional[dict[str, str]] = None) -> dict[str, DataPointValue]:
         """
         Gets all data point values of the functional profile asynchronously.
 
         Returns
         -------
-        dict[str, DataPoint]
+        dict[str, DataPointValue]
             all data point values by name
         """
         data = {}
@@ -68,7 +69,7 @@ class FunctionalProfile(Protocol[TFpSpec]):
                 data[key] = value
             except Exception as e:
                 # TODO log error - None should not be a valid DP value
-                data[key] = None
+                data[key] = DataPointValue(None, dp.data_type())
         return data
 
     def describe(

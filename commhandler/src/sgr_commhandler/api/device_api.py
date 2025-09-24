@@ -1,6 +1,6 @@
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Any, Optional, Protocol
+from typing import Optional, Protocol
 
 from sgr_specification.v0.generic import DataDirectionProduct, DeviceCategory
 from sgr_specification.v0.product.product import DeviceFrame
@@ -11,6 +11,7 @@ from sgr_commhandler.api.configuration_parameter import (
     build_configuration_parameters,
 )
 from sgr_commhandler.api.data_types import DataTypes
+from sgr_commhandler.api.value import DataPointValue
 from sgr_commhandler.api.functional_profile_api import FunctionalProfile
 
 
@@ -163,13 +164,13 @@ class SGrBaseInterface(Protocol):
             data_points.update(fp.get_data_points())
         return data_points
 
-    async def get_values_async(self, parameters: Optional[dict[str, str]] = None) -> dict[tuple[str, str], Any]:
+    async def get_values_async(self, parameters: Optional[dict[str, str]] = None) -> dict[tuple[str, str], DataPointValue]:
         """
         Gets all data point values asynchronously.
 
         Returns
         -------
-        dict[tuple[str, str], Any]
+        dict[tuple[str, str], DataPointValue]
             all data point values
         """
         data = {}

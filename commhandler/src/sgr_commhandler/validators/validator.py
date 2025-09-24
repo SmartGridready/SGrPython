@@ -3,6 +3,7 @@ from typing import Any
 
 from sgr_specification.v0.generic import EnumMapProduct
 
+from sgr_commhandler.api.value import EnumRecord
 from sgr_commhandler.api.data_point_api import DataPointValidator
 from sgr_commhandler.api.data_types import DataTypes
 
@@ -26,6 +27,7 @@ class EnumValidator(DataPointValidator):
 
     def __init__(self, type: EnumMapProduct):
         if type and type.enum_entry:
+            self._type = type
             self._valid_ordinals: set[int] = {
                 entry.ordinal
                 for entry in type.enum_entry
@@ -42,6 +44,7 @@ class EnumValidator(DataPointValidator):
                 if entry.ordinal is not None and entry.literal is not None
             ]
         else:
+            self._type = EnumMapProduct()
             self._valid_literals: set[str] = set()
             self._valid_ordinals: set[int] = set()
             self._options: list[tuple[str, int]] = []
@@ -58,6 +61,15 @@ class EnumValidator(DataPointValidator):
 
     def options(self) -> list[Any]:
         return self._options
+
+    def transform_to_generic(self, value: Any) -> Any:
+        if isinstance(value, EnumRecord):
+            return value
+        if isinstance(value, str):
+            return EnumRecord.from_literal(value, self._type)
+        if isinstance(value, int):
+            return EnumRecord.from_ordinal(value, self._type)
+        raise Exception('cannot transform to EnumRecord')
 
 
 class IntValidator(DataPointValidator):
@@ -87,6 +99,13 @@ class IntValidator(DataPointValidator):
 
     def data_type(self) -> DataTypes:
         return DataTypes.INT
+
+    def transform_to_device(self, value: Any) -> Any:
+        if isinstance(value, EnumRecord):
+            return value.ordinal
+        if isinstance(value, int):
+            return value
+        return int(value)
 
 
 class FloatValidator(DataPointValidator):
@@ -130,6 +149,13 @@ class StringValidator(DataPointValidator):
 
     def data_type(self) -> DataTypes:
         return DataTypes.STRING
+
+    def transform_to_device(self, value: Any) -> Any:
+        if isinstance(value, EnumRecord):
+            return value.literal
+        if isinstance(value, str):
+            return value
+        return str(value)
 
 
 class BooleanValidator(DataPointValidator):
@@ -187,10 +213,8 @@ class JsonValidator(DataPointValidator):
     """
 
     def validate(self, value: Any) -> bool:
-        if value is None:
-            return False
-        # TODO real validation
-        return isinstance(value, dict) or isinstance(value, str)
+        # can be anything
+        return value is not None
 
     def data_type(self) -> DataTypes:
         return DataTypes.JSON

@@ -100,4 +100,4 @@ class DynamicParameter:
         str
             A string
         """
-        return f'{self.label} - {self.name}'
+        return f'<DynamicParameter={self.name}>'

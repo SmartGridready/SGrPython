@@ -5,6 +5,7 @@ from sgr_specification.v0.generic import DataDirectionProduct, Units, DataPointB
 
 from sgr_commhandler.api.dynamic_parameter import DynamicParameter
 from sgr_commhandler.api.data_types import DataTypes
+from sgr_commhandler.api.value import DataPointValue
 
 """Defines a generic data type."""
 TDpSpec = TypeVar('TDpSpec', covariant=True, bound=DataPointBase)
@@ -12,7 +13,7 @@ TDpSpec = TypeVar('TDpSpec', covariant=True, bound=DataPointBase)
 
 class DataPointValidator(Protocol):
     """
-    Defines an interface for data point validators.
+    Implements a base class for data point validators.
     """
 
     def validate(self, value: Any) -> bool:
@@ -53,10 +54,67 @@ class DataPointValidator(Protocol):
         """
         return []
 
+    def transform_to_generic(self, value: Any) -> Any:
+        """
+        Transforms the value to a generic type, if necessary.
+
+        Parameters
+        ----------
+        value : Any
+            the value to validate
+
+        Returns
+        -------
+        Any
+            the transformed value
+        """
+        return value
+
+    def transform_to_device(self, value: Any) -> Any:
+        """
+        Transforms the value to a device type, if necessary.
+
+        Parameters
+        ----------
+        value : Any
+            the value to validate
+
+        Returns
+        -------
+        Any
+            the transformed value
+        """
+        return value
+
+
+class DataPointConsumer(object):
+    """
+    Wraps a consumer function for data point values.
+    """
+    def __init__(self, consume: Callable[[DataPointValue], None], validator: DataPointValidator):
+        self._consume = consume
+        self._validator = validator
+    
+    def consume(self, value: Any):
+        """
+        Validates the incoming value and calls the consumer function.
+
+        Parameters
+        ----------
+        value : Any
+            the value to consume
+        """
+        if self._validator.validate(value):
+            sgr_value = self._validator.transform_to_generic(value)
+            self._consume(DataPointValue(sgr_value, self._validator.data_type()))
+        raise Exception(
+            f"invalid value read from device, {value}, validator: {self._validator.data_type()}"
+        )
+
 
 class DataPointProtocol(Protocol[TDpSpec]):
     """
-    Defines an interface for data point protocols.
+    Implements a base class for data point protocols.
     """
     def get_specification(self) -> TDpSpec:
         """
@@ -153,14 +211,14 @@ class DataPointProtocol(Protocol[TDpSpec]):
         """
         return False
 
-    def subscribe(self, fn: Callable[[Any], None]):
+    def subscribe(self, consumer: DataPointConsumer):
         """
         Subscribes to changes of the data point value.
 
         Parameters
         ----------
-        fn : Callable[[Any], None]
-            the callback method
+        consumer : DataPointConsumer
+            the callback handler
         """
         raise Exception('Unsupported operation')
 
@@ -203,13 +261,13 @@ class DataPoint(Generic[TDpSpec]):
         """
         return self._protocol.name()
 
-    async def get_value_async(self, parameters: Optional[dict[str, str]] = None) -> Any:
+    async def get_value_async(self, parameters: Optional[dict[str, str]] = None) -> DataPointValue:
         """
         Gets the data point value asynchronously.
 
         Returns
         -------
-        Any
+        DataPointValue
             the data point value
         
         Raises
@@ -219,34 +277,36 @@ class DataPoint(Generic[TDpSpec]):
         """
         value = await self._protocol.get_val(parameters)
         if self._validator.validate(value):
-            return value
+            sgr_value = self._validator.transform_to_generic(value)
+            return DataPointValue(sgr_value, self._validator.data_type())
         raise Exception(
-            f'invalid value read from device, {value}, validator: {self._validator.data_type()}'
+            f"invalid value read from device, {value}, validator: {self._validator.data_type()}"
         )
 
-    async def set_value_async(self, value: Any):
+    async def set_value_async(self, value: DataPointValue):
         """
         Sets the data point value asynchronously.
 
         Parameters
         ----------
-        value: Any
+        value: DataPointValue
             the data point value
         """
-        if self._validator.validate(value):
-            return await self._protocol.set_val(value)
+        if self._validator.validate(value.value):
+            dev_value = self._validator.transform_to_device(value.value)
+            return await self._protocol.set_val(dev_value)
         raise Exception('invalid data to write to device')
 
-    def subscribe(self, fn: Callable[[Any], None]):
+    def subscribe(self, fn: Callable[[DataPointValue], None]):
         """
         Subscribes to data point value changes.
 
         Parameters
         ----------
-        fn : Callable[[Any], None]
+        fn : Callable[[DataPointValue], None]
             the handler method
         """
-        self._protocol.subscribe(fn)
+        self._protocol.subscribe(DataPointConsumer(fn, self._validator))
 
     def unsubscribe(self):
         """

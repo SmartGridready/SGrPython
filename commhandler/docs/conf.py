@@ -10,8 +10,8 @@ project = 'SGr CommHandler'
 copyright = '2025, Verein SmartGridready'
 author = 'Matthias Krebs'
 
-release = '0.4'
-version = '0.4.0'
+release = '0.5'
+version = '0.5.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

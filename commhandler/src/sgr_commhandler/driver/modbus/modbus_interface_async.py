@@ -1,7 +1,8 @@
+from io import UnsupportedOperation
 import logging
 import random
 import string
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from sgr_specification.v0.generic import DataDirectionProduct, Parity
 from sgr_specification.v0.generic.base_types import DataTypeProduct, Units
@@ -25,7 +26,8 @@ from sgr_specification.v0.product.modbus_types import (
 )
 from sgr_commhandler.api.data_point_api import (
     DataPoint,
-    DataPointProtocol,
+    DataPointConsumer,
+    DataPointProtocol
 )
 from sgr_commhandler.api.functional_profile_api import (
     FunctionalProfile
@@ -335,6 +337,16 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
         ):
             return Units.NONE
         return self._dp_spec.data_point.unit
+
+    def subscribe(self, consumer: DataPointConsumer):
+        raise UnsupportedOperation(
+            'subscribe is no available for Modbus data point'
+        )
+
+    def unsubscribe(self):
+        raise UnsupportedOperation(
+            'unsubscribe is no available for Modbus data point'
+        )
 
 
 class ModbusFunctionalProfile(FunctionalProfile[ModbusFunctionalProfileSpec]):
