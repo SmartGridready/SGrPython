@@ -4,6 +4,7 @@ from enum import Enum
 class DataTypes(Enum):
     """Defines the data point data types supported by the SGr specification."""
 
+    UNDEFINED = "UNDEFINED"
     INT = "INT"
     FLOAT = "FLOAT"
     STRING = "STRING"

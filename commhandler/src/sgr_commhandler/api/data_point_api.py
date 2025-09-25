@@ -15,6 +15,11 @@ class DataPointValidator(Protocol):
     Implements a base class for data point validators.
     """
 
+    _data_type: DataTypes
+
+    def __init__(self, data_type: DataTypes):
+        self._data_type = data_type
+
     def validate(self, value: Any) -> bool:
         """
         Validates the compatibility of a value.
@@ -29,7 +34,7 @@ class DataPointValidator(Protocol):
         bool
             true if value is compatible, false otherwise
         """
-        ...
+        return False
 
     def data_type(self) -> DataTypes:
         """
@@ -40,7 +45,7 @@ class DataPointValidator(Protocol):
         DataTypes
             the data type enumeration
         """
-        ...
+        return self._data_type
 
     def options(self) -> list[Any]:
         """

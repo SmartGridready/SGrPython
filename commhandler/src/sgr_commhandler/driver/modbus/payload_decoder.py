@@ -114,5 +114,5 @@ class PayloadBuilder(BinaryPayloadBuilder):
         elif modbus_type.string:
             self.add_string(str(value))
         else:
-            logger.error(f'Unsupported modbus type "{modbus_type}"')
+            logger.error(f'Unsupported Modbus type "{modbus_type}"')
         return self

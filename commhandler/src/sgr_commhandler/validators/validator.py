@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any
+from typing import Any, Optional
 
 from sgr_specification.v0.generic import EnumMapProduct
 
@@ -14,6 +14,9 @@ class UnsupportedValidator(DataPointValidator):
     """
     Implements a default validator for all unsupported data types.
     """
+
+    def __init__(self):
+        super().__init__(DataTypes.UNDEFINED)
     
     def validate(self, value: Any) -> bool:
         return False
@@ -25,22 +28,11 @@ class EnumValidator(DataPointValidator):
     """
 
     def __init__(self, type: EnumMapProduct):
+        super().__init__(DataTypes.ENUM)
         if type and type.enum_entry:
-            self._valid_ordinals: set[int] = {
-                entry.ordinal
-                for entry in type.enum_entry
-                if entry.ordinal is not None
-            }
-            self._valid_literals: set[str] = {
-                entry.literal
-                for entry in type.enum_entry
-                if entry.literal is not None
-            }
-            self._options: list[tuple[str, int]] = [
-                (entry.literal, entry.ordinal)
-                for entry in type.enum_entry
-                if entry.ordinal is not None and entry.literal is not None
-            ]
+            self._options = list(map(lambda e: (e.literal, e.ordinal), type.enum_entry))
+            self._valid_literals: set[str] = set(map(lambda e: e[0], filter(lambda e: e[0] is not None, self._options)))
+            self._valid_ordinals: set[int] = set(map(lambda e: e[1], filter(lambda e: e[1] is not None, self._options)))
         else:
             self._valid_literals: set[str] = set()
             self._valid_ordinals: set[int] = set()
@@ -53,9 +45,6 @@ class EnumValidator(DataPointValidator):
             isinstance(value, int) and value in self._valid_ordinals
         )
 
-    def data_type(self) -> DataTypes:
-        return DataTypes.ENUM
-
     def options(self) -> list[Any]:
         return self._options
 
@@ -66,6 +55,7 @@ class IntValidator(DataPointValidator):
     """
 
     def __init__(self, size: int, signed: bool = True):
+        super().__init__(DataTypes.INT)
         self._size = size if size in INT_SIZES else next(iter(INT_SIZES))
         if signed:
             self._lower_bound = -(2 ** (self._size - 1))
@@ -85,9 +75,6 @@ class IntValidator(DataPointValidator):
         except Exception:
             return False
 
-    def data_type(self) -> DataTypes:
-        return DataTypes.INT
-
 
 class FloatValidator(DataPointValidator):
     """
@@ -95,6 +82,7 @@ class FloatValidator(DataPointValidator):
     """
 
     def __init__(self, size: int):
+        super().__init__(DataTypes.FLOAT)
         self._size = size if size in FLOAT_SIZES else next(iter(FLOAT_SIZES))
 
     def validate(self, value: Any) -> bool:
@@ -108,14 +96,14 @@ class FloatValidator(DataPointValidator):
         except Exception:
             return False
 
-    def data_type(self) -> DataTypes:
-        return DataTypes.FLOAT
-
 
 class StringValidator(DataPointValidator):
     """
     Implements a validator for text strings.
     """
+
+    def __init__(self):
+        super().__init__(DataTypes.STRING)
 
     def validate(self, value: Any) -> bool:
         if value is None:
@@ -128,14 +116,14 @@ class StringValidator(DataPointValidator):
         except Exception:
             return False
 
-    def data_type(self) -> DataTypes:
-        return DataTypes.STRING
-
 
 class BooleanValidator(DataPointValidator):
     """
     Implements a validator for boolean values.
     """
+
+    def __init__(self):
+        super().__init__(DataTypes.BOOLEAN)
 
     def validate(self, value: Any) -> bool:
         if value is None:
@@ -148,22 +136,19 @@ class BooleanValidator(DataPointValidator):
         except Exception:
             return False
 
-    def data_type(self) -> DataTypes:
-        return DataTypes.BOOLEAN
-
 
 class BitmapValidator(DataPointValidator):
     """
     Implements a validator for bitmap values.
     """
 
+    def __init__(self):
+        super().__init__(DataTypes.BITMAP)
+
     def validate(self, value: Any) -> bool:
         if value is None:
             return False
         return isinstance(value, dict)
-
-    def data_type(self) -> DataTypes:
-        return DataTypes.BITMAP
 
 
 class DateTimeValidator(DataPointValidator):
@@ -171,14 +156,14 @@ class DateTimeValidator(DataPointValidator):
     Implements a validator for date/time values.
     """
 
+    def __init__(self):
+        super().__init__(DataTypes.DATE_TIME)
+
     def validate(self, value: Any) -> bool:
         if value is None:
             return False
         # TODO fully implement conversion
         return isinstance(value, datetime)
-
-    def data_type(self) -> DataTypes:
-        return DataTypes.DATE_TIME
 
 
 class JsonValidator(DataPointValidator):
@@ -186,9 +171,9 @@ class JsonValidator(DataPointValidator):
     Implements a validator for JSON values.
     """
 
+    def __init__(self):
+        super().__init__(DataTypes.JSON)
+
     def validate(self, value: Any) -> bool:
         # can be anything
         return value is not None
-
-    def data_type(self) -> DataTypes:
-        return DataTypes.JSON

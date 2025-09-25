@@ -269,12 +269,19 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
         return self._dp_spec
 
     async def set_val(self, value: Any):
-        # special case enum
-        if isinstance(value, EnumRecord):
-            if value.ordinal is not None:
-                value = value.ordinal
+        # special case enum - convert to ordinal
+        if self._dp_spec.data_point and self._dp_spec.data_point.data_type.enum:
+            enum_spec = self._dp_spec.data_point.data_type.enum
+            if isinstance(value, str):
+                rec = next(filter(lambda e: e.literal is not None and e.ordinal is not None and e.literal == value, enum_spec.enum_entry), None)
+            elif isinstance(value, int):
+                rec = next(filter(lambda e: e.ordinal is not None and e.ordinal == value, enum_spec.enum_entry), None)
             else:
-                raise ValueError('Enum record has no ordinal value')
+                raise ValueError(f'Type {type(value)} not supported as Enum')
+            if rec is not None:
+                value = rec.ordinal
+            else:
+                raise ValueError(f'Enum {value} has no ordinal value')
 
         # convert to device units
         unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
@@ -337,6 +344,16 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
             if self._dp_spec.modbus_data_point_configuration else None
         ):
             ret_value = value_util.round_to_int(float(ret_value))
+
+        # special case enum - convert to literal
+        if self._dp_spec.data_point and self._dp_spec.data_point.data_type.enum:
+            enum_spec = self._dp_spec.data_point.data_type.enum
+            ret_value = int(ret_value)
+            rec = next(filter(lambda e: e.ordinal is not None and e.literal is not None and e.ordinal == ret_value, enum_spec.enum_entry), None)
+            if rec is not None:
+                ret_value = rec.literal
+            else:
+                raise ValueError(f'Enum {ret_value} has no literal value')
 
         return ret_value
 

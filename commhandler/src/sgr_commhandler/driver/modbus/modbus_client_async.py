@@ -66,9 +66,11 @@ class SGrModbusClient(ABC):
         )
         builder.sgr_encode(value, data_type)
         with self._lock:
-            await self._client.write_registers(
-                address+self._addr_offset, builder.to_registers(), slave=slave_id
+            response = await self._client.write_registers(
+                address+self._addr_offset, builder.to_registers(), slave=slave_id, no_response_expected=True
             )
+            if response and response.isError():
+                logger.warning(f'Modbus write exception {response.status}')
 
     async def write_coils(
         self, slave_id: int, address: int, data_type: ModbusDataType, value: Any
@@ -92,9 +94,11 @@ class SGrModbusClient(ABC):
         )
         builder.sgr_encode(value, data_type)
         with self._lock:
-            await self._client.write_coils(
-                address+self._addr_offset, builder.to_coils(), slave=slave_id
+            response = await self._client.write_coils(
+                address+self._addr_offset, builder.to_coils(), slave=slave_id, no_response_expected=True
             )
+            if response and response.isError():
+                logger.warning(f'Modbus write exception {response.status}')
 
     async def read_input_registers(
         self, slave_id: int, address: int, size: int, data_type: ModbusDataType
@@ -129,6 +133,8 @@ class SGrModbusClient(ABC):
                 wordorder=self._word_order,
             )
             return decoder.decode(data_type, 0)
+        elif response and response.isError():
+            logger.warning(f'Modbus read exception {response.status}')
 
     async def read_holding_registers(
         self, slave_id: int, address: int, size: int, data_type: ModbusDataType
@@ -163,6 +169,8 @@ class SGrModbusClient(ABC):
                 wordorder=self._word_order,
             )
             return decoder.decode(data_type, 0)
+        elif response and response.isError():
+            logger.warning(f'Modbus read exception {response.status}')
 
     async def read_coils(
         self, slave_id: int, address: int, size: int, data_type: ModbusDataType
@@ -197,6 +205,8 @@ class SGrModbusClient(ABC):
                 _wordorder=self._word_order,
             )
             return decoder.decode(data_type, 0)
+        elif response and response.isError():
+            logger.warning(f'Modbus read exception {response.status}')
 
     async def read_discrete_inputs(
         self, slave_id: int, address: int, size: int, data_type: ModbusDataType
@@ -231,6 +241,8 @@ class SGrModbusClient(ABC):
                 _wordorder=self._word_order,
             )
             return decoder.decode(data_type, 0)
+        elif response and response.isError():
+            logger.warning(f'Modbus read exception {response.status}')
 
 
 class SGrModbusTCPClient(SGrModbusClient):
