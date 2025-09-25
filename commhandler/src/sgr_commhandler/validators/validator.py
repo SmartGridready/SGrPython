@@ -187,10 +187,8 @@ class JsonValidator(DataPointValidator):
     """
 
     def validate(self, value: Any) -> bool:
-        if value is None:
-            return False
-        # TODO real validation
-        return isinstance(value, dict) or isinstance(value, str)
+        # can be anything
+        return value is not None
 
     def data_type(self) -> DataTypes:
         return DataTypes.JSON

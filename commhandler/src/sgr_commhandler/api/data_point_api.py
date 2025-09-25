@@ -12,7 +12,7 @@ TDpSpec = TypeVar('TDpSpec', covariant=True, bound=DataPointBase)
 
 class DataPointValidator(Protocol):
     """
-    Defines an interface for data point validators.
+    Implements a base class for data point validators.
     """
 
     def validate(self, value: Any) -> bool:
@@ -56,7 +56,7 @@ class DataPointValidator(Protocol):
 
 class DataPointProtocol(Protocol[TDpSpec]):
     """
-    Defines an interface for data point protocols.
+    Implements a base class for data point protocols.
     """
     def get_specification(self) -> TDpSpec:
         """
@@ -246,7 +246,7 @@ class DataPoint(Generic[TDpSpec]):
         fn : Callable[[Any], None]
             the handler method
         """
-        self._protocol.subscribe(fn)
+        self._protocol.subscribe(DataPointConsumer(fn, self._validator))
 
     def unsubscribe(self):
         """

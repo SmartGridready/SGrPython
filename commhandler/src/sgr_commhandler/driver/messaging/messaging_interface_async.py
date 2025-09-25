@@ -1,6 +1,6 @@
 import logging
 from collections.abc import Callable
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from sgr_specification.v0.generic import DataDirectionProduct, Units
 from sgr_specification.v0.product import (
@@ -83,7 +83,7 @@ class MessagingDataPoint(DataPointProtocol[MessagingDataPointSpec]):
     def get_specification(self) -> MessagingDataPointSpec:
         return self._dp_spec
 
-    async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False):
+    async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
         raise Exception('Not implemented')
 
     async def set_val(self, value: Any):

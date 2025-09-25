@@ -68,4 +68,4 @@ class ConfigurationParameter:
         str
             A string
         """
-        return f'{self.label} - {self.name}'
+        return f'<ConfigurationParameter={self.name}>'

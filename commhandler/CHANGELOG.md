@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - implemented REST interface basic authentication
 - implemented dynamic parameters in REST calls
+- scaling of Modbus data point values
 
 ### Changed
 
