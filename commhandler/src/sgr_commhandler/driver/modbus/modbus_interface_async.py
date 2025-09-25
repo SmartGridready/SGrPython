@@ -3,7 +3,9 @@ import logging
 import random
 import string
 from typing import Any, Optional
+from math import pow
 
+from sgr_commhandler.api.value import EnumRecord
 from sgr_specification.v0.generic import DataDirectionProduct, Parity
 from sgr_specification.v0.generic.base_types import DataTypeProduct, Units
 from sgr_specification.v0.product import (
@@ -177,6 +179,7 @@ def is_integer_type(data_type: DataTypeProduct | ModbusDataType | None) -> bool:
             data_type.int32_u is not None,
             data_type.int64 is not None,
             data_type.int64_u is not None,
+            data_type.enum is not None
         )
     )
 
@@ -269,20 +272,34 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
         return self._dp_spec
 
     async def set_val(self, value: Any):
+        # special case enum
+        if isinstance(value, EnumRecord):
+            if value.ordinal is not None:
+                value = value.ordinal
+            else:
+                raise ValueError('Enum record has no ordinal value')
+
         # convert to device units
         unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
             self._dp_spec.data_point
             and self._dp_spec.data_point.unit_conversion_multiplicator
         ) else 1.0
-
         if unit_conv_factor != 1.0:
             value = float(value)  / unit_conv_factor
+
+        # scaling
+        scaling_factor = self._dp_spec.modbus_attributes.scaling_factor if (
+            self._dp_spec.modbus_attributes
+            and self._dp_spec.modbus_attributes.scaling_factor
+        ) else None
+        if scaling_factor is not None:
+            value = float(value) / (scaling_factor.multiplicator * pow(10, scaling_factor.powerof10))
 
         # round to int if modbus type is int and DP type is not
         if is_float_type(
             self._dp_spec.data_point.data_type
             if self._dp_spec.data_point and self._dp_spec.data_point.data_type else None
-        ) and not is_integer_type(
+        ) and is_integer_type(
             self._dp_spec.modbus_data_point_configuration.modbus_data_type
             if self._dp_spec.modbus_data_point_configuration and self._dp_spec.modbus_data_point_configuration.modbus_data_type else None
         ):
@@ -298,12 +315,19 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
             self._register_type, self._address, self._size, self._data_type
         )
 
+        # scaling
+        scaling_factor = self._dp_spec.modbus_attributes.scaling_factor if (
+            self._dp_spec.modbus_attributes
+            and self._dp_spec.modbus_attributes.scaling_factor
+        ) else None
+        if scaling_factor is not None:
+            ret_value = float(ret_value) * scaling_factor.multiplicator * pow(10, scaling_factor.powerof10)
+
         # convert to DP units
         unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
             self._dp_spec.data_point
             and self._dp_spec.data_point.unit_conversion_multiplicator
         ) else 1.0
-
         if unit_conv_factor != 1.0:
             ret_value = float(ret_value) * unit_conv_factor
 
@@ -311,7 +335,7 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
         if is_integer_type(
             self._dp_spec.data_point.data_type
             if self._dp_spec.data_point else None
-        ) and not is_float_type(
+        ) and is_float_type(
             self._dp_spec.modbus_data_point_configuration.modbus_data_type
             if self._dp_spec.modbus_data_point_configuration else None
         ):

@@ -52,8 +52,13 @@ class EnumValidator(DataPointValidator):
     def validate(self, value: Any) -> bool:
         if value is None:
             return False
-        return (isinstance(value, str) and value in self._valid_literals) or (
-            isinstance(value, int) and value in self._valid_ordinals
+        return (
+            (isinstance(value, EnumRecord) and (
+                (value.literal in self._valid_literals) or
+                (value.ordinal in self._valid_ordinals)
+            )) or
+            (isinstance(value, str) and value in self._valid_literals) or
+            (isinstance(value, int) and value in self._valid_ordinals)
         )
 
     def data_type(self) -> DataTypes:
