@@ -161,7 +161,7 @@ class SGrGenericInterface(SGrBaseInterface):
     def __init__(
         self, frame: DeviceFrame
     ):
-        self._initialize_device(frame)
+        super().__init__(frame)
 
         if (
             self.device_frame.interface_list

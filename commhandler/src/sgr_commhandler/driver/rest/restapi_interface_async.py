@@ -220,7 +220,11 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
         if not self._read_call and not self._write_call:
             raise Exception('No REST service call configured')
         
-        self._dynamic_parameters = build_dynamic_parameters(self._dp_spec.data_point.parameter_list)
+        self._dynamic_parameters = build_dynamic_parameters(
+            self._dp_spec.data_point.parameter_list
+            if self._dp_spec.data_point
+            else None
+        )
 
         self._fp_name = ''
         if (
@@ -280,7 +284,7 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
         # apply value mappings
         if self._read_call.value_mapping:
             mappings = self._read_call.value_mapping.mapping
-            for m in mappings.items():
+            for m in mappings:
                 if m.device_value == ret_value:
                     ret_value = m.generic_value
                     break
@@ -292,7 +296,7 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
             and self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
         ):
             ret_value = (
-                float(ret_value)
+                float(str(ret_value))
                 * self._dp_spec.data_point.unit_conversion_multiplicator
             )
 
@@ -314,7 +318,7 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
         value = str(value)
         if self._read_call.value_mapping:
             mappings = self._read_call.value_mapping.mapping
-            for m in mappings.items():
+            for m in mappings:
                 if m.generic_value == value:
                     value = m.device_value
                     break
@@ -358,19 +362,19 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
         # All headers into dictionary, with substitution
         request_headers: CIMultiDict[str] = CIMultiDict()
         for header_entry in headers.header:
-            if header_entry.header_name:
+            if header_entry.header_name and header_entry.value:
                 request_headers.add(header_entry.header_name, substitute_parameters(header_entry.value, substitutions))
 
         # All query parameters into dictionary, with substitution
         query_parameters: CIMultiDict[str] = CIMultiDict()
         for param_entry in query.parameter:
-            if param_entry.name:
+            if param_entry.name and param_entry.value:
                 query_parameters.add(param_entry.name, substitute_parameters(param_entry.value, substitutions))
 
         # All form parameters into dictionary, with substitution
         form_parameters: CIMultiDict[str] = CIMultiDict()
         for param_entry in form.parameter:
-            if param_entry.name:
+            if param_entry.name and param_entry.value:
                 form_parameters.add(param_entry.name, substitute_parameters(param_entry.value, substitutions))
 
         # request path, with substitution
@@ -448,7 +452,7 @@ class SGrRestInterface(SGrBaseInterface):
     def __init__(
         self, frame: DeviceFrame
     ):
-        self._initialize_device(frame)
+        super().__init__(frame)
         self._session = None
         self._cache = TTLCache(maxsize=100, ttl=5)
 

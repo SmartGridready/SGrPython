@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Any, Generic, Optional, Protocol, TypeVar
+from typing import Any, Generic, NoReturn, Optional, Protocol, TypeVar
 
 from sgr_specification.v0.generic import DataDirectionProduct, Units, DataPointBase
 
@@ -158,13 +158,13 @@ class DataPointProtocol(Protocol[TDpSpec]):
         """
         return False
 
-    def subscribe(self, fn: Callable[[Any], None]):
+    def subscribe(self, fn: Callable[[tuple[str, str], Any], NoReturn]):
         """
         Subscribes to changes of the data point value.
 
         Parameters
         ----------
-        fn : Callable[[Any], None]
+        fn : Callable[[tuple[str, str], Any], NoReturn]
             the callback method
         """
         raise Exception('Unsupported operation')
@@ -242,13 +242,13 @@ class DataPoint(Generic[TDpSpec]):
             return await self._protocol.set_val(value)
         raise Exception('invalid data to write to device')
 
-    def subscribe(self, fn: Callable[[Any], None]):
+    def subscribe(self, fn: Callable[[tuple[str, str], Any], NoReturn]):
         """
         Subscribes to data point value changes.
 
         Parameters
         ----------
-        fn : Callable[[Any], None]
+        fn : Callable[[tuple[str, str], Any], NoReturn]
             the handler method
         """
         self._protocol.subscribe(DataPointConsumer(fn, self._validator))

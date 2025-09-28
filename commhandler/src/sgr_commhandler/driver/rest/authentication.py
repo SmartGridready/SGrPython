@@ -85,7 +85,7 @@ async def authenticate_with_bearer_token(
         request_headers: CIMultiDict[str] = CIMultiDict()
         if service_call.request_header:
             for header_entry in service_call.request_header.header:
-                if header_entry.header_name:
+                if header_entry.header_name and header_entry.value:
                     request_headers.add(header_entry.header_name, header_entry.value)
 
         request_body = service_call.request_body

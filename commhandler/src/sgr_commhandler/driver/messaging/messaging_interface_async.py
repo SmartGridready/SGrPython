@@ -1,15 +1,11 @@
 import logging
 from collections.abc import Callable
-from typing import Any, Optional
+from typing import Any, NoReturn, Optional
 
 from sgr_specification.v0.generic import DataDirectionProduct, Units
 from sgr_specification.v0.product import (
     DeviceFrame,
-)
-from sgr_specification.v0.product import (
     MessagingDataPoint as MessagingDataPointSpec,
-)
-from sgr_specification.v0.product import (
     MessagingFunctionalProfile as MessagingFunctionalProfileSpec,
 )
 from sgr_commhandler.api.data_point_api import (
@@ -108,11 +104,11 @@ class MessagingDataPoint(DataPointProtocol[MessagingDataPointSpec]):
     def can_subscribe(self) -> bool:
         return True
 
-    def subscribe(self, fn: Callable[[Any], None]):
+    def subscribe(self, fn: Callable[[tuple[str, str], Any], NoReturn]): # type: ignore
         # TODO implement
         raise Exception('not implemented yet')
 
-    def unsubscribe(self):
+    def unsubscribe(self): # type: ignore
         # TODO implement
         raise Exception('not implemented yet')
 
@@ -167,7 +163,7 @@ class SGrMessagingInterface(SGrBaseInterface):
     def __init__(
         self, frame: DeviceFrame
     ):
-        self._initialize_device(frame)
+        super().__init__(frame)
 
         if (
             self.device_frame.interface_list
