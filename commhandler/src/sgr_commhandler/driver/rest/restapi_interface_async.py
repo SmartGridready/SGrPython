@@ -1,8 +1,8 @@
 import json
 import logging
+import re
 import ssl
 from typing import Any, Optional
-from urllib.parse import urlencode
 
 import aiohttp
 import certifi
@@ -42,9 +42,14 @@ from sgr_commhandler.api.dynamic_parameter import (
     build_dynamic_parameters,
     build_dynamic_parameter_substitutions
 )
+from sgr_commhandler.driver.rest.request import (
+    RestRequest,
+    RestResponse,
+    build_rest_request
+)
 from sgr_commhandler.driver.rest.authentication import setup_authentication
 from sgr_commhandler.validators import build_validator
-from sgr_commhandler.utils import jmespath_mapping
+from sgr_commhandler.utils import jmespath_mapping, template
 
 logger = logging.getLogger(__name__)
 
@@ -60,36 +65,6 @@ def build_rest_data_point(
         data_type = data_point.data_point.data_type
     validator = build_validator(data_type)
     return DataPoint(protocol, validator)
-
-
-def substitute_parameters(template: str, substitutions: dict[str, str]) -> str:
-    conv_template = template
-    for name, value in substitutions.items():
-        conv_template = conv_template.replace(f'[[{name}]]', value)
-    return conv_template
-
-class RestResponse:
-    def __init__(self, headers: CIMultiDict[str] = CIMultiDict(), body: Optional[str] = None):
-        self.headers = headers
-        self.body = body
-
-
-class RestRequest:
-    def __init__(
-        self,
-        method: str,
-        url: str,
-        headers: CIMultiDict[str] = CIMultiDict(),
-        query_parameters: CIMultiDict[str] = CIMultiDict(),
-        form_parameters: CIMultiDict[str] = CIMultiDict(),
-        body: Optional[str] = None,
-    ):
-        self.method = method
-        self.url = url
-        self.headers = headers
-        self.query_parameters = query_parameters
-        self.form_parameters = form_parameters
-        self.body = body
 
 
 class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
@@ -254,29 +229,37 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
 
         substitutions = build_dynamic_parameter_substitutions(self._dynamic_parameters, parameters)
 
-        request = self._build_request(self._read_call, substitutions)
+        request = build_rest_request(self._read_call, str(self._interface.base_url), substitutions)
 
         response = await self._interface.execute_request(request, skip_cache)
         if not response.body:
             return None
         if (
             self._read_call.response_query
-            and self._read_call.response_query.query_type
-            == ResponseQueryType.JMESPATH_EXPRESSION
+            and self._read_call.response_query.query_type == ResponseQueryType.JMESPATH_EXPRESSION
         ):
-            query_expression = substitute_parameters(
+            # JMESPath expression
+            query_expression = template.substitute(
                 self._read_call.response_query.query if self._read_call.response_query.query else '',
                 substitutions
             )
             return jmespath.search(query_expression, json.loads(response.body))
         elif (
             self._read_call.response_query
-            and self._read_call.response_query.query_type
-            == ResponseQueryType.JMESPATH_MAPPING
+            and self._read_call.response_query.query_type == ResponseQueryType.JMESPATH_MAPPING
         ):
             # JMESPath mappings
             mappings = self._read_call.response_query.jmes_path_mappings.mapping if self._read_call.response_query.jmes_path_mappings else []
             return jmespath_mapping.map_json_response(response.body, mappings)
+        elif (
+            self._read_call.response_query
+            and self._read_call.response_query.query_type == ResponseQueryType.REGULAR_EXPRESSION
+        ):
+            # regex
+            query_expression = self._read_call.response_query.query if self._read_call.response_query.query else ''
+            query_match = re.match(query_expression, response.body)
+            if query_match is not None:
+                return query_match.group()
 
         # plain response
         ret_value = response.body
@@ -326,7 +309,7 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
         substitutions = {
             'value': value
         }
-        request = self._build_request(self._write_call, substitutions=substitutions)
+        request = build_rest_request(self._write_call, str(self._interface.base_url), substitutions=substitutions)
         # TODO use response body
         await self._interface.execute_request(request, skip_cache=True)
 
@@ -348,58 +331,6 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
 
     def dynamic_parameters(self) -> list[DynamicParameter]:
         return self._dynamic_parameters
-
-    def _build_request(self, call_spec: RestApiServiceCall, substitutions: dict[str, str]) -> RestRequest:
-
-        # copy from DP spec.
-        method = call_spec.request_method if call_spec.request_method else HttpMethod.GET
-        req_path = str(call_spec.request_path) if call_spec.request_path else ''
-        headers = call_spec.request_header if call_spec.request_header else HeaderList()
-        query = call_spec.request_query if call_spec.request_query else ParameterList()
-        form = call_spec.request_form if call_spec.request_form else ParameterList()
-        body=str(call_spec.request_body) if call_spec.request_body else None
-
-        # All headers into dictionary, with substitution
-        request_headers: CIMultiDict[str] = CIMultiDict()
-        for header_entry in headers.header:
-            if header_entry.header_name and header_entry.value:
-                request_headers.add(header_entry.header_name, substitute_parameters(header_entry.value, substitutions))
-
-        # All query parameters into dictionary, with substitution
-        query_parameters: CIMultiDict[str] = CIMultiDict()
-        for param_entry in query.parameter:
-            if param_entry.name and param_entry.value:
-                query_parameters.add(param_entry.name, substitute_parameters(param_entry.value, substitutions))
-
-        # All form parameters into dictionary, with substitution
-        form_parameters: CIMultiDict[str] = CIMultiDict()
-        for param_entry in form.parameter:
-            if param_entry.name and param_entry.value:
-                form_parameters.add(param_entry.name, substitute_parameters(param_entry.value, substitutions))
-
-        # request path, with substitution
-        request_path = substitute_parameters(req_path, substitutions)
-
-        # request body, with substitution
-        request_body: Optional[str] = substitute_parameters(body, substitutions) if body is not None else None
-
-        # override body when form parameters are set
-        if len(form_parameters) > 0:
-            request_body = urlencode(form_parameters)
-            request_headers['Content-Type'] = (
-                'application/x-www-form-urlencoded'
-            )
-
-        base_url = f'{self._interface.base_url}{request_path}'
-
-        return RestRequest(
-            method.value,
-            base_url,
-            request_headers,
-            query_parameters,
-            form_parameters,
-            request_body
-        )
 
 
 class RestFunctionalProfile(FunctionalProfile):
@@ -522,7 +453,7 @@ class SGrRestInterface(SGrBaseInterface):
                 data=request.body
             ) as req:
                 req.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
-                logger.info(f'execute_request status: {req.status}')
+                logger.debug(f'execute_request status: {req.status}')
                 res_body = await req.text()
 
                 res_headers = CIMultiDict()

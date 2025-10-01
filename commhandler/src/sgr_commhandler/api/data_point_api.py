@@ -158,22 +158,22 @@ class DataPointProtocol(Protocol[TDpSpec]):
         """
         return False
 
-    def subscribe(self, fn: Callable[[tuple[str, str], Any], NoReturn]):
+    def subscribe(self, fn: Callable[['DataPointProtocol', Any], NoReturn]):
         """
         Subscribes to changes of the data point value.
 
         Parameters
         ----------
-        fn : Callable[[tuple[str, str], Any], NoReturn]
+        fn : Callable[[DataPointProtocol, Any], NoReturn]
             the callback method
         """
-        raise Exception('Unsupported operation')
+        raise Exception('subscribe() is not supported')
 
     def unsubscribe(self):
         """
         Unsubscribes from changes of the data point value.
         """
-        raise Exception('Unsupported operation')
+        raise Exception('unsubscribe() is not supported')
 
 
 class DataPoint(Generic[TDpSpec]):
@@ -208,7 +208,7 @@ class DataPoint(Generic[TDpSpec]):
         """
         return self._protocol.name()
 
-    async def get_value_async(self, parameters: Optional[dict[str, str]] = None) -> Any:
+    async def get_value_async(self, parameters: Optional[dict[str, str]] = None, skip_cache = False) -> Any:
         """
         Gets the data point value asynchronously.
 
@@ -222,7 +222,7 @@ class DataPoint(Generic[TDpSpec]):
         Exception
             when read value is not compatible with data type
         """
-        value = await self._protocol.get_val(parameters)
+        value = await self._protocol.get_val(parameters, skip_cache)
         if self._validator.validate(value):
             return value
         raise Exception(
@@ -242,16 +242,16 @@ class DataPoint(Generic[TDpSpec]):
             return await self._protocol.set_val(value)
         raise Exception('invalid data to write to device')
 
-    def subscribe(self, fn: Callable[[tuple[str, str], Any], NoReturn]):
+    def subscribe(self, fn: Callable[[DataPointProtocol, Any], NoReturn]):
         """
         Subscribes to data point value changes.
 
         Parameters
         ----------
-        fn : Callable[[tuple[str, str], Any], NoReturn]
+        fn : Callable[[DataPointProtocol, Any], NoReturn]
             the handler method
         """
-        self._protocol.subscribe(DataPointConsumer(fn, self._validator))
+        self._protocol.subscribe(fn)
 
     def unsubscribe(self):
         """

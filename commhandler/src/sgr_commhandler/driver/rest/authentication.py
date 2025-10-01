@@ -1,16 +1,23 @@
 import base64
 import json
 import logging
-from typing import Awaitable, Callable, TypeAlias
+import re
+from typing import Any, Awaitable, Callable, TypeAlias
 
 import aiohttp
 import jmespath
 from aiohttp.client import ClientSession
 from jmespath.exceptions import JMESPathError
 from multidict import CIMultiDict
+from sgr_specification.v0.generic.base_types import ResponseQueryType
 from sgr_specification.v0.product import RestApiInterface
 from sgr_specification.v0.product.rest_api_types import (
     RestApiAuthenticationMethod,
+)
+from sgr_commhandler.utils import jmespath_mapping
+from sgr_commhandler.driver.rest.request import (
+    RestResponse,
+    build_rest_request
 )
 
 logger = logging.getLogger(__name__)
@@ -79,48 +86,73 @@ async def authenticate_with_bearer_token(
             raise Exception("no request path")
 
         authentication_url = f"{base_url}{request_path}"
-        logger.debug("auth URL = " + authentication_url)
+        logger.debug(f'auth URL = {authentication_url}')
 
-        # All headers into dictionary
-        request_headers: CIMultiDict[str] = CIMultiDict()
-        if service_call.request_header:
-            for header_entry in service_call.request_header.header:
-                if header_entry.header_name and header_entry.value:
-                    request_headers.add(header_entry.header_name, header_entry.value)
+        request = build_rest_request(service_call, base_url, {})
 
-        request_body = service_call.request_body
-        if request_body is None:
-            raise Exception("no request body")
+        async with session.request(
+                request.method,
+                request.url,
+                headers=request.headers,
+                params=request.query_parameters,
+                data=request.body
+            ) as req:
+                if 200 <= req.status < 300:
+                    logger.info(f"Bearer authentication successful: Status {req.status}")
+                    try:
+                        res_body = await req.text()
+                        res_headers = CIMultiDict()
+                        for name, value in req.headers.items():
+                            res_headers.add(name, value)
 
-        data = json.loads(request_body)
-        async with session.post(
-            url=authentication_url,
-            headers=request_headers,
-            json=data
-        ) as res:
-            if 200 <= res.status < 300:
-                logger.info(f"Authentication successful: Status {res.status}")
-                try:
-                    response = await res.text()
-                    token = jmespath.search("accessToken", json.loads(response))
-                    if token:
-                        session.headers.update(
-                            {"Authorization": f"Bearer {token}"}
-                        )
+                        response = RestResponse(headers=res_headers, body=res_body)
 
-                        logger.info("Token retrieved successfully")
-                        return True
-                    else:
-                        logger.warning("Token not found in the response")
+                        # extract token from response body
+                        if response.body is not None:
+                            token: Any
+                            if (
+                                service_call.response_query
+                                and service_call.response_query.query_type == ResponseQueryType.JMESPATH_EXPRESSION
+                            ):
+                                # JMESPath expression
+                                query_expression = service_call.response_query.query if service_call.response_query.query else ''
+                                token = jmespath.search(query_expression, json.loads(response.body))
+                            elif (
+                                service_call.response_query
+                                and service_call.response_query.query_type == ResponseQueryType.JMESPATH_MAPPING
+                            ):
+                                # JMESPath mappings
+                                mappings = service_call.response_query.jmes_path_mappings.mapping if service_call.response_query.jmes_path_mappings else []
+                                token = jmespath_mapping.map_json_response(response.body, mappings)
+                            elif (
+                                service_call.response_query
+                                and service_call.response_query.query_type == ResponseQueryType.REGULAR_EXPRESSION
+                            ):
+                                # regex
+                                query_expression = service_call.response_query.query if service_call.response_query.query else ''
+                                query_match = re.match(query_expression, response.body)
+                                token = query_match.group() if query_match is not None else None
+                            else:
+                                # plaintext
+                                token = response.body
+
+                            if token is not None:
+                                # update authorization header in active session
+                                session.headers.update(
+                                    {"Authorization": f"Bearer {token}"}
+                                )
+                                logger.info("Bearer token retrieved successfully")
+                                return True
+
+                        logger.warning("Bearer token not found in the response")
                         return False
-                except json.JSONDecodeError:
-                    logger.error("Failed to decode JSON response")
-                except JMESPathError:
-                    logger.error("Failed to search JSON data using JMESPath")
-            else:
-                logger.warning(f"Authentication failed: Status {res.status}")
-                logger.info(f"Response: {await res.text()}")
-
+                    except json.JSONDecodeError:
+                        logger.error("Failed to decode JSON response")
+                    except JMESPathError:
+                        logger.error("Failed to search JSON data using JMESPath")
+                else:
+                    logger.warning(f"Bearer authentication failed: Status {req.status}")
+                    logger.debug(f"Response: {await req.text()}")
     except aiohttp.ClientError as e:
         logger.error(f"Network error occurred: {e}")
     except Exception as e:
