@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [0.4.0] - 2025-10-01
 
 ### Fixed
 
@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - requires updated SGr specification `2.1.20250902`
 - updated dependencies
 - modified `subscribe()` method to provide reference to data point
+- improved bearer authentication process
 
 
 ## [0.3.1] - 2025-04-16
