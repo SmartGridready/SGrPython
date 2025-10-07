@@ -11,6 +11,7 @@ Submodules
    :maxdepth: 1
 
    /autoapi/sgr_commhandler/api/index
+   /autoapi/sgr_commhandler/declaration_library/index
    /autoapi/sgr_commhandler/device_builder/index
    /autoapi/sgr_commhandler/driver/index
    /autoapi/sgr_commhandler/utils/index

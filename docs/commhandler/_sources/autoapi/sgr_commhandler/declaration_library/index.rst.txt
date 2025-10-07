@@ -1,0 +1,52 @@
+sgr_commhandler.declaration_library
+===================================
+
+.. py:module:: sgr_commhandler.declaration_library
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   sgr_commhandler.declaration_library.LIB_BASE_URL
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sgr_commhandler.declaration_library.get_product_eid_xml
+   sgr_commhandler.declaration_library.get_product_info
+
+
+Module Contents
+---------------
+
+.. py:data:: LIB_BASE_URL
+   :value: 'https://library.smartgridready.ch'
+
+
+.. py:function:: get_product_eid_xml(name)
+
+   Gets the XML data of a product EID.
+
+   :param name: the EID name
+   :type name: str
+
+   :returns: an XML string
+   :rtype: str
+
+
+.. py:function:: get_product_info(name)
+
+   Gets information about a product EID.
+
+   :param name: the EID name
+   :type name: str
+
+   :returns: a JSON object
+   :rtype: str
+
+

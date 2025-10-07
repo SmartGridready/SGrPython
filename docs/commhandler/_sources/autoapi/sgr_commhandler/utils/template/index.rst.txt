@@ -1,0 +1,30 @@
+sgr_commhandler.utils.template
+==============================
+
+.. py:module:: sgr_commhandler.utils.template
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sgr_commhandler.utils.template.substitute
+
+
+Module Contents
+---------------
+
+.. py:function:: substitute(template, substitutions)
+
+   Substitutes placeholders in a template string.
+
+   :param template: the template string
+   :type template: str
+   :param substitutions: the placeholders with their value
+   :type substitutions: dict[str, str]
+
+   :returns: the template after replacements
+   :rtype: str
+
+

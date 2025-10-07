@@ -70,7 +70,7 @@ Module Contents
       Gets all data point values of the functional profile asynchronously.
 
       :returns: all data point values by name
-      :rtype: dict[str, DataPoint]
+      :rtype: dict[str, Any]
 
 
 

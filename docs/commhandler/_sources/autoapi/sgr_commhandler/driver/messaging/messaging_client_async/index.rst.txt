@@ -1,0 +1,141 @@
+sgr_commhandler.driver.messaging.messaging_client_async
+=======================================================
+
+.. py:module:: sgr_commhandler.driver.messaging.messaging_client_async
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.messaging.messaging_client_async.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient
+   sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: SGrMessagingClient
+
+   Bases: :py:obj:`abc.ABC`
+
+
+   Defines an abstract base class for messaging clients.
+
+
+   .. py:method:: connect()
+      :async:
+
+
+
+   .. py:method:: disconnect()
+      :async:
+
+
+
+   .. py:method:: is_connected()
+
+
+   .. py:method:: publish_async(topic, payload)
+      :async:
+
+
+
+   .. py:method:: subscribe_async(topic)
+      :async:
+
+
+
+   .. py:method:: unsubscribe_async(topic)
+      :async:
+
+
+
+   .. py:method:: set_message_handler(handler)
+
+
+.. py:class:: SGrMqttClient(host, port, client_id, tls = False, credentials = None)
+
+   Bases: :py:obj:`SGrMessagingClient`
+
+
+   Implements an MQTT messaging client.
+
+
+   .. py:attribute:: _host
+
+
+   .. py:attribute:: _port
+
+
+   .. py:attribute:: _tls
+      :value: False
+
+
+
+   .. py:attribute:: _on_message_handler
+      :type:  Optional[Callable[[str, Any], NoReturn]]
+      :value: None
+
+
+
+   .. py:attribute:: _client
+
+
+   .. py:method:: connect()
+      :async:
+
+
+
+   .. py:method:: disconnect()
+      :async:
+
+
+
+   .. py:method:: is_connected()
+
+
+   .. py:method:: publish_async(topic, payload)
+      :async:
+
+
+
+   .. py:method:: subscribe_async(topic)
+      :async:
+
+
+
+   .. py:method:: unsubscribe_async(topic)
+      :async:
+
+
+
+   .. py:method:: set_message_handler(handler)
+
+
+   .. py:method:: _on_client_connect(client, flags, rc, properties)
+
+
+   .. py:method:: _on_client_disconnect(client, packet)
+
+
+   .. py:method:: _on_client_subscribe(client, mid, qos, properties)
+
+
+   .. py:method:: _on_client_unsubscribe(client, mid, qos)
+
+
+   .. py:method:: _on_client_message(client, topic, payload, qos, properties)
+
+

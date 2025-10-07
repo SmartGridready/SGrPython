@@ -1,0 +1,96 @@
+sgr_commhandler.driver.messaging.messaging_filter
+=================================================
+
+.. py:module:: sgr_commhandler.driver.messaging.messaging_filter
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.messaging.messaging_filter.T
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter
+   sgr_commhandler.driver.messaging.messaging_filter.JMESPathMessagingFilter
+   sgr_commhandler.driver.messaging.messaging_filter.PlaintextMessagingFilter
+   sgr_commhandler.driver.messaging.messaging_filter.RegexMessagingFilter
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.messaging.messaging_filter.get_messaging_filter
+
+
+Module Contents
+---------------
+
+.. py:data:: T
+
+.. py:class:: MessagingFilter(filter_spec)
+
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`T`\ ]
+
+
+   The base class for message filter implementations.
+
+
+   .. py:attribute:: _filter_spec
+
+
+   .. py:method:: is_filter_match(payload)
+
+
+.. py:class:: JMESPathMessagingFilter(filter_spec)
+
+   Bases: :py:obj:`MessagingFilter`\ [\ :py:obj:`sgr_specification.v0.generic.base_types.JmespathFilterType`\ ]
+
+
+   Implements a JMESpath filter for message payloads.
+
+
+   .. py:method:: is_filter_match(payload)
+
+
+.. py:class:: PlaintextMessagingFilter(filter_spec)
+
+   Bases: :py:obj:`MessagingFilter`\ [\ :py:obj:`sgr_specification.v0.generic.base_types.PlaintextFilterType`\ ]
+
+
+   Implements a plain text filter for message payloads.
+
+
+   .. py:method:: is_filter_match(payload)
+
+
+.. py:class:: RegexMessagingFilter(filter_spec)
+
+   Bases: :py:obj:`MessagingFilter`\ [\ :py:obj:`sgr_specification.v0.generic.base_types.RegexFilterType`\ ]
+
+
+   Implements a regex filter for message payloads.
+
+
+   .. py:method:: is_filter_match(payload)
+
+
+.. py:function:: get_messaging_filter(filter)
+
+   Creates a messaging filter from specification.
+
+   :param filter: the filter specification
+   :type filter: MessageFilter
+
+   :returns: the messaging filter, if it could be created
+   :rtype: Optional[MessagingFilter]
+
+

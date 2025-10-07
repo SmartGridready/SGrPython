@@ -20,7 +20,7 @@
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="sgr_commhandler.driver.messaging.messaging_interface_async" href="messaging_interface_async/index.html" />
+    <link rel="next" title="sgr_commhandler.driver.messaging.messaging_client_async" href="messaging_client_async/index.html" />
     <link rel="prev" title="sgr_commhandler.driver.generic.generic_interface_async" href="../generic/generic_interface_async/index.html" /> 
 </head>
 
@@ -49,6 +49,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html">sgr_commhandler</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="../../index.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../../api/index.html">sgr_commhandler.api</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../declaration_library/index.html">sgr_commhandler.declaration_library</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../device_builder/index.html">sgr_commhandler.device_builder</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="../index.html">sgr_commhandler.driver</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../utils/index.html">sgr_commhandler.utils</a></li>
@@ -94,6 +95,8 @@
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="messaging_client_async/index.html">sgr_commhandler.driver.messaging.messaging_client_async</a></li>
+<li class="toctree-l1"><a class="reference internal" href="messaging_filter/index.html">sgr_commhandler.driver.messaging.messaging_filter</a></li>
 <li class="toctree-l1"><a class="reference internal" href="messaging_interface_async/index.html">sgr_commhandler.driver.messaging.messaging_interface_async</a></li>
 </ul>
 </div>
@@ -141,6 +144,11 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint._dynamic_parameters">
+<span class="sig-name descname"><span class="pre">_dynamic_parameters</span></span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint._dynamic_parameters" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint._fp_name">
 <span class="sig-name descname"><span class="pre">_fp_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint._fp_name" title="Link to this definition"></a></dt>
 <dd></dd></dl>
@@ -151,6 +159,41 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint._in_cmd">
+<span class="sig-name descname"><span class="pre">_in_cmd</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sgr_specification.v0.product.InMessage</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint._in_cmd" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint._read_cmd">
+<span class="sig-name descname"><span class="pre">_read_cmd</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sgr_specification.v0.product.OutMessage</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint._read_cmd" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint._write_cmd">
+<span class="sig-name descname"><span class="pre">_write_cmd</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sgr_specification.v0.product.OutMessage</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint._write_cmd" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint._in_filter">
+<span class="sig-name descname"><span class="pre">_in_filter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="messaging_filter/index.html#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter"><span class="pre">sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint._in_filter" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint._read_response_event">
+<span class="sig-name descname"><span class="pre">_read_response_event</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">asyncio.Event</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint._read_response_event" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint._cached_value">
+<span class="sig-name descname"><span class="pre">_cached_value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint._cached_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint._handle_message">
+<span class="sig-name descname"><span class="pre">_handle_message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">collections.abc.Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../api/data_point_api/index.html#sgr_commhandler.api.data_point_api.DataPointProtocol" title="sgr_commhandler.api.data_point_api.DataPointProtocol"><span class="pre">sgr_commhandler.api.data_point_api.DataPointProtocol</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">NoReturn</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint._handle_message" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint._interface">
 <span class="sig-name descname"><span class="pre">_interface</span></span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint._interface" title="Link to this definition"></a></dt>
 <dd></dd></dl>
@@ -158,13 +201,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint.name">
 <span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint.name" title="Link to this definition"></a></dt>
-<dd><p>Gets the functional profile and data point names.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the functional profile and data point names as tuple</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>tuple[str, str]</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[str, str]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -172,13 +211,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint.get_specification">
 <span class="sig-name descname"><span class="pre">get_specification</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint.get_specification" title="Link to this definition"></a></dt>
-<dd><p>Gets the data point specification.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the interface-specific specification</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>TDpSpec</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sgr_specification.v0.product.MessagingDataPoint</p>
 </dd>
 </dl>
 </dd></dl>
@@ -186,19 +221,15 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint.get_val">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint.get_val" title="Link to this definition"></a></dt>
-<dd><p>Reads the data point value.</p>
-<dl class="field-list simple">
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parameters</strong> (<em>Optional</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>) – optional dynamic parameters of the request</p></li>
-<li><p><strong>skip_cache</strong> (<em>bool</em>) – does not use cache if true</p></li>
+<li><p><strong>parameters</strong> (<em>Optional</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>skip_cache</strong> (<em>bool</em>)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>the data point value</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
 </dd>
 </dl>
 </dd></dl>
@@ -206,10 +237,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint.set_val">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint.set_val" title="Link to this definition"></a></dt>
-<dd><p>Writes the data point value.</p>
-<dl class="field-list simple">
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – the data point value to write</p>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -217,13 +247,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint.direction">
 <span class="sig-name descname"><span class="pre">direction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint.direction" title="Link to this definition"></a></dt>
-<dd><p>Gets the data direction of the data point.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the data point direction</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>DataDirectionProduct</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sgr_specification.v0.generic.DataDirectionProduct</p>
 </dd>
 </dl>
 </dd></dl>
@@ -231,13 +257,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint.unit">
 <span class="sig-name descname"><span class="pre">unit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint.unit" title="Link to this definition"></a></dt>
-<dd><p>Gets the unit of measurement of the data point.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the unit</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Units</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sgr_specification.v0.generic.Units</p>
 </dd>
 </dl>
 </dd></dl>
@@ -245,13 +267,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint.can_subscribe">
 <span class="sig-name descname"><span class="pre">can_subscribe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint.can_subscribe" title="Link to this definition"></a></dt>
-<dd><p>Defines if subscribe() is allowed.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True if allowed, False otherwise</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -259,10 +277,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint.subscribe">
 <span class="sig-name descname"><span class="pre">subscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint.subscribe" title="Link to this definition"></a></dt>
-<dd><p>Subscribes to changes of the data point value.</p>
-<dl class="field-list simple">
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>fn</strong> (<em>Callable</em><em>[</em><em>[</em><em>Any</em><em>]</em><em>, </em><em>None</em><em>]</em>) – the callback method</p>
+<dd class="field-odd"><p><strong>fn</strong> (<em>collections.abc.Callable</em><em>[</em><em>[</em><a class="reference internal" href="../../api/data_point_api/index.html#sgr_commhandler.api.data_point_api.DataPointProtocol" title="sgr_commhandler.api.data_point_api.DataPointProtocol"><em>sgr_commhandler.api.data_point_api.DataPointProtocol</em></a><em>, </em><em>Any</em><em>]</em><em>, </em><em>NoReturn</em><em>]</em>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -270,7 +287,16 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint.unsubscribe">
 <span class="sig-name descname"><span class="pre">unsubscribe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint.unsubscribe" title="Link to this definition"></a></dt>
-<dd><p>Unsubscribes from changes of the data point value.</p>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingDataPoint._on_message">
+<span class="sig-name descname"><span class="pre">_on_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingDataPoint._on_message" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>payload</strong> (<em>Any</em>)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -306,13 +332,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingFunctionalProfile.name">
 <span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingFunctionalProfile.name" title="Link to this definition"></a></dt>
-<dd><p>Gets the functional profile name.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the functional profile name</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>str</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -320,13 +342,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingFunctionalProfile.get_data_points">
 <span class="sig-name descname"><span class="pre">get_data_points</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingFunctionalProfile.get_data_points" title="Link to this definition"></a></dt>
-<dd><p>Gets all data points.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>all data points</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict[tuple[str, str], <a class="reference internal" href="../../api/data_point_api/index.html#sgr_commhandler.api.data_point_api.DataPoint" title="sgr_commhandler.api.data_point_api.DataPoint">DataPoint</a>]</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[tuple[str, str], <a class="reference internal" href="../../api/data_point_api/index.html#sgr_commhandler.api.data_point_api.DataPoint" title="sgr_commhandler.api.data_point_api.DataPoint">sgr_commhandler.api.data_point_api.DataPoint</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -334,13 +352,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.MessagingFunctionalProfile.get_specification">
 <span class="sig-name descname"><span class="pre">get_specification</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.MessagingFunctionalProfile.get_specification" title="Link to this definition"></a></dt>
-<dd><p>Gets the functional profile specification.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the functional profile specification</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>TFpSpec</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sgr_specification.v0.product.MessagingFunctionalProfile</p>
 </dd>
 </dl>
 </dd></dl>
@@ -358,6 +372,21 @@
 </dd>
 </dl>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.SGrMessagingInterface._client">
+<span class="sig-name descname"><span class="pre">_client</span></span><a class="headerlink" href="#sgr_commhandler.driver.messaging.SGrMessagingInterface._client" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.SGrMessagingInterface._subscribed_topics">
+<span class="sig-name descname"><span class="pre">_subscribed_topics</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#sgr_commhandler.driver.messaging.SGrMessagingInterface._subscribed_topics" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.SGrMessagingInterface._data_point_handlers">
+<span class="sig-name descname"><span class="pre">_data_point_handlers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">collections.abc.Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">NoReturn</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="messaging_filter/index.html#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter"><span class="pre">sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#sgr_commhandler.driver.messaging.SGrMessagingInterface._data_point_handlers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.SGrMessagingInterface.functional_profiles">
 <span class="sig-name descname"><span class="pre">functional_profiles</span></span><a class="headerlink" href="#sgr_commhandler.driver.messaging.SGrMessagingInterface.functional_profiles" title="Link to this definition"></a></dt>
 <dd></dd></dl>
@@ -365,27 +394,69 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.SGrMessagingInterface.is_connected">
 <span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.SGrMessagingInterface.is_connected" title="Link to this definition"></a></dt>
-<dd><p>Gets the connection state.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the connection state</p>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.SGrMessagingInterface.disconnect_async">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.SGrMessagingInterface.disconnect_async" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.SGrMessagingInterface.connect_async">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.SGrMessagingInterface.connect_async" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.SGrMessagingInterface.read_message">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.SGrMessagingInterface.read_message" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>out_topic</strong> (<em>str</em>)</p></li>
+<li><p><strong>in_topic</strong> (<em>str</em>)</p></li>
+<li><p><strong>payload</strong> (<em>Any</em>)</p></li>
+</ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
+<dd class="field-even"><p>Any</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.SGrMessagingInterface.disconnect_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.SGrMessagingInterface.disconnect_async" title="Link to this definition"></a></dt>
-<dd><p>Disconnects the device asynchronously.</p>
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.SGrMessagingInterface.write_message">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.SGrMessagingInterface.write_message" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>topic</strong> (<em>str</em>)</p></li>
+<li><p><strong>payload</strong> (<em>Any</em>)</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.SGrMessagingInterface.connect_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.SGrMessagingInterface.connect_async" title="Link to this definition"></a></dt>
-<dd><p>Connects the device asynchronously.</p>
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.SGrMessagingInterface.data_point_handler">
+<span class="sig-name descname"><span class="pre">data_point_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_point</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.SGrMessagingInterface.data_point_handler" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data_point</strong> (<em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>, </em><em>str</em><em>, </em><em>collections.abc.Callable</em><em>[</em><em>[</em><em>Any</em><em>]</em><em>, </em><em>NoReturn</em><em>]</em><em>, </em><em>Optional</em><em>[</em><a class="reference internal" href="messaging_filter/index.html#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter"><em>sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter</em></a><em>]</em><em>]</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.SGrMessagingInterface.handle_client_message">
+<span class="sig-name descname"><span class="pre">handle_client_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.SGrMessagingInterface.handle_client_message" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>topic</strong> (<em>str</em>)</p></li>
+<li><p><strong>payload</strong> (<em>Any</em>)</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -398,7 +469,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../generic/generic_interface_async/index.html" class="btn btn-neutral float-left" title="sgr_commhandler.driver.generic.generic_interface_async" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="messaging_interface_async/index.html" class="btn btn-neutral float-right" title="sgr_commhandler.driver.messaging.messaging_interface_async" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="messaging_client_async/index.html" class="btn btn-neutral float-right" title="sgr_commhandler.driver.messaging.messaging_client_async" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

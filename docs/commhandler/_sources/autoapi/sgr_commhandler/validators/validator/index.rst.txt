@@ -78,15 +78,6 @@ Module Contents
 
 
 
-   .. py:method:: data_type()
-
-      Gets the validator's data type.
-
-      :returns: the data type enumeration
-      :rtype: DataTypes
-
-
-
    .. py:method:: options()
 
       Gets the validator's options.
@@ -119,15 +110,6 @@ Module Contents
 
 
 
-   .. py:method:: data_type()
-
-      Gets the validator's data type.
-
-      :returns: the data type enumeration
-      :rtype: DataTypes
-
-
-
 .. py:class:: FloatValidator(size)
 
    Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointValidator`
@@ -151,15 +133,6 @@ Module Contents
 
 
 
-   .. py:method:: data_type()
-
-      Gets the validator's data type.
-
-      :returns: the data type enumeration
-      :rtype: DataTypes
-
-
-
 .. py:class:: StringValidator
 
    Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointValidator`
@@ -177,15 +150,6 @@ Module Contents
 
       :returns: true if value is compatible, false otherwise
       :rtype: bool
-
-
-
-   .. py:method:: data_type()
-
-      Gets the validator's data type.
-
-      :returns: the data type enumeration
-      :rtype: DataTypes
 
 
 
@@ -209,15 +173,6 @@ Module Contents
 
 
 
-   .. py:method:: data_type()
-
-      Gets the validator's data type.
-
-      :returns: the data type enumeration
-      :rtype: DataTypes
-
-
-
 .. py:class:: BitmapValidator
 
    Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointValidator`
@@ -235,15 +190,6 @@ Module Contents
 
       :returns: true if value is compatible, false otherwise
       :rtype: bool
-
-
-
-   .. py:method:: data_type()
-
-      Gets the validator's data type.
-
-      :returns: the data type enumeration
-      :rtype: DataTypes
 
 
 
@@ -267,15 +213,6 @@ Module Contents
 
 
 
-   .. py:method:: data_type()
-
-      Gets the validator's data type.
-
-      :returns: the data type enumeration
-      :rtype: DataTypes
-
-
-
 .. py:class:: JsonValidator
 
    Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointValidator`
@@ -293,15 +230,6 @@ Module Contents
 
       :returns: true if value is compatible, false otherwise
       :rtype: bool
-
-
-
-   .. py:method:: data_type()
-
-      Gets the validator's data type.
-
-      :returns: the data type enumeration
-      :rtype: DataTypes
 
 
 

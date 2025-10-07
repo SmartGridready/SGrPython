@@ -43,6 +43,9 @@ Module Contents
       :param byte_count: the number of bytes
       :type byte_count: int
 
+      :returns: the decoded value
+      :rtype: Any
+
 
 
 .. py:class:: PayloadBuilder(*args, **kwarg)
@@ -61,6 +64,9 @@ Module Contents
       :type value: Any
       :param modbus_type: The Modbus data type to encode
       :type modbus_type: ModbusDataType
+
+      :returns: the same instance
+      :rtype: PayloadBuilder
 
 
 

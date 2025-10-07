@@ -49,6 +49,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html">sgr_commhandler</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="../../index.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../../api/index.html">sgr_commhandler.api</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../declaration_library/index.html">sgr_commhandler.declaration_library</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../device_builder/index.html">sgr_commhandler.device_builder</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="../index.html">sgr_commhandler.driver</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../utils/index.html">sgr_commhandler.utils</a></li>
@@ -158,13 +159,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.contact.ContactDataPoint.name">
 <span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.contact.ContactDataPoint.name" title="Link to this definition"></a></dt>
-<dd><p>Gets the functional profile and data point names.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the functional profile and data point names as tuple</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>tuple[str, str]</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[str, str]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -172,13 +169,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.contact.ContactDataPoint.get_specification">
 <span class="sig-name descname"><span class="pre">get_specification</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.contact.ContactDataPoint.get_specification" title="Link to this definition"></a></dt>
-<dd><p>Gets the data point specification.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the interface-specific specification</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>TDpSpec</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sgr_specification.v0.generic.DataPointBase</p>
 </dd>
 </dl>
 </dd></dl>
@@ -186,19 +179,15 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.contact.ContactDataPoint.get_val">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.contact.ContactDataPoint.get_val" title="Link to this definition"></a></dt>
-<dd><p>Reads the data point value.</p>
-<dl class="field-list simple">
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parameters</strong> (<em>Optional</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>) – optional dynamic parameters of the request</p></li>
-<li><p><strong>skip_cache</strong> (<em>bool</em>) – does not use cache if true</p></li>
+<li><p><strong>parameters</strong> (<em>Optional</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>skip_cache</strong> (<em>bool</em>)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>the data point value</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
 </dd>
 </dl>
 </dd></dl>
@@ -206,10 +195,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.contact.ContactDataPoint.set_val">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.contact.ContactDataPoint.set_val" title="Link to this definition"></a></dt>
-<dd><p>Writes the data point value.</p>
-<dl class="field-list simple">
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – the data point value to write</p>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -217,13 +205,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.contact.ContactDataPoint.direction">
 <span class="sig-name descname"><span class="pre">direction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.contact.ContactDataPoint.direction" title="Link to this definition"></a></dt>
-<dd><p>Gets the data direction of the data point.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the data point direction</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>DataDirectionProduct</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sgr_specification.v0.generic.DataDirectionProduct</p>
 </dd>
 </dl>
 </dd></dl>
@@ -231,13 +215,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.contact.ContactDataPoint.unit">
 <span class="sig-name descname"><span class="pre">unit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.contact.ContactDataPoint.unit" title="Link to this definition"></a></dt>
-<dd><p>Gets the unit of measurement of the data point.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the unit</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Units</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sgr_specification.v0.generic.Units</p>
 </dd>
 </dl>
 </dd></dl>
@@ -275,13 +255,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.contact.ContactFunctionalProfile.name">
 <span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.contact.ContactFunctionalProfile.name" title="Link to this definition"></a></dt>
-<dd><p>Gets the functional profile name.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the functional profile name</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>str</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -289,13 +265,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.contact.ContactFunctionalProfile.get_data_points">
 <span class="sig-name descname"><span class="pre">get_data_points</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.contact.ContactFunctionalProfile.get_data_points" title="Link to this definition"></a></dt>
-<dd><p>Gets all data points.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>all data points</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict[tuple[str, str], <a class="reference internal" href="../../api/data_point_api/index.html#sgr_commhandler.api.data_point_api.DataPoint" title="sgr_commhandler.api.data_point_api.DataPoint">DataPoint</a>]</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[tuple[str, str], <a class="reference internal" href="../../api/data_point_api/index.html#sgr_commhandler.api.data_point_api.DataPoint" title="sgr_commhandler.api.data_point_api.DataPoint">sgr_commhandler.api.data_point_api.DataPoint</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -303,13 +275,9 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.contact.ContactFunctionalProfile.get_specification">
 <span class="sig-name descname"><span class="pre">get_specification</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.contact.ContactFunctionalProfile.get_specification" title="Link to this definition"></a></dt>
-<dd><p>Gets the functional profile specification.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the functional profile specification</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>TFpSpec</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sgr_specification.v0.product.ContactFunctionalProfile</p>
 </dd>
 </dl>
 </dd></dl>
@@ -345,28 +313,17 @@ Note: we do not implement a complete driver here, because it is very application
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.contact.SGrContactInterface.is_connected">
 <span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.contact.SGrContactInterface.is_connected" title="Link to this definition"></a></dt>
-<dd><p>Gets the connection state.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the connection state</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.contact.SGrContactInterface.disconnect_async">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.contact.SGrContactInterface.disconnect_async" title="Link to this definition"></a></dt>
-<dd><p>Disconnects the device asynchronously.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.contact.SGrContactInterface.connect_async">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.contact.SGrContactInterface.connect_async" title="Link to this definition"></a></dt>
-<dd><p>Connects the device asynchronously.</p>
-</dd></dl>
+<dd></dd></dl>
 
 </dd></dl>
 

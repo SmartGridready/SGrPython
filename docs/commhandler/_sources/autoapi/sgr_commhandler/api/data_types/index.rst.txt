@@ -23,6 +23,11 @@ Module Contents
    Defines the data point data types supported by the SGr specification.
 
 
+   .. py:attribute:: UNDEFINED
+      :value: 'UNDEFINED'
+
+
+
    .. py:attribute:: INT
       :value: 'INT'
 

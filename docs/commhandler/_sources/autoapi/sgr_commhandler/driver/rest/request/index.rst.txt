@@ -1,0 +1,79 @@
+sgr_commhandler.driver.rest.request
+===================================
+
+.. py:module:: sgr_commhandler.driver.rest.request
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.rest.request.RestResponse
+   sgr_commhandler.driver.rest.request.RestRequest
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.rest.request.build_rest_request
+
+
+Module Contents
+---------------
+
+.. py:class:: RestResponse(headers = CIMultiDict(), body = None)
+
+   Implements a REST response.
+
+
+   .. py:attribute:: headers
+
+
+   .. py:attribute:: body
+      :value: None
+
+
+
+.. py:class:: RestRequest(method, url, headers = CIMultiDict(), query_parameters = CIMultiDict(), form_parameters = CIMultiDict(), body = None)
+
+   Implements a REST request.
+
+
+   .. py:attribute:: method
+
+
+   .. py:attribute:: url
+
+
+   .. py:attribute:: headers
+
+
+   .. py:attribute:: query_parameters
+
+
+   .. py:attribute:: form_parameters
+
+
+   .. py:attribute:: body
+      :value: None
+
+
+
+.. py:function:: build_rest_request(call_spec, base_url, substitutions)
+
+   Builds a REST request.
+
+   :param call_spec: the REST call specification
+   :type call_spec: RestApiServiceCall
+   :param base_url: the base URL of the HTTP request
+   :type base_url: str
+   :param substitutions: parameter substitutions
+   :type substitutions: dict[str, str]
+
+   :returns: the created request
+   :rtype: RestRequest
+
+

@@ -27,7 +27,7 @@ Module Contents
 
 .. py:data:: logger
 
-.. py:class:: SGrModbusClient(endianness, addr_offset)
+.. py:class:: SGrModbusClient(endianness, addr_offset, client)
 
    Bases: :py:obj:`abc.ABC`
 
@@ -39,9 +39,7 @@ Module Contents
 
 
    .. py:attribute:: _client
-      :type:  Optional[pymodbus.client.base.ModbusBaseClient]
-      :value: None
-
+      :type:  pymodbus.client.base.ModbusBaseClient
 
 
    .. py:attribute:: _byte_order
@@ -53,6 +51,7 @@ Module Contents
 
 
    .. py:attribute:: _addr_offset
+      :type:  int
 
 
    .. py:method:: connect()
@@ -182,28 +181,6 @@ Module Contents
 
 
 
-   .. py:method:: _mult_value_decoder(addr, size, data_type, register_type, slave_id)
-      :async:
-
-
-      Reads register and decodes the value.
-
-      :param addr: The address to read from and decode
-      :type addr: int
-      :param size: The number of registers to read
-      :type size: int
-      :param data_type: The modbus type to decode
-      :type data_type: ModbusDataType
-      :param register_type: The register type
-      :type register_type: str
-      :param slave_id: The slave ID of the device
-      :type slave_id: int
-
-      :returns: Decoded float tuple
-      :rtype: Optional[tuple[float,float,float]]
-
-
-
 .. py:class:: SGrModbusTCPClient(ip, port, endianness = BitOrder.BIG_ENDIAN, addr_offset = 0)
 
    Bases: :py:obj:`SGrModbusClient`
@@ -216,9 +193,6 @@ Module Contents
 
 
    .. py:attribute:: _port
-
-
-   .. py:attribute:: _client
 
 
    .. py:method:: connect()
@@ -243,9 +217,6 @@ Module Contents
 
 
    .. py:attribute:: _serial_port
-
-
-   .. py:attribute:: _client
 
 
    .. py:method:: connect()

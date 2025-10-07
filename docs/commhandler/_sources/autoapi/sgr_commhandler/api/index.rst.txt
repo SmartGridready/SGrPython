@@ -135,7 +135,7 @@ Package Contents
 
 
 
-   .. py:method:: get_value_async(parameters = None)
+   .. py:method:: get_value_async(parameters = None, skip_cache=False)
       :async:
 
 
@@ -164,7 +164,7 @@ Package Contents
       Subscribes to data point value changes.
 
       :param fn: the handler method
-      :type fn: Callable[[Any], None]
+      :type fn: Callable[[DataPointProtocol, Any], NoReturn]
 
 
 
@@ -242,7 +242,7 @@ Package Contents
    Bases: :py:obj:`Protocol`\ [\ :py:obj:`TDpSpec`\ ]
 
 
-   Defines an interface for data point protocols.
+   Implements a base class for data point protocols.
 
 
    .. py:method:: get_specification()
@@ -331,7 +331,7 @@ Package Contents
       Subscribes to changes of the data point value.
 
       :param fn: the callback method
-      :type fn: Callable[[Any], None]
+      :type fn: Callable[[DataPointProtocol, Any], NoReturn]
 
 
 
@@ -341,12 +341,16 @@ Package Contents
 
 
 
-.. py:class:: DataPointValidator
+.. py:class:: DataPointValidator(data_type)
 
    Bases: :py:obj:`Protocol`
 
 
-   Defines an interface for data point validators.
+   Implements a base class for data point validators.
+
+
+   .. py:attribute:: _data_type
+      :type:  sgr_commhandler.api.data_types.DataTypes
 
 
    .. py:method:: validate(value)
@@ -444,7 +448,7 @@ Package Contents
       :type:  bool
 
 
-.. py:class:: SGrBaseInterface
+.. py:class:: SGrBaseInterface(frame)
 
    Bases: :py:obj:`Protocol`
 
@@ -490,9 +494,6 @@ Package Contents
 
    .. py:attribute:: functional_profiles
       :type:  collections.abc.Mapping[str, sgr_commhandler.api.functional_profile_api.FunctionalProfile]
-
-
-   .. py:method:: _initialize_device(frame)
 
 
    .. py:method:: connect_async()
@@ -627,7 +628,7 @@ Package Contents
       Gets all data point values of the functional profile asynchronously.
 
       :returns: all data point values by name
-      :rtype: dict[str, DataPoint]
+      :rtype: dict[str, Any]
 
 
 

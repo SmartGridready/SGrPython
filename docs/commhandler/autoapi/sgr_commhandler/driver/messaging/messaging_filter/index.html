@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sgr_commhandler.driver.messaging.messaging_filter &mdash; SGr CommHandler 0.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../../_static/documentation_options.js?v=7f00635f"></script>
+      <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="sgr_commhandler.driver.messaging.messaging_interface_async" href="../messaging_interface_async/index.html" />
+    <link rel="prev" title="sgr_commhandler.driver.messaging.messaging_client_async" href="../messaging_client_async/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            SGr CommHandler
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../index.html">sgr_commhandler</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../../api/index.html">sgr_commhandler.api</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../declaration_library/index.html">sgr_commhandler.declaration_library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../device_builder/index.html">sgr_commhandler.device_builder</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../../index.html">sgr_commhandler.driver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../utils/index.html">sgr_commhandler.utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../validators/index.html">sgr_commhandler.validators</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">SGr CommHandler</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">sgr_commhandler</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">sgr_commhandler.driver</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">sgr_commhandler.driver.messaging</a></li>
+      <li class="breadcrumb-item active">sgr_commhandler.driver.messaging.messaging_filter</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../_sources/autoapi/sgr_commhandler/driver/messaging/messaging_filter/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-sgr_commhandler.driver.messaging.messaging_filter">
+<span id="sgr-commhandler-driver-messaging-messaging-filter"></span><h1>sgr_commhandler.driver.messaging.messaging_filter<a class="headerlink" href="#module-sgr_commhandler.driver.messaging.messaging_filter" title="Link to this heading"></a></h1>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.T" title="sgr_commhandler.driver.messaging.messaging_filter.T"><code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessagingFilter</span></code></a></p></td>
+<td><p>The base class for message filter implementations.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.JMESPathMessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.JMESPathMessagingFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JMESPathMessagingFilter</span></code></a></p></td>
+<td><p>Implements a JMESpath filter for message payloads.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.PlaintextMessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.PlaintextMessagingFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PlaintextMessagingFilter</span></code></a></p></td>
+<td><p>Implements a plain text filter for message payloads.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.RegexMessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.RegexMessagingFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RegexMessagingFilter</span></code></a></p></td>
+<td><p>Implements a regex filter for message payloads.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.get_messaging_filter" title="sgr_commhandler.driver.messaging.messaging_filter.get_messaging_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_messaging_filter</span></code></a>(filter)</p></td>
+<td><p>Creates a messaging filter from specification.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.T">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.messaging.messaging_filter.</span></span><span class="sig-name descname"><span class="pre">T</span></span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.T" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.messaging.messaging_filter.</span></span><span class="sig-name descname"><span class="pre">MessagingFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_spec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Generic</span></code>[<a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.T" title="sgr_commhandler.driver.messaging.messaging_filter.T"><code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code></a>]</p>
+<p>The base class for message filter implementations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filter_spec</strong> (<em>T</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter._filter_spec">
+<span class="sig-name descname"><span class="pre">_filter_spec</span></span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter._filter_spec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter.is_filter_match">
+<span class="sig-name descname"><span class="pre">is_filter_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter.is_filter_match" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>payload</strong> (<em>Any</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.JMESPathMessagingFilter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.messaging.messaging_filter.</span></span><span class="sig-name descname"><span class="pre">JMESPathMessagingFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_spec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.JMESPathMessagingFilter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessagingFilter</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_specification.v0.generic.base_types.JmespathFilterType</span></code>]</p>
+<p>Implements a JMESpath filter for message payloads.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filter_spec</strong> (<em>sgr_specification.v0.generic.base_types.JmespathFilterType</em>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.JMESPathMessagingFilter.is_filter_match">
+<span class="sig-name descname"><span class="pre">is_filter_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.JMESPathMessagingFilter.is_filter_match" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>payload</strong> (<em>Any</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.PlaintextMessagingFilter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.messaging.messaging_filter.</span></span><span class="sig-name descname"><span class="pre">PlaintextMessagingFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_spec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.PlaintextMessagingFilter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessagingFilter</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_specification.v0.generic.base_types.PlaintextFilterType</span></code>]</p>
+<p>Implements a plain text filter for message payloads.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filter_spec</strong> (<em>sgr_specification.v0.generic.base_types.PlaintextFilterType</em>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.PlaintextMessagingFilter.is_filter_match">
+<span class="sig-name descname"><span class="pre">is_filter_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.PlaintextMessagingFilter.is_filter_match" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>payload</strong> (<em>Any</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.RegexMessagingFilter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.messaging.messaging_filter.</span></span><span class="sig-name descname"><span class="pre">RegexMessagingFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_spec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.RegexMessagingFilter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessagingFilter</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_specification.v0.generic.base_types.RegexFilterType</span></code>]</p>
+<p>Implements a regex filter for message payloads.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filter_spec</strong> (<em>sgr_specification.v0.generic.base_types.RegexFilterType</em>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.RegexMessagingFilter.is_filter_match">
+<span class="sig-name descname"><span class="pre">is_filter_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.RegexMessagingFilter.is_filter_match" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>payload</strong> (<em>Any</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.get_messaging_filter">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.messaging.messaging_filter.</span></span><span class="sig-name descname"><span class="pre">get_messaging_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.get_messaging_filter" title="Link to this definition"></a></dt>
+<dd><p>Creates a messaging filter from specification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filter</strong> (<em>MessageFilter</em>) – the filter specification</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the messaging filter, if it could be created</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[<a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter">MessagingFilter</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../messaging_client_async/index.html" class="btn btn-neutral float-left" title="sgr_commhandler.driver.messaging.messaging_client_async" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../messaging_interface_async/index.html" class="btn btn-neutral float-right" title="sgr_commhandler.driver.messaging.messaging_interface_async" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Verein SmartGridready.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

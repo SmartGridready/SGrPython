@@ -81,7 +81,7 @@ Module Contents
       :type:  bool
 
 
-.. py:class:: SGrBaseInterface
+.. py:class:: SGrBaseInterface(frame)
 
    Bases: :py:obj:`Protocol`
 
@@ -127,9 +127,6 @@ Module Contents
 
    .. py:attribute:: functional_profiles
       :type:  collections.abc.Mapping[str, sgr_commhandler.api.functional_profile_api.FunctionalProfile]
-
-
-   .. py:method:: _initialize_device(frame)
 
 
    .. py:method:: connect_async()

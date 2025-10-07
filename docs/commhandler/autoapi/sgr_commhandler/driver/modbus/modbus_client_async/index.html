@@ -49,6 +49,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../../../index.html">sgr_commhandler</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="../../../index.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../../../api/index.html">sgr_commhandler.api</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../declaration_library/index.html">sgr_commhandler.declaration_library</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../device_builder/index.html">sgr_commhandler.device_builder</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="../../index.html">sgr_commhandler.driver</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../utils/index.html">sgr_commhandler.utils</a></li>
@@ -126,7 +127,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusClient">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.modbus_client_async.</span></span><span class="sig-name descname"><span class="pre">SGrModbusClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endianness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr_offset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusClient" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.modbus_client_async.</span></span><span class="sig-name descname"><span class="pre">SGrModbusClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endianness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr_offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusClient" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <p>Defines an abstract base class for Modbus clients.</p>
 <dl class="field-list simple">
@@ -134,6 +135,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>endianness</strong> (<em>sgr_specification.v0.product.modbus_types.BitOrder</em>)</p></li>
 <li><p><strong>addr_offset</strong> (<em>int</em>)</p></li>
+<li><p><strong>client</strong> (<em>pymodbus.client.base.ModbusBaseClient</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -144,7 +146,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusClient._client">
-<span class="sig-name descname"><span class="pre">_client</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pymodbus.client.base.ModbusBaseClient</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusClient._client" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_client</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pymodbus.client.base.ModbusBaseClient</span></em><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusClient._client" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -159,7 +161,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusClient._addr_offset">
-<span class="sig-name descname"><span class="pre">_addr_offset</span></span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusClient._addr_offset" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_addr_offset</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusClient._addr_offset" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -308,29 +310,6 @@
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusClient._mult_value_decoder">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_mult_value_decoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">register_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slave_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusClient._mult_value_decoder" title="Link to this definition"></a></dt>
-<dd><p>Reads register and decodes the value.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>addr</strong> (<em>int</em>) – The address to read from and decode</p></li>
-<li><p><strong>size</strong> (<em>int</em>) – The number of registers to read</p></li>
-<li><p><strong>data_type</strong> (<em>ModbusDataType</em>) – The modbus type to decode</p></li>
-<li><p><strong>register_type</strong> (<em>str</em>) – The register type</p></li>
-<li><p><strong>slave_id</strong> (<em>int</em>) – The slave ID of the device</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Decoded float tuple</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Optional[tuple[float,float,float]]</p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -356,11 +335,6 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusTCPClient._port">
 <span class="sig-name descname"><span class="pre">_port</span></span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusTCPClient._port" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusTCPClient._client">
-<span class="sig-name descname"><span class="pre">_client</span></span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusTCPClient._client" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -404,11 +378,6 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusRTUClient._serial_port">
 <span class="sig-name descname"><span class="pre">_serial_port</span></span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusRTUClient._serial_port" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusRTUClient._client">
-<span class="sig-name descname"><span class="pre">_client</span></span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_client_async.SGrModbusRTUClient._client" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
