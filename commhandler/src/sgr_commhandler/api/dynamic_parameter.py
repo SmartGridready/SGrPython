@@ -50,7 +50,7 @@ def build_dynamic_parameter_substitutions(dynamic_parameters: list['DynamicParam
     """
     final_parameters = {}
     for dyn_param in dynamic_parameters:
-        prop_value = input_parameters.get(dyn_param.name) if input_parameters is not None else None
+        prop_value = input_parameters.get(str(dyn_param.name)) if input_parameters is not None else None
         if prop_value is not None:
             final_parameters[dyn_param.name] = prop_value
         elif dyn_param.default_value is not None:
@@ -100,4 +100,4 @@ class DynamicParameter:
         str
             A string
         """
-        return f'{self.label} - {self.name}'
+        return f'<DynamicParameter={self.name}>'

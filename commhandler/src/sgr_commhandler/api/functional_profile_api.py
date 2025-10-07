@@ -1,4 +1,4 @@
-from typing import Optional, Protocol, TypeVar
+from typing import Any, Optional, Protocol, TypeVar
 
 from sgr_specification.v0.generic import DataDirectionProduct
 from sgr_specification.v0.generic.functional_profile import FunctionalProfileBase
@@ -52,13 +52,13 @@ class FunctionalProfile(Protocol[TFpSpec]):
         """
         return self.get_data_points()[(self.name(), dp_name)]
 
-    async def get_values_async(self, parameters: Optional[dict[str, str]] = None) -> dict[str, DataPoint]:
+    async def get_values_async(self, parameters: Optional[dict[str, str]] = None) -> dict[str, Any]:
         """
         Gets all data point values of the functional profile asynchronously.
 
         Returns
         -------
-        dict[str, DataPoint]
+        dict[str, Any]
             all data point values by name
         """
         data = {}

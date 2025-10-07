@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Any, Generic, Optional, Protocol, TypeVar
+from typing import Any, Generic, NoReturn, Optional, Protocol, TypeVar
 
 from sgr_specification.v0.generic import DataDirectionProduct, Units, DataPointBase
 
@@ -12,8 +12,13 @@ TDpSpec = TypeVar('TDpSpec', covariant=True, bound=DataPointBase)
 
 class DataPointValidator(Protocol):
     """
-    Defines an interface for data point validators.
+    Implements a base class for data point validators.
     """
+
+    _data_type: DataTypes
+
+    def __init__(self, data_type: DataTypes):
+        self._data_type = data_type
 
     def validate(self, value: Any) -> bool:
         """
@@ -29,7 +34,7 @@ class DataPointValidator(Protocol):
         bool
             true if value is compatible, false otherwise
         """
-        ...
+        return False
 
     def data_type(self) -> DataTypes:
         """
@@ -40,7 +45,7 @@ class DataPointValidator(Protocol):
         DataTypes
             the data type enumeration
         """
-        ...
+        return self._data_type
 
     def options(self) -> list[Any]:
         """
@@ -56,7 +61,7 @@ class DataPointValidator(Protocol):
 
 class DataPointProtocol(Protocol[TDpSpec]):
     """
-    Defines an interface for data point protocols.
+    Implements a base class for data point protocols.
     """
     def get_specification(self) -> TDpSpec:
         """
@@ -153,22 +158,22 @@ class DataPointProtocol(Protocol[TDpSpec]):
         """
         return False
 
-    def subscribe(self, fn: Callable[[Any], None]):
+    def subscribe(self, fn: Callable[['DataPointProtocol', Any], NoReturn]):
         """
         Subscribes to changes of the data point value.
 
         Parameters
         ----------
-        fn : Callable[[Any], None]
+        fn : Callable[[DataPointProtocol, Any], NoReturn]
             the callback method
         """
-        raise Exception('Unsupported operation')
+        raise Exception('subscribe() is not supported')
 
     def unsubscribe(self):
         """
         Unsubscribes from changes of the data point value.
         """
-        raise Exception('Unsupported operation')
+        raise Exception('unsubscribe() is not supported')
 
 
 class DataPoint(Generic[TDpSpec]):
@@ -203,7 +208,7 @@ class DataPoint(Generic[TDpSpec]):
         """
         return self._protocol.name()
 
-    async def get_value_async(self, parameters: Optional[dict[str, str]] = None) -> Any:
+    async def get_value_async(self, parameters: Optional[dict[str, str]] = None, skip_cache = False) -> Any:
         """
         Gets the data point value asynchronously.
 
@@ -217,7 +222,7 @@ class DataPoint(Generic[TDpSpec]):
         Exception
             when read value is not compatible with data type
         """
-        value = await self._protocol.get_val(parameters)
+        value = await self._protocol.get_val(parameters, skip_cache)
         if self._validator.validate(value):
             return value
         raise Exception(
@@ -237,13 +242,13 @@ class DataPoint(Generic[TDpSpec]):
             return await self._protocol.set_val(value)
         raise Exception('invalid data to write to device')
 
-    def subscribe(self, fn: Callable[[Any], None]):
+    def subscribe(self, fn: Callable[[DataPointProtocol, Any], NoReturn]):
         """
         Subscribes to data point value changes.
 
         Parameters
         ----------
-        fn : Callable[[Any], None]
+        fn : Callable[[DataPointProtocol, Any], NoReturn]
             the handler method
         """
         self._protocol.subscribe(fn)

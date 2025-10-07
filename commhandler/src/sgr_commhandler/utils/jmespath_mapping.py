@@ -1,6 +1,5 @@
 import collections
 import json
-import logging
 import re
 import copy
 from typing import Any, Optional
@@ -75,11 +74,12 @@ def map_json_response(response: str, mappings: list[JmespathMappingRecord]) -> s
     names: dict[str, str] = collections.OrderedDict()
 
     for i, m in enumerate(mappings):
-        map_from[str(i)] = m.from_value
-        if m.from_value.startswith('$'):
-            map_to[m.from_value] = m.to
-        else:
-            map_to[str(i)] = m.to
+        if m.from_value and m.to:
+            map_from[str(i)] = m.from_value
+            if m.from_value.startswith('$'):
+                map_to[m.from_value] = m.to
+            else:
+                map_to[str(i)] = m.to
         if m.name is not None:
             names[str(i)] = m.name
 

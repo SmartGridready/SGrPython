@@ -26,6 +26,11 @@ class PayloadDecoder(BinaryPayloadDecoder):
             the Modbus data type to decode
         byte_count : int
             the number of bytes
+
+        Returns
+        -------
+        Any
+            the decoded value
         """
 
         # TODO enum, date_time
@@ -77,6 +82,11 @@ class PayloadBuilder(BinaryPayloadBuilder):
             the value to encode
         modbus_type : ModbusDataType
             The Modbus data type to encode
+
+        Returns
+        -------
+        PayloadBuilder
+            the same instance
         """
         # TODO enum, date_time
         if modbus_type.int8:
@@ -104,5 +114,5 @@ class PayloadBuilder(BinaryPayloadBuilder):
         elif modbus_type.string:
             self.add_string(str(value))
         else:
-            logger.error(f'Unsupported modbus type "{modbus_type}"')
+            logger.error(f'Unsupported Modbus type "{modbus_type}"')
         return self

@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from sgr_specification.v0.generic import (
     DataDirectionProduct, Units
@@ -80,7 +80,7 @@ class ContactDataPoint(DataPointProtocol[ContactDataPointSpec]):
     def get_specification(self) -> ContactDataPointSpec:
         return self._dp_spec
 
-    async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False):
+    async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
         raise Exception('Not implemented')
 
     async def set_val(self, value: Any):
@@ -154,7 +154,7 @@ class SGrContactInterface(SGrBaseInterface):
     def __init__(
         self, frame: DeviceFrame
     ):
-        self._initialize_device(frame)
+        super().__init__(frame)
 
         if (
             self.device_frame.interface_list
