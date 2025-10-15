@@ -41,8 +41,8 @@ jobs:
           fi
           echo "Semver: $SEMVER"
           echo "Tag: $TAG"
-          echo "::set-output name=original_tag::$TAG"
-          echo "::set-output name=semver::$SEMVER"
+          echo "original_tag=${TAG}" >> $GITHUB_OUTPUT
+          echo "semver=${SEMVER}" >> $GITHUB_OUTPUT
 
       - name: Set up Python
         uses: actions/setup-python@v6
