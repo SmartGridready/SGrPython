@@ -3,7 +3,7 @@ Provides the data-point-level API.
 """
 
 from collections.abc import Callable
-from typing import Any, Generic, NoReturn, Optional, Protocol, TypeVar
+from typing import Any, Generic, NoReturn, Optional, TypeVar
 
 from sgr_specification.v0.generic import DataDirectionProduct, Units, DataPointBase
 
@@ -14,7 +14,7 @@ from sgr_commhandler.api.data_types import DataTypes
 TDpSpec = TypeVar('TDpSpec', covariant=True, bound=DataPointBase)
 
 
-class DataPointValidator(Protocol):
+class DataPointValidator(object):
     """
     Implements a base class for data point validators.
     """
@@ -63,7 +63,7 @@ class DataPointValidator(Protocol):
         return []
 
 
-class DataPointProtocol(Protocol[TDpSpec]):
+class DataPointProtocol(Generic[TDpSpec]):
     """
     Implements a base class for data point protocols.
     """

@@ -4,7 +4,7 @@ Provides the device-level API.
 
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Any, Optional, Protocol
+from typing import Any, Optional
 
 from sgr_specification.v0.generic import DataDirectionProduct, DeviceCategory
 from sgr_specification.v0.product.product import DeviceFrame
@@ -46,7 +46,7 @@ class DeviceInformation:
     is_local: bool
 
 
-class SGrBaseInterface(Protocol):
+class SGrBaseInterface(object):
     """
     Defines an abstract base class for all SGr device interfaces.
 
@@ -69,6 +69,7 @@ class SGrBaseInterface(Protocol):
     def __init__(
         self, frame: DeviceFrame
     ):
+        super(SGrBaseInterface, self).__init__()
         self.device_frame = frame
         self.configuration_parameters = build_configuration_parameters(
             frame.configuration_list
