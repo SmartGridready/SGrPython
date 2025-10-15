@@ -1,3 +1,7 @@
+"""
+Provides dynamic request parameters.
+"""
+
 import logging
 from typing import Optional
 
@@ -17,7 +21,7 @@ def build_dynamic_parameters(params: Optional[DynamicParameterDescriptionList]) 
     ----------
     params : Optional[DynamicParameterDescriptionList]
         The dynamic parameter list of a data point
-    
+
     Returns
     -------
     list[DynamicParameter]
@@ -42,7 +46,7 @@ def build_dynamic_parameter_substitutions(dynamic_parameters: list['DynamicParam
         the dynamic parameters as specified
     input_parameters: Optional[dict[str, str]]
         the actual parameters given to the request
-    
+
     Returns
     -------
     Dict[str, str]
@@ -72,7 +76,7 @@ class DynamicParameter:
         ----------
         parameter : DynamicParameterDescriptionListElement
             A dynamic parameter list element of the SGr specification
-        """  
+        """
         translation = parameter.parameter_description
         self.label = translation[0].label
         self.name = parameter.name

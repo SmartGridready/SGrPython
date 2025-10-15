@@ -1,3 +1,7 @@
+"""
+Provides HTTP request and response implementations.
+"""
+
 from typing import Optional
 from urllib.parse import urlencode
 from multidict import CIMultiDict
@@ -69,7 +73,7 @@ def build_rest_request(call_spec: RestApiServiceCall, base_url: str, substitutio
     headers = call_spec.request_header if call_spec.request_header else HeaderList()
     query = call_spec.request_query if call_spec.request_query else ParameterList()
     form = call_spec.request_form if call_spec.request_form else ParameterList()
-    body=str(call_spec.request_body) if call_spec.request_body else None
+    body = str(call_spec.request_body) if call_spec.request_body else None
 
     # All headers into dictionary, with substitution
     request_headers: CIMultiDict[str] = CIMultiDict()

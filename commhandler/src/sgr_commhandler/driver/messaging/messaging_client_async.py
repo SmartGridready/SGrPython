@@ -1,3 +1,7 @@
+"""
+Provides the messaging client implementation.
+"""
+
 import logging
 from abc import ABC
 from typing import Any, Callable, NoReturn, Optional

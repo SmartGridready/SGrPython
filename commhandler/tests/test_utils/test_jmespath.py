@@ -11,6 +11,7 @@ from sgr_commhandler.utils import (
 Test JMESPath mapping.
 """
 
+
 def test_jmespath_mapping_1():
     jmes_mappings = [
         JmespathMappingRecord(from_value="[*].start_timestamp", to="[*].start_timestamp"),
@@ -139,4 +140,3 @@ def test_jmespath_mapping_2():
 
     json_mapped = jmespath_mapping.map_json_response(json_input, jmes_mappings)
     assert json_mapped == json_expected
-

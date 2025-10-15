@@ -1,3 +1,8 @@
+"""
+Provides a payload encoder and decoder to convert between external and Modbus data types.
+This implementation is only supported up to pymodbus 3.8.
+"""
+
 import logging
 from typing import Any
 

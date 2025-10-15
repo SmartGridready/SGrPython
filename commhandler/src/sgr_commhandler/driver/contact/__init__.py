@@ -1,3 +1,7 @@
+"""
+Provides the digital contact interface driver.
+"""
+
 __all__ = ["ContactDataPoint", "ContactFunctionalProfile", "SGrContactInterface"]
 
 from .contact_interface_async import (

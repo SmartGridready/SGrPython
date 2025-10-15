@@ -46,9 +46,9 @@ jobs:
           echo "::set-output name=semver::$SEMVER"
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.x'
+          python-version: '3.9'
 
       - name: Install Dependencies
         run: |
@@ -60,7 +60,7 @@ jobs:
           python --version
 
       - name: Checkout SGrPython Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ steps.set_tag.outputs.original_tag }}
 

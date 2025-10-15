@@ -1,3 +1,7 @@
+"""
+Provides the device-level API.
+"""
+
 from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any, Optional, Protocol

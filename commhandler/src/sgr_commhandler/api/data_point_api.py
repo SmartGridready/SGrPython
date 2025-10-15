@@ -1,3 +1,7 @@
+"""
+Provides the data-point-level API.
+"""
+
 from collections.abc import Callable
 from typing import Any, Generic, NoReturn, Optional, Protocol, TypeVar
 
@@ -66,7 +70,7 @@ class DataPointProtocol(Protocol[TDpSpec]):
     def get_specification(self) -> TDpSpec:
         """
         Gets the data point specification.
-        
+
         Returns
         -------
         TDpSpec
@@ -95,7 +99,7 @@ class DataPointProtocol(Protocol[TDpSpec]):
             optional dynamic parameters of the request
         skip_cache : bool
             does not use cache if true
-        
+
         Returns
         -------
         Any
@@ -208,7 +212,7 @@ class DataPoint(Generic[TDpSpec]):
         """
         return self._protocol.name()
 
-    async def get_value_async(self, parameters: Optional[dict[str, str]] = None, skip_cache = False) -> Any:
+    async def get_value_async(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
         """
         Gets the data point value asynchronously.
 
@@ -216,7 +220,7 @@ class DataPoint(Generic[TDpSpec]):
         -------
         Any
             the data point value
-        
+
         Raises
         ------
         Exception
@@ -280,7 +284,7 @@ class DataPoint(Generic[TDpSpec]):
             the data point data type
         """
         return self._validator.data_type()
-    
+
     def unit(self) -> Units:
         """
         Gets the unit of measurement of the data point.

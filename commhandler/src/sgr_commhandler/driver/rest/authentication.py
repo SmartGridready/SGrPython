@@ -1,3 +1,7 @@
+"""
+Provides HTTP/REST authentication methods.
+"""
+
 import base64
 import json
 import logging
@@ -39,7 +43,7 @@ async def authenticate_not(
         the device interface
     session : ClientSession
         the REST client session
-    
+
     Returns
     -------
     bool
@@ -61,7 +65,7 @@ async def authenticate_with_bearer_token(
         the device interface
     session : ClientSession
         the REST client session
-    
+
     Returns
     -------
     bool
@@ -91,68 +95,68 @@ async def authenticate_with_bearer_token(
         request = build_rest_request(service_call, base_url, {})
 
         async with session.request(
-                request.method,
-                request.url,
-                headers=request.headers,
-                params=request.query_parameters,
-                data=request.body
-            ) as req:
-                if 200 <= req.status < 300:
-                    logger.info(f"Bearer authentication successful: Status {req.status}")
-                    try:
-                        res_body = await req.text()
-                        res_headers = CIMultiDict()
-                        for name, value in req.headers.items():
-                            res_headers.add(name, value)
+            request.method,
+            request.url,
+            headers=request.headers,
+            params=request.query_parameters,
+            data=request.body
+        ) as req:
+            if 200 <= req.status < 300:
+                logger.info(f"Bearer authentication successful: Status {req.status}")
+                try:
+                    res_body = await req.text()
+                    res_headers = CIMultiDict()
+                    for name, value in req.headers.items():
+                        res_headers.add(name, value)
 
-                        response = RestResponse(headers=res_headers, body=res_body)
+                    response = RestResponse(headers=res_headers, body=res_body)
 
-                        # extract token from response body
-                        if response.body is not None:
-                            token: Any
-                            if (
-                                service_call.response_query
-                                and service_call.response_query.query_type == ResponseQueryType.JMESPATH_EXPRESSION
-                            ):
-                                # JMESPath expression
-                                query_expression = service_call.response_query.query if service_call.response_query.query else ''
-                                token = jmespath.search(query_expression, json.loads(response.body))
-                            elif (
-                                service_call.response_query
-                                and service_call.response_query.query_type == ResponseQueryType.JMESPATH_MAPPING
-                            ):
-                                # JMESPath mappings
-                                mappings = service_call.response_query.jmes_path_mappings.mapping if service_call.response_query.jmes_path_mappings else []
-                                token = jmespath_mapping.map_json_response(response.body, mappings)
-                            elif (
-                                service_call.response_query
-                                and service_call.response_query.query_type == ResponseQueryType.REGULAR_EXPRESSION
-                            ):
-                                # regex
-                                query_expression = service_call.response_query.query if service_call.response_query.query else ''
-                                query_match = re.match(query_expression, response.body)
-                                token = query_match.group() if query_match is not None else None
-                            else:
-                                # plaintext
-                                token = response.body
+                    # extract token from response body
+                    if response.body is not None:
+                        token: Any
+                        if (
+                            service_call.response_query
+                            and service_call.response_query.query_type == ResponseQueryType.JMESPATH_EXPRESSION
+                        ):
+                            # JMESPath expression
+                            query_expression = service_call.response_query.query if service_call.response_query.query else ''
+                            token = jmespath.search(query_expression, json.loads(response.body))
+                        elif (
+                            service_call.response_query
+                            and service_call.response_query.query_type == ResponseQueryType.JMESPATH_MAPPING
+                        ):
+                            # JMESPath mappings
+                            mappings = service_call.response_query.jmes_path_mappings.mapping if service_call.response_query.jmes_path_mappings else []
+                            token = jmespath_mapping.map_json_response(response.body, mappings)
+                        elif (
+                            service_call.response_query
+                            and service_call.response_query.query_type == ResponseQueryType.REGULAR_EXPRESSION
+                        ):
+                            # regex
+                            query_expression = service_call.response_query.query if service_call.response_query.query else ''
+                            query_match = re.match(query_expression, response.body)
+                            token = query_match.group() if query_match is not None else None
+                        else:
+                            # plaintext
+                            token = response.body
 
-                            if token is not None:
-                                # update authorization header in active session
-                                session.headers.update(
-                                    {"Authorization": f"Bearer {token}"}
-                                )
-                                logger.info("Bearer token retrieved successfully")
-                                return True
+                        if token is not None:
+                            # update authorization header in active session
+                            session.headers.update(
+                                {"Authorization": f"Bearer {token}"}
+                            )
+                            logger.info("Bearer token retrieved successfully")
+                            return True
 
-                        logger.warning("Bearer token not found in the response")
-                        return False
-                    except json.JSONDecodeError:
-                        logger.error("Failed to decode JSON response")
-                    except JMESPathError:
-                        logger.error("Failed to search JSON data using JMESPath")
-                else:
-                    logger.warning(f"Bearer authentication failed: Status {req.status}")
-                    logger.debug(f"Response: {await req.text()}")
+                    logger.warning("Bearer token not found in the response")
+                    return False
+                except json.JSONDecodeError:
+                    logger.error("Failed to decode JSON response")
+                except JMESPathError:
+                    logger.error("Failed to search JSON data using JMESPath")
+            else:
+                logger.warning(f"Bearer authentication failed: Status {req.status}")
+                logger.debug(f"Response: {await req.text()}")
     except aiohttp.ClientError as e:
         logger.error(f"Network error occurred: {e}")
     except Exception as e:
@@ -173,7 +177,7 @@ async def authenticate_with_basic_auth(
         the device interface
     session : ClientSession
         the REST client session
-    
+
     Returns
     -------
     bool
@@ -219,7 +223,7 @@ async def setup_authentication(
         the device interface
     session : ClientSession
         the REST client session
-    
+
     Returns
     -------
     bool

@@ -1,3 +1,7 @@
+"""
+Provides the generic interface implementation.
+"""
+
 import logging
 from typing import Any, Optional
 

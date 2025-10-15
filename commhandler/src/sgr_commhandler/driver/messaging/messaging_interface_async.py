@@ -145,7 +145,7 @@ class MessagingDataPoint(DataPointProtocol[MessagingDataPointSpec]):
         self._handle_message: Optional[Callable[[DataPointProtocol, Any], NoReturn]] = None
         self._interface = interface
         if self._in_cmd and self._in_cmd.topic:
-            self._interface.data_point_handler((self._fp_name, self._dp_name, self._in_cmd.topic, self._on_message, self._in_filter)) # type: ignore
+            self._interface.data_point_handler((self._fp_name, self._dp_name, self._in_cmd.topic, self._on_message, self._in_filter))  # type: ignore
 
     def name(self) -> tuple[str, str]:
         return self._fp_name, self._dp_name
@@ -173,7 +173,7 @@ class MessagingDataPoint(DataPointProtocol[MessagingDataPointSpec]):
             await self._read_response_event.wait()
 
         logger.debug('finished active reading...')
-        return self._cached_value 
+        return self._cached_value
 
     async def set_val(self, value: Any):
         if not self._write_cmd or not self._write_cmd.topic:
@@ -222,13 +222,13 @@ class MessagingDataPoint(DataPointProtocol[MessagingDataPointSpec]):
     def can_subscribe(self) -> bool:
         return True
 
-    def subscribe(self, fn: Callable[[DataPointProtocol, Any], NoReturn]): # type: ignore
+    def subscribe(self, fn: Callable[[DataPointProtocol, Any], NoReturn]):  # type: ignore
         self._handle_message = fn
 
-    def unsubscribe(self): # type: ignore
+    def unsubscribe(self):  # type: ignore
         self._handle_message = None
 
-    def _on_message(self, payload: Any): # type: ignore
+    def _on_message(self, payload: Any):  # type: ignore
         ret_value: Any
         if (
             self._in_cmd
@@ -354,7 +354,7 @@ class SGrMessagingInterface(SGrBaseInterface):
 
         # configure interface
         self._client = get_messaging_client(str(self.device_frame.device_name), desc)
-        self._client.set_message_handler(self.handle_client_message) # type: ignore
+        self._client.set_message_handler(self.handle_client_message)  # type: ignore
 
         # subscribe to topic once, multiple handlers
         self._subscribed_topics: set[str] = set()

@@ -1,3 +1,7 @@
+"""
+Provides a device builder to create device instances from external interface descriptions (EID).
+"""
+
 import logging
 import configparser
 import re
@@ -150,7 +154,7 @@ class DeviceBuilder:
         ----------
         file_path: str
             the path to the EID XML file
-        
+
         Returns
         -------
         DeviceBuilder
@@ -168,7 +172,7 @@ class DeviceBuilder:
         ----------
         xml: str
             the EID XML content
-        
+
         Returns
         -------
         DeviceBuilder
@@ -186,7 +190,7 @@ class DeviceBuilder:
         ----------
         file_path: str
             the path to the property file
-        
+
         Returns
         -------
         DeviceBuilder
@@ -204,7 +208,7 @@ class DeviceBuilder:
         ----------
         properties: dict
             the properties
-        
+
         Returns
         -------
         DeviceBuilder
@@ -262,7 +266,7 @@ def parse_device_frame(content: str) -> DeviceFrame:
     ----------
     content: str
         the EID XML content
-    
+
     Returns
     -------
     DeviceFrame
@@ -283,7 +287,7 @@ def replace_variables(content: str, parameters: dict) -> str:
         the EID XML content
     parameters: dict
         the configuration parameters
-    
+
     Returns
     -------
     str
@@ -308,7 +312,7 @@ def build_properties(config: list[ConfigurationParameter], properties: dict) -> 
         the EID configuration parameters
     properties: dict
         the properties to configure
-    
+
     Returns
     -------
     dict
@@ -335,5 +339,5 @@ def validate_schema(content: str):
         the EID XML content
     """
     xsd_path = importlib.resources.files(sgr_schema).joinpath('SGrIncluder.xsd')
-    xsd = xmlschema.XMLSchema(xsd_path)
+    xsd = xmlschema.XMLSchema(str(xsd_path))
     xsd.validate(content)

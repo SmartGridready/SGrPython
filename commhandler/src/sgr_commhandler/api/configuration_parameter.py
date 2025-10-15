@@ -1,3 +1,7 @@
+"""
+Provides device configuration parameters.
+"""
+
 from typing import Optional
 
 from sgr_specification.v0.product import (
@@ -14,7 +18,7 @@ def build_configuration_parameters(params: Optional[ConfigurationList]) -> list[
     ----------
     params : Optional[ConfigurationList]
         The configuration list of an EID
-    
+
     Returns
     -------
     list[ConfigurationParameter]
@@ -40,7 +44,7 @@ class ConfigurationParameter:
         ----------
         parameter : ConfigurationListElement
             A configuration list element of the SGr specification
-        """  
+        """
         translation = parameter.configuration_description
         self.label = translation[0].label
         self.name = parameter.name

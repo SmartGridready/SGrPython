@@ -1,3 +1,7 @@
+"""
+Provides message filter implementations.
+"""
+
 import re
 import json
 import jmespath
@@ -12,6 +16,7 @@ from sgr_specification.v0.product.messaging_types import MessageFilter
 
 
 T = TypeVar('T')
+
 
 class MessagingFilter(Generic[T]):
     """
@@ -36,7 +41,7 @@ class JMESPathMessagingFilter(MessagingFilter[JmespathFilterType]):
     def is_filter_match(self, payload: Any) -> bool:
         ret_value = str(payload)
         regex = self._filter_spec.matches_regex or '.'
-        if self._filter_spec.query: 
+        if self._filter_spec.query:
             ret_value = json.dumps(jmespath.search(self._filter_spec.query, json.loads(payload)))
 
         match = re.match(regex, ret_value)
@@ -74,7 +79,7 @@ class RegexMessagingFilter(MessagingFilter[RegexFilterType]):
             query_match = re.match(self._filter_spec.query, ret_value)
             if query_match is not None:
                 ret_value = query_match.group()
-        
+
         match = re.match(regex, ret_value)
         return match is not None
 
@@ -87,7 +92,7 @@ def get_messaging_filter(filter: MessageFilter) -> Optional[MessagingFilter]:
     ----------
     filter : MessageFilter
         the filter specification
-    
+
     Returns
     -------
     Optional[MessagingFilter]

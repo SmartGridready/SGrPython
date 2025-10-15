@@ -1,3 +1,7 @@
+"""
+Provides an SGr-specific implementation that transforms JSON data using JMESpath mappings.
+"""
+
 import collections
 import json
 import re
@@ -115,7 +119,7 @@ def _enhance_with_namings(flat_representation: dict[RecordKey, dict[str, Any]], 
 def _flatten_named_records(cur_key: int, values: dict[str, Any], names: dict[str, str]) -> tuple[int, dict[int, dict[str, Any]]]:
     flat_records: dict[int, dict[str, Any]] = collections.OrderedDict()
     unnamed_values: dict[str, Any] = collections.OrderedDict()
-    
+
     for (k, v) in values.items():
         if k not in names:
             unnamed_values[k] = v
@@ -151,9 +155,7 @@ def _parse_json_tree(node: Any, parent_data: Optional[dict[RecordKey, dict[str, 
 
 
 def _get_keywords_for_iteration(iteration: int, keyword_map: dict[str, str]) -> list[tuple[str, str]]:
-    iteration_depth = iteration
-    count_is_iteration = lambda item : item[1].count('[*]') == iteration_depth
-    return list(filter(count_is_iteration, keyword_map.items()))
+    return list(filter(lambda item: item[1].count('[*]') == iteration, keyword_map.items()))
 
 
 def _determine_required_iterations(keyword_map: dict[str, str]) -> int:
@@ -175,7 +177,13 @@ def _get_number_of_elements(node: Any, parent_idx: int, keyword: tuple[str, str]
     return int(result)
 
 
-def _process_child_elements(node: Any, iteration: int, record_map: dict[RecordKey, dict[str, Any]], keywords: list[tuple[str, str]], parent_idx: int, parent_rec: Optional[tuple[RecordKey, dict[str, Any]]]):
+def _process_child_elements(
+        node: Any,
+        iteration: int,
+        record_map: dict[RecordKey, dict[str, Any]],
+        keywords: list[tuple[str, str]],
+        parent_idx: int, parent_rec: Optional[tuple[RecordKey, dict[str, Any]]]
+):
     if len(keywords) > 0:
         kw = keywords[0]
         n_elem = _get_number_of_elements(node, parent_idx, kw, iteration)
@@ -261,7 +269,7 @@ def _add_second_level_nodes(first_level_node: dict, flat_records_belonging_to_gr
                         elif isinstance(val, int):
                             object_node[child_name_mapping[mapping_entry[0]]] = int(val)
                         elif val is not None:
-                            object_node[child_name_mapping[mapping_entry[0]]] =  str(val)
+                            object_node[child_name_mapping[mapping_entry[0]]] = str(val)
             array_node.append(object_node)
 
 

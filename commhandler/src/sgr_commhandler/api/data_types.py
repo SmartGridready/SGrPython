@@ -1,3 +1,7 @@
+"""
+Provides SGr data types.
+"""
+
 from enum import Enum
 
 

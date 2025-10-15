@@ -1,4 +1,7 @@
-from io import UnsupportedOperation
+"""
+Provides the Modbus interface implementation.
+"""
+
 import logging
 import random
 import string
@@ -52,7 +55,12 @@ logger = logging.getLogger(__name__)
 
 def get_rtu_slave_id(modbus_rtu: ModbusRtu) -> int:
     """
-    returns the selected slave address
+    Returns the selected slave address.
+
+    Returns
+    -------
+    int
+        the slave ID
     """
     if modbus_rtu.slave_addr is None:
         raise Exception('No RTU slave address configured')
@@ -61,7 +69,12 @@ def get_rtu_slave_id(modbus_rtu: ModbusRtu) -> int:
 
 def get_tcp_slave_id(modbus_tcp: ModbusTcp) -> int:
     """
-    returns the selected slave address
+    Returns the selected slave address.
+
+    Returns
+    -------
+    int
+        the slave ID
     """
     if modbus_tcp.slave_id is None:
         raise Exception('No slave id configured')
@@ -70,7 +83,12 @@ def get_tcp_slave_id(modbus_tcp: ModbusTcp) -> int:
 
 def get_endian(modbus: ModbusInterfaceDescription) -> BitOrder:
     """
-    returns the byte order.
+    Returns the byte order (endianness).
+
+    Returns
+    -------
+    BitOrder
+        the byte order
     """
     if modbus.bit_order:
         return modbus.bit_order
@@ -270,7 +288,7 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
 
     async def set_val(self, value: Any):
         # special case enum - convert to ordinal
-        if self._dp_spec.data_point and self._dp_spec.data_point.data_type.enum:
+        if self._dp_spec.data_point and self._dp_spec.data_point.data_type and self._dp_spec.data_point.data_type.enum:
             enum_spec = self._dp_spec.data_point.data_type.enum
             if isinstance(value, str):
                 rec = next(filter(lambda e: e.literal is not None and e.ordinal is not None and e.literal == value, enum_spec.enum_entry), None)
@@ -289,7 +307,7 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
             and self._dp_spec.data_point.unit_conversion_multiplicator
         ) else 1.0
         if unit_conv_factor != 1.0:
-            value = float(value)  / unit_conv_factor
+            value = float(value) / unit_conv_factor
 
         # scaling
         scaling_factor = self._dp_spec.modbus_attributes.scaling_factor if (
@@ -297,7 +315,7 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
             and self._dp_spec.modbus_attributes.scaling_factor
         ) else None
         if scaling_factor is not None:
-            value = float(value) / (scaling_factor.multiplicator * pow(10, scaling_factor.powerof10))
+            value = float(value) / (scaling_factor.multiplicator or 1 * pow(10, scaling_factor.powerof10 or 0))
 
         # round to int if modbus type is int and DP type is not
         if is_float_type(
@@ -325,7 +343,7 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
             and self._dp_spec.modbus_attributes.scaling_factor
         ) else None
         if scaling_factor is not None:
-            ret_value = float(ret_value) * scaling_factor.multiplicator * pow(10, scaling_factor.powerof10)
+            ret_value = float(ret_value) * (scaling_factor.multiplicator or 1 * pow(10, scaling_factor.powerof10 or 0))
 
         # convert to DP units
         unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
@@ -346,7 +364,7 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
             ret_value = value_util.round_to_int(float(ret_value))
 
         # special case enum - convert to literal
-        if self._dp_spec.data_point and self._dp_spec.data_point.data_type.enum:
+        if self._dp_spec.data_point and self._dp_spec.data_point.data_type and self._dp_spec.data_point.data_type.enum:
             enum_spec = self._dp_spec.data_point.data_type.enum
             ret_value = int(ret_value)
             rec = next(filter(lambda e: e.ordinal is not None and e.literal is not None and e.ordinal == ret_value, enum_spec.enum_entry), None)
@@ -367,7 +385,7 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
         ):
             raise Exception('missing data direction')
         return self._dp_spec.data_point.data_direction
-    
+
     def unit(self) -> Units:
         if (
             self._dp_spec.data_point is None
@@ -422,7 +440,7 @@ class SGrModbusInterface(SGrBaseInterface):
         sharedRTU: bool = False,
     ):
         super().__init__(frame)
-        self._client_wrapper: ModbusClientWrapper = None # type: ignore
+        self._client_wrapper: ModbusClientWrapper = None  # type: ignore
         if (
             self.device_frame.interface_list is None
             or self.device_frame.interface_list.modbus_interface is None

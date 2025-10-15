@@ -28,7 +28,10 @@ async def test_device_builder_modbus_tcp_dict():
     assert device_info.name == "ABB B23 TCP"
 
     device_frame = test_device.device_frame
+    assert device_frame.interface_list is not None
     assert device_frame.interface_list.modbus_interface is not None
+    assert device_frame.interface_list.modbus_interface.modbus_interface_description is not None
+    assert device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp is not None
     assert device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.slave_id == '1'
     assert device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.address == '127.0.0.1'
     assert device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.port == '502'
@@ -57,7 +60,10 @@ async def test_device_builder_modbus_tcp_ini():
     assert device_info.name == "ABB B23 TCP"
 
     device_frame = test_device.device_frame
+    assert device_frame.interface_list is not None
     assert device_frame.interface_list.modbus_interface is not None
+    assert device_frame.interface_list.modbus_interface.modbus_interface_description is not None
+    assert device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp is not None
     assert device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.slave_id == '1'
     assert device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.address == '127.0.0.1'
     assert device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp.port == '502'
@@ -81,7 +87,9 @@ async def test_device_builder_rest_dict():
     assert device_info.name == "Shelly 1PM Local"
 
     device_frame = test_device.device_frame
+    assert device_frame.interface_list is not None
     assert device_frame.interface_list.rest_api_interface is not None
+    assert device_frame.interface_list.rest_api_interface.rest_api_interface_description is not None
     assert device_frame.interface_list.rest_api_interface.rest_api_interface_description.rest_api_uri == 'http://127.0.0.1'
 
 
@@ -108,7 +116,9 @@ async def test_device_builder_rest_ini():
     assert device_info.name == "Shelly 1PM Local"
 
     device_frame = test_device.device_frame
+    assert device_frame.interface_list is not None
     assert device_frame.interface_list.rest_api_interface is not None
+    assert device_frame.interface_list.rest_api_interface.rest_api_interface_description is not None
     assert device_frame.interface_list.rest_api_interface.rest_api_interface_description.rest_api_uri == 'http://127.0.0.1'
 
 
@@ -133,8 +143,13 @@ async def test_device_builder_messaging_dict():
     assert device_info.name == "HiveMQ Test Cloud"
 
     device_frame = test_device.device_frame
+    assert device_frame.interface_list is not None
     assert device_frame.interface_list.messaging_interface is not None
-    assert device_frame.interface_list.messaging_interface.messaging_interface_description.message_broker_list.message_broker_list_element[0].host == '152f30e8c480481886072e4f8250d91a.s1.eu.hivemq.cloud'
+    assert device_frame.interface_list.messaging_interface.messaging_interface_description is not None
+    assert device_frame.interface_list.messaging_interface.messaging_interface_description.message_broker_list is not None
+    assert len(device_frame.interface_list.messaging_interface.messaging_interface_description.message_broker_list.message_broker_list_element) > 0
+    assert device_frame.interface_list.messaging_interface.messaging_interface_description.message_broker_list.message_broker_list_element[0].host \
+        == '152f30e8c480481886072e4f8250d91a.s1.eu.hivemq.cloud'
 
 
 @pytest.mark.asyncio
@@ -158,8 +173,13 @@ async def test_device_builder_messaging_ini():
     assert device_info.name == "HiveMQ Test Cloud"
 
     device_frame = test_device.device_frame
+    assert device_frame.interface_list is not None
     assert device_frame.interface_list.messaging_interface is not None
-    assert device_frame.interface_list.messaging_interface.messaging_interface_description.message_broker_list.message_broker_list_element[0].host == '152f30e8c480481886072e4f8250d91a.s1.eu.hivemq.cloud'
+    assert device_frame.interface_list.messaging_interface.messaging_interface_description is not None
+    assert device_frame.interface_list.messaging_interface.messaging_interface_description.message_broker_list is not None
+    assert len(device_frame.interface_list.messaging_interface.messaging_interface_description.message_broker_list.message_broker_list_element) > 0
+    assert device_frame.interface_list.messaging_interface.messaging_interface_description.message_broker_list.message_broker_list_element[0].host \
+        == '152f30e8c480481886072e4f8250d91a.s1.eu.hivemq.cloud'
 
 
 @pytest.mark.asyncio

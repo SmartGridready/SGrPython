@@ -3,15 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-SGr CommHandler documentation
+SGr CommHandler Documentation
 =============================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+This is the API documentation of the `sgr-commhandler <https://pypi.org/project/sgr-commhandler/>`_ Python package,
+providing the *SmartGridready communications handler library*.
+
+See `SGrPython <https://github.com/SmartGridready/SGrPython>`_ Github repository for details.
 
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-

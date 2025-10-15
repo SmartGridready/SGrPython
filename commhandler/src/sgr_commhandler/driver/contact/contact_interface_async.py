@@ -1,3 +1,7 @@
+"""
+Provides the digital contact interface implementation.
+"""
+
 import logging
 from typing import Any, Optional
 

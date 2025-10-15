@@ -1,3 +1,7 @@
+"""
+Provides the HTTP/REST interface implementation.
+"""
+
 import json
 import logging
 import re
@@ -194,7 +198,7 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
 
         if not self._read_call and not self._write_call:
             raise Exception('No REST service call configured')
-        
+
         self._dynamic_parameters = build_dynamic_parameters(
             self._dp_spec.data_point.parameter_list
             if self._dp_spec.data_point
@@ -320,7 +324,7 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
         ):
             raise Exception('missing data direction')
         return self._dp_spec.data_point.data_direction
-    
+
     def unit(self) -> Units:
         if (
             self._dp_spec.data_point is None

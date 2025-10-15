@@ -1,3 +1,7 @@
+"""
+Contains the CommHandler API, which is intended to be utilized by the user.
+"""
+
 __all__ = [
     "SGrBaseInterface",
     "FunctionalProfile",

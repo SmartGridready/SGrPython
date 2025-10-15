@@ -9,6 +9,7 @@ from sgr_commhandler.api.data_types import DataTypes
 """Defines a generic data type."""
 TFpSpec = TypeVar('TFpSpec', covariant=True, bound=FunctionalProfileBase)
 
+
 class FunctionalProfile(Protocol[TFpSpec]):
     """
     Implements a functional profile.
@@ -66,7 +67,7 @@ class FunctionalProfile(Protocol[TFpSpec]):
             try:
                 value = await dp.get_value_async(parameters)
                 data[key] = value
-            except Exception as e:
+            except Exception:
                 # TODO log error - None should not be a valid DP value
                 data[key] = None
         return data
