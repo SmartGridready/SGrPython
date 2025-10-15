@@ -61,13 +61,14 @@ class SGrDeviceProtocol(Enum):
     UNKNOWN = 5
 
 
-SGrInterfaces = (
-    SGrRestInterface
-    | SGrModbusInterface
-    | SGrMessagingInterface
-    | SGrContactInterface
-    | SGrGenericInterface
-)
+SGrInterfaces = Union[
+    SGrRestInterface,
+    SGrModbusInterface,
+    SGrMessagingInterface,
+    SGrContactInterface,
+    SGrGenericInterface
+]
+
 
 device_builders: dict[
     SGrDeviceProtocol,
