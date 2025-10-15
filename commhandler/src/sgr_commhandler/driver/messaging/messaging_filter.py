@@ -36,7 +36,7 @@ class JMESPathMessagingFilter(MessagingFilter[JmespathFilterType]):
     """
 
     def __init__(self, filter_spec: JmespathFilterType):
-        super().__init__(filter_spec)
+        super(JMESPathMessagingFilter, self).__init__(filter_spec)
 
     def is_filter_match(self, payload: Any) -> bool:
         ret_value = str(payload)
@@ -54,7 +54,7 @@ class PlaintextMessagingFilter(MessagingFilter[PlaintextFilterType]):
     """
 
     def __init__(self, filter_spec: PlaintextFilterType):
-        super().__init__(filter_spec)
+        super(PlaintextMessagingFilter, self).__init__(filter_spec)
 
     def is_filter_match(self, payload: Any) -> bool:
         ret_value = str(payload)
@@ -70,7 +70,7 @@ class RegexMessagingFilter(MessagingFilter[RegexFilterType]):
     """
 
     def __init__(self, filter_spec: RegexFilterType):
-        super().__init__(filter_spec)
+        super(RegexMessagingFilter, self).__init__(filter_spec)
 
     def is_filter_match(self, payload: Any) -> bool:
         ret_value = str(payload)

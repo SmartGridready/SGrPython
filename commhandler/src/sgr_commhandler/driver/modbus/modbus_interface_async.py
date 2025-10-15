@@ -436,7 +436,7 @@ class SGrModbusInterface(SGrBaseInterface):
         frame: DeviceFrame,
         sharedRTU: bool = False,
     ):
-        super().__init__(frame)
+        super(SGrModbusInterface, self).__init__(frame)
         self._client_wrapper: ModbusClientWrapper = None  # type: ignore
         if (
             self.device_frame.interface_list is None

@@ -255,7 +255,7 @@ class SGrModbusTCPClient(SGrModbusClient):
     """
 
     def __init__(self, ip: str, port: int, endianness: BitOrder = BitOrder.BIG_ENDIAN, addr_offset: int = 0):
-        super().__init__(
+        super(SGrModbusTCPClient, self).__init__(
             endianness,
             addr_offset,
             AsyncModbusTcpClient(
@@ -302,7 +302,7 @@ class SGrModbusRTUClient(SGrModbusClient):
     def __init__(
         self, serial_port: str, parity: str, baudrate: int, endianness: BitOrder = BitOrder.BIG_ENDIAN, addr_offset: int = 0
     ):
-        super().__init__(
+        super(SGrModbusRTUClient, self).__init__(
             endianness,
             addr_offset,
             AsyncModbusSerialClient(
