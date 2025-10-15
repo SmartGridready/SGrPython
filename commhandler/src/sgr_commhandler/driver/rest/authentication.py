@@ -6,7 +6,7 @@ import base64
 import json
 import logging
 import re
-from typing import Any, Awaitable, Callable, TypeAlias
+from typing import Any, Awaitable, Callable
 
 import aiohttp
 import jmespath
@@ -25,10 +25,6 @@ from sgr_commhandler.driver.rest.request import (
 )
 
 logger = logging.getLogger(__name__)
-
-Authenticator: TypeAlias = Callable[
-    [RestApiInterface, ClientSession], Awaitable[bool]
-]
 
 
 async def authenticate_not(
@@ -203,7 +199,7 @@ async def authenticate_with_basic_auth(
 
 
 supported_authentication_methods: dict[
-    RestApiAuthenticationMethod, Authenticator
+    RestApiAuthenticationMethod, Callable[[RestApiInterface, ClientSession], Awaitable[bool]]
 ] = {
     RestApiAuthenticationMethod.NO_SECURITY_SCHEME: authenticate_not,
     RestApiAuthenticationMethod.BEARER_SECURITY_SCHEME: authenticate_with_bearer_token,

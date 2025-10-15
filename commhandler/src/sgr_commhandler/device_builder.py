@@ -244,7 +244,7 @@ class DeviceBuilder:
                 config.optionxform = lambda optionstr: optionstr
                 config.read(prop_path)
                 properties = {}
-                for section_name, section in config.items():
+                for (section_name, section) in config.items():
                     for param_name in section:
                         param_value = config.get(section_name, param_name)
                         properties[param_name] = param_value
@@ -293,7 +293,7 @@ def replace_variables(content: str, parameters: dict) -> str:
     str
         the updated EID XML content
     """
-    for name, value in parameters.items():
+    for (name, value) in parameters.items():
         pattern = re.compile(r'{{' + str(name) + r'}}')
         content = pattern.sub(str(value), content)
         logger.debug(f'replaced parameter: {str(name)} = {str(value)}')

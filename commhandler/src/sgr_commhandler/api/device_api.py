@@ -181,7 +181,7 @@ class SGrBaseInterface(Protocol):
             data.update(
                 {
                     (fp.name(), key): value
-                    for key, value in (
+                    for (key, value) in (
                         await fp.get_values_async(parameters)
                     ).items()
                 }

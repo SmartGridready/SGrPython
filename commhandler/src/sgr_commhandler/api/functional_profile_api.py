@@ -63,7 +63,7 @@ class FunctionalProfile(Protocol[TFpSpec]):
             all data point values by name
         """
         data = {}
-        for key, dp in self.get_data_points().items():
+        for (key, dp) in self.get_data_points().items():
             try:
                 value = await dp.get_value_async(parameters)
                 data[key] = value

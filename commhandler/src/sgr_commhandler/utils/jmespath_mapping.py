@@ -255,13 +255,13 @@ def _add_second_level_nodes(first_level_node: dict, flat_records_belonging_to_gr
         second_level_groups[ck] = record_group
 
     second_level_group_elements = _get_second_level_elements(keywords_for_iteration)
-    for parent_name, child_name_mapping in second_level_group_elements.items():
+    for (parent_name, child_name_mapping) in second_level_group_elements.items():
         array_node: list[Any] = list()
         first_level_node[parent_name] = array_node
-        for group_key, flat_records_of_group in second_level_groups.items():
+        for (group_key, flat_records_of_group) in second_level_groups.items():
             object_node = collections.OrderedDict()
             for flat_record in flat_records_of_group:
-                for value_names, values in flat_record.items():
+                for (value_names, values) in flat_record.items():
                     for mapping_entry in keywords_for_iteration:
                         val = flat_record[mapping_entry[0]]
                         if isinstance(val, float):
@@ -297,11 +297,11 @@ def _build_json_node(keyword_map: dict[str, str], flat_data_records: list[dict[s
     # build the json node, assume the root node is an array
     root_node: list[Any] = []
 
-    for group_key, flat_records_belonging_to_group in first_level_groups.items():
+    for (group_key, flat_records_belonging_to_group) in first_level_groups.items():
         # add a node for each group to the array node
         first_level_node = collections.OrderedDict()
         for frg in flat_records_belonging_to_group:
-            for names, values in frg.items():
+            for (names, values) in frg.items():
                 # pick all first level elements, map the elementNames get the values and add the elements to the  firstLevel node
                 for mapping_entry in keywords_for_iteration:
                     val = frg[mapping_entry[0]]
