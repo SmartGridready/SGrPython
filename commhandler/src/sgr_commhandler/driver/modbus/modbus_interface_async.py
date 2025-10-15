@@ -144,17 +144,14 @@ def get_rtu_parity(modbus_rtu: ModbusRtu) -> str:
     returns the parity.
     """
     parity = modbus_rtu.parity_selected
-    if not parity:
+    if parity is None or parity == Parity.NONE.name:
         return 'N'
-    match parity:
-        case Parity.NONE.name:
-            return 'N'
-        case Parity.EVEN.name:
-            return 'E'
-        case Parity.ODD.name:
-            return 'O'
-        case _:
-            raise NotImplementedError
+    elif parity == Parity.EVEN.name:
+        return 'E'
+    elif parity == Parity.ODD.name:
+        return 'O'
+    else:
+        raise NotImplementedError
 
 
 def build_modbus_data_point(
