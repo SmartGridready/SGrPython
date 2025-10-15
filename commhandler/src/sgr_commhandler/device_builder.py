@@ -10,7 +10,7 @@ import importlib.resources
 import sgr_schema
 from collections.abc import Callable
 from enum import Enum
-from typing import cast
+from typing import Optional, Union, cast
 
 from sgr_specification.v0.product import DeviceFrame
 from xsdata.formats.dataclass.context import XmlContext
@@ -103,8 +103,8 @@ class DeviceBuilder:
         """
         Constructs a new device builder.
         """
-        self._eid_source: str | None = None
-        self._properties_source: str | dict | None = None
+        self._eid_source: Optional[str] = None
+        self._properties_source: Union[str, dict, None] = None
         self._eid_type: SGrXmlSource = SGrXmlSource.UNKNOWN
         self._properties_type: SGrPropertiesSource = SGrPropertiesSource.UNKNOWN
 

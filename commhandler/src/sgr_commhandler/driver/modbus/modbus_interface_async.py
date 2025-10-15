@@ -5,7 +5,7 @@ Provides the Modbus interface implementation.
 import logging
 import random
 import string
-from typing import Any, Optional
+from typing import Any, Optional, Union
 from math import pow
 
 from sgr_specification.v0.generic import DataDirectionProduct, Parity
@@ -170,7 +170,7 @@ def build_modbus_data_point(
     return DataPoint(protocol, validator)
 
 
-def is_integer_type(data_type: DataTypeProduct | ModbusDataType | None) -> bool:
+def is_integer_type(data_type: Union[DataTypeProduct, ModbusDataType, None]) -> bool:
     """
     Checks if a data type is an integer.
 
@@ -196,7 +196,7 @@ def is_integer_type(data_type: DataTypeProduct | ModbusDataType | None) -> bool:
     )
 
 
-def is_float_type(data_type: DataTypeProduct | ModbusDataType | None) -> bool:
+def is_float_type(data_type: Union[DataTypeProduct, ModbusDataType, None]) -> bool:
     """
     Checks if a data type is a floating point value.
 
@@ -581,7 +581,7 @@ class SGrModbusInterface(SGrBaseInterface):
         address: int,
         data_type: ModbusDataType,
         value: Any,
-    ) -> None:
+    ):
         """
         Writes data to the given Modbus address(es).
         """

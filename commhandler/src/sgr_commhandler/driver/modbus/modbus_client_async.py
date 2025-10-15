@@ -50,7 +50,7 @@ class SGrModbusClient(ABC):
 
     async def write_holding_registers(
         self, slave_id: int, address: int, data_type: ModbusDataType, value: Any
-    ) -> None:
+    ):
         """
         Encodes value to be written to holding register address.
 
@@ -78,7 +78,7 @@ class SGrModbusClient(ABC):
 
     async def write_coils(
         self, slave_id: int, address: int, data_type: ModbusDataType, value: Any
-    ) -> None:
+    ):
         """
         Encodes value to be written to coil address.
 
