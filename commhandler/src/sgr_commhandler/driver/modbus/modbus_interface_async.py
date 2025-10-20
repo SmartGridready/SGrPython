@@ -8,8 +8,8 @@ import string
 from typing import Any, Optional, Union
 from math import pow
 
-from sgr_specification.v0.generic import DataDirectionProduct, Parity
-from sgr_specification.v0.generic.base_types import DataTypeProduct, Units
+from sgr_specification.v0.generic import Parity
+from sgr_specification.v0.generic.base_types import DataTypeProduct
 from sgr_specification.v0.product import (
     DeviceFrame,
 )
@@ -211,7 +211,7 @@ def is_float_type(data_type: Union[DataTypeProduct, ModbusDataType, None]) -> bo
     return data_type.float32 is not None or data_type.float64 is not None
 
 
-class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
+class ModbusDataPoint(DataPointProtocol[ModbusFunctionalProfileSpec, ModbusDataPointSpec]):
     """
     Implements a data point of a Modbus interface.
     """
@@ -222,25 +222,8 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
         fp_spec: ModbusFunctionalProfileSpec,
         interface: 'SGrModbusInterface',
     ):
-        self._dp_spec = dp_spec
-        self._fp_spec = fp_spec
+        super(ModbusDataPoint, self).__init__(fp_spec, dp_spec)
         self._interface = interface
-
-        self._dp_name: str = ''
-        if (
-            self._dp_spec.data_point
-            and self._dp_spec.data_point.data_point_name
-        ):
-            self._dp_name = self._dp_spec.data_point.data_point_name
-
-        self._fp_name: str = ''
-        if (
-            self._fp_spec.functional_profile
-            and self._fp_spec.functional_profile.functional_profile_name
-        ):
-            self._fp_name = (
-                self._fp_spec.functional_profile.functional_profile_name
-            )
 
         self._address: int = -1
         if (
@@ -279,9 +262,6 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
             )
         else:
             raise ValueError('Modbus register type not defined')
-
-    def get_specification(self) -> ModbusDataPointSpec:
-        return self._dp_spec
 
     async def set_val(self, value: Any):
         # special case enum - convert to ordinal
@@ -372,25 +352,6 @@ class ModbusDataPoint(DataPointProtocol[ModbusDataPointSpec]):
 
         return ret_value
 
-    def name(self) -> tuple[str, str]:
-        return self._fp_name, self._dp_name
-
-    def direction(self) -> DataDirectionProduct:
-        if (
-            self._dp_spec.data_point is None
-            or self._dp_spec.data_point.data_direction is None
-        ):
-            raise Exception('missing data direction')
-        return self._dp_spec.data_point.data_direction
-
-    def unit(self) -> Units:
-        if (
-            self._dp_spec.data_point is None
-            or self._dp_spec.data_point.unit is None
-        ):
-            return Units.NONE
-        return self._dp_spec.data_point.unit
-
 
 class ModbusFunctionalProfile(FunctionalProfile[ModbusFunctionalProfileSpec]):
     """
@@ -402,7 +363,7 @@ class ModbusFunctionalProfile(FunctionalProfile[ModbusFunctionalProfileSpec]):
         fp_spec: ModbusFunctionalProfileSpec,
         interface: 'SGrModbusInterface',
     ):
-        self._fp_spec = fp_spec
+        super(ModbusFunctionalProfile, self).__init__(fp_spec)
         self._interface = interface
         dps = [
             build_modbus_data_point(dp, self._fp_spec, self._interface)
@@ -413,17 +374,8 @@ class ModbusFunctionalProfile(FunctionalProfile[ModbusFunctionalProfileSpec]):
         ]
         self._data_points = {dp.name(): dp for dp in dps}
 
-    def name(self) -> str:
-        return self._fp_spec.functional_profile.functional_profile_name if (
-            self._fp_spec.functional_profile
-            and self._fp_spec.functional_profile.functional_profile_name
-        ) else ''
-
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
-
-    def get_specification(self) -> ModbusFunctionalProfileSpec:
-        return self._fp_spec
 
 
 class SGrModbusInterface(SGrBaseInterface):

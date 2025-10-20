@@ -2,6 +2,7 @@
 Provides message filter implementations.
 """
 
+from abc import ABC, abstractmethod
 import re
 import json
 import jmespath
@@ -18,7 +19,7 @@ from sgr_specification.v0.product.messaging_types import MessageFilter
 T = TypeVar('T')
 
 
-class MessagingFilter(Generic[T]):
+class MessagingFilter(ABC, Generic[T]):
     """
     The base class for message filter implementations.
     """
@@ -26,6 +27,7 @@ class MessagingFilter(Generic[T]):
     def __init__(self, filter_spec: T):
         self._filter_spec = filter_spec
 
+    @abstractmethod
     def is_filter_match(self, payload: Any) -> bool:
         ...
 

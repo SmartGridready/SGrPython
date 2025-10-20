@@ -2,16 +2,21 @@
 Provides the data-point-level API.
 """
 
+from abc import ABC, abstractmethod
 from collections.abc import Callable
 from typing import Any, Generic, NoReturn, Optional, TypeVar
 
-from sgr_specification.v0.generic import DataDirectionProduct, Units, DataPointBase
+from sgr_specification.v0.generic import DataDirectionProduct, Units, DataPointBase, FunctionalProfileBase
 
-from sgr_commhandler.api.dynamic_parameter import DynamicParameter
+from sgr_commhandler.api.dynamic_parameter import DynamicParameter, build_dynamic_parameters
 from sgr_commhandler.api.data_types import DataTypes
 
-"""Defines a generic data type."""
+
+TFpSpec = TypeVar('TFpSpec', covariant=True, bound=FunctionalProfileBase)
+"""Defines a generic functional profile data type."""
+
 TDpSpec = TypeVar('TDpSpec', covariant=True, bound=DataPointBase)
+"""Defines a generic data point data type."""
 
 
 class DataPointValidator(object):
@@ -63,10 +68,37 @@ class DataPointValidator(object):
         return []
 
 
-class DataPointProtocol(Generic[TDpSpec]):
+class DataPointProtocol(ABC, Generic[TFpSpec, TDpSpec]):
     """
     Implements a base class for data point protocols.
     """
+
+    _fp_spec: TFpSpec
+    _dp_spec: TDpSpec
+    _fp_name: str
+    _dp_name: str
+    _dynamic_parameters: list[DynamicParameter]
+
+    def __init__(self, fp_spec: TFpSpec, dp_spec: TDpSpec):
+        self._fp_spec = fp_spec
+        self._dp_spec = dp_spec
+
+        self._fp_name = fp_spec.functional_profile.functional_profile_name if (
+            fp_spec.functional_profile is not None
+            and fp_spec.functional_profile.functional_profile_name is not None
+        ) else ''
+
+        self._dp_name = dp_spec.data_point.data_point_name if (
+            dp_spec.data_point is not None
+            and dp_spec.data_point.data_point_name is not None
+        ) else ''
+
+        self._dynamic_parameters = build_dynamic_parameters(
+            self._dp_spec.data_point.parameter_list
+            if self._dp_spec.data_point
+            else None
+        )
+
     def get_specification(self) -> TDpSpec:
         """
         Gets the data point specification.
@@ -76,8 +108,9 @@ class DataPointProtocol(Generic[TDpSpec]):
         TDpSpec
             the interface-specific specification
         """
-        ...
+        return self._dp_spec
 
+    @abstractmethod
     async def set_val(self, value: Any):
         """
         Writes the data point value.
@@ -89,6 +122,7 @@ class DataPointProtocol(Generic[TDpSpec]):
         """
         ...
 
+    @abstractmethod
     async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
         """
         Reads the data point value.
@@ -116,7 +150,7 @@ class DataPointProtocol(Generic[TDpSpec]):
         tuple[str, str]
             the functional profile and data point names as tuple
         """
-        ...
+        return (self._fp_name, self._dp_name)
 
     def direction(self) -> DataDirectionProduct:
         """
@@ -127,7 +161,12 @@ class DataPointProtocol(Generic[TDpSpec]):
         DataDirectionProduct
             the data point direction
         """
-        ...
+        if (
+            self._dp_spec.data_point is None
+            or self._dp_spec.data_point.data_direction is None
+        ):
+            raise Exception('missing data direction')
+        return self._dp_spec.data_point.data_direction
 
     def unit(self) -> Units:
         """
@@ -138,7 +177,12 @@ class DataPointProtocol(Generic[TDpSpec]):
         Units
             the unit
         """
-        ...
+        if (
+            self._dp_spec.data_point is None
+            or self._dp_spec.data_point.unit is None
+        ):
+            return Units.NONE
+        return self._dp_spec.data_point.unit
 
     def dynamic_parameters(self) -> list[DynamicParameter]:
         """
@@ -149,7 +193,7 @@ class DataPointProtocol(Generic[TDpSpec]):
         list[DynamicParameter]
             the dynamic parameters
         """
-        return []
+        return self._dynamic_parameters
 
     def can_subscribe(self) -> bool:
         """
@@ -180,20 +224,20 @@ class DataPointProtocol(Generic[TDpSpec]):
         raise Exception('unsubscribe() is not supported')
 
 
-class DataPoint(Generic[TDpSpec]):
+class DataPoint(Generic[TFpSpec, TDpSpec]):
     """
     Implements a data point of a generic data type.
     """
 
     def __init__(
-        self, protocol: DataPointProtocol[TDpSpec], validator: DataPointValidator
+        self, protocol: DataPointProtocol[TFpSpec, TDpSpec], validator: DataPointValidator
     ):
         """
         Constructs a data point.
 
         Parameters
         ----------
-        protocol : DataPointProtocol[TDpSpec]
+        protocol : DataPointProtocol[TFpSpec, TDpSpec]
             the underlying protocol
         validator : DataPointValidator
             the data point's value validator

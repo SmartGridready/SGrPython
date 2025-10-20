@@ -6,9 +6,6 @@ import logging
 from typing import Any, Optional
 
 from sgr_specification.v0.generic import (
-    DataDirectionProduct, Units
-)
-from sgr_specification.v0.generic import (
     DataPointBase as ContactDataPointSpec,
 )
 from sgr_specification.v0.product import (
@@ -48,7 +45,7 @@ def build_contact_data_point(
     return DataPoint(protocol, validator)
 
 
-class ContactDataPoint(DataPointProtocol[ContactDataPointSpec]):
+class ContactDataPoint(DataPointProtocol[ContactFunctionalProfileSpec, ContactDataPointSpec]):
     """
     Implements a data point of a contact interface.
     """
@@ -59,8 +56,7 @@ class ContactDataPoint(DataPointProtocol[ContactDataPointSpec]):
         fp_spec: ContactFunctionalProfileSpec,
         interface: 'SGrContactInterface',
     ):
-        self._dp_spec = dp_spec
-        self._fp_spec = fp_spec
+        super(ContactDataPoint, self).__init__(fp_spec, dp_spec)
 
         self._fp_name = ''
         if (
@@ -78,33 +74,11 @@ class ContactDataPoint(DataPointProtocol[ContactDataPointSpec]):
 
         self._interface = interface
 
-    def name(self) -> tuple[str, str]:
-        return self._fp_name, self._dp_name
-
-    def get_specification(self) -> ContactDataPointSpec:
-        return self._dp_spec
-
     async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
         raise Exception('Not implemented')
 
     async def set_val(self, value: Any):
         raise Exception('Not implemented')
-
-    def direction(self) -> DataDirectionProduct:
-        if (
-            self._dp_spec.data_point is None
-            or self._dp_spec.data_point.data_direction is None
-        ):
-            raise Exception('missing data direction')
-        return self._dp_spec.data_point.data_direction
-
-    def unit(self) -> Units:
-        if (
-            self._dp_spec.data_point is None
-            or self._dp_spec.data_point.unit is None
-        ):
-            return Units.NONE
-        return self._dp_spec.data_point.unit
 
 
 class ContactFunctionalProfile(FunctionalProfile[ContactFunctionalProfileSpec]):
@@ -117,7 +91,7 @@ class ContactFunctionalProfile(FunctionalProfile[ContactFunctionalProfileSpec]):
         fp_spec: ContactFunctionalProfileSpec,
         interface: 'SGrContactInterface',
     ):
-        self._fp_spec = fp_spec
+        super(ContactFunctionalProfile, self).__init__(fp_spec)
         self._interface = interface
 
         raw_dps = []
@@ -134,19 +108,8 @@ class ContactFunctionalProfile(FunctionalProfile[ContactFunctionalProfileSpec]):
 
         self._data_points = {dp.name(): dp for dp in dps}
 
-    def name(self) -> str:
-        if (
-            self._fp_spec.functional_profile
-            and self._fp_spec.functional_profile.functional_profile_name
-        ):
-            return self._fp_spec.functional_profile.functional_profile_name
-        return ''
-
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
-
-    def get_specification(self) -> ContactFunctionalProfileSpec:
-        return self._fp_spec
 
 
 class SGrContactInterface(SGrBaseInterface):

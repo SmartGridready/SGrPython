@@ -1,4 +1,4 @@
-from typing import Any, Optional, Protocol, TypeVar
+from typing import Any, Generic, Optional, TypeVar
 
 from sgr_specification.v0.generic import DataDirectionProduct
 from sgr_specification.v0.generic.functional_profile import FunctionalProfileBase
@@ -6,14 +6,20 @@ from sgr_specification.v0.generic.functional_profile import FunctionalProfileBas
 from sgr_commhandler.api.data_point_api import DataPoint
 from sgr_commhandler.api.data_types import DataTypes
 
-"""Defines a generic data type."""
+
 TFpSpec = TypeVar('TFpSpec', covariant=True, bound=FunctionalProfileBase)
+"""Defines a generic functional profile data type."""
 
 
-class FunctionalProfile(Protocol[TFpSpec]):
+class FunctionalProfile(Generic[TFpSpec]):
     """
     Implements a functional profile.
     """
+
+    _fp_spec: TFpSpec
+
+    def __init__(self, fp_spec: TFpSpec):
+        self._fp_spec = fp_spec
 
     def name(self) -> str:
         """
@@ -24,7 +30,12 @@ class FunctionalProfile(Protocol[TFpSpec]):
         str
             the functional profile name
         """
-        ...
+        if (
+            self._fp_spec.functional_profile
+            and self._fp_spec.functional_profile.functional_profile_name
+        ):
+            return self._fp_spec.functional_profile.functional_profile_name
+        return ''
 
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         """
@@ -62,14 +73,14 @@ class FunctionalProfile(Protocol[TFpSpec]):
         dict[str, Any]
             all data point values by name
         """
-        data = {}
+        data: dict[str, Any] = dict()
         for (key, dp) in self.get_data_points().items():
             try:
                 value = await dp.get_value_async(parameters)
-                data[key] = value
+                data[key[1]] = value
             except Exception:
                 # TODO log error - None should not be a valid DP value
-                data[key] = None
+                data[key[1]] = None
         return data
 
     def describe(
@@ -95,4 +106,4 @@ class FunctionalProfile(Protocol[TFpSpec]):
         TFpSpec
             the functional profile specification
         """
-        ...
+        return self._fp_spec

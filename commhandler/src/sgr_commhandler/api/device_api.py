@@ -2,7 +2,7 @@
 Provides the device-level API.
 """
 
-from collections.abc import Mapping
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any, Optional
 
@@ -46,7 +46,7 @@ class DeviceInformation:
     is_local: bool
 
 
-class SGrBaseInterface(object):
+class SGrBaseInterface(ABC):
     """
     Defines an abstract base class for all SGr device interfaces.
 
@@ -58,13 +58,13 @@ class SGrBaseInterface(object):
         the configuration parameters with default values
     device_information : DeviceInformation
         the device information
-    functional_profiles : Mapping[str, FunctionalProfile]
+    functional_profiles : dict[str, FunctionalProfile]
         the configured functional profiles
     """
     device_frame: DeviceFrame
     configuration_parameters: list[ConfigurationParameter]
     device_information: DeviceInformation
-    functional_profiles: Mapping[str, FunctionalProfile]
+    functional_profiles: dict[str, FunctionalProfile]
 
     def __init__(
         self, frame: DeviceFrame
@@ -97,18 +97,21 @@ class SGrBaseInterface(object):
             else False,
         )
 
+    @abstractmethod
     async def connect_async(self):
         """
         Connects the device asynchronously.
         """
         ...
 
+    @abstractmethod
     async def disconnect_async(self):
         """
         Disconnects the device asynchronously.
         """
         ...
 
+    @abstractmethod
     def is_connected(self) -> bool:
         """
         Gets the connection state.
@@ -119,6 +122,17 @@ class SGrBaseInterface(object):
             the connection state
         """
         ...
+
+    def get_functional_profiles(self) -> dict[str, FunctionalProfile]:
+        """
+        Gets all functional profiles.
+
+        Returns
+        -------
+        dict[str, FunctionalProfile]
+            all functional profiles
+        """
+        return self.functional_profiles
 
     def get_functional_profile(
         self, functional_profile_name: str
@@ -163,7 +177,7 @@ class SGrBaseInterface(object):
         dict[tuple[str, str], DataPoint]
             all data points
         """
-        data_points = {}
+        data_points: dict[tuple[str, str], DataPoint] = dict()
         for fp in self.functional_profiles.values():
             data_points.update(fp.get_data_points())
         return data_points
@@ -177,11 +191,11 @@ class SGrBaseInterface(object):
         dict[tuple[str, str], Any]
             all data point values
         """
-        data = {}
-        for fp in self.functional_profiles.values():
+        data: dict[tuple[str, str], Any] = dict()
+        for (fp_name, fp) in self.functional_profiles.items():
             data.update(
                 {
-                    (fp.name(), key): value
+                    (fp_name, key): value
                     for (key, value) in (
                         await fp.get_values_async(parameters)
                     ).items()
@@ -202,11 +216,11 @@ class SGrBaseInterface(object):
         tuple[str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]]
             a tuple of device name and all data point values
         """
-        data = {}
+        data: dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]] = dict()
         for fp in self.functional_profiles.values():
-            key, dps = fp.describe()
+            (key, dps) = fp.describe()
             data[key] = dps
-        return self.device_information.name, data
+        return (self.device_information.name, data)
 
     def get_specification(self) -> DeviceFrame:
         """
