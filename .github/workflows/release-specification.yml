@@ -41,13 +41,13 @@ jobs:
           fi
           echo "Semver: $SEMVER"
           echo "Tag: $TAG"
-          echo "::set-output name=original_tag::$TAG"
-          echo "::set-output name=semver::$SEMVER"
+          echo "original_tag=${TAG}" >> $GITHUB_OUTPUT
+          echo "semver=${SEMVER}" >> $GITHUB_OUTPUT
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.x'
+          python-version: '3.9'
 
       - name: Install Dependencies
         run: |
@@ -60,14 +60,14 @@ jobs:
           pip show xsdata
 
       - name: Checkout SGrSpecifications Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: 'SmartGridready/SGrSpecifications'
           ref: ${{ steps.set_tag.outputs.original_tag }}
           path: SGrSpecifications
 
       - name: Checkout SGrPython Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: SGrPython
 

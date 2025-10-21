@@ -1,3 +1,8 @@
+"""
+Provides a payload encoder and decoder to convert between external and Modbus data types.
+This implementation is only supported up to pymodbus 3.8.
+"""
+
 import logging
 from typing import Any
 
@@ -14,7 +19,7 @@ class PayloadDecoder(BinaryPayloadDecoder):
     """
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(PayloadDecoder, self).__init__(*args, **kwargs)
 
     def decode(self, modbus_type: ModbusDataType, byte_count: int):
         """
@@ -68,7 +73,7 @@ class PayloadBuilder(BinaryPayloadBuilder):
     """
 
     def __init__(self, *args, **kwarg):
-        super().__init__(*args, **kwarg)
+        super(PayloadBuilder, self).__init__(*args, **kwarg)
 
     def sgr_encode(
         self, value: Any, modbus_type: ModbusDataType

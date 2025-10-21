@@ -1,7 +1,14 @@
+"""
+Provides a client for the declaration library's REST API.
+"""
+
 from typing import Any
 import requests
 
+
 LIB_BASE_URL = 'https://library.smartgridready.ch'
+"""The base URL of the library REST API."""
+
 
 def get_product_eid_xml(name: str) -> str:
     """

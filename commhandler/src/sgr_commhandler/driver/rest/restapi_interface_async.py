@@ -1,3 +1,7 @@
+"""
+Provides the HTTP/REST interface implementation.
+"""
+
 import json
 import logging
 import re
@@ -10,7 +14,6 @@ import jmespath
 from aiohttp import ClientConnectionError, ClientResponseError
 from cachetools import TTLCache
 from multidict import CIMultiDict
-from sgr_specification.v0.generic import DataDirectionProduct, Units
 from sgr_specification.v0.generic.base_types import ResponseQueryType
 from sgr_specification.v0.product import (
     DeviceFrame,
@@ -38,8 +41,6 @@ from sgr_commhandler.api.device_api import (
     SGrBaseInterface
 )
 from sgr_commhandler.api.dynamic_parameter import (
-    DynamicParameter,
-    build_dynamic_parameters,
     build_dynamic_parameter_substitutions
 )
 from sgr_commhandler.driver.rest.request import (
@@ -67,7 +68,7 @@ def build_rest_data_point(
     return DataPoint(protocol, validator)
 
 
-class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
+class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataPointSpec]):
     """
     Implements a data point of a REST API interface.
     """
@@ -78,8 +79,7 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
         fp_spec: RestApiFunctionalProfileSpec,
         interface: 'SGrRestInterface',
     ):
-        self._dp_spec = dp_spec
-        self._fp_spec = fp_spec
+        super(RestDataPoint, self).__init__(fp_spec, dp_spec)
 
         dp_config = self._dp_spec.rest_api_data_point_configuration
         if not dp_config:
@@ -194,34 +194,8 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
 
         if not self._read_call and not self._write_call:
             raise Exception('No REST service call configured')
-        
-        self._dynamic_parameters = build_dynamic_parameters(
-            self._dp_spec.data_point.parameter_list
-            if self._dp_spec.data_point
-            else None
-        )
-
-        self._fp_name = ''
-        if (
-            fp_spec.functional_profile is not None
-            and fp_spec.functional_profile.functional_profile_name is not None
-        ):
-            self._fp_name = fp_spec.functional_profile.functional_profile_name
-
-        self._dp_name = ''
-        if (
-            dp_spec.data_point is not None
-            and dp_spec.data_point.data_point_name is not None
-        ):
-            self._dp_name = dp_spec.data_point.data_point_name
 
         self._interface = interface
-
-    def name(self) -> tuple[str, str]:
-        return self._fp_name, self._dp_name
-
-    def get_specification(self) -> RestApiDataPointSpec:
-        return self._dp_spec
 
     async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
         if not self._read_call:
@@ -313,27 +287,8 @@ class RestDataPoint(DataPointProtocol[RestApiDataPointSpec]):
         # TODO use response body
         await self._interface.execute_request(request, skip_cache=True)
 
-    def direction(self) -> DataDirectionProduct:
-        if (
-            self._dp_spec.data_point is None
-            or self._dp_spec.data_point.data_direction is None
-        ):
-            raise Exception('missing data direction')
-        return self._dp_spec.data_point.data_direction
-    
-    def unit(self) -> Units:
-        if (
-            self._dp_spec.data_point is None
-            or self._dp_spec.data_point.unit is None
-        ):
-            return Units.NONE
-        return self._dp_spec.data_point.unit
 
-    def dynamic_parameters(self) -> list[DynamicParameter]:
-        return self._dynamic_parameters
-
-
-class RestFunctionalProfile(FunctionalProfile):
+class RestFunctionalProfile(FunctionalProfile[RestApiFunctionalProfileSpec]):
     """
     Implements a functional profile of a REST API interface.
     """
@@ -343,7 +298,7 @@ class RestFunctionalProfile(FunctionalProfile):
         fp_spec: RestApiFunctionalProfileSpec,
         interface: 'SGrRestInterface',
     ):
-        self._fp_spec = fp_spec
+        super(RestFunctionalProfile, self).__init__(fp_spec)
         self._interface = interface
 
         raw_dps = []
@@ -360,19 +315,8 @@ class RestFunctionalProfile(FunctionalProfile):
 
         self._data_points = {dp.name(): dp for dp in dps}
 
-    def name(self) -> str:
-        if (
-            self._fp_spec.functional_profile
-            and self._fp_spec.functional_profile.functional_profile_name
-        ):
-            return self._fp_spec.functional_profile.functional_profile_name
-        return ''
-
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
-
-    def get_specification(self) -> RestApiFunctionalProfileSpec:
-        return self._fp_spec
 
 
 class SGrRestInterface(SGrBaseInterface):
@@ -383,7 +327,7 @@ class SGrRestInterface(SGrBaseInterface):
     def __init__(
         self, frame: DeviceFrame
     ):
-        super().__init__(frame)
+        super(SGrRestInterface, self).__init__(frame)
         self._session = None
         self._cache = TTLCache(maxsize=100, ttl=5)
 

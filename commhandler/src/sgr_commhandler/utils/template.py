@@ -1,4 +1,7 @@
-# template utils
+"""
+Provides a function to substitute placeholders in a template.
+"""
+
 
 def substitute(template: str, substitutions: dict[str, str]) -> str:
     """

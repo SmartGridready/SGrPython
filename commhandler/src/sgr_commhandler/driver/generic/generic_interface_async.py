@@ -1,8 +1,12 @@
+"""
+Provides the generic interface implementation.
+"""
+
 import logging
 from typing import Any, Optional
 
 from sgr_specification.v0.generic import (
-    DataDirectionProduct, Units
+    DataDirectionProduct
 )
 from sgr_specification.v0.generic import (
     DataPointBase as GenericDataPointSpec,
@@ -44,7 +48,7 @@ def build_generic_data_point(
     return DataPoint(protocol, validator)
 
 
-class GenericDataPoint(DataPointProtocol[GenericDataPointSpec]):
+class GenericDataPoint(DataPointProtocol[GenericFunctionalProfileSpec, GenericDataPointSpec]):
     """
     Implements a data point of a generic interface.
     """
@@ -55,8 +59,7 @@ class GenericDataPoint(DataPointProtocol[GenericDataPointSpec]):
         fp_spec: GenericFunctionalProfileSpec,
         interface: 'SGrGenericInterface',
     ):
-        self._dp_spec = dp_spec
-        self._fp_spec = fp_spec
+        super(GenericDataPoint, self).__init__(fp_spec, dp_spec)
 
         self._fp_name = ''
         if (
@@ -74,12 +77,6 @@ class GenericDataPoint(DataPointProtocol[GenericDataPointSpec]):
 
         self._interface = interface
 
-    def name(self) -> tuple[str, str]:
-        return self._fp_name, self._dp_name
-
-    def get_specification(self) -> GenericDataPointSpec:
-        return self._dp_spec
-
     async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
         # supports at least constant DPs
         if (
@@ -93,22 +90,6 @@ class GenericDataPoint(DataPointProtocol[GenericDataPointSpec]):
     async def set_val(self, value: Any):
         raise Exception('Not supported')
 
-    def direction(self) -> DataDirectionProduct:
-        if (
-            self._dp_spec.data_point is None
-            or self._dp_spec.data_point.data_direction is None
-        ):
-            raise Exception('missing data direction')
-        return self._dp_spec.data_point.data_direction
-
-    def unit(self) -> Units:
-        if (
-            self._dp_spec.data_point is None
-            or self._dp_spec.data_point.unit is None
-        ):
-            return Units.NONE
-        return self._dp_spec.data_point.unit
-
 
 class GenericFunctionalProfile(FunctionalProfile[GenericFunctionalProfileSpec]):
     """
@@ -120,7 +101,7 @@ class GenericFunctionalProfile(FunctionalProfile[GenericFunctionalProfileSpec]):
         fp_spec: GenericFunctionalProfileSpec,
         interface: 'SGrGenericInterface',
     ):
-        self._fp_spec = fp_spec
+        super(GenericFunctionalProfile, self).__init__(fp_spec)
         self._interface = interface
 
         raw_dps = []
@@ -161,7 +142,7 @@ class SGrGenericInterface(SGrBaseInterface):
     def __init__(
         self, frame: DeviceFrame
     ):
-        super().__init__(frame)
+        super(SGrGenericInterface, self).__init__(frame)
 
         if (
             self.device_frame.interface_list

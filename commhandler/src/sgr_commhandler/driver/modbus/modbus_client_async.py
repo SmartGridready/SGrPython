@@ -1,7 +1,11 @@
+"""
+Provides the Modbus client implementation.
+"""
+
 import logging
 import threading
 from abc import ABC
-from typing import Any, Optional
+from typing import Any
 
 from pymodbus import FramerType
 from pymodbus.client import AsyncModbusSerialClient, AsyncModbusTcpClient
@@ -46,7 +50,7 @@ class SGrModbusClient(ABC):
 
     async def write_holding_registers(
         self, slave_id: int, address: int, data_type: ModbusDataType, value: Any
-    ) -> None:
+    ):
         """
         Encodes value to be written to holding register address.
 
@@ -70,11 +74,11 @@ class SGrModbusClient(ABC):
                 address+self._addr_offset, builder.to_registers(), slave=slave_id, no_response_expected=True
             )
             if response and response.isError():
-                logger.warning(f'Modbus write exception {response.status}')
+                logger.warning(f'Modbus write exception {response.function_code}')
 
     async def write_coils(
         self, slave_id: int, address: int, data_type: ModbusDataType, value: Any
-    ) -> None:
+    ):
         """
         Encodes value to be written to coil address.
 
@@ -98,7 +102,7 @@ class SGrModbusClient(ABC):
                 address+self._addr_offset, builder.to_coils(), slave=slave_id, no_response_expected=True
             )
             if response and response.isError():
-                logger.warning(f'Modbus write exception {response.status}')
+                logger.warning(f'Modbus write exception {response.function_code}')
 
     async def read_input_registers(
         self, slave_id: int, address: int, size: int, data_type: ModbusDataType
@@ -116,7 +120,7 @@ class SGrModbusClient(ABC):
             The number of registers to read
         data_type : ModbusDataType
             The modbus type to decode
-        
+
         Returns
         -------
         Any
@@ -134,7 +138,7 @@ class SGrModbusClient(ABC):
             )
             return decoder.decode(data_type, 0)
         elif response and response.isError():
-            logger.warning(f'Modbus read exception {response.status}')
+            logger.warning(f'Modbus read exception {response.function_code}')
 
     async def read_holding_registers(
         self, slave_id: int, address: int, size: int, data_type: ModbusDataType
@@ -152,7 +156,7 @@ class SGrModbusClient(ABC):
             The number of registers to read
         data_type : ModbusDataType
             The modbus type to decode
-        
+
         Returns
         -------
         Any
@@ -170,7 +174,7 @@ class SGrModbusClient(ABC):
             )
             return decoder.decode(data_type, 0)
         elif response and response.isError():
-            logger.warning(f'Modbus read exception {response.status}')
+            logger.warning(f'Modbus read exception {response.function_code}')
 
     async def read_coils(
         self, slave_id: int, address: int, size: int, data_type: ModbusDataType
@@ -188,7 +192,7 @@ class SGrModbusClient(ABC):
             The number of coils to read
         data_type : ModbusDataType
             The modbus type to decode
-        
+
         Returns
         -------
         Any
@@ -206,7 +210,7 @@ class SGrModbusClient(ABC):
             )
             return decoder.decode(data_type, 0)
         elif response and response.isError():
-            logger.warning(f'Modbus read exception {response.status}')
+            logger.warning(f'Modbus read exception {response.function_code}')
 
     async def read_discrete_inputs(
         self, slave_id: int, address: int, size: int, data_type: ModbusDataType
@@ -224,7 +228,7 @@ class SGrModbusClient(ABC):
             The number of inputs to read
         data_type : ModbusDataType
             The modbus type to decode
-        
+
         Returns
         -------
         Any
@@ -242,7 +246,7 @@ class SGrModbusClient(ABC):
             )
             return decoder.decode(data_type, 0)
         elif response and response.isError():
-            logger.warning(f'Modbus read exception {response.status}')
+            logger.warning(f'Modbus read exception {response.function_code}')
 
 
 class SGrModbusTCPClient(SGrModbusClient):
@@ -251,7 +255,7 @@ class SGrModbusTCPClient(SGrModbusClient):
     """
 
     def __init__(self, ip: str, port: int, endianness: BitOrder = BitOrder.BIG_ENDIAN, addr_offset: int = 0):
-        super().__init__(
+        super(SGrModbusTCPClient, self).__init__(
             endianness,
             addr_offset,
             AsyncModbusTcpClient(
@@ -298,7 +302,7 @@ class SGrModbusRTUClient(SGrModbusClient):
     def __init__(
         self, serial_port: str, parity: str, baudrate: int, endianness: BitOrder = BitOrder.BIG_ENDIAN, addr_offset: int = 0
     ):
-        super().__init__(
+        super(SGrModbusRTUClient, self).__init__(
             endianness,
             addr_offset,
             AsyncModbusSerialClient(

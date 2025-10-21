@@ -1,6 +1,10 @@
-from collections.abc import Mapping
+"""
+Provides the device-level API.
+"""
+
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any, Optional, Protocol
+from typing import Any, Optional
 
 from sgr_specification.v0.generic import DataDirectionProduct, DeviceCategory
 from sgr_specification.v0.product.product import DeviceFrame
@@ -42,7 +46,7 @@ class DeviceInformation:
     is_local: bool
 
 
-class SGrBaseInterface(Protocol):
+class SGrBaseInterface(ABC):
     """
     Defines an abstract base class for all SGr device interfaces.
 
@@ -54,17 +58,18 @@ class SGrBaseInterface(Protocol):
         the configuration parameters with default values
     device_information : DeviceInformation
         the device information
-    functional_profiles : Mapping[str, FunctionalProfile]
+    functional_profiles : dict[str, FunctionalProfile]
         the configured functional profiles
     """
     device_frame: DeviceFrame
     configuration_parameters: list[ConfigurationParameter]
     device_information: DeviceInformation
-    functional_profiles: Mapping[str, FunctionalProfile]
+    functional_profiles: dict[str, FunctionalProfile]
 
     def __init__(
         self, frame: DeviceFrame
     ):
+        super(SGrBaseInterface, self).__init__()
         self.device_frame = frame
         self.configuration_parameters = build_configuration_parameters(
             frame.configuration_list
@@ -92,18 +97,21 @@ class SGrBaseInterface(Protocol):
             else False,
         )
 
+    @abstractmethod
     async def connect_async(self):
         """
         Connects the device asynchronously.
         """
         ...
 
+    @abstractmethod
     async def disconnect_async(self):
         """
         Disconnects the device asynchronously.
         """
         ...
 
+    @abstractmethod
     def is_connected(self) -> bool:
         """
         Gets the connection state.
@@ -114,6 +122,17 @@ class SGrBaseInterface(Protocol):
             the connection state
         """
         ...
+
+    def get_functional_profiles(self) -> dict[str, FunctionalProfile]:
+        """
+        Gets all functional profiles.
+
+        Returns
+        -------
+        dict[str, FunctionalProfile]
+            all functional profiles
+        """
+        return self.functional_profiles
 
     def get_functional_profile(
         self, functional_profile_name: str
@@ -158,7 +177,7 @@ class SGrBaseInterface(Protocol):
         dict[tuple[str, str], DataPoint]
             all data points
         """
-        data_points = {}
+        data_points: dict[tuple[str, str], DataPoint] = dict()
         for fp in self.functional_profiles.values():
             data_points.update(fp.get_data_points())
         return data_points
@@ -172,12 +191,12 @@ class SGrBaseInterface(Protocol):
         dict[tuple[str, str], Any]
             all data point values
         """
-        data = {}
-        for fp in self.functional_profiles.values():
+        data: dict[tuple[str, str], Any] = dict()
+        for (fp_name, fp) in self.functional_profiles.items():
             data.update(
                 {
-                    (fp.name(), key): value
-                    for key, value in (
+                    (fp_name, key): value
+                    for (key, value) in (
                         await fp.get_values_async(parameters)
                     ).items()
                 }
@@ -197,11 +216,11 @@ class SGrBaseInterface(Protocol):
         tuple[str, dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]]]
             a tuple of device name and all data point values
         """
-        data = {}
+        data: dict[str, dict[str, tuple[DataDirectionProduct, DataTypes]]] = dict()
         for fp in self.functional_profiles.values():
-            key, dps = fp.describe()
+            (key, dps) = fp.describe()
             data[key] = dps
-        return self.device_information.name, data
+        return (self.device_information.name, data)
 
     def get_specification(self) -> DeviceFrame:
         """

@@ -1,3 +1,7 @@
+"""
+Provides data value manipulation functions.
+"""
+
 import logging
 from enum import Enum
 from math import ceil, floor

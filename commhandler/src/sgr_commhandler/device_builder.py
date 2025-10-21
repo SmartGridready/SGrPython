@@ -1,3 +1,7 @@
+"""
+Provides a device builder to create device instances from external interface descriptions (EID).
+"""
+
 import logging
 import configparser
 import re
@@ -6,7 +10,7 @@ import importlib.resources
 import sgr_schema
 from collections.abc import Callable
 from enum import Enum
-from typing import cast
+from typing import Optional, Union, cast
 
 from sgr_specification.v0.product import DeviceFrame
 from xsdata.formats.dataclass.context import XmlContext
@@ -57,13 +61,14 @@ class SGrDeviceProtocol(Enum):
     UNKNOWN = 5
 
 
-SGrInterfaces = (
-    SGrRestInterface
-    | SGrModbusInterface
-    | SGrMessagingInterface
-    | SGrContactInterface
-    | SGrGenericInterface
-)
+SGrInterfaces = Union[
+    SGrRestInterface,
+    SGrModbusInterface,
+    SGrMessagingInterface,
+    SGrContactInterface,
+    SGrGenericInterface
+]
+
 
 device_builders: dict[
     SGrDeviceProtocol,
@@ -99,8 +104,8 @@ class DeviceBuilder:
         """
         Constructs a new device builder.
         """
-        self._eid_source: str | None = None
-        self._properties_source: str | dict | None = None
+        self._eid_source: Optional[str] = None
+        self._properties_source: Union[str, dict, None] = None
         self._eid_type: SGrXmlSource = SGrXmlSource.UNKNOWN
         self._properties_type: SGrPropertiesSource = SGrPropertiesSource.UNKNOWN
 
@@ -150,7 +155,7 @@ class DeviceBuilder:
         ----------
         file_path: str
             the path to the EID XML file
-        
+
         Returns
         -------
         DeviceBuilder
@@ -168,7 +173,7 @@ class DeviceBuilder:
         ----------
         xml: str
             the EID XML content
-        
+
         Returns
         -------
         DeviceBuilder
@@ -186,7 +191,7 @@ class DeviceBuilder:
         ----------
         file_path: str
             the path to the property file
-        
+
         Returns
         -------
         DeviceBuilder
@@ -204,7 +209,7 @@ class DeviceBuilder:
         ----------
         properties: dict
             the properties
-        
+
         Returns
         -------
         DeviceBuilder
@@ -240,7 +245,7 @@ class DeviceBuilder:
                 config.optionxform = lambda optionstr: optionstr
                 config.read(prop_path)
                 properties = {}
-                for section_name, section in config.items():
+                for (section_name, section) in config.items():
                     for param_name in section:
                         param_value = config.get(section_name, param_name)
                         properties[param_name] = param_value
@@ -262,7 +267,7 @@ def parse_device_frame(content: str) -> DeviceFrame:
     ----------
     content: str
         the EID XML content
-    
+
     Returns
     -------
     DeviceFrame
@@ -283,13 +288,13 @@ def replace_variables(content: str, parameters: dict) -> str:
         the EID XML content
     parameters: dict
         the configuration parameters
-    
+
     Returns
     -------
     str
         the updated EID XML content
     """
-    for name, value in parameters.items():
+    for (name, value) in parameters.items():
         pattern = re.compile(r'{{' + str(name) + r'}}')
         content = pattern.sub(str(value), content)
         logger.debug(f'replaced parameter: {str(name)} = {str(value)}')
@@ -308,7 +313,7 @@ def build_properties(config: list[ConfigurationParameter], properties: dict) -> 
         the EID configuration parameters
     properties: dict
         the properties to configure
-    
+
     Returns
     -------
     dict
@@ -335,5 +340,5 @@ def validate_schema(content: str):
         the EID XML content
     """
     xsd_path = importlib.resources.files(sgr_schema).joinpath('SGrIncluder.xsd')
-    xsd = xmlschema.XMLSchema(xsd_path)
+    xsd = xmlschema.XMLSchema(str(xsd_path))
     xsd.validate(content)

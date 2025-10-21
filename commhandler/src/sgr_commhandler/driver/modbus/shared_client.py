@@ -1,3 +1,7 @@
+"""
+Provides shared Modbus RTU clients.
+"""
+
 import logging
 from threading import Lock
 
@@ -26,6 +30,14 @@ class ModbusClientWrapper:
         self.connected_devices = set()
 
     async def connect_async(self, device_id: str):
+        """
+        Connects the device to the underlying transport.
+
+        Parameters
+        ----------
+        device_id : str
+            the unique device identifier
+        """
         if self.shared:
             if device_id not in self.registered_devices:
                 return
@@ -39,6 +51,14 @@ class ModbusClientWrapper:
             await self.client.connect()
 
     async def disconnect_async(self, device_id: str):
+        """
+        Disconnects the device from the underlying transport.
+
+        Parameters
+        ----------
+        device_id : str
+            the unique device identifier
+        """
         if self.shared:
             if device_id not in self.registered_devices:
                 return
@@ -56,6 +76,19 @@ class ModbusClientWrapper:
             await self.client.disconnect()
 
     def is_connected(self, device_id: str) -> bool:
+        """
+        Tells if the device is connected to the transport.
+
+        Parameters
+        ----------
+        device_id : str
+            the unique device identifier
+
+        Returns
+        -------
+        bool
+            the connection state
+        """
         if self.shared:
             return (device_id in self.registered_devices) and (
                 device_id is self.connected_devices
@@ -64,14 +97,36 @@ class ModbusClientWrapper:
             return self.client.is_connected()
 
 
-# singleton objects
 _global_shared_lock = Lock()
+"""global singleton for locking."""
+
 _global_shared_rtu_clients: dict[str, ModbusClientWrapper] = dict()
+"""global singleton containing registered clients."""
 
 
 def register_shared_client(
     serial_port: str, parity: str, baudrate: int, device_id: str
 ) -> ModbusClientWrapper:
+    """
+    Registers a device at a shared transport.
+    Creates the transport if it does not exist.
+
+    Parameters
+    ----------
+    serial_port : str
+        the serial port device name
+    parity : str
+        the serial port parity
+    baudrate : int
+        the serial port baudrate
+    device_id : str
+        the unique device identifier
+
+    Returns
+    -------
+    ModbusClientWrapper
+        a wrapper for the transport
+    """
     global _global_shared_lock
     global _global_shared_rtu_clients
     with _global_shared_lock:
@@ -81,7 +136,7 @@ def register_shared_client(
                 serial_port,
                 parity,
                 baudrate,
-                BitOrder.BIG_ENDIAN,  # TODO bit order was missing, i just added want.
+                BitOrder.BIG_ENDIAN,
             )
             client_wrapper = ModbusClientWrapper(
                 serial_port, modbus_client, shared=True
@@ -95,7 +150,18 @@ def register_shared_client(
         return client_wrapper
 
 
-def unregister_shared_client(serial_port: str, device_id: str) -> None:
+def unregister_shared_client(serial_port: str, device_id: str):
+    """
+    Unregisters a device from a shared transport.
+    Removes the transport if no other device uses it.
+
+    Parameters
+    ----------
+    serial_port : str
+        the serial port device name
+    device_id : str
+        the unique device identifier
+    """
     global _global_shared_lock
     global _global_shared_rtu_clients
     with _global_shared_lock:

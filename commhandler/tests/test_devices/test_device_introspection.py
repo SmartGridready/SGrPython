@@ -15,12 +15,14 @@ EID_BASE_PATH = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), "eids"
 )
 
+
 def _load_device():
     eid_path = os.path.join(
         EID_BASE_PATH, "SGr_00_0016_dddd_ABB_B23_ModbusTCP_V0.4.xml"
     )
     eid_properties = dict(slave_id="1", tcp_address="127.0.0.1", tcp_port="502")
     return DeviceBuilder().eid_path(eid_path).properties(eid_properties).build()
+
 
 @pytest.mark.asyncio
 async def test_device_introspection_device():
@@ -30,6 +32,7 @@ async def test_device_introspection_device():
 
     device_frame = device.get_specification()
     assert isinstance(device_frame, DeviceFrame)
+
 
 @pytest.mark.asyncio
 async def test_device_introspection_fp():
@@ -42,6 +45,7 @@ async def test_device_introspection_fp():
 
     fp_frame = fp.get_specification()
     assert isinstance(fp_frame, ModbusFunctionalProfileSpec)
+
 
 @pytest.mark.asyncio
 async def test_device_introspection_dp():

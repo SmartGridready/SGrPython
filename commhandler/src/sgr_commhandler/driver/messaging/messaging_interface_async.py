@@ -6,7 +6,7 @@ import jmespath
 from collections.abc import Callable
 from typing import Any, NoReturn, Optional
 
-from sgr_specification.v0.generic import DataDirectionProduct, Units, ResponseQueryType
+from sgr_specification.v0.generic import ResponseQueryType
 from sgr_specification.v0.product import (
     DeviceFrame,
     MessagingDataPoint as MessagingDataPointSpec,
@@ -17,7 +17,7 @@ from sgr_specification.v0.product import (
     OutMessage
 )
 
-from sgr_commhandler.api.dynamic_parameter import build_dynamic_parameter_substitutions, build_dynamic_parameters
+from sgr_commhandler.api.dynamic_parameter import build_dynamic_parameter_substitutions
 from sgr_commhandler.utils import jmespath_mapping, template
 from sgr_commhandler.driver.messaging.messaging_filter import (
     MessagingFilter,
@@ -87,7 +87,7 @@ def get_messaging_client(name: str, desc: MessagingInterfaceDescription) -> SGrM
     raise Exception('no supported platform')
 
 
-class MessagingDataPoint(DataPointProtocol[MessagingDataPointSpec]):
+class MessagingDataPoint(DataPointProtocol[MessagingFunctionalProfileSpec, MessagingDataPointSpec]):
     """
     Implements a data point of a messaging interface.
     """
@@ -98,32 +98,11 @@ class MessagingDataPoint(DataPointProtocol[MessagingDataPointSpec]):
         fp_spec: MessagingFunctionalProfileSpec,
         interface: 'SGrMessagingInterface',
     ):
-        self._dp_spec = dp_spec
-        self._fp_spec = fp_spec
+        super(MessagingDataPoint, self).__init__(fp_spec, dp_spec)
 
         dp_config = self._dp_spec.messaging_data_point_configuration
         if not dp_config:
             raise Exception('Messaging data point configuration missing')
-
-        self._dynamic_parameters = build_dynamic_parameters(
-            self._dp_spec.data_point.parameter_list
-            if self._dp_spec.data_point
-            else None
-        )
-
-        self._fp_name = ''
-        if (
-            fp_spec.functional_profile is not None
-            and fp_spec.functional_profile.functional_profile_name is not None
-        ):
-            self._fp_name = fp_spec.functional_profile.functional_profile_name
-
-        self._dp_name = ''
-        if (
-            dp_spec.data_point is not None
-            and dp_spec.data_point.data_point_name is not None
-        ):
-            self._dp_name = dp_spec.data_point.data_point_name
 
         self._in_cmd: Optional[InMessage] = None
         self._read_cmd: Optional[OutMessage] = None
@@ -145,13 +124,7 @@ class MessagingDataPoint(DataPointProtocol[MessagingDataPointSpec]):
         self._handle_message: Optional[Callable[[DataPointProtocol, Any], NoReturn]] = None
         self._interface = interface
         if self._in_cmd and self._in_cmd.topic:
-            self._interface.data_point_handler((self._fp_name, self._dp_name, self._in_cmd.topic, self._on_message, self._in_filter)) # type: ignore
-
-    def name(self) -> tuple[str, str]:
-        return self._fp_name, self._dp_name
-
-    def get_specification(self) -> MessagingDataPointSpec:
-        return self._dp_spec
+            self._interface.data_point_handler((self._fp_name, self._dp_name, self._in_cmd.topic, self._on_message, self._in_filter))  # type: ignore
 
     async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
         if not self._read_cmd:
@@ -173,7 +146,7 @@ class MessagingDataPoint(DataPointProtocol[MessagingDataPointSpec]):
             await self._read_response_event.wait()
 
         logger.debug('finished active reading...')
-        return self._cached_value 
+        return self._cached_value
 
     async def set_val(self, value: Any):
         if not self._write_cmd or not self._write_cmd.topic:
@@ -203,32 +176,16 @@ class MessagingDataPoint(DataPointProtocol[MessagingDataPointSpec]):
         await self._interface.write_message(self._write_cmd.topic, value)
         self._cached_value = value
 
-    def direction(self) -> DataDirectionProduct:
-        if (
-            self._dp_spec.data_point is None
-            or self._dp_spec.data_point.data_direction is None
-        ):
-            raise Exception('missing data direction')
-        return self._dp_spec.data_point.data_direction
-
-    def unit(self) -> Units:
-        if (
-            self._dp_spec.data_point is None
-            or self._dp_spec.data_point.unit is None
-        ):
-            return Units.NONE
-        return self._dp_spec.data_point.unit
-
     def can_subscribe(self) -> bool:
         return True
 
-    def subscribe(self, fn: Callable[[DataPointProtocol, Any], NoReturn]): # type: ignore
+    def subscribe(self, fn: Callable[[DataPointProtocol, Any], NoReturn]):  # type: ignore
         self._handle_message = fn
 
-    def unsubscribe(self): # type: ignore
+    def unsubscribe(self):  # type: ignore
         self._handle_message = None
 
-    def _on_message(self, payload: Any): # type: ignore
+    def _on_message(self, payload: Any):  # type: ignore
         ret_value: Any
         if (
             self._in_cmd
@@ -296,7 +253,7 @@ class MessagingFunctionalProfile(FunctionalProfile[MessagingFunctionalProfileSpe
         fp_spec: MessagingFunctionalProfileSpec,
         interface: 'SGrMessagingInterface',
     ):
-        self._fp_spec = fp_spec
+        super(MessagingFunctionalProfile, self).__init__(fp_spec)
         self._interface = interface
 
         raw_dps = []
@@ -313,19 +270,8 @@ class MessagingFunctionalProfile(FunctionalProfile[MessagingFunctionalProfileSpe
 
         self._data_points = {dp.name(): dp for dp in dps}
 
-    def name(self) -> str:
-        if (
-            self._fp_spec.functional_profile
-            and self._fp_spec.functional_profile.functional_profile_name
-        ):
-            return self._fp_spec.functional_profile.functional_profile_name
-        return ''
-
     def get_data_points(self) -> dict[tuple[str, str], DataPoint]:
         return self._data_points
-
-    def get_specification(self) -> MessagingFunctionalProfileSpec:
-        return self._fp_spec
 
 
 class SGrMessagingInterface(SGrBaseInterface):
@@ -336,7 +282,7 @@ class SGrMessagingInterface(SGrBaseInterface):
     def __init__(
         self, frame: DeviceFrame
     ):
-        super().__init__(frame)
+        super(SGrMessagingInterface, self).__init__(frame)
 
         if (
             self.device_frame.interface_list
@@ -354,7 +300,7 @@ class SGrMessagingInterface(SGrBaseInterface):
 
         # configure interface
         self._client = get_messaging_client(str(self.device_frame.device_name), desc)
-        self._client.set_message_handler(self.handle_client_message) # type: ignore
+        self._client.set_message_handler(self.handle_client_message)  # type: ignore
 
         # subscribe to topic once, multiple handlers
         self._subscribed_topics: set[str] = set()
