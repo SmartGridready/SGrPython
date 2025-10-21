@@ -3,6 +3,11 @@ sgr_commhandler.utils.template
 
 .. py:module:: sgr_commhandler.utils.template
 
+.. autoapi-nested-parse::
+
+   Provides a function to substitute placeholders in a template.
+
+
 
 Functions
 ---------

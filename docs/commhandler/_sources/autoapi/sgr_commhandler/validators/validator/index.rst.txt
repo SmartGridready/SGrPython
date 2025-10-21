@@ -3,6 +3,11 @@ sgr_commhandler.validators.validator
 
 .. py:module:: sgr_commhandler.validators.validator
 
+.. autoapi-nested-parse::
+
+   Provides data type validators.
+
+
 
 Attributes
 ----------
@@ -64,6 +69,14 @@ Module Contents
 
 
    Implements a validator for enumeration values.
+
+
+   .. py:attribute:: _valid_literals
+      :type:  set[str]
+
+
+   .. py:attribute:: _valid_ordinals
+      :type:  set[int]
 
 
    .. py:method:: validate(value)

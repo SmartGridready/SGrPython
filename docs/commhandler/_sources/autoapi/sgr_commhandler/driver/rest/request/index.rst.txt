@@ -3,6 +3,11 @@ sgr_commhandler.driver.rest.request
 
 .. py:module:: sgr_commhandler.driver.rest.request
 
+.. autoapi-nested-parse::
+
+   Provides HTTP request and response implementations.
+
+
 
 Classes
 -------

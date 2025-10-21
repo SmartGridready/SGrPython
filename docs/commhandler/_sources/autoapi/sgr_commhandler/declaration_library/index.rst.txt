@@ -3,6 +3,11 @@ sgr_commhandler.declaration_library
 
 .. py:module:: sgr_commhandler.declaration_library
 
+.. autoapi-nested-parse::
+
+   Provides a client for the declaration library's REST API.
+
+
 
 Attributes
 ----------
@@ -27,6 +32,8 @@ Module Contents
 .. py:data:: LIB_BASE_URL
    :value: 'https://library.smartgridready.ch'
 
+
+   The base URL of the library REST API.
 
 .. py:function:: get_product_eid_xml(name)
 

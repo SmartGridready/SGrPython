@@ -3,6 +3,11 @@ sgr_commhandler.driver.rest.authentication
 
 .. py:module:: sgr_commhandler.driver.rest.authentication
 
+.. autoapi-nested-parse::
+
+   Provides HTTP/REST authentication methods.
+
+
 
 Attributes
 ----------
@@ -10,7 +15,6 @@ Attributes
 .. autoapisummary::
 
    sgr_commhandler.driver.rest.authentication.logger
-   sgr_commhandler.driver.rest.authentication.Authenticator
    sgr_commhandler.driver.rest.authentication.supported_authentication_methods
 
 
@@ -29,10 +33,6 @@ Module Contents
 ---------------
 
 .. py:data:: logger
-
-.. py:type:: Authenticator
-   :canonical: Callable[[RestApiInterface, ClientSession], Awaitable[bool]]
-
 
 .. py:function:: authenticate_not(interface, session)
    :async:
@@ -80,7 +80,7 @@ Module Contents
 
 
 .. py:data:: supported_authentication_methods
-   :type:  dict[sgr_specification.v0.product.rest_api_types.RestApiAuthenticationMethod, Authenticator]
+   :type:  dict[sgr_specification.v0.product.rest_api_types.RestApiAuthenticationMethod, Callable[[sgr_specification.v0.product.RestApiInterface, aiohttp.client.ClientSession], Awaitable[bool]]]
 
 .. py:function:: setup_authentication(rest_api_interface, session)
    :async:

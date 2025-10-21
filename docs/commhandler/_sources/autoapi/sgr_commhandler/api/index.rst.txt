@@ -3,6 +3,11 @@ sgr_commhandler.api
 
 .. py:module:: sgr_commhandler.api
 
+.. autoapi-nested-parse::
+
+   Contains the CommHandler API, which is intended to be utilized by the user.
+
+
 
 Submodules
 ----------
@@ -114,7 +119,7 @@ Package Contents
 
 .. py:class:: DataPoint(protocol, validator)
 
-   Bases: :py:obj:`Generic`\ [\ :py:obj:`TDpSpec`\ ]
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`TFpSpec`\ , :py:obj:`TDpSpec`\ ]
 
 
    Implements a data point of a generic data type.
@@ -135,7 +140,7 @@ Package Contents
 
 
 
-   .. py:method:: get_value_async(parameters = None, skip_cache=False)
+   .. py:method:: get_value_async(parameters = None, skip_cache = False)
       :async:
 
 
@@ -237,12 +242,32 @@ Package Contents
 
 
 
-.. py:class:: DataPointProtocol
+.. py:class:: DataPointProtocol(fp_spec, dp_spec)
 
-   Bases: :py:obj:`Protocol`\ [\ :py:obj:`TDpSpec`\ ]
+   Bases: :py:obj:`abc.ABC`, :py:obj:`Generic`\ [\ :py:obj:`TFpSpec`\ , :py:obj:`TDpSpec`\ ]
 
 
    Implements a base class for data point protocols.
+
+
+   .. py:attribute:: _fp_spec
+      :type:  TFpSpec
+
+
+   .. py:attribute:: _dp_spec
+      :type:  TDpSpec
+
+
+   .. py:attribute:: _fp_name
+      :type:  str
+
+
+   .. py:attribute:: _dp_name
+      :type:  str
+
+
+   .. py:attribute:: _dynamic_parameters
+      :type:  list[sgr_commhandler.api.dynamic_parameter.DynamicParameter]
 
 
    .. py:method:: get_specification()
@@ -255,6 +280,8 @@ Package Contents
 
 
    .. py:method:: set_val(value)
+      :abstractmethod:
+
       :async:
 
 
@@ -266,6 +293,8 @@ Package Contents
 
 
    .. py:method:: get_val(parameters = None, skip_cache = False)
+      :abstractmethod:
+
       :async:
 
 
@@ -343,7 +372,7 @@ Package Contents
 
 .. py:class:: DataPointValidator(data_type)
 
-   Bases: :py:obj:`Protocol`
+   Bases: :py:obj:`object`
 
 
    Implements a base class for data point validators.
@@ -450,7 +479,7 @@ Package Contents
 
 .. py:class:: SGrBaseInterface(frame)
 
-   Bases: :py:obj:`Protocol`
+   Bases: :py:obj:`abc.ABC`
 
 
    Defines an abstract base class for all SGr device interfaces.
@@ -477,7 +506,7 @@ Package Contents
 
       the configured functional profiles
 
-      :type: Mapping[str, FunctionalProfile]
+      :type: dict[str, FunctionalProfile]
 
 
    .. py:attribute:: device_frame
@@ -493,10 +522,12 @@ Package Contents
 
 
    .. py:attribute:: functional_profiles
-      :type:  collections.abc.Mapping[str, sgr_commhandler.api.functional_profile_api.FunctionalProfile]
+      :type:  dict[str, sgr_commhandler.api.functional_profile_api.FunctionalProfile]
 
 
    .. py:method:: connect_async()
+      :abstractmethod:
+
       :async:
 
 
@@ -505,6 +536,8 @@ Package Contents
 
 
    .. py:method:: disconnect_async()
+      :abstractmethod:
+
       :async:
 
 
@@ -513,11 +546,22 @@ Package Contents
 
 
    .. py:method:: is_connected()
+      :abstractmethod:
+
 
       Gets the connection state.
 
       :returns: the connection state
       :rtype: bool
+
+
+
+   .. py:method:: get_functional_profiles()
+
+      Gets all functional profiles.
+
+      :returns: all functional profiles
+      :rtype: dict[str, FunctionalProfile]
 
 
 
@@ -583,12 +627,16 @@ Package Contents
 
 
 
-.. py:class:: FunctionalProfile
+.. py:class:: FunctionalProfile(fp_spec)
 
-   Bases: :py:obj:`Protocol`\ [\ :py:obj:`TFpSpec`\ ]
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`TFpSpec`\ ]
 
 
    Implements a functional profile.
+
+
+   .. py:attribute:: _fp_spec
+      :type:  TFpSpec
 
 
    .. py:method:: name()

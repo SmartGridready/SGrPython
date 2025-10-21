@@ -3,6 +3,11 @@ sgr_commhandler.driver.messaging.messaging_filter
 
 .. py:module:: sgr_commhandler.driver.messaging.messaging_filter
 
+.. autoapi-nested-parse::
+
+   Provides message filter implementations.
+
+
 
 Attributes
 ----------
@@ -38,7 +43,7 @@ Module Contents
 
 .. py:class:: MessagingFilter(filter_spec)
 
-   Bases: :py:obj:`Generic`\ [\ :py:obj:`T`\ ]
+   Bases: :py:obj:`abc.ABC`, :py:obj:`Generic`\ [\ :py:obj:`T`\ ]
 
 
    The base class for message filter implementations.
@@ -48,6 +53,8 @@ Module Contents
 
 
    .. py:method:: is_filter_match(payload)
+      :abstractmethod:
+
 
 
 .. py:class:: JMESPathMessagingFilter(filter_spec)

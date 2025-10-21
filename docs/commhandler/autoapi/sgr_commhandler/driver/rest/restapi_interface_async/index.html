@@ -9,13 +9,13 @@
   <title>sgr_commhandler.driver.rest.restapi_interface_async &mdash; SGr CommHandler 0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=fd3f3429" />
 
   
       <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../../../_static/documentation_options.js?v=7f00635f"></script>
-      <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
       <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
@@ -92,6 +92,7 @@
              
   <section id="module-sgr_commhandler.driver.rest.restapi_interface_async">
 <span id="sgr-commhandler-driver-rest-restapi-interface-async"></span><h1>sgr_commhandler.driver.rest.restapi_interface_async<a class="headerlink" href="#module-sgr_commhandler.driver.rest.restapi_interface_async" title="Link to this heading"></a></h1>
+<p>Provides the HTTP/REST interface implementation.</p>
 <section id="attributes">
 <h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
@@ -154,8 +155,8 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.rest.restapi_interface_async.</span></span><span class="sig-name descname"><span class="pre">RestDataPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dp_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fp_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../../api/data_point_api/index.html#sgr_commhandler.api.data_point_api.DataPointProtocol" title="sgr_commhandler.api.data_point_api.DataPointProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_commhandler.api.data_point_api.DataPointProtocol</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_specification.v0.product.RestApiDataPoint</span></code>]</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.rest.restapi_interface_async.</span></span><span class="sig-name descname"><span class="pre">RestDataPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dp_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fp_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../api/data_point_api/index.html#sgr_commhandler.api.data_point_api.DataPointProtocol" title="sgr_commhandler.api.data_point_api.DataPointProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_commhandler.api.data_point_api.DataPointProtocol</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_specification.v0.product.RestApiFunctionalProfile</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_specification.v0.product.RestApiDataPoint</span></code>]</p>
 <p>Implements a data point of a REST API interface.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -167,16 +168,6 @@
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint._dp_spec">
-<span class="sig-name descname"><span class="pre">_dp_spec</span></span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint._dp_spec" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint._fp_spec">
-<span class="sig-name descname"><span class="pre">_fp_spec</span></span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint._fp_spec" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint._read_call">
 <span class="sig-name descname"><span class="pre">_read_call</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sgr_specification.v0.product.rest_api_types.RestApiServiceCall</span></em><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint._read_call" title="Link to this definition"></a></dt>
 <dd></dd></dl>
@@ -187,48 +178,13 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint._dynamic_parameters">
-<span class="sig-name descname"><span class="pre">_dynamic_parameters</span></span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint._dynamic_parameters" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint._fp_name">
-<span class="sig-name descname"><span class="pre">_fp_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint._fp_name" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint._dp_name">
-<span class="sig-name descname"><span class="pre">_dp_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint._dp_name" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint._interface">
 <span class="sig-name descname"><span class="pre">_interface</span></span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint._interface" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.name">
-<span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.name" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple[str, str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.get_specification">
-<span class="sig-name descname"><span class="pre">get_specification</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.get_specification" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>sgr_specification.v0.product.RestApiDataPoint</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.get_val">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.get_val" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.get_val" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -244,40 +200,10 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.set_val">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.set_val" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.set_val" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> (<em>Any</em>)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.direction">
-<span class="sig-name descname"><span class="pre">direction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.direction" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>sgr_specification.v0.generic.DataDirectionProduct</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.unit">
-<span class="sig-name descname"><span class="pre">unit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.unit" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>sgr_specification.v0.generic.Units</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.dynamic_parameters">
-<span class="sig-name descname"><span class="pre">dynamic_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestDataPoint.dynamic_parameters" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list[<a class="reference internal" href="../../../api/dynamic_parameter/index.html#sgr_commhandler.api.dynamic_parameter.DynamicParameter" title="sgr_commhandler.api.dynamic_parameter.DynamicParameter">sgr_commhandler.api.dynamic_parameter.DynamicParameter</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -286,8 +212,8 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestFunctionalProfile">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.rest.restapi_interface_async.</span></span><span class="sig-name descname"><span class="pre">RestFunctionalProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fp_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestFunctionalProfile" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../../api/functional_profile_api/index.html#sgr_commhandler.api.functional_profile_api.FunctionalProfile" title="sgr_commhandler.api.functional_profile_api.FunctionalProfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_commhandler.api.functional_profile_api.FunctionalProfile</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.rest.restapi_interface_async.</span></span><span class="sig-name descname"><span class="pre">RestFunctionalProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fp_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestFunctionalProfile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../api/functional_profile_api/index.html#sgr_commhandler.api.functional_profile_api.FunctionalProfile" title="sgr_commhandler.api.functional_profile_api.FunctionalProfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_commhandler.api.functional_profile_api.FunctionalProfile</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_specification.v0.product.RestApiFunctionalProfile</span></code>]</p>
 <p>Implements a functional profile of a REST API interface.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -297,11 +223,6 @@
 </ul>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestFunctionalProfile._fp_spec">
-<span class="sig-name descname"><span class="pre">_fp_spec</span></span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestFunctionalProfile._fp_spec" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestFunctionalProfile._interface">
 <span class="sig-name descname"><span class="pre">_interface</span></span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestFunctionalProfile._interface" title="Link to this definition"></a></dt>
@@ -313,16 +234,6 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestFunctionalProfile.name">
-<span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestFunctionalProfile.name" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestFunctionalProfile.get_data_points">
 <span class="sig-name descname"><span class="pre">get_data_points</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestFunctionalProfile.get_data_points" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
@@ -332,21 +243,11 @@
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.RestFunctionalProfile.get_specification">
-<span class="sig-name descname"><span class="pre">get_specification</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.RestFunctionalProfile.get_specification" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>sgr_specification.v0.product.RestApiFunctionalProfile</p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.rest.restapi_interface_async.</span></span><span class="sig-name descname"><span class="pre">SGrRestInterface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.rest.restapi_interface_async.</span></span><span class="sig-name descname"><span class="pre">SGrRestInterface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../../api/device_api/index.html#sgr_commhandler.api.device_api.SGrBaseInterface" title="sgr_commhandler.api.device_api.SGrBaseInterface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_commhandler.api.device_api.SGrBaseInterface</span></code></a></p>
 <p>Implements a REST API device interface.</p>
 <dl class="field-list simple">
@@ -381,22 +282,22 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface.disconnect_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface.disconnect_async" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface.disconnect_async" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface.connect_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface.connect_async" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface.connect_async" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface.authenticate">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">authenticate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface.authenticate" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">authenticate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface.authenticate" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface.execute_request">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">execute_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface.execute_request" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">execute_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.restapi_interface_async.SGrRestInterface.execute_request" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

@@ -3,6 +3,11 @@ sgr_commhandler.utils.value_util
 
 .. py:module:: sgr_commhandler.utils.value_util
 
+.. autoapi-nested-parse::
+
+   Provides data value manipulation functions.
+
+
 
 Attributes
 ----------
@@ -33,7 +38,7 @@ Module Contents
 
 .. py:data:: logger
 
-.. py:class:: RoundingScheme(*args, **kwds)
+.. py:class:: RoundingScheme
 
    Bases: :py:obj:`enum.Enum`
 

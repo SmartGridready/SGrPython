@@ -9,13 +9,13 @@
   <title>sgr_commhandler.device_builder &mdash; SGr CommHandler 0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
 
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=7f00635f"></script>
-      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -90,6 +90,7 @@
              
   <section id="module-sgr_commhandler.device_builder">
 <span id="sgr-commhandler-device-builder"></span><h1>sgr_commhandler.device_builder<a class="headerlink" href="#module-sgr_commhandler.device_builder" title="Link to this heading"></a></h1>
+<p>Provides a device builder to create device instances from external interface descriptions (EID).</p>
 <section id="attributes">
 <h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
@@ -153,7 +154,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrXmlSource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">SGrXmlSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.SGrXmlSource" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">SGrXmlSource</span></span><a class="headerlink" href="#sgr_commhandler.device_builder.SGrXmlSource" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
 <p>Defines an EID XML source.</p>
 <dl class="py attribute">
@@ -175,7 +176,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrPropertiesSource">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">SGrPropertiesSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.SGrPropertiesSource" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">SGrPropertiesSource</span></span><a class="headerlink" href="#sgr_commhandler.device_builder.SGrPropertiesSource" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
 <p>Defines an EID properties source.</p>
 <dl class="py attribute">
@@ -197,7 +198,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.device_builder.SGrDeviceProtocol">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">SGrDeviceProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.device_builder.SGrDeviceProtocol" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">SGrDeviceProtocol</span></span><a class="headerlink" href="#sgr_commhandler.device_builder.SGrDeviceProtocol" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
 <p>Defines a communication interface type.</p>
 <dl class="py attribute">
@@ -244,7 +245,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">DeviceBuilder</span></span><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.device_builder.</span></span><span class="sig-name descname"><span class="pre">DeviceBuilder</span></span><a class="headerlink" href="#sgr_commhandler.device_builder.DeviceBuilder" title="Link to this definition"></a></dt>
 <dd><p>Implements an SGr device builder with a fluent interface.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.device_builder.DeviceBuilder._eid_source">

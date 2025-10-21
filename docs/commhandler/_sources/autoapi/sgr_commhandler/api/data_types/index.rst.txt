@@ -3,6 +3,11 @@ sgr_commhandler.api.data_types
 
 .. py:module:: sgr_commhandler.api.data_types
 
+.. autoapi-nested-parse::
+
+   Provides SGr data types.
+
+
 
 Classes
 -------
@@ -15,7 +20,7 @@ Classes
 Module Contents
 ---------------
 
-.. py:class:: DataTypes(*args, **kwds)
+.. py:class:: DataTypes
 
    Bases: :py:obj:`enum.Enum`
 

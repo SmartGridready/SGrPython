@@ -3,6 +3,11 @@ sgr_commhandler.driver.modbus
 
 .. py:module:: sgr_commhandler.driver.modbus
 
+.. autoapi-nested-parse::
+
+   Provides the Modbus RTU/TCP interface driver.
+
+
 
 Submodules
 ----------
@@ -31,31 +36,13 @@ Package Contents
 
 .. py:class:: ModbusDataPoint(dp_spec, fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`\ [\ :py:obj:`sgr_specification.v0.product.ModbusDataPoint`\ ]
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`\ [\ :py:obj:`sgr_specification.v0.product.ModbusFunctionalProfile`\ , :py:obj:`sgr_specification.v0.product.ModbusDataPoint`\ ]
 
 
    Implements a data point of a Modbus interface.
 
 
-   .. py:attribute:: _dp_spec
-
-
-   .. py:attribute:: _fp_spec
-
-
    .. py:attribute:: _interface
-
-
-   .. py:attribute:: _dp_name
-      :type:  str
-      :value: ''
-
-
-
-   .. py:attribute:: _fp_name
-      :type:  str
-      :value: ''
-
 
 
    .. py:attribute:: _address
@@ -77,9 +64,6 @@ Package Contents
       :type:  sgr_specification.v0.product.modbus_types.RegisterType
 
 
-   .. py:method:: get_specification()
-
-
    .. py:method:: set_val(value)
       :async:
 
@@ -90,15 +74,6 @@ Package Contents
 
 
 
-   .. py:method:: name()
-
-
-   .. py:method:: direction()
-
-
-   .. py:method:: unit()
-
-
 .. py:class:: ModbusFunctionalProfile(fp_spec, interface)
 
    Bases: :py:obj:`sgr_commhandler.api.functional_profile_api.FunctionalProfile`\ [\ :py:obj:`sgr_specification.v0.product.ModbusFunctionalProfile`\ ]
@@ -107,22 +82,13 @@ Package Contents
    Implements a functional profile of a Modbus interface.
 
 
-   .. py:attribute:: _fp_spec
-
-
    .. py:attribute:: _interface
 
 
    .. py:attribute:: _data_points
 
 
-   .. py:method:: name()
-
-
    .. py:method:: get_data_points()
-
-
-   .. py:method:: get_specification()
 
 
 .. py:class:: SGrModbusInterface(frame, sharedRTU = False)

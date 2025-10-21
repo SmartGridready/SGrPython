@@ -3,6 +3,11 @@ sgr_commhandler.driver.contact
 
 .. py:module:: sgr_commhandler.driver.contact
 
+.. autoapi-nested-parse::
+
+   Provides the digital contact interface driver.
+
+
 
 Submodules
 ----------
@@ -28,16 +33,10 @@ Package Contents
 
 .. py:class:: ContactDataPoint(dp_spec, fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`\ [\ :py:obj:`sgr_specification.v0.generic.DataPointBase`\ ]
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`\ [\ :py:obj:`sgr_specification.v0.product.ContactFunctionalProfile`\ , :py:obj:`sgr_specification.v0.generic.DataPointBase`\ ]
 
 
    Implements a data point of a contact interface.
-
-
-   .. py:attribute:: _dp_spec
-
-
-   .. py:attribute:: _fp_spec
 
 
    .. py:attribute:: _fp_name
@@ -53,12 +52,6 @@ Package Contents
    .. py:attribute:: _interface
 
 
-   .. py:method:: name()
-
-
-   .. py:method:: get_specification()
-
-
    .. py:method:: get_val(parameters = None, skip_cache = False)
       :async:
 
@@ -69,12 +62,6 @@ Package Contents
 
 
 
-   .. py:method:: direction()
-
-
-   .. py:method:: unit()
-
-
 .. py:class:: ContactFunctionalProfile(fp_spec, interface)
 
    Bases: :py:obj:`sgr_commhandler.api.functional_profile_api.FunctionalProfile`\ [\ :py:obj:`sgr_specification.v0.product.ContactFunctionalProfile`\ ]
@@ -83,22 +70,13 @@ Package Contents
    Implements a functional profile of a contact interface.
 
 
-   .. py:attribute:: _fp_spec
-
-
    .. py:attribute:: _interface
 
 
    .. py:attribute:: _data_points
 
 
-   .. py:method:: name()
-
-
    .. py:method:: get_data_points()
-
-
-   .. py:method:: get_specification()
 
 
 .. py:class:: SGrContactInterface(frame)

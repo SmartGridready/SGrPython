@@ -3,6 +3,11 @@ sgr_commhandler.api.device_api
 
 .. py:module:: sgr_commhandler.api.device_api
 
+.. autoapi-nested-parse::
+
+   Provides the device-level API.
+
+
 
 Classes
 -------
@@ -83,7 +88,7 @@ Module Contents
 
 .. py:class:: SGrBaseInterface(frame)
 
-   Bases: :py:obj:`Protocol`
+   Bases: :py:obj:`abc.ABC`
 
 
    Defines an abstract base class for all SGr device interfaces.
@@ -110,7 +115,7 @@ Module Contents
 
       the configured functional profiles
 
-      :type: Mapping[str, FunctionalProfile]
+      :type: dict[str, FunctionalProfile]
 
 
    .. py:attribute:: device_frame
@@ -126,10 +131,12 @@ Module Contents
 
 
    .. py:attribute:: functional_profiles
-      :type:  collections.abc.Mapping[str, sgr_commhandler.api.functional_profile_api.FunctionalProfile]
+      :type:  dict[str, sgr_commhandler.api.functional_profile_api.FunctionalProfile]
 
 
    .. py:method:: connect_async()
+      :abstractmethod:
+
       :async:
 
 
@@ -138,6 +145,8 @@ Module Contents
 
 
    .. py:method:: disconnect_async()
+      :abstractmethod:
+
       :async:
 
 
@@ -146,11 +155,22 @@ Module Contents
 
 
    .. py:method:: is_connected()
+      :abstractmethod:
+
 
       Gets the connection state.
 
       :returns: the connection state
       :rtype: bool
+
+
+
+   .. py:method:: get_functional_profiles()
+
+      Gets all functional profiles.
+
+      :returns: all functional profiles
+      :rtype: dict[str, FunctionalProfile]
 
 
 

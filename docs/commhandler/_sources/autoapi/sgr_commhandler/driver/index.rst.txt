@@ -3,6 +3,11 @@ sgr_commhandler.driver
 
 .. py:module:: sgr_commhandler.driver
 
+.. autoapi-nested-parse::
+
+   Contains all communication interface driver implementations.
+
+
 
 Submodules
 ----------

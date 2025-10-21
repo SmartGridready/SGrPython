@@ -9,13 +9,13 @@
   <title>sgr_commhandler.driver.modbus.modbus_interface_async &mdash; SGr CommHandler 0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=fd3f3429" />
 
   
       <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../../../_static/documentation_options.js?v=7f00635f"></script>
-      <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
       <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
@@ -92,6 +92,7 @@
              
   <section id="module-sgr_commhandler.driver.modbus.modbus_interface_async">
 <span id="sgr-commhandler-driver-modbus-modbus-interface-async"></span><h1>sgr_commhandler.driver.modbus.modbus_interface_async<a class="headerlink" href="#module-sgr_commhandler.driver.modbus.modbus_interface_async" title="Link to this heading"></a></h1>
+<p>Provides the Modbus interface implementation.</p>
 <section id="attributes">
 <h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
@@ -123,13 +124,13 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.driver.modbus.modbus_interface_async.get_rtu_slave_id" title="sgr_commhandler.driver.modbus.modbus_interface_async.get_rtu_slave_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rtu_slave_id</span></code></a>(modbus_rtu)</p></td>
-<td><p>returns the selected slave address</p></td>
+<td><p>Returns the selected slave address.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.driver.modbus.modbus_interface_async.get_tcp_slave_id" title="sgr_commhandler.driver.modbus.modbus_interface_async.get_tcp_slave_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tcp_slave_id</span></code></a>(modbus_tcp)</p></td>
-<td><p>returns the selected slave address</p></td>
+<td><p>Returns the selected slave address.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.driver.modbus.modbus_interface_async.get_endian" title="sgr_commhandler.driver.modbus.modbus_interface_async.get_endian"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_endian</span></code></a>(modbus)</p></td>
-<td><p>returns the byte order.</p></td>
+<td><p>Returns the byte order (endianness).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.driver.modbus.modbus_interface_async.get_address_offset" title="sgr_commhandler.driver.modbus.modbus_interface_async.get_address_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_address_offset</span></code></a>(modbus)</p></td>
 <td><p>returns the address offset.</p></td>
@@ -171,13 +172,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.get_rtu_slave_id">
 <span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.modbus_interface_async.</span></span><span class="sig-name descname"><span class="pre">get_rtu_slave_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modbus_rtu</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.get_rtu_slave_id" title="Link to this definition"></a></dt>
-<dd><p>returns the selected slave address</p>
+<dd><p>Returns the selected slave address.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>modbus_rtu</strong> (<em>sgr_specification.v0.product.modbus_types.ModbusRtu</em>)</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the slave ID</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>modbus_rtu</strong> (<em>sgr_specification.v0.product.modbus_types.ModbusRtu</em>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -185,13 +189,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.get_tcp_slave_id">
 <span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.modbus_interface_async.</span></span><span class="sig-name descname"><span class="pre">get_tcp_slave_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modbus_tcp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.get_tcp_slave_id" title="Link to this definition"></a></dt>
-<dd><p>returns the selected slave address</p>
+<dd><p>Returns the selected slave address.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>modbus_tcp</strong> (<em>sgr_specification.v0.product.modbus_types.ModbusTcp</em>)</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the slave ID</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>modbus_tcp</strong> (<em>sgr_specification.v0.product.modbus_types.ModbusTcp</em>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -199,13 +206,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.get_endian">
 <span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.modbus_interface_async.</span></span><span class="sig-name descname"><span class="pre">get_endian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modbus</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.get_endian" title="Link to this definition"></a></dt>
-<dd><p>returns the byte order.</p>
+<dd><p>Returns the byte order (endianness).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>modbus</strong> (<em>sgr_specification.v0.product.modbus_types.ModbusInterfaceDescription</em>)</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the byte order</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>sgr_specification.v0.product.modbus_types.BitOrder</p>
+<dd class="field-even"><p>BitOrder</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>modbus</strong> (<em>sgr_specification.v0.product.modbus_types.ModbusInterfaceDescription</em>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -325,7 +335,7 @@ is 0 by default and -1 when first register address is 1.</p>
 <dd class="field-even"><p>bool</p>
 </dd>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data_type</strong> (<em>sgr_specification.v0.generic.base_types.DataTypeProduct</em><em> | </em><em>sgr_specification.v0.product.modbus_types.ModbusDataType</em><em> | </em><em>None</em>)</p>
+<dd class="field-odd"><p><strong>data_type</strong> (<em>Union</em><em>[</em><em>sgr_specification.v0.generic.base_types.DataTypeProduct</em><em>, </em><em>sgr_specification.v0.product.modbus_types.ModbusDataType</em><em>, </em><em>None</em><em>]</em>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -342,15 +352,15 @@ is 0 by default and -1 when first register address is 1.</p>
 <dd class="field-even"><p>bool</p>
 </dd>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data_type</strong> (<em>sgr_specification.v0.generic.base_types.DataTypeProduct</em><em> | </em><em>sgr_specification.v0.product.modbus_types.ModbusDataType</em><em> | </em><em>None</em>)</p>
+<dd class="field-odd"><p><strong>data_type</strong> (<em>Union</em><em>[</em><em>sgr_specification.v0.generic.base_types.DataTypeProduct</em><em>, </em><em>sgr_specification.v0.product.modbus_types.ModbusDataType</em><em>, </em><em>None</em><em>]</em>)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.modbus_interface_async.</span></span><span class="sig-name descname"><span class="pre">ModbusDataPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dp_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fp_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../../api/data_point_api/index.html#sgr_commhandler.api.data_point_api.DataPointProtocol" title="sgr_commhandler.api.data_point_api.DataPointProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_commhandler.api.data_point_api.DataPointProtocol</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_specification.v0.product.ModbusDataPoint</span></code>]</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.modbus_interface_async.</span></span><span class="sig-name descname"><span class="pre">ModbusDataPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dp_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fp_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../api/data_point_api/index.html#sgr_commhandler.api.data_point_api.DataPointProtocol" title="sgr_commhandler.api.data_point_api.DataPointProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_commhandler.api.data_point_api.DataPointProtocol</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_specification.v0.product.ModbusFunctionalProfile</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_specification.v0.product.ModbusDataPoint</span></code>]</p>
 <p>Implements a data point of a Modbus interface.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -362,28 +372,8 @@ is 0 by default and -1 when first register address is 1.</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint._dp_spec">
-<span class="sig-name descname"><span class="pre">_dp_spec</span></span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint._dp_spec" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint._fp_spec">
-<span class="sig-name descname"><span class="pre">_fp_spec</span></span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint._fp_spec" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint._interface">
 <span class="sig-name descname"><span class="pre">_interface</span></span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint._interface" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint._dp_name">
-<span class="sig-name descname"><span class="pre">_dp_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint._dp_name" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint._fp_name">
-<span class="sig-name descname"><span class="pre">_fp_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint._fp_name" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -407,18 +397,8 @@ is 0 by default and -1 when first register address is 1.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint.get_specification">
-<span class="sig-name descname"><span class="pre">get_specification</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint.get_specification" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>sgr_specification.v0.product.ModbusDataPoint</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint.set_val">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint.set_val" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint.set_val" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> (<em>Any</em>)</p>
@@ -428,7 +408,7 @@ is 0 by default and -1 when first register address is 1.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint.get_val">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint.get_val" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint.get_val" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -442,41 +422,11 @@ is 0 by default and -1 when first register address is 1.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint.name">
-<span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint.name" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple[str, str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint.direction">
-<span class="sig-name descname"><span class="pre">direction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint.direction" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>sgr_specification.v0.generic.DataDirectionProduct</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint.unit">
-<span class="sig-name descname"><span class="pre">unit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusDataPoint.unit" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>sgr_specification.v0.generic.base_types.Units</p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusFunctionalProfile">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.modbus_interface_async.</span></span><span class="sig-name descname"><span class="pre">ModbusFunctionalProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fp_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusFunctionalProfile" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.modbus_interface_async.</span></span><span class="sig-name descname"><span class="pre">ModbusFunctionalProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fp_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interface</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusFunctionalProfile" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../../api/functional_profile_api/index.html#sgr_commhandler.api.functional_profile_api.FunctionalProfile" title="sgr_commhandler.api.functional_profile_api.FunctionalProfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_commhandler.api.functional_profile_api.FunctionalProfile</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_specification.v0.product.ModbusFunctionalProfile</span></code>]</p>
 <p>Implements a functional profile of a Modbus interface.</p>
 <dl class="field-list simple">
@@ -488,11 +438,6 @@ is 0 by default and -1 when first register address is 1.</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusFunctionalProfile._fp_spec">
-<span class="sig-name descname"><span class="pre">_fp_spec</span></span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusFunctionalProfile._fp_spec" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusFunctionalProfile._interface">
 <span class="sig-name descname"><span class="pre">_interface</span></span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusFunctionalProfile._interface" title="Link to this definition"></a></dt>
 <dd></dd></dl>
@@ -501,16 +446,6 @@ is 0 by default and -1 when first register address is 1.</p>
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusFunctionalProfile._data_points">
 <span class="sig-name descname"><span class="pre">_data_points</span></span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusFunctionalProfile._data_points" title="Link to this definition"></a></dt>
 <dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusFunctionalProfile.name">
-<span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusFunctionalProfile.name" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusFunctionalProfile.get_data_points">
@@ -522,21 +457,11 @@ is 0 by default and -1 when first register address is 1.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.ModbusFunctionalProfile.get_specification">
-<span class="sig-name descname"><span class="pre">get_specification</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.ModbusFunctionalProfile.get_specification" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>sgr_specification.v0.product.ModbusFunctionalProfile</p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.modbus_interface_async.</span></span><span class="sig-name descname"><span class="pre">SGrModbusInterface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sharedRTU</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.modbus_interface_async.</span></span><span class="sig-name descname"><span class="pre">SGrModbusInterface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sharedRTU</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../../api/device_api/index.html#sgr_commhandler.api.device_api.SGrBaseInterface" title="sgr_commhandler.api.device_api.SGrBaseInterface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_commhandler.api.device_api.SGrBaseInterface</span></code></a></p>
 <p>Implements a Modbus device interface.</p>
 <dl class="field-list simple">
@@ -589,17 +514,17 @@ is 0 by default and -1 when first register address is 1.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface.connect_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface.connect_async" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface.connect_async" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface.disconnect_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface.disconnect_async" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface.disconnect_async" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface.read_data">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface.read_data" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface.read_data" title="Link to this definition"></a></dt>
 <dd><p>Reads data from the given Modbus address(es).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -618,7 +543,7 @@ is 0 by default and -1 when first register address is 1.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface.write_data">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface.write_data" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.modbus_interface_async.SGrModbusInterface.write_data" title="Link to this definition"></a></dt>
 <dd><p>Writes data to the given Modbus address(es).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -628,9 +553,6 @@ is 0 by default and -1 when first register address is 1.</p>
 <li><p><strong>data_type</strong> (<em>sgr_specification.v0.product.modbus_types.ModbusDataType</em>)</p></li>
 <li><p><strong>value</strong> (<em>Any</em>)</p></li>
 </ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

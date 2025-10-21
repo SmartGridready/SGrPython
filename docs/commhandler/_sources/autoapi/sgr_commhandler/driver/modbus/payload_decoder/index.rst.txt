@@ -3,6 +3,12 @@ sgr_commhandler.driver.modbus.payload_decoder
 
 .. py:module:: sgr_commhandler.driver.modbus.payload_decoder
 
+.. autoapi-nested-parse::
+
+   Provides a payload encoder and decoder to convert between external and Modbus data types.
+   This implementation is only supported up to pymodbus 3.8.
+
+
 
 Attributes
 ----------

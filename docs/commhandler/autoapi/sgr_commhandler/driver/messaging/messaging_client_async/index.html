@@ -9,13 +9,13 @@
   <title>sgr_commhandler.driver.messaging.messaging_client_async &mdash; SGr CommHandler 0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=fd3f3429" />
 
   
       <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../../../_static/documentation_options.js?v=7f00635f"></script>
-      <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
       <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
@@ -92,6 +92,7 @@
              
   <section id="module-sgr_commhandler.driver.messaging.messaging_client_async">
 <span id="sgr-commhandler-driver-messaging-messaging-client-async"></span><h1>sgr_commhandler.driver.messaging.messaging_client_async<a class="headerlink" href="#module-sgr_commhandler.driver.messaging.messaging_client_async" title="Link to this heading"></a></h1>
+<p>Provides the messaging client implementation.</p>
 <section id="attributes">
 <h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
@@ -124,17 +125,17 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.messaging.messaging_client_async.</span></span><span class="sig-name descname"><span class="pre">SGrMessagingClient</span></span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.messaging.messaging_client_async.</span></span><span class="sig-name descname"><span class="pre">SGrMessagingClient</span></span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <p>Defines an abstract base class for messaging clients.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.connect">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.connect" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.connect" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.disconnect">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.disconnect" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.disconnect" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -149,7 +150,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.publish_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">publish_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.publish_async" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">publish_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.publish_async" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -162,7 +163,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.subscribe_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">subscribe_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.subscribe_async" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">subscribe_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.subscribe_async" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>topic</strong> (<em>str</em>)</p>
@@ -172,7 +173,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.unsubscribe_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unsubscribe_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.unsubscribe_async" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unsubscribe_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient.unsubscribe_async" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>topic</strong> (<em>str</em>)</p>
@@ -194,7 +195,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.messaging.messaging_client_async.</span></span><span class="sig-name descname"><span class="pre">SGrMqttClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.messaging.messaging_client_async.</span></span><span class="sig-name descname"><span class="pre">SGrMqttClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient" title="sgr_commhandler.driver.messaging.messaging_client_async.SGrMessagingClient"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SGrMessagingClient</span></code></a></p>
 <p>Implements an MQTT messaging client.</p>
 <dl class="field-list simple">
@@ -235,12 +236,12 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.connect">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.connect" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.connect" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.disconnect">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.disconnect" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.disconnect" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -255,7 +256,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.publish_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">publish_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.publish_async" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">publish_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.publish_async" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -268,7 +269,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.subscribe_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">subscribe_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.subscribe_async" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">subscribe_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.subscribe_async" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>topic</strong> (<em>str</em>)</p>
@@ -278,7 +279,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.unsubscribe_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unsubscribe_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.unsubscribe_async" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unsubscribe_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_client_async.SGrMqttClient.unsubscribe_async" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>topic</strong> (<em>str</em>)</p>

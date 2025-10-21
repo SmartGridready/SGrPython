@@ -48,29 +48,10 @@ Module Contents
 
 .. py:class:: MessagingDataPoint(dp_spec, fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`\ [\ :py:obj:`sgr_specification.v0.product.MessagingDataPoint`\ ]
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`\ [\ :py:obj:`sgr_specification.v0.product.MessagingFunctionalProfile`\ , :py:obj:`sgr_specification.v0.product.MessagingDataPoint`\ ]
 
 
    Implements a data point of a messaging interface.
-
-
-   .. py:attribute:: _dp_spec
-
-
-   .. py:attribute:: _fp_spec
-
-
-   .. py:attribute:: _dynamic_parameters
-
-
-   .. py:attribute:: _fp_name
-      :value: ''
-
-
-
-   .. py:attribute:: _dp_name
-      :value: ''
-
 
 
    .. py:attribute:: _in_cmd
@@ -118,12 +99,6 @@ Module Contents
    .. py:attribute:: _interface
 
 
-   .. py:method:: name()
-
-
-   .. py:method:: get_specification()
-
-
    .. py:method:: get_val(parameters = None, skip_cache = False)
       :async:
 
@@ -132,12 +107,6 @@ Module Contents
    .. py:method:: set_val(value)
       :async:
 
-
-
-   .. py:method:: direction()
-
-
-   .. py:method:: unit()
 
 
    .. py:method:: can_subscribe()
@@ -160,22 +129,13 @@ Module Contents
    Implements a functional profile of a messaging interface.
 
 
-   .. py:attribute:: _fp_spec
-
-
    .. py:attribute:: _interface
 
 
    .. py:attribute:: _data_points
 
 
-   .. py:method:: name()
-
-
    .. py:method:: get_data_points()
-
-
-   .. py:method:: get_specification()
 
 
 .. py:class:: SGrMessagingInterface(frame)

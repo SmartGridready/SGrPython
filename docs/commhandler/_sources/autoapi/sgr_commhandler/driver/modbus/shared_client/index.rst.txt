@@ -3,6 +3,11 @@ sgr_commhandler.driver.modbus.shared_client
 
 .. py:module:: sgr_commhandler.driver.modbus.shared_client
 
+.. autoapi-nested-parse::
+
+   Provides shared Modbus RTU clients.
+
+
 
 Attributes
 ----------
@@ -62,21 +67,71 @@ Module Contents
       :async:
 
 
+      Connects the device to the underlying transport.
+
+      :param device_id: the unique device identifier
+      :type device_id: str
+
+
 
    .. py:method:: disconnect_async(device_id)
       :async:
 
 
+      Disconnects the device from the underlying transport.
+
+      :param device_id: the unique device identifier
+      :type device_id: str
+
+
 
    .. py:method:: is_connected(device_id)
+
+      Tells if the device is connected to the transport.
+
+      :param device_id: the unique device identifier
+      :type device_id: str
+
+      :returns: the connection state
+      :rtype: bool
+
 
 
 .. py:data:: _global_shared_lock
 
+   global singleton for locking.
+
 .. py:data:: _global_shared_rtu_clients
    :type:  dict[str, ModbusClientWrapper]
 
+   global singleton containing registered clients.
+
 .. py:function:: register_shared_client(serial_port, parity, baudrate, device_id)
 
+   Registers a device at a shared transport.
+   Creates the transport if it does not exist.
+
+   :param serial_port: the serial port device name
+   :type serial_port: str
+   :param parity: the serial port parity
+   :type parity: str
+   :param baudrate: the serial port baudrate
+   :type baudrate: int
+   :param device_id: the unique device identifier
+   :type device_id: str
+
+   :returns: a wrapper for the transport
+   :rtype: ModbusClientWrapper
+
+
 .. py:function:: unregister_shared_client(serial_port, device_id)
+
+   Unregisters a device from a shared transport.
+   Removes the transport if no other device uses it.
+
+   :param serial_port: the serial port device name
+   :type serial_port: str
+   :param device_id: the unique device identifier
+   :type device_id: str
+
 

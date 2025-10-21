@@ -3,6 +3,11 @@ sgr_commhandler.utils
 
 .. py:module:: sgr_commhandler.utils
 
+.. autoapi-nested-parse::
+
+   Contains utility functions.
+
+
 
 Submodules
 ----------

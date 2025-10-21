@@ -3,6 +3,11 @@ sgr_commhandler.api.dynamic_parameter
 
 .. py:module:: sgr_commhandler.api.dynamic_parameter
 
+.. autoapi-nested-parse::
+
+   Provides dynamic request parameters.
+
+
 
 Attributes
 ----------

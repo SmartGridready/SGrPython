@@ -3,6 +3,11 @@ sgr_commhandler.driver.messaging.messaging_client_async
 
 .. py:module:: sgr_commhandler.driver.messaging.messaging_client_async
 
+.. autoapi-nested-parse::
+
+   Provides the messaging client implementation.
+
+
 
 Attributes
 ----------

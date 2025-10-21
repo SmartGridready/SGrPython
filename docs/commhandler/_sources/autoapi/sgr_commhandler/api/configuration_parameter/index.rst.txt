@@ -3,6 +3,11 @@ sgr_commhandler.api.configuration_parameter
 
 .. py:module:: sgr_commhandler.api.configuration_parameter
 
+.. autoapi-nested-parse::
+
+   Provides device configuration parameters.
+
+
 
 Classes
 -------

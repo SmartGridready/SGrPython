@@ -3,6 +3,11 @@ sgr_commhandler.driver.modbus.modbus_interface_async
 
 .. py:module:: sgr_commhandler.driver.modbus.modbus_interface_async
 
+.. autoapi-nested-parse::
+
+   Provides the Modbus interface implementation.
+
+
 
 Attributes
 ----------
@@ -48,17 +53,26 @@ Module Contents
 
 .. py:function:: get_rtu_slave_id(modbus_rtu)
 
-   returns the selected slave address
+   Returns the selected slave address.
+
+   :returns: the slave ID
+   :rtype: int
 
 
 .. py:function:: get_tcp_slave_id(modbus_tcp)
 
-   returns the selected slave address
+   Returns the selected slave address.
+
+   :returns: the slave ID
+   :rtype: int
 
 
 .. py:function:: get_endian(modbus)
 
-   returns the byte order.
+   Returns the byte order (endianness).
+
+   :returns: the byte order
+   :rtype: BitOrder
 
 
 .. py:function:: get_address_offset(modbus)
@@ -115,31 +129,13 @@ Module Contents
 
 .. py:class:: ModbusDataPoint(dp_spec, fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`\ [\ :py:obj:`sgr_specification.v0.product.ModbusDataPoint`\ ]
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`\ [\ :py:obj:`sgr_specification.v0.product.ModbusFunctionalProfile`\ , :py:obj:`sgr_specification.v0.product.ModbusDataPoint`\ ]
 
 
    Implements a data point of a Modbus interface.
 
 
-   .. py:attribute:: _dp_spec
-
-
-   .. py:attribute:: _fp_spec
-
-
    .. py:attribute:: _interface
-
-
-   .. py:attribute:: _dp_name
-      :type:  str
-      :value: ''
-
-
-
-   .. py:attribute:: _fp_name
-      :type:  str
-      :value: ''
-
 
 
    .. py:attribute:: _address
@@ -161,9 +157,6 @@ Module Contents
       :type:  sgr_specification.v0.product.modbus_types.RegisterType
 
 
-   .. py:method:: get_specification()
-
-
    .. py:method:: set_val(value)
       :async:
 
@@ -174,15 +167,6 @@ Module Contents
 
 
 
-   .. py:method:: name()
-
-
-   .. py:method:: direction()
-
-
-   .. py:method:: unit()
-
-
 .. py:class:: ModbusFunctionalProfile(fp_spec, interface)
 
    Bases: :py:obj:`sgr_commhandler.api.functional_profile_api.FunctionalProfile`\ [\ :py:obj:`sgr_specification.v0.product.ModbusFunctionalProfile`\ ]
@@ -191,22 +175,13 @@ Module Contents
    Implements a functional profile of a Modbus interface.
 
 
-   .. py:attribute:: _fp_spec
-
-
    .. py:attribute:: _interface
 
 
    .. py:attribute:: _data_points
 
 
-   .. py:method:: name()
-
-
    .. py:method:: get_data_points()
-
-
-   .. py:method:: get_specification()
 
 
 .. py:class:: SGrModbusInterface(frame, sharedRTU = False)

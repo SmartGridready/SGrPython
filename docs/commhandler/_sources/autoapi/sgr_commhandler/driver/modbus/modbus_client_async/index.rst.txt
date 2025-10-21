@@ -3,6 +3,11 @@ sgr_commhandler.driver.modbus.modbus_client_async
 
 .. py:module:: sgr_commhandler.driver.modbus.modbus_client_async
 
+.. autoapi-nested-parse::
+
+   Provides the Modbus client implementation.
+
+
 
 Attributes
 ----------

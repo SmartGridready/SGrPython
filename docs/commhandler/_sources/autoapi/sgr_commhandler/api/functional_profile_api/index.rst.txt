@@ -25,12 +25,18 @@ Module Contents
 
 .. py:data:: TFpSpec
 
-.. py:class:: FunctionalProfile
+   Defines a generic functional profile data type.
 
-   Bases: :py:obj:`Protocol`\ [\ :py:obj:`TFpSpec`\ ]
+.. py:class:: FunctionalProfile(fp_spec)
+
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`TFpSpec`\ ]
 
 
    Implements a functional profile.
+
+
+   .. py:attribute:: _fp_spec
+      :type:  TFpSpec
 
 
    .. py:method:: name()

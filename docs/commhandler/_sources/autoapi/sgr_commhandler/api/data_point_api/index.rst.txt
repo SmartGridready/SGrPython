@@ -3,12 +3,18 @@ sgr_commhandler.api.data_point_api
 
 .. py:module:: sgr_commhandler.api.data_point_api
 
+.. autoapi-nested-parse::
+
+   Provides the data-point-level API.
+
+
 
 Attributes
 ----------
 
 .. autoapisummary::
 
+   sgr_commhandler.api.data_point_api.TFpSpec
    sgr_commhandler.api.data_point_api.TDpSpec
 
 
@@ -25,11 +31,17 @@ Classes
 Module Contents
 ---------------
 
+.. py:data:: TFpSpec
+
+   Defines a generic functional profile data type.
+
 .. py:data:: TDpSpec
+
+   Defines a generic data point data type.
 
 .. py:class:: DataPointValidator(data_type)
 
-   Bases: :py:obj:`Protocol`
+   Bases: :py:obj:`object`
 
 
    Implements a base class for data point validators.
@@ -69,12 +81,32 @@ Module Contents
 
 
 
-.. py:class:: DataPointProtocol
+.. py:class:: DataPointProtocol(fp_spec, dp_spec)
 
-   Bases: :py:obj:`Protocol`\ [\ :py:obj:`TDpSpec`\ ]
+   Bases: :py:obj:`abc.ABC`, :py:obj:`Generic`\ [\ :py:obj:`TFpSpec`\ , :py:obj:`TDpSpec`\ ]
 
 
    Implements a base class for data point protocols.
+
+
+   .. py:attribute:: _fp_spec
+      :type:  TFpSpec
+
+
+   .. py:attribute:: _dp_spec
+      :type:  TDpSpec
+
+
+   .. py:attribute:: _fp_name
+      :type:  str
+
+
+   .. py:attribute:: _dp_name
+      :type:  str
+
+
+   .. py:attribute:: _dynamic_parameters
+      :type:  list[sgr_commhandler.api.dynamic_parameter.DynamicParameter]
 
 
    .. py:method:: get_specification()
@@ -87,6 +119,8 @@ Module Contents
 
 
    .. py:method:: set_val(value)
+      :abstractmethod:
+
       :async:
 
 
@@ -98,6 +132,8 @@ Module Contents
 
 
    .. py:method:: get_val(parameters = None, skip_cache = False)
+      :abstractmethod:
+
       :async:
 
 
@@ -175,7 +211,7 @@ Module Contents
 
 .. py:class:: DataPoint(protocol, validator)
 
-   Bases: :py:obj:`Generic`\ [\ :py:obj:`TDpSpec`\ ]
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`TFpSpec`\ , :py:obj:`TDpSpec`\ ]
 
 
    Implements a data point of a generic data type.
@@ -196,7 +232,7 @@ Module Contents
 
 
 
-   .. py:method:: get_value_async(parameters = None, skip_cache=False)
+   .. py:method:: get_value_async(parameters = None, skip_cache = False)
       :async:
 
 

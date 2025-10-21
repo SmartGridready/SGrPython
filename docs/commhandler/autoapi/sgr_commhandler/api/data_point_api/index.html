@@ -9,13 +9,13 @@
   <title>sgr_commhandler.api.data_point_api &mdash; SGr CommHandler 0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=fd3f3429" />
 
   
       <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../../_static/documentation_options.js?v=7f00635f"></script>
-      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -91,12 +91,16 @@
              
   <section id="module-sgr_commhandler.api.data_point_api">
 <span id="sgr-commhandler-api-data-point-api"></span><h1>sgr_commhandler.api.data_point_api<a class="headerlink" href="#module-sgr_commhandler.api.data_point_api" title="Link to this heading"></a></h1>
+<p>Provides the data-point-level API.</p>
 <section id="attributes">
 <h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.api.data_point_api.TDpSpec" title="sgr_commhandler.api.data_point_api.TDpSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TDpSpec</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.api.data_point_api.TFpSpec" title="sgr_commhandler.api.data_point_api.TFpSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TFpSpec</span></code></a></p></td>
+<td><p>Defines a generic functional profile data type.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.api.data_point_api.TDpSpec" title="sgr_commhandler.api.data_point_api.TDpSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TDpSpec</span></code></a></p></td>
+<td><p>Defines a generic data point data type.</p></td>
 </tr>
 </tbody>
 </table>
@@ -120,14 +124,21 @@
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
 <dl class="py data">
+<dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.TFpSpec">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.data_point_api.</span></span><span class="sig-name descname"><span class="pre">TFpSpec</span></span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.TFpSpec" title="Link to this definition"></a></dt>
+<dd><p>Defines a generic functional profile data type.</p>
+</dd></dl>
+
+<dl class="py data">
 <dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.TDpSpec">
 <span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.data_point_api.</span></span><span class="sig-name descname"><span class="pre">TDpSpec</span></span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.TDpSpec" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Defines a generic data point data type.</p>
+</dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPointValidator">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.data_point_api.</span></span><span class="sig-name descname"><span class="pre">DataPointValidator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointValidator" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.data_point_api.</span></span><span class="sig-name descname"><span class="pre">DataPointValidator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointValidator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Implements a base class for data point validators.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -188,9 +199,42 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPointProtocol">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.data_point_api.</span></span><span class="sig-name descname"><span class="pre">DataPointProtocol</span></span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Protocol</span></code>[<a class="reference internal" href="#sgr_commhandler.api.data_point_api.TDpSpec" title="sgr_commhandler.api.data_point_api.TDpSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TDpSpec</span></code></a>]</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.data_point_api.</span></span><span class="sig-name descname"><span class="pre">DataPointProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fp_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp_spec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">abc.ABC</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Generic</span></code>[<a class="reference internal" href="#sgr_commhandler.api.data_point_api.TFpSpec" title="sgr_commhandler.api.data_point_api.TFpSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TFpSpec</span></code></a>, <a class="reference internal" href="#sgr_commhandler.api.data_point_api.TDpSpec" title="sgr_commhandler.api.data_point_api.TDpSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TDpSpec</span></code></a>]</p>
 <p>Implements a base class for data point protocols.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fp_spec</strong> (<em>TFpSpec</em>)</p></li>
+<li><p><strong>dp_spec</strong> (<em>TDpSpec</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPointProtocol._fp_spec">
+<span class="sig-name descname"><span class="pre">_fp_spec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">TFpSpec</span></em><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol._fp_spec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPointProtocol._dp_spec">
+<span class="sig-name descname"><span class="pre">_dp_spec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">TDpSpec</span></em><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol._dp_spec" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPointProtocol._fp_name">
+<span class="sig-name descname"><span class="pre">_fp_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol._fp_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPointProtocol._dp_name">
+<span class="sig-name descname"><span class="pre">_dp_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol._dp_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPointProtocol._dynamic_parameters">
+<span class="sig-name descname"><span class="pre">_dynamic_parameters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../dynamic_parameter/index.html#sgr_commhandler.api.dynamic_parameter.DynamicParameter" title="sgr_commhandler.api.dynamic_parameter.DynamicParameter"><span class="pre">sgr_commhandler.api.dynamic_parameter.DynamicParameter</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol._dynamic_parameters" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPointProtocol.get_specification">
 <span class="sig-name descname"><span class="pre">get_specification</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol.get_specification" title="Link to this definition"></a></dt>
@@ -207,8 +251,15 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPointProtocol.set_val">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol.set_val" title="Link to this definition"></a></dt>
-<dd><p>Writes the data point value.</p>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol.set_val" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Async<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>value</strong> (<em>Any</em>)</p>
+</dd>
+</dl>
+<p>Writes the data point value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – the data point value to write</p>
@@ -218,8 +269,21 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPointProtocol.get_val">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol.get_val" title="Link to this definition"></a></dt>
-<dd><p>Reads the data point value.</p>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPointProtocol.get_val" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Async<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>parameters</strong> (<em>Optional</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>skip_cache</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+<p>Reads the data point value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -327,13 +391,13 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPoint">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.data_point_api.</span></span><span class="sig-name descname"><span class="pre">DataPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPoint" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Generic</span></code>[<a class="reference internal" href="#sgr_commhandler.api.data_point_api.TDpSpec" title="sgr_commhandler.api.data_point_api.TDpSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TDpSpec</span></code></a>]</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.api.data_point_api.</span></span><span class="sig-name descname"><span class="pre">DataPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPoint" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Generic</span></code>[<a class="reference internal" href="#sgr_commhandler.api.data_point_api.TFpSpec" title="sgr_commhandler.api.data_point_api.TFpSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TFpSpec</span></code></a>, <a class="reference internal" href="#sgr_commhandler.api.data_point_api.TDpSpec" title="sgr_commhandler.api.data_point_api.TDpSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TDpSpec</span></code></a>]</p>
 <p>Implements a data point of a generic data type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>protocol</strong> (<a class="reference internal" href="#sgr_commhandler.api.data_point_api.DataPointProtocol" title="sgr_commhandler.api.data_point_api.DataPointProtocol"><em>DataPointProtocol</em></a><em>[</em><em>TDpSpec</em><em>]</em>)</p></li>
+<li><p><strong>protocol</strong> (<a class="reference internal" href="#sgr_commhandler.api.data_point_api.DataPointProtocol" title="sgr_commhandler.api.data_point_api.DataPointProtocol"><em>DataPointProtocol</em></a><em>[</em><em>TFpSpec</em><em>, </em><em>TDpSpec</em><em>]</em>)</p></li>
 <li><p><strong>validator</strong> (<a class="reference internal" href="#sgr_commhandler.api.data_point_api.DataPointValidator" title="sgr_commhandler.api.data_point_api.DataPointValidator"><em>DataPointValidator</em></a>)</p></li>
 </ul>
 </dd>
@@ -364,7 +428,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPoint.get_value_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_value_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPoint.get_value_async" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_value_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPoint.get_value_async" title="Link to this definition"></a></dt>
 <dd><p>Gets the data point value asynchronously.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -377,14 +441,17 @@
 <dd class="field-odd"><p><strong>Exception</strong> – when read value is not compatible with data type</p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>parameters</strong> (<em>Optional</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>)</p>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>parameters</strong> (<em>Optional</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>skip_cache</strong> (<em>bool</em>)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.api.data_point_api.DataPoint.set_value_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_value_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPoint.set_value_async" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_value_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.api.data_point_api.DataPoint.set_value_async" title="Link to this definition"></a></dt>
 <dd><p>Sets the data point value asynchronously.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

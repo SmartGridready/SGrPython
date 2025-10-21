@@ -9,13 +9,13 @@
   <title>sgr_commhandler.driver.modbus.shared_client &mdash; SGr CommHandler 0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=fd3f3429" />
 
   
       <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../../../_static/documentation_options.js?v=7f00635f"></script>
-      <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
       <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
@@ -92,6 +92,7 @@
              
   <section id="module-sgr_commhandler.driver.modbus.shared_client">
 <span id="sgr-commhandler-driver-modbus-shared-client"></span><h1>sgr_commhandler.driver.modbus.shared_client<a class="headerlink" href="#module-sgr_commhandler.driver.modbus.shared_client" title="Link to this heading"></a></h1>
+<p>Provides shared Modbus RTU clients.</p>
 <section id="attributes">
 <h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
@@ -100,10 +101,10 @@
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.driver.modbus.shared_client._global_shared_lock" title="sgr_commhandler.driver.modbus.shared_client._global_shared_lock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_global_shared_lock</span></code></a></p></td>
-<td><p></p></td>
+<td><p>global singleton for locking.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.driver.modbus.shared_client._global_shared_rtu_clients" title="sgr_commhandler.driver.modbus.shared_client._global_shared_rtu_clients"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_global_shared_rtu_clients</span></code></a></p></td>
-<td><p></p></td>
+<td><p>global singleton containing registered clients.</p></td>
 </tr>
 </tbody>
 </table>
@@ -123,10 +124,10 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.driver.modbus.shared_client.register_shared_client" title="sgr_commhandler.driver.modbus.shared_client.register_shared_client"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_shared_client</span></code></a>(serial_port, parity, baudrate, ...)</p></td>
-<td><p></p></td>
+<td><p>Registers a device at a shared transport.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.driver.modbus.shared_client.unregister_shared_client" title="sgr_commhandler.driver.modbus.shared_client.unregister_shared_client"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unregister_shared_client</span></code></a>(serial_port, device_id)</p></td>
-<td><p></p></td>
+<td><p>Unregisters a device from a shared transport.</p></td>
 </tr>
 </tbody>
 </table>
@@ -140,7 +141,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.shared_client.</span></span><span class="sig-name descname"><span class="pre">ModbusClientWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.shared_client.</span></span><span class="sig-name descname"><span class="pre">ModbusClientWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper" title="Link to this definition"></a></dt>
 <dd><p>Implements a Modbus client wrapper for shared use.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -178,20 +179,22 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper.connect_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper.connect_async" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper.connect_async" title="Link to this definition"></a></dt>
+<dd><p>Connects the device to the underlying transport.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>device_id</strong> (<em>str</em>)</p>
+<dd class="field-odd"><p><strong>device_id</strong> (<em>str</em>) – the unique device identifier</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper.disconnect_async">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper.disconnect_async" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disconnect_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper.disconnect_async" title="Link to this definition"></a></dt>
+<dd><p>Disconnects the device from the underlying transport.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>device_id</strong> (<em>str</em>)</p>
+<dd class="field-odd"><p><strong>device_id</strong> (<em>str</em>) – the unique device identifier</p>
 </dd>
 </dl>
 </dd></dl>
@@ -199,12 +202,16 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper.is_connected">
 <span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper.is_connected" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Tells if the device is connected to the transport.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>device_id</strong> (<em>str</em>)</p>
+<dd class="field-odd"><p><strong>device_id</strong> (<em>str</em>) – the unique device identifier</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the connection state</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -214,27 +221,34 @@
 <dl class="py data">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.shared_client._global_shared_lock">
 <span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.shared_client.</span></span><span class="sig-name descname"><span class="pre">_global_shared_lock</span></span><a class="headerlink" href="#sgr_commhandler.driver.modbus.shared_client._global_shared_lock" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>global singleton for locking.</p>
+</dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.shared_client._global_shared_rtu_clients">
 <span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.shared_client.</span></span><span class="sig-name descname"><span class="pre">_global_shared_rtu_clients</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper" title="sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper"><span class="pre">ModbusClientWrapper</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#sgr_commhandler.driver.modbus.shared_client._global_shared_rtu_clients" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>global singleton containing registered clients.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.shared_client.register_shared_client">
 <span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.shared_client.</span></span><span class="sig-name descname"><span class="pre">register_shared_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serial_port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baudrate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.shared_client.register_shared_client" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Registers a device at a shared transport.
+Creates the transport if it does not exist.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>serial_port</strong> (<em>str</em>)</p></li>
-<li><p><strong>parity</strong> (<em>str</em>)</p></li>
-<li><p><strong>baudrate</strong> (<em>int</em>)</p></li>
-<li><p><strong>device_id</strong> (<em>str</em>)</p></li>
+<li><p><strong>serial_port</strong> (<em>str</em>) – the serial port device name</p></li>
+<li><p><strong>parity</strong> (<em>str</em>) – the serial port parity</p></li>
+<li><p><strong>baudrate</strong> (<em>int</em>) – the serial port baudrate</p></li>
+<li><p><strong>device_id</strong> (<em>str</em>) – the unique device identifier</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper" title="sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper">ModbusClientWrapper</a></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a wrapper for the transport</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper" title="sgr_commhandler.driver.modbus.shared_client.ModbusClientWrapper">ModbusClientWrapper</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -242,15 +256,14 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.modbus.shared_client.unregister_shared_client">
 <span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.modbus.shared_client.</span></span><span class="sig-name descname"><span class="pre">unregister_shared_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serial_port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.modbus.shared_client.unregister_shared_client" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Unregisters a device from a shared transport.
+Removes the transport if no other device uses it.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>serial_port</strong> (<em>str</em>)</p></li>
-<li><p><strong>device_id</strong> (<em>str</em>)</p></li>
+<li><p><strong>serial_port</strong> (<em>str</em>) – the serial port device name</p></li>
+<li><p><strong>device_id</strong> (<em>str</em>) – the unique device identifier</p></li>
 </ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

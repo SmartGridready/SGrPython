@@ -3,6 +3,11 @@ sgr_commhandler.driver.rest
 
 .. py:module:: sgr_commhandler.driver.rest
 
+.. autoapi-nested-parse::
+
+   Provides the HTTP / REST interface driver.
+
+
 
 Submodules
 ----------
@@ -30,16 +35,10 @@ Package Contents
 
 .. py:class:: RestDataPoint(dp_spec, fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`\ [\ :py:obj:`sgr_specification.v0.product.RestApiDataPoint`\ ]
+   Bases: :py:obj:`sgr_commhandler.api.data_point_api.DataPointProtocol`\ [\ :py:obj:`sgr_specification.v0.product.RestApiFunctionalProfile`\ , :py:obj:`sgr_specification.v0.product.RestApiDataPoint`\ ]
 
 
    Implements a data point of a REST API interface.
-
-
-   .. py:attribute:: _dp_spec
-
-
-   .. py:attribute:: _fp_spec
 
 
    .. py:attribute:: _read_call
@@ -50,26 +49,7 @@ Package Contents
       :type:  sgr_specification.v0.product.rest_api_types.RestApiServiceCall
 
 
-   .. py:attribute:: _dynamic_parameters
-
-
-   .. py:attribute:: _fp_name
-      :value: ''
-
-
-
-   .. py:attribute:: _dp_name
-      :value: ''
-
-
-
    .. py:attribute:: _interface
-
-
-   .. py:method:: name()
-
-
-   .. py:method:: get_specification()
 
 
    .. py:method:: get_val(parameters = None, skip_cache = False)
@@ -82,24 +62,12 @@ Package Contents
 
 
 
-   .. py:method:: direction()
-
-
-   .. py:method:: unit()
-
-
-   .. py:method:: dynamic_parameters()
-
-
 .. py:class:: RestFunctionalProfile(fp_spec, interface)
 
-   Bases: :py:obj:`sgr_commhandler.api.functional_profile_api.FunctionalProfile`
+   Bases: :py:obj:`sgr_commhandler.api.functional_profile_api.FunctionalProfile`\ [\ :py:obj:`sgr_specification.v0.product.RestApiFunctionalProfile`\ ]
 
 
    Implements a functional profile of a REST API interface.
-
-
-   .. py:attribute:: _fp_spec
 
 
    .. py:attribute:: _interface
@@ -108,13 +76,7 @@ Package Contents
    .. py:attribute:: _data_points
 
 
-   .. py:method:: name()
-
-
    .. py:method:: get_data_points()
-
-
-   .. py:method:: get_specification()
 
 
 .. py:class:: SGrRestInterface(frame)

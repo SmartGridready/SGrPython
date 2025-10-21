@@ -3,6 +3,11 @@ sgr_commhandler.device_builder
 
 .. py:module:: sgr_commhandler.device_builder
 
+.. autoapi-nested-parse::
+
+   Provides a device builder to create device instances from external interface descriptions (EID).
+
+
 
 Attributes
 ----------
@@ -41,7 +46,7 @@ Module Contents
 
 .. py:data:: logger
 
-.. py:class:: SGrXmlSource(*args, **kwds)
+.. py:class:: SGrXmlSource
 
    Bases: :py:obj:`enum.Enum`
 
@@ -64,7 +69,7 @@ Module Contents
 
 
 
-.. py:class:: SGrPropertiesSource(*args, **kwds)
+.. py:class:: SGrPropertiesSource
 
    Bases: :py:obj:`enum.Enum`
 
@@ -87,7 +92,7 @@ Module Contents
 
 
 
-.. py:class:: SGrDeviceProtocol(*args, **kwds)
+.. py:class:: SGrDeviceProtocol
 
    Bases: :py:obj:`enum.Enum`
 
@@ -136,13 +141,13 @@ Module Contents
 
 
    .. py:attribute:: _eid_source
-      :type:  str | None
+      :type:  Optional[str]
       :value: None
 
 
 
    .. py:attribute:: _properties_source
-      :type:  str | dict | None
+      :type:  Union[str, dict, None]
       :value: None
 
 
