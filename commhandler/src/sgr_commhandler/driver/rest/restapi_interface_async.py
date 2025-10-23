@@ -13,6 +13,7 @@ import certifi
 import jmespath
 from aiohttp import ClientConnectionError, ClientResponseError
 from cachetools import TTLCache
+import jsonata
 from multidict import CIMultiDict
 from sgr_specification.v0.generic.base_types import ResponseQueryType
 from sgr_specification.v0.product import (
@@ -234,6 +235,17 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
             query_match = re.match(query_expression, response.body)
             if query_match is not None:
                 return query_match.group()
+        elif (
+            self._read_call.response_query
+            and self._read_call.response_query.query_type == ResponseQueryType.JSONATA_EXPRESSION
+        ):
+            # JSONata expression
+            query_expression = template.substitute(
+                self._read_call.response_query.query if self._read_call.response_query.query else '',
+                substitutions
+            )
+            expression = jsonata.Jsonata(query_expression)
+            return expression.evaluate(json.loads(response.body))
 
         # plain response
         ret_value = response.body
