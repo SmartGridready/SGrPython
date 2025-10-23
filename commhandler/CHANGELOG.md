@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - JSONata expressions as response query in REST / messaging data points and message filters
-- response or template query can be used in write operations
+- XPath expressions as response query in REST / messaging data points and message filters
 
 ### Changed
 

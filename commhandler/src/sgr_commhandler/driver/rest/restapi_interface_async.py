@@ -11,6 +11,7 @@ from typing import Any, Optional
 import aiohttp
 import certifi
 import jmespath
+import parsel
 from aiohttp import ClientConnectionError, ClientResponseError
 from cachetools import TTLCache
 import jsonata
@@ -235,6 +236,17 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
             query_match = re.match(query_expression, response.body)
             if query_match is not None:
                 return query_match.group()
+        elif (
+            self._read_call.response_query
+            and self._read_call.response_query.query_type == ResponseQueryType.XPATH_EXPRESSION
+        ):
+            # XPath expression
+            query_expression = template.substitute(
+                self._read_call.response_query.query if self._read_call.response_query.query else '',
+                substitutions
+            )
+            selector = parsel.Selector(response.body)
+            return selector.xpath(query_expression).get()
         elif (
             self._read_call.response_query
             and self._read_call.response_query.query_type == ResponseQueryType.JSONATA_EXPRESSION

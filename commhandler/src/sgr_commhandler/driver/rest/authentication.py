@@ -10,6 +10,7 @@ from typing import Any, Awaitable, Callable
 
 import aiohttp
 import jmespath
+import parsel
 from aiohttp.client import ClientSession
 from jmespath.exceptions import JMESPathError
 import jsonata
@@ -133,6 +134,14 @@ async def authenticate_with_bearer_token(
                             query_expression = service_call.response_query.query if service_call.response_query.query else ''
                             query_match = re.match(query_expression, response.body)
                             token = query_match.group() if query_match is not None else None
+                        elif (
+                            service_call.response_query
+                            and service_call.response_query.query_type == ResponseQueryType.XPATH_EXPRESSION
+                        ):
+                            # XPath expression
+                            query_expression = service_call.response_query.query if service_call.response_query.query else ''
+                            selector = parsel.Selector(response.body)
+                            token = str(selector.xpath(query_expression).get())
                         elif (
                             service_call.response_query
                             and service_call.response_query.query_type == ResponseQueryType.JSONATA_EXPRESSION
