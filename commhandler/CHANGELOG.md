@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - requires `sgr-specification` 2.2
+- JSON values are returned as Python types, no longer converted to string
 
 
 ## [0.4.1] - 2025-10-20

@@ -26,7 +26,7 @@ The actual XML schema files reside in the separate [SGrSpecifications](https://g
 Install _xsdata CLI_:
 
 ```bash
-pip install xsdata[cli]
+pip install -r requirements-dev.txt
 ```
 
 Check out both the [SGrPython](https://github.com/SmartGridready/SGrPython) and
