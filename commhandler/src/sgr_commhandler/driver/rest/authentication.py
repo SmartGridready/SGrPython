@@ -10,8 +10,10 @@ from typing import Any, Awaitable, Callable
 
 import aiohttp
 import jmespath
+import parsel
 from aiohttp.client import ClientSession
 from jmespath.exceptions import JMESPathError
+import jsonata
 from multidict import CIMultiDict
 from sgr_specification.v0.generic.base_types import ResponseQueryType
 from sgr_specification.v0.product import RestApiInterface
@@ -116,14 +118,14 @@ async def authenticate_with_bearer_token(
                         ):
                             # JMESPath expression
                             query_expression = service_call.response_query.query if service_call.response_query.query else ''
-                            token = jmespath.search(query_expression, json.loads(response.body))
+                            token = str(jmespath.search(query_expression, json.loads(response.body)))
                         elif (
                             service_call.response_query
                             and service_call.response_query.query_type == ResponseQueryType.JMESPATH_MAPPING
                         ):
                             # JMESPath mappings
                             mappings = service_call.response_query.jmes_path_mappings.mapping if service_call.response_query.jmes_path_mappings else []
-                            token = jmespath_mapping.map_json_response(response.body, mappings)
+                            token = str(jmespath_mapping.map_json_response(response.body, mappings))
                         elif (
                             service_call.response_query
                             and service_call.response_query.query_type == ResponseQueryType.REGULAR_EXPRESSION
@@ -132,6 +134,22 @@ async def authenticate_with_bearer_token(
                             query_expression = service_call.response_query.query if service_call.response_query.query else ''
                             query_match = re.match(query_expression, response.body)
                             token = query_match.group() if query_match is not None else None
+                        elif (
+                            service_call.response_query
+                            and service_call.response_query.query_type == ResponseQueryType.XPATH_EXPRESSION
+                        ):
+                            # XPath expression
+                            query_expression = service_call.response_query.query if service_call.response_query.query else ''
+                            selector = parsel.Selector(response.body)
+                            token = str(selector.xpath(query_expression).get())
+                        elif (
+                            service_call.response_query
+                            and service_call.response_query.query_type == ResponseQueryType.JSONATA_EXPRESSION
+                        ):
+                            # JSONata expression
+                            query_expression = service_call.response_query.query if service_call.response_query.query else ''
+                            expression = jsonata.Jsonata(query_expression)
+                            token = str(expression.evaluate(json.loads(response.body)))
                         else:
                             # plaintext
                             token = response.body

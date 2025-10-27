@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2025-10-27
+
+### Added
+
+- JSONata expressions as response query in REST / messaging data points and message filters
+- XPath expressions as response query in REST / messaging data points and message filters
+
+### Changed
+
+- requires `sgr-specification` 2.2
+- JSON values are returned as Python types, no longer converted to string
+
+
 ## [0.4.1] - 2025-10-20
 
 ### Fixed

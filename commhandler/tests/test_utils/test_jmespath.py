@@ -60,7 +60,7 @@ def test_jmespath_mapping_1():
         }
     ])
 
-    json_mapped = jmespath_mapping.map_json_response(json_input, jmes_mappings)
+    json_mapped = json.dumps(jmespath_mapping.map_json_response(json_input, jmes_mappings))
     assert json_mapped == json_expected
 
 
@@ -138,5 +138,5 @@ def test_jmespath_mapping_2():
         }
     ])
 
-    json_mapped = jmespath_mapping.map_json_response(json_input, jmes_mappings)
+    json_mapped = json.dumps(jmespath_mapping.map_json_response(json_input, jmes_mappings))
     assert json_mapped == json_expected

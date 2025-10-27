@@ -3,9 +3,11 @@ import json
 import logging
 import re
 import jmespath
+import parsel
 from collections.abc import Callable
 from typing import Any, NoReturn, Optional
 
+import jsonata
 from sgr_specification.v0.generic import ResponseQueryType
 from sgr_specification.v0.product import (
     DeviceFrame,
@@ -212,6 +214,24 @@ class MessagingDataPoint(DataPointProtocol[MessagingFunctionalProfileSpec, Messa
             query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query else ''
             query_match = re.match(query_expression, str(payload))
             ret_value = query_match.group() if query_match is not None else str(payload)
+        elif (
+            self._in_cmd
+            and self._in_cmd.response_query
+            and self._in_cmd.response_query.query_type == ResponseQueryType.XPATH_EXPRESSION
+        ):
+            # XPath expression
+            query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query else ''
+            selector = parsel.Selector(str(payload))
+            ret_value = selector.xpath(query_expression).get()
+        elif (
+            self._in_cmd
+            and self._in_cmd.response_query
+            and self._in_cmd.response_query.query_type == ResponseQueryType.JSONATA_EXPRESSION
+        ):
+            # JSONata expression
+            query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query else ''
+            expression = jsonata.Jsonata(query_expression)
+            ret_value = expression.evaluate(json.loads(payload))
         else:
             # plain response
             ret_value = str(payload)

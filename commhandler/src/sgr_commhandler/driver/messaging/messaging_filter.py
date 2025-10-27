@@ -6,12 +6,16 @@ from abc import ABC, abstractmethod
 import re
 import json
 import jmespath
+import jsonata
+import parsel
 from typing import Any, Generic, Optional, TypeVar
 
 from sgr_specification.v0.generic.base_types import (
     JmespathFilterType,
     PlaintextFilterType,
-    RegexFilterType
+    RegexFilterType,
+    XpathFilterType,
+    JsonataFilterType
 )
 from sgr_specification.v0.product.messaging_types import MessageFilter
 
@@ -23,6 +27,8 @@ class MessagingFilter(ABC, Generic[T]):
     """
     The base class for message filter implementations.
     """
+
+    _filter_spec: T
 
     def __init__(self, filter_spec: T):
         self._filter_spec = filter_spec
@@ -86,6 +92,44 @@ class RegexMessagingFilter(MessagingFilter[RegexFilterType]):
         return match is not None
 
 
+class XPathMessagingFilter(MessagingFilter[XpathFilterType]):
+    """
+    Implements an XPath filter for message payloads.
+    """
+
+    def __init__(self, filter_spec: XpathFilterType):
+        super(XPathMessagingFilter, self).__init__(filter_spec)
+
+    def is_filter_match(self, payload: Any) -> bool:
+        ret_value = str(payload)
+        regex = self._filter_spec.matches_regex or '.'
+        if self._filter_spec.query:
+            selector = parsel.Selector(ret_value)
+            ret_value = selector.xpath(self._filter_spec.query).get()
+
+        match = re.match(regex, ret_value)
+        return match is not None
+
+
+class JSONataMessagingFilter(MessagingFilter[JsonataFilterType]):
+    """
+    Implements a JSONata filter for message payloads.
+    """
+
+    def __init__(self, filter_spec: JsonataFilterType):
+        super(JSONataMessagingFilter, self).__init__(filter_spec)
+
+    def is_filter_match(self, payload: Any) -> bool:
+        ret_value = str(payload)
+        regex = self._filter_spec.matches_regex or '.'
+        if self._filter_spec.query:
+            expression = jsonata.Jsonata(self._filter_spec.query)
+            ret_value = json.dumps(expression.evaluate(json.loads(payload)))
+
+        match = re.match(regex, ret_value)
+        return match is not None
+
+
 def get_messaging_filter(filter: MessageFilter) -> Optional[MessagingFilter]:
     """
     Creates a messaging filter from specification.
@@ -106,7 +150,9 @@ def get_messaging_filter(filter: MessageFilter) -> Optional[MessagingFilter]:
     elif filter.plaintext_filter:
         return PlaintextMessagingFilter(filter.plaintext_filter)
     elif filter.regex_filter:
-        raise Exception('regexFilter not supported')
+        return RegexMessagingFilter(filter.regex_filter)
     elif filter.xpapath_filter:
-        raise Exception('xpapathFilter not supported')
+        return XPathMessagingFilter(filter.xpapath_filter)
+    elif filter.jsonata_filter:
+        return JSONataMessagingFilter(filter.jsonata_filter)
     return None
