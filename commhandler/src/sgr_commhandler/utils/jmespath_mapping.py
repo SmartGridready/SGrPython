@@ -52,7 +52,7 @@ class RecordKey(object):
         return f'<RecordKey={self.key()}>'
 
 
-def map_json_response(response: str, mappings: list[JmespathMappingRecord]) -> str:
+def map_json_response(response: str, mappings: list[JmespathMappingRecord]) -> Any:
     """
     Converts the structure of a JSON string using JMESpath mappings.
 
@@ -65,8 +65,8 @@ def map_json_response(response: str, mappings: list[JmespathMappingRecord]) -> s
 
     Returns
     -------
-    str
-        the mapped JSON string
+    Any
+        the mapped JSON structure
     """
 
     if len(mappings) == 0:
@@ -93,7 +93,7 @@ def map_json_response(response: str, mappings: list[JmespathMappingRecord]) -> s
 
     enhanced_map = _enhance_with_namings(flat_representation, names)
 
-    return json.dumps(_build_json_node(map_to, list(enhanced_map.values())))
+    return _build_json_node(map_to, list(enhanced_map.values()))
 
 
 def _map_to_flat_list(json_str: str, keyword_map: dict[str, str]) -> Optional[dict[RecordKey, dict[str, Any]]]:
