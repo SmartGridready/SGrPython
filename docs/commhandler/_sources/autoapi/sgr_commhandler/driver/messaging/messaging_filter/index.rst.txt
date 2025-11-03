@@ -26,6 +26,8 @@ Classes
    sgr_commhandler.driver.messaging.messaging_filter.JMESPathMessagingFilter
    sgr_commhandler.driver.messaging.messaging_filter.PlaintextMessagingFilter
    sgr_commhandler.driver.messaging.messaging_filter.RegexMessagingFilter
+   sgr_commhandler.driver.messaging.messaging_filter.XPathMessagingFilter
+   sgr_commhandler.driver.messaging.messaging_filter.JSONataMessagingFilter
 
 
 Functions
@@ -50,6 +52,7 @@ Module Contents
 
 
    .. py:attribute:: _filter_spec
+      :type:  T
 
 
    .. py:method:: is_filter_match(payload)
@@ -85,6 +88,28 @@ Module Contents
 
 
    Implements a regex filter for message payloads.
+
+
+   .. py:method:: is_filter_match(payload)
+
+
+.. py:class:: XPathMessagingFilter(filter_spec)
+
+   Bases: :py:obj:`MessagingFilter`\ [\ :py:obj:`sgr_specification.v0.generic.base_types.XpathFilterType`\ ]
+
+
+   Implements an XPath filter for message payloads.
+
+
+   .. py:method:: is_filter_match(payload)
+
+
+.. py:class:: JSONataMessagingFilter(filter_spec)
+
+   Bases: :py:obj:`MessagingFilter`\ [\ :py:obj:`sgr_specification.v0.generic.base_types.JsonataFilterType`\ ]
+
+
+   Implements a JSONata filter for message payloads.
 
 
    .. py:method:: is_filter_match(payload)

@@ -85,8 +85,8 @@ Module Contents
    :param mappings: the data point's configured mappings
    :type mappings: list[JmespathMappingRecord]
 
-   :returns: the mapped JSON string
-   :rtype: str
+   :returns: the mapped JSON structure
+   :rtype: Any
 
 
 .. py:function:: _map_to_flat_list(json_str, keyword_map)

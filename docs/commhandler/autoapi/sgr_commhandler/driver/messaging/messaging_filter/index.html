@@ -119,6 +119,12 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.RegexMessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.RegexMessagingFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RegexMessagingFilter</span></code></a></p></td>
 <td><p>Implements a regex filter for message payloads.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.XPathMessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.XPathMessagingFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">XPathMessagingFilter</span></code></a></p></td>
+<td><p>Implements an XPath filter for message payloads.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.JSONataMessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.JSONataMessagingFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JSONataMessagingFilter</span></code></a></p></td>
+<td><p>Implements a JSONata filter for message payloads.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -151,7 +157,7 @@
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter._filter_spec">
-<span class="sig-name descname"><span class="pre">_filter_spec</span></span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter._filter_spec" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">_filter_spec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">T</span></em><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter._filter_spec" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -232,6 +238,56 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.RegexMessagingFilter.is_filter_match">
 <span class="sig-name descname"><span class="pre">is_filter_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.RegexMessagingFilter.is_filter_match" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>payload</strong> (<em>Any</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.XPathMessagingFilter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.messaging.messaging_filter.</span></span><span class="sig-name descname"><span class="pre">XPathMessagingFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_spec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.XPathMessagingFilter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessagingFilter</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_specification.v0.generic.base_types.XpathFilterType</span></code>]</p>
+<p>Implements an XPath filter for message payloads.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filter_spec</strong> (<em>sgr_specification.v0.generic.base_types.XpathFilterType</em>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.XPathMessagingFilter.is_filter_match">
+<span class="sig-name descname"><span class="pre">is_filter_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.XPathMessagingFilter.is_filter_match" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>payload</strong> (<em>Any</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.JSONataMessagingFilter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sgr_commhandler.driver.messaging.messaging_filter.</span></span><span class="sig-name descname"><span class="pre">JSONataMessagingFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_spec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.JSONataMessagingFilter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter" title="sgr_commhandler.driver.messaging.messaging_filter.MessagingFilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessagingFilter</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">sgr_specification.v0.generic.base_types.JsonataFilterType</span></code>]</p>
+<p>Implements a JSONata filter for message payloads.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filter_spec</strong> (<em>sgr_specification.v0.generic.base_types.JsonataFilterType</em>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.messaging.messaging_filter.JSONataMessagingFilter.is_filter_match">
+<span class="sig-name descname"><span class="pre">is_filter_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.messaging.messaging_filter.JSONataMessagingFilter.is_filter_match" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>payload</strong> (<em>Any</em>)</p>
