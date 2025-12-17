@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+## Changed
+
+- updated minimal dependency versions, maintain Python 3.9 compatibility
+
 ### Fixed
 
 - include `pyserial` in required dependencies, fixes error when serial device is created
