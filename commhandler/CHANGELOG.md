@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - include `pyserial` in required dependencies, fixes error when serial device is created
+- configure Modbus byte/word order according to SGr specification
 
 
 ## [0.5.0] - 2025-10-27
