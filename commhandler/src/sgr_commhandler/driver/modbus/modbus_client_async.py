@@ -262,10 +262,10 @@ class SGrModbusTCPClient(SGrModbusClient):
             AsyncModbusTcpClient(
                 host=ip,
                 port=port,
-                timeout=1,
+                timeout=1.0,
                 retries=0,
-                reconnect_delay=5000,
-                reconnect_delay_max=30000
+                reconnect_delay=1.0,
+                reconnect_delay_max=30.0
             )
         )
         """
