@@ -30,9 +30,10 @@ class SGrModbusClient(ABC):
         self._lock = threading.Lock()
         self._client: ModbusBaseClient = client
         self._byte_order: Endian = (
-            Endian.BIG
-            if endianness is None or endianness == BitOrder.BIG_ENDIAN
-            else Endian.LITTLE
+            Endian.LITTLE
+            if endianness
+            in {BitOrder.CHANGE_BYTE_ORDER, BitOrder.CHANGE_BIT_ORDER}
+            else Endian.BIG
         )
         self._word_order: Endian = (
             Endian.LITTLE
@@ -261,10 +262,10 @@ class SGrModbusTCPClient(SGrModbusClient):
             AsyncModbusTcpClient(
                 host=ip,
                 port=port,
-                timeout=1,
+                timeout=1.0,
                 retries=0,
-                reconnect_delay=5000,
-                reconnect_delay_max=30000
+                reconnect_delay=1.0,
+                reconnect_delay_max=30.0
             )
         )
         """
