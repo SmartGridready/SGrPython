@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+
+### Changed
+
+- requires Python 3.10
+- updated `pymodbus` and rewritten encoding and decoding of payload
+
+
 ## [0.5.1] - 2025-12-17
 
 ## Changed

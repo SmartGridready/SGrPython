@@ -83,12 +83,12 @@ def get_tcp_slave_id(modbus_tcp: ModbusTcp) -> int:
 
 def get_endian(modbus: ModbusInterfaceDescription) -> BitOrder:
     """
-    Returns the byte order (endianness).
+    Returns the byte or word order (endianness).
 
     Returns
     -------
     BitOrder
-        the byte order
+        the byte or word order
     """
     if modbus.bit_order:
         return modbus.bit_order
@@ -424,7 +424,7 @@ class SGrModbusInterface(SGrBaseInterface):
         else:
             raise Exception('not Modbus RTU or TCP!')
 
-        self.byte_order = get_endian(
+        self.bit_order = get_endian(
             self.device_frame.interface_list.modbus_interface.modbus_interface_description
         )
 
@@ -451,7 +451,7 @@ class SGrModbusInterface(SGrBaseInterface):
             self._client_wrapper = ModbusClientWrapper(
                 '',
                 SGrModbusTCPClient(
-                    self.ip_address, self.ip_port, endianness=self.byte_order, addr_offset=self.address_offset
+                    self.ip_address, self.ip_port, bit_order=self.bit_order, addr_offset=self.address_offset
                 ),
                 shared=False,
             )
@@ -474,7 +474,7 @@ class SGrModbusInterface(SGrBaseInterface):
                         self.serial_port,
                         self.parity,
                         self.baudrate,
-                        endianness=self.byte_order,
+                        bit_order=self.bit_order,
                         addr_offset=self.address_offset
                     ),
                     shared=False,
