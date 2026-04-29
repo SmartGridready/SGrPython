@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - requires Python 3.10
-- updated `pymodbus` and rewritten encoding and decoding of payload
+- updated `pymodbus` and other dependencies
+- rewritten encoding and decoding of Modbus payload
 
 
 ## [0.5.1] - 2025-12-17
