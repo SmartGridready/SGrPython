@@ -280,19 +280,20 @@ class ModbusDataPoint(DataPointProtocol[ModbusFunctionalProfileSpec, ModbusDataP
 
         # convert to device units
         unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
-            self._dp_spec.data_point
-            and self._dp_spec.data_point.unit_conversion_multiplicator
-        ) else 1.0
-        if unit_conv_factor != 1.0:
+            self._dp_spec.data_point is not None
+            and self._dp_spec.data_point.unit_conversion_multiplicator is not None
+        ) else None
+        if unit_conv_factor is not None:
             value = float(value) / unit_conv_factor
 
         # scaling
         scaling_factor = self._dp_spec.modbus_attributes.scaling_factor if (
-            self._dp_spec.modbus_attributes
-            and self._dp_spec.modbus_attributes.scaling_factor
+            self._dp_spec.modbus_attributes is not None
+            and self._dp_spec.modbus_attributes.scaling_factor is not None
         ) else None
         if scaling_factor is not None:
-            value = float(value) / (scaling_factor.multiplicator or 1 * pow(10, scaling_factor.powerof10 or 0))
+            sf = (scaling_factor.multiplicator if scaling_factor.multiplicator is not None else 1) * (pow(10, scaling_factor.powerof10) if scaling_factor.powerof10 is not None else 1)
+            value = float(value) / sf
 
         # round to int if modbus type is int and DP type is not
         if is_float_type(
@@ -316,18 +317,19 @@ class ModbusDataPoint(DataPointProtocol[ModbusFunctionalProfileSpec, ModbusDataP
 
         # scaling
         scaling_factor = self._dp_spec.modbus_attributes.scaling_factor if (
-            self._dp_spec.modbus_attributes
-            and self._dp_spec.modbus_attributes.scaling_factor
+            self._dp_spec.modbus_attributes is not None
+            and self._dp_spec.modbus_attributes.scaling_factor is not None
         ) else None
         if scaling_factor is not None:
-            ret_value = float(ret_value) * (scaling_factor.multiplicator or 1 * pow(10, scaling_factor.powerof10 or 0))
+            sf = (scaling_factor.multiplicator if scaling_factor.multiplicator is not None else 1) * (pow(10, scaling_factor.powerof10) if scaling_factor.powerof10 is not None else 1)
+            ret_value = float(ret_value) * sf
 
         # convert to DP units
         unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
-            self._dp_spec.data_point
-            and self._dp_spec.data_point.unit_conversion_multiplicator
-        ) else 1.0
-        if unit_conv_factor != 1.0:
+            self._dp_spec.data_point is not None
+            and self._dp_spec.data_point.unit_conversion_multiplicator is not None
+        ) else None
+        if unit_conv_factor is not None:
             ret_value = float(ret_value) * unit_conv_factor
 
         # round to int if DP type is int and modbus type is not

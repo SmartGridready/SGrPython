@@ -156,10 +156,10 @@ class MessagingDataPoint(DataPointProtocol[MessagingFunctionalProfileSpec, Messa
 
         # convert to device units
         unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
-            self._dp_spec.data_point
-            and self._dp_spec.data_point.unit_conversion_multiplicator
-        ) else 1.0
-        if unit_conv_factor != 1.0:
+            self._dp_spec.data_point is not None
+            and self._dp_spec.data_point.unit_conversion_multiplicator is not None
+        ) else None
+        if unit_conv_factor is not None:
             value = float(value) / unit_conv_factor
 
         # apply value mappings
@@ -245,15 +245,12 @@ class MessagingDataPoint(DataPointProtocol[MessagingFunctionalProfileSpec, Messa
                         break
 
             # convert to DP units
-            if (
-                self._dp_spec.data_point
-                and self._dp_spec.data_point.unit_conversion_multiplicator
-                and self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
-            ):
-                ret_value = (
-                    float(ret_value)
-                    * self._dp_spec.data_point.unit_conversion_multiplicator
-                )
+            unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
+                self._dp_spec.data_point is not None
+                and self._dp_spec.data_point.unit_conversion_multiplicator is not None
+            ) else None
+            if unit_conv_factor is not None:
+                ret_value = float(ret_value) * unit_conv_factor
 
         # update data point value
         self._cached_value = ret_value
