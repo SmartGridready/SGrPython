@@ -87,8 +87,8 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
         if not dp_config:
             raise Exception('REST service call configuration missing')
 
-        self._read_call: RestApiServiceCall = RestApiServiceCall()
-        self._write_call: RestApiServiceCall = RestApiServiceCall()
+        self._read_call: RestApiServiceCall = RestApiServiceCall(request_method=None)
+        self._write_call: RestApiServiceCall = RestApiServiceCall(request_method=None)
 
         if len(dp_config.rest_api_read_service_call) > 0:
             service_call = dp_config.rest_api_read_service_call[0]

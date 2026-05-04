@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.1] - 2026-04-28
+
+## Changed
+
+- updated minimal dependency versions, maintain Python 3.9 compatibility
+
+### Fixed
+
+- include `pyserial` in required dependencies, fixes error when serial device is created
+- corrected Modbus byte/word order in order to match SGr specification
+
+
 ## [0.5.0] - 2025-10-27
 
 ### Added
