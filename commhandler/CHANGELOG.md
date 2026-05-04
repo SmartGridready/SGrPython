@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rewritten encoding and decoding of Modbus payload
 
 
-## [0.5.1] - 2025-12-17
+## [0.5.1] - 2026-04-28
 
 ## Changed
 
@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - include `pyserial` in required dependencies, fixes error when serial device is created
-- configure Modbus byte/word order according to SGr specification
+- corrected Modbus byte/word order in order to match SGr specification
 
 
 ## [0.5.0] - 2025-10-27
