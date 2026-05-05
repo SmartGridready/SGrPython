@@ -68,29 +68,29 @@ def build_rest_request(call_spec: RestApiServiceCall, base_url: str, substitutio
     """
 
     # copy from DP spec.
-    method = call_spec.request_method if call_spec.request_method else HttpMethod.GET
-    req_path = str(call_spec.request_path) if call_spec.request_path else ''
-    headers = call_spec.request_header if call_spec.request_header else HeaderList()
-    query = call_spec.request_query if call_spec.request_query else ParameterList()
-    form = call_spec.request_form if call_spec.request_form else ParameterList()
-    body = str(call_spec.request_body) if call_spec.request_body else None
+    method = call_spec.request_method if call_spec.request_method is not None else HttpMethod.GET
+    req_path = str(call_spec.request_path) if call_spec.request_path is not None else ''
+    headers = call_spec.request_header if call_spec.request_header is not None else HeaderList()
+    query = call_spec.request_query if call_spec.request_query is not None else ParameterList()
+    form = call_spec.request_form if call_spec.request_form is not None else ParameterList()
+    body = str(call_spec.request_body) if call_spec.request_body is not None else None
 
     # All headers into dictionary, with substitution
     request_headers: CIMultiDict[str] = CIMultiDict()
     for header_entry in headers.header:
-        if header_entry.header_name and header_entry.value:
+        if header_entry.header_name is not None and header_entry.value is not None:
             request_headers.add(header_entry.header_name, template.substitute(header_entry.value, substitutions))
 
     # All query parameters into dictionary, with substitution
     query_parameters: CIMultiDict[str] = CIMultiDict()
     for param_entry in query.parameter:
-        if param_entry.name and param_entry.value:
+        if param_entry.name is not None and param_entry.value is not None:
             query_parameters.add(param_entry.name, template.substitute(param_entry.value, substitutions))
 
     # All form parameters into dictionary, with substitution
     form_parameters: CIMultiDict[str] = CIMultiDict()
     for param_entry in form.parameter:
-        if param_entry.name and param_entry.value:
+        if param_entry.name is not None and param_entry.value is not None:
             form_parameters.add(param_entry.name, template.substitute(param_entry.value, substitutions))
 
     # request path, with substitution

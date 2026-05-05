@@ -39,29 +39,29 @@ class PayloadDecoder(BinaryPayloadDecoder):
         """
 
         # TODO enum, date_time
-        if modbus_type.int8:
+        if modbus_type.int8 is not None:
             return self.decode_8bit_int()
-        elif modbus_type.int8_u:
+        elif modbus_type.int8_u is not None:
             return self.decode_8bit_uint()
-        elif modbus_type.int16:
+        elif modbus_type.int16 is not None:
             return self.decode_16bit_int()
-        elif modbus_type.int16_u:
+        elif modbus_type.int16_u is not None:
             return self.decode_16bit_uint()
-        elif modbus_type.int32:
+        elif modbus_type.int32 is not None:
             return self.decode_32bit_int()
-        elif modbus_type.int32_u:
+        elif modbus_type.int32_u is not None:
             return self.decode_32bit_uint()
-        elif modbus_type.int64:
+        elif modbus_type.int64 is not None:
             return self.decode_64bit_int()
-        elif modbus_type.int64_u:
+        elif modbus_type.int64_u is not None:
             return self.decode_64bit_uint()
-        elif modbus_type.float32:
+        elif modbus_type.float32 is not None:
             return self.decode_32bit_float()
-        elif modbus_type.float64:
+        elif modbus_type.float64 is not None:
             return self.decode_64bit_float()
-        elif modbus_type.boolean:
+        elif modbus_type.boolean is not None:
             return bool(self.decode_8bit_uint())
-        elif modbus_type.string:
+        elif modbus_type.string is not None:
             return self.decode_string(byte_count)
         else:
             raise ValueError("No supported modbus data type")
@@ -94,29 +94,29 @@ class PayloadBuilder(BinaryPayloadBuilder):
             the same instance
         """
         # TODO enum, date_time
-        if modbus_type.int8:
+        if modbus_type.int8 is not None:
             self.add_8bit_int(int(value))
-        elif modbus_type.int8_u:
+        elif modbus_type.int8_u is not None:
             self.add_8bit_uint(int(value))
-        elif modbus_type.int16:
+        elif modbus_type.int16 is not None:
             self.add_16bit_int(int(value))
-        elif modbus_type.int16_u:
+        elif modbus_type.int16_u is not None:
             self.add_16bit_uint(int(value))
-        elif modbus_type.int32:
+        elif modbus_type.int32 is not None:
             self.add_32bit_int(int(value))
-        elif modbus_type.int32_u:
+        elif modbus_type.int32_u is not None:
             self.add_32bit_uint(int(value))
-        elif modbus_type.int64:
+        elif modbus_type.int64 is not None:
             self.add_64bit_int(int(value))
-        elif modbus_type.int64_u:
+        elif modbus_type.int64_u is not None:
             self.add_64bit_uint(int(value))
-        elif modbus_type.float32:
+        elif modbus_type.float32 is not None:
             self.add_32bit_float(float(value))
-        elif modbus_type.float64:
+        elif modbus_type.float64 is not None:
             self.add_64bit_float(float(value))
-        elif modbus_type.boolean:
+        elif modbus_type.boolean is not None:
             self.add_8bit_uint(bool(value))
-        elif modbus_type.string:
+        elif modbus_type.string is not None:
             self.add_string(str(value))
         else:
             logger.error(f'Unsupported Modbus type "{modbus_type}"')

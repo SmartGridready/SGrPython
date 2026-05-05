@@ -75,25 +75,27 @@ class SGrBaseInterface(ABC):
             frame.configuration_list
         )
         self.device_information = DeviceInformation(
-            name=frame.device_name if frame.device_name else '',
+            name=frame.device_name
+            if frame.device_name is not None
+            else '',
             manufacturer=frame.manufacturer_name
-            if frame.manufacturer_name
+            if frame.manufacturer_name is not None
             else '',
             software_revision=frame.device_information.software_revision
-            if frame.device_information
-            and frame.device_information.software_revision
+            if frame.device_information is not None
+            and frame.device_information.software_revision is not None
             else '',
             hardware_revision=frame.device_information.hardware_revision
-            if frame.device_information
-            and frame.device_information.hardware_revision
+            if frame.device_information is not None
+            and frame.device_information.hardware_revision is not None
             else '',
             device_category=frame.device_information.device_category
-            if frame.device_information
-            and frame.device_information.device_category
+            if frame.device_information is not None
+            and frame.device_information.device_category is not None
             else DeviceCategory.DEVICE_INFORMATION,
             is_local=frame.device_information.is_local_control
-            if frame.device_information
-            and frame.device_information.is_local_control
+            if frame.device_information is not None
+            and frame.device_information.is_local_control is not None
             else False,
         )
 

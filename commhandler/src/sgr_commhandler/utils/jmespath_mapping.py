@@ -78,7 +78,7 @@ def map_json_response(response: str, mappings: list[JmespathMappingRecord]) -> A
     names: dict[str, str] = collections.OrderedDict()
 
     for i, m in enumerate(mappings):
-        if m.from_value and m.to:
+        if m.from_value is not None and m.to is not None:
             map_from[str(i)] = m.from_value
             if m.from_value.startswith('$'):
                 map_to[m.from_value] = m.to
@@ -142,7 +142,7 @@ def _parse_json_tree(node: Any, parent_data: Optional[dict[RecordKey, dict[str, 
     keywords = _get_keywords_for_iteration(iteration, keyword_map)
 
     if iteration <= _determine_required_iterations(keyword_map):
-        if not parent_data:
+        if parent_data is None:
             _process_child_elements(node, iteration, record_map, keywords, 0, None)
         else:
             parent_idx = 0

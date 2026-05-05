@@ -90,7 +90,7 @@ def get_endian(modbus: ModbusInterfaceDescription) -> BitOrder:
     BitOrder
         the byte order
     """
-    if modbus.bit_order:
+    if modbus.bit_order is not None:
         return modbus.bit_order
     return BitOrder.BIG_ENDIAN
 
@@ -165,7 +165,7 @@ def build_modbus_data_point(
 
     protocol = ModbusDataPoint(data_point, functional_profile, interface)
     validator = build_validator(
-        data_point.data_point.data_type if data_point.data_point else None
+        data_point.data_point.data_type if data_point.data_point is not None else None
     )
     return DataPoint(protocol, validator)
 
@@ -227,8 +227,8 @@ class ModbusDataPoint(DataPointProtocol[ModbusFunctionalProfileSpec, ModbusDataP
 
         self._address: int = -1
         if (
-            self._dp_spec.modbus_data_point_configuration
-            and self._dp_spec.modbus_data_point_configuration.address
+            self._dp_spec.modbus_data_point_configuration is not None
+            and self._dp_spec.modbus_data_point_configuration.address is not None
         ):
             self._address = (
                 self._dp_spec.modbus_data_point_configuration.address
@@ -236,8 +236,8 @@ class ModbusDataPoint(DataPointProtocol[ModbusFunctionalProfileSpec, ModbusDataP
 
         self._data_type: ModbusDataType
         if (
-            self._dp_spec.modbus_data_point_configuration
-            and self._dp_spec.modbus_data_point_configuration.modbus_data_type
+            self._dp_spec.modbus_data_point_configuration is not None
+            and self._dp_spec.modbus_data_point_configuration.modbus_data_type is not None
         ):
             self._data_type = (
                 self._dp_spec.modbus_data_point_configuration.modbus_data_type
@@ -247,15 +247,15 @@ class ModbusDataPoint(DataPointProtocol[ModbusFunctionalProfileSpec, ModbusDataP
 
         self._size = 0
         if (
-            self._dp_spec.modbus_data_point_configuration
-            and self._dp_spec.modbus_data_point_configuration.number_of_registers
+            self._dp_spec.modbus_data_point_configuration is not None
+            and self._dp_spec.modbus_data_point_configuration.number_of_registers is not None
         ):
             self._size = self._dp_spec.modbus_data_point_configuration.number_of_registers
 
         self._register_type: RegisterType
         if (
-            self._dp_spec.modbus_data_point_configuration
-            and self._dp_spec.modbus_data_point_configuration.register_type
+            self._dp_spec.modbus_data_point_configuration is not None
+            and self._dp_spec.modbus_data_point_configuration.register_type is not None
         ):
             self._register_type = (
                 self._dp_spec.modbus_data_point_configuration.register_type
@@ -265,7 +265,7 @@ class ModbusDataPoint(DataPointProtocol[ModbusFunctionalProfileSpec, ModbusDataP
 
     async def set_val(self, value: Any):
         # special case enum - convert to ordinal
-        if self._dp_spec.data_point and self._dp_spec.data_point.data_type and self._dp_spec.data_point.data_type.enum:
+        if self._dp_spec.data_point is not None and self._dp_spec.data_point.data_type is not None and self._dp_spec.data_point.data_type.enum is not None:
             enum_spec = self._dp_spec.data_point.data_type.enum
             if isinstance(value, str):
                 rec = next(filter(lambda e: e.literal is not None and e.ordinal is not None and e.literal == value, enum_spec.enum_entry), None)
@@ -298,10 +298,10 @@ class ModbusDataPoint(DataPointProtocol[ModbusFunctionalProfileSpec, ModbusDataP
         # round to int if modbus type is int and DP type is not
         if is_float_type(
             self._dp_spec.data_point.data_type
-            if self._dp_spec.data_point and self._dp_spec.data_point.data_type else None
+            if self._dp_spec.data_point is not None and self._dp_spec.data_point.data_type is not None else None
         ) and is_integer_type(
             self._dp_spec.modbus_data_point_configuration.modbus_data_type
-            if self._dp_spec.modbus_data_point_configuration and self._dp_spec.modbus_data_point_configuration.modbus_data_type else None
+            if self._dp_spec.modbus_data_point_configuration is not None and self._dp_spec.modbus_data_point_configuration.modbus_data_type is not None else None
         ):
             value = value_util.round_to_int(float(value))
 
@@ -335,15 +335,15 @@ class ModbusDataPoint(DataPointProtocol[ModbusFunctionalProfileSpec, ModbusDataP
         # round to int if DP type is int and modbus type is not
         if is_integer_type(
             self._dp_spec.data_point.data_type
-            if self._dp_spec.data_point else None
+            if self._dp_spec.data_point is not None else None
         ) and is_float_type(
             self._dp_spec.modbus_data_point_configuration.modbus_data_type
-            if self._dp_spec.modbus_data_point_configuration else None
+            if self._dp_spec.modbus_data_point_configuration is not None else None
         ):
             ret_value = value_util.round_to_int(float(ret_value))
 
         # special case enum - convert to literal
-        if self._dp_spec.data_point and self._dp_spec.data_point.data_type and self._dp_spec.data_point.data_type.enum:
+        if self._dp_spec.data_point is not None and self._dp_spec.data_point.data_type is not None and self._dp_spec.data_point.data_type.enum is not None:
             enum_spec = self._dp_spec.data_point.data_type.enum
             ret_value = int(ret_value)
             rec = next(filter(lambda e: e.ordinal is not None and e.literal is not None and e.ordinal == ret_value, enum_spec.enum_entry), None)
@@ -371,7 +371,7 @@ class ModbusFunctionalProfile(FunctionalProfile[ModbusFunctionalProfileSpec]):
             build_modbus_data_point(dp, self._fp_spec, self._interface)
             for dp in (
                 self._fp_spec.data_point_list.data_point_list_element
-                if self._fp_spec.data_point_list else []
+                if self._fp_spec.data_point_list is not None else []
             )
         ]
         self._data_points = {dp.name(): dp for dp in dps}
@@ -400,7 +400,7 @@ class SGrModbusInterface(SGrBaseInterface):
         ):
             raise Exception('Modbus interface is undefined')
 
-        if self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu:
+        if self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu is not None:
             self.slave_id = get_rtu_slave_id(
                 self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
             )
@@ -413,7 +413,7 @@ class SGrModbusInterface(SGrBaseInterface):
             self.parity = get_rtu_parity(
                 self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_rtu
             )
-        elif self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp:
+        elif self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp is not None:
             self.slave_id = get_tcp_slave_id(
                 self.device_frame.interface_list.modbus_interface.modbus_interface_description.modbus_tcp
             )
@@ -439,7 +439,7 @@ class SGrModbusInterface(SGrBaseInterface):
             ModbusFunctionalProfile(fp, self)
             for fp in (
                 self.device_frame.interface_list.modbus_interface.functional_profile_list.functional_profile_list_element
-                if self.device_frame.interface_list.modbus_interface.functional_profile_list else []
+                if self.device_frame.interface_list.modbus_interface.functional_profile_list is not None else []
             )
         ]
         self.functional_profiles = {fp.name(): fp for fp in fps}
@@ -485,7 +485,7 @@ class SGrModbusInterface(SGrBaseInterface):
             raise Exception('Unsupported Modbus interface type')
 
     def __del__(self):
-        if self._client_wrapper and self._client_wrapper.shared:
+        if self._client_wrapper is not None and self._client_wrapper.shared:
             unregister_shared_client(
                 self.serial_port, device_id=self._device_id
             )

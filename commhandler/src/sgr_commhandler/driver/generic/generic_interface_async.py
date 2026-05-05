@@ -42,7 +42,7 @@ def build_generic_data_point(
     """
     protocol = GenericDataPoint(data_point, functional_profile, interface)
     data_type = None
-    if data_point.data_point and data_point.data_point.data_type:
+    if data_point.data_point is not None and data_point.data_point.data_type is not None:
         data_type = data_point.data_point.data_type
     validator = build_validator(data_type)
     return DataPoint(protocol, validator)
@@ -80,7 +80,7 @@ class GenericDataPoint(DataPointProtocol[GenericFunctionalProfileSpec, GenericDa
     async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
         # supports at least constant DPs
         if (
-            self._dp_spec.data_point
+            self._dp_spec.data_point is not None
             and self._dp_spec.data_point.data_direction
             is DataDirectionProduct.C
         ):
@@ -106,8 +106,8 @@ class GenericFunctionalProfile(FunctionalProfile[GenericFunctionalProfileSpec]):
 
         raw_dps = []
         if (
-            self._fp_spec.data_point_list
-            and self._fp_spec.data_point_list.data_point_list_element
+            self._fp_spec.data_point_list is not None
+            and self._fp_spec.data_point_list.data_point_list_element is not None
         ):
             raw_dps = self._fp_spec.data_point_list.data_point_list_element
 
@@ -120,8 +120,8 @@ class GenericFunctionalProfile(FunctionalProfile[GenericFunctionalProfileSpec]):
 
     def name(self) -> str:
         if (
-            self._fp_spec.functional_profile
-            and self._fp_spec.functional_profile.functional_profile_name
+            self._fp_spec.functional_profile is not None
+            and self._fp_spec.functional_profile.functional_profile_name is not None
         ):
             return self._fp_spec.functional_profile.functional_profile_name
         return ''
@@ -145,9 +145,9 @@ class SGrGenericInterface(SGrBaseInterface):
         super(SGrGenericInterface, self).__init__(frame)
 
         if (
-            self.device_frame.interface_list
-            and self.device_frame.interface_list
-            and self.device_frame.interface_list.generic_interface
+            self.device_frame.interface_list is not None
+            and self.device_frame.interface_list is not None
+            and self.device_frame.interface_list.generic_interface is not None
         ):
             self._raw_interface = self.device_frame.interface_list.generic_interface
         else:
@@ -155,8 +155,8 @@ class SGrGenericInterface(SGrBaseInterface):
 
         raw_fps = []
         if (
-            self._raw_interface.functional_profile_list
-            and self._raw_interface.functional_profile_list.functional_profile_list_element
+            self._raw_interface.functional_profile_list is not None
+            and self._raw_interface.functional_profile_list.functional_profile_list_element is not None
         ):
             raw_fps = self._raw_interface.functional_profile_list.functional_profile_list_element
         fps = [GenericFunctionalProfile(profile, self) for profile in raw_fps]

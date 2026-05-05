@@ -74,7 +74,7 @@ class SGrModbusClient(ABC):
             response = await self._client.write_registers(
                 address+self._addr_offset, builder.to_registers(), slave=slave_id, no_response_expected=True
             )
-            if response and response.isError():
+            if response is not None and response.isError():
                 logger.warning(f'Modbus write exception {response.function_code}')
 
     async def write_coils(
@@ -102,7 +102,7 @@ class SGrModbusClient(ABC):
             response = await self._client.write_coils(
                 address+self._addr_offset, builder.to_coils(), slave=slave_id, no_response_expected=True
             )
-            if response and response.isError():
+            if response is not None and response.isError():
                 logger.warning(f'Modbus write exception {response.function_code}')
 
     async def read_input_registers(
@@ -131,14 +131,14 @@ class SGrModbusClient(ABC):
             response = await self._client.read_input_registers(
                 address+self._addr_offset, count=size, slave=slave_id
             )
-        if response and not response.isError():
+        if response is not None and not response.isError():
             decoder = PayloadDecoder.fromRegisters(
                 response.registers,
                 byteorder=self._byte_order,
                 wordorder=self._word_order,
             )
             return decoder.decode(data_type, 0)
-        elif response and response.isError():
+        elif response is not None and response.isError():
             logger.warning(f'Modbus read exception {response.function_code}')
 
     async def read_holding_registers(
@@ -167,14 +167,14 @@ class SGrModbusClient(ABC):
             response = await self._client.read_holding_registers(
                 address+self._addr_offset, count=size, slave=slave_id
             )
-        if response and not response.isError():
+        if response is not None and not response.isError():
             decoder = PayloadDecoder.fromRegisters(
                 response.registers,
                 byteorder=self._byte_order,
                 wordorder=self._word_order,
             )
             return decoder.decode(data_type, 0)
-        elif response and response.isError():
+        elif response is not None and response.isError():
             logger.warning(f'Modbus read exception {response.function_code}')
 
     async def read_coils(
@@ -203,14 +203,14 @@ class SGrModbusClient(ABC):
             response = await self._client.read_coils(
                 address+self._addr_offset, count=size, slave=slave_id
             )
-        if response and not response.isError():
+        if response is not None and not response.isError():
             decoder = PayloadDecoder.fromCoils(
                 response.bits,
                 byteorder=self._byte_order,
                 _wordorder=self._word_order,
             )
             return decoder.decode(data_type, 0)
-        elif response and response.isError():
+        elif response is not None and response.isError():
             logger.warning(f'Modbus read exception {response.function_code}')
 
     async def read_discrete_inputs(
@@ -239,14 +239,14 @@ class SGrModbusClient(ABC):
             response = await self._client.read_discrete_inputs(
                 address+self._addr_offset, count=size, slave=slave_id
             )
-        if response and not response.isError():
+        if response is not None and not response.isError():
             decoder = PayloadDecoder.fromCoils(
                 response.bits,
                 byteorder=self._byte_order,
                 _wordorder=self._word_order,
             )
             return decoder.decode(data_type, 0)
-        elif response and response.isError():
+        elif response is not None and response.isError():
             logger.warning(f'Modbus read exception {response.function_code}')
 
 
