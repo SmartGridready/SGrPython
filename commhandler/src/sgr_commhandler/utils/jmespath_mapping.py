@@ -188,7 +188,7 @@ def _process_child_elements(
         kw = keywords[0]
         n_elem = _get_number_of_elements(node, parent_idx, kw, iteration)
         for i in range(0, n_elem):
-            key = copy.deepcopy(parent_rec[0]) if parent_rec else RecordKey()
+            key = copy.deepcopy(parent_rec[0]) if parent_rec is not None else RecordKey()
             key.add(i)
             if parent_rec is None:
                 # process root node
