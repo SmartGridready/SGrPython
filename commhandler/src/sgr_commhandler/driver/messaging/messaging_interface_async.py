@@ -51,7 +51,7 @@ def build_messaging_data_point(
     """
     protocol = MessagingDataPoint(data_point, functional_profile, interface)
     data_type = None
-    if data_point.data_point and data_point.data_point.data_type:
+    if data_point.data_point is not None and data_point.data_point.data_type is not None:
         data_type = data_point.data_point.data_type
     validator = build_validator(data_type)
     return DataPoint(protocol, validator)
@@ -64,8 +64,8 @@ def get_messaging_client(name: str, desc: MessagingInterfaceDescription) -> SGrM
     if desc.platform is not None and desc.platform == MessagingPlatformType.MQTT5:
 
         brokers = desc.message_broker_list.message_broker_list_element if (
-            desc.message_broker_list
-            and desc.message_broker_list.message_broker_list_element
+            desc.message_broker_list is not None
+            and desc.message_broker_list.message_broker_list_element is not None
         ) else list()
         if len(brokers) == 0:
             raise Exception('no message brokers')
@@ -75,8 +75,8 @@ def get_messaging_client(name: str, desc: MessagingInterfaceDescription) -> SGrM
             str(desc.message_broker_authentication.basic_authentication.username),
             str(desc.message_broker_authentication.basic_authentication.password)
         ) if (
-            desc.message_broker_authentication
-            and desc.message_broker_authentication.basic_authentication
+            desc.message_broker_authentication is not None
+            and desc.message_broker_authentication.basic_authentication is not None
         ) else None
 
         # verify certificate option not supported!
@@ -103,7 +103,7 @@ class MessagingDataPoint(DataPointProtocol[MessagingFunctionalProfileSpec, Messa
         super(MessagingDataPoint, self).__init__(fp_spec, dp_spec)
 
         dp_config = self._dp_spec.messaging_data_point_configuration
-        if not dp_config:
+        if dp_config is None:
             raise Exception('Messaging data point configuration missing')
 
         self._in_cmd: Optional[InMessage] = None
@@ -111,60 +111,60 @@ class MessagingDataPoint(DataPointProtocol[MessagingFunctionalProfileSpec, Messa
         self._write_cmd: Optional[OutMessage] = None
         self._in_filter: Optional[MessagingFilter] = None
         self._read_response_event: Optional[asyncio.Event] = None
-        if self._dp_spec.messaging_data_point_configuration:
-            if self._dp_spec.messaging_data_point_configuration.in_message:
+        if self._dp_spec.messaging_data_point_configuration is not None:
+            if self._dp_spec.messaging_data_point_configuration.in_message is not None:
                 self._in_cmd = self._dp_spec.messaging_data_point_configuration.in_message
-                if self._in_cmd.filter:
+                if self._in_cmd.filter is not None:
                     self._in_filter = get_messaging_filter(self._in_cmd.filter)
-            if self._dp_spec.messaging_data_point_configuration.read_cmd_message:
+            if self._dp_spec.messaging_data_point_configuration.read_cmd_message is not None:
                 self._read_cmd = self._dp_spec.messaging_data_point_configuration.read_cmd_message
                 self._read_response_event = asyncio.Event()
-            if self._dp_spec.messaging_data_point_configuration.write_cmd_message:
+            if self._dp_spec.messaging_data_point_configuration.write_cmd_message is not None:
                 self._write_cmd = self._dp_spec.messaging_data_point_configuration.write_cmd_message
 
         self._cached_value: Any = None
         self._handle_message: Optional[Callable[[DataPointProtocol, Any], NoReturn]] = None
         self._interface = interface
-        if self._in_cmd and self._in_cmd.topic:
+        if self._in_cmd is not None and self._in_cmd.topic is not None:
             self._interface.data_point_handler((self._fp_name, self._dp_name, self._in_cmd.topic, self._on_message, self._in_filter))  # type: ignore
 
     async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
-        if not self._read_cmd:
+        if self._read_cmd is None:
             # passive reading only
             logger.debug('passive reading')
             return self._cached_value
 
-        if not skip_cache and self._cached_value:
+        if not skip_cache and self._cached_value is not None:
             logger.debug('reading cached value')
             return self._cached_value
 
-        msg_body = self._read_cmd.template or ''
+        msg_body = self._read_cmd.template if self._read_cmd.template is not None else ''
         substitutions = build_dynamic_parameter_substitutions(self._dynamic_parameters, parameters)
         msg_body = template.substitute(msg_body, substitutions)
 
         logger.debug('active reading...')
         await self._interface.write_message(str(self._read_cmd.topic), msg_body)
-        if self._read_response_event:
+        if self._read_response_event is not None:
             await self._read_response_event.wait()
 
         logger.debug('finished active reading...')
         return self._cached_value
 
     async def set_val(self, value: Any):
-        if not self._write_cmd or not self._write_cmd.topic:
+        if self._write_cmd is None or self._write_cmd.topic is None:
             raise Exception('No write topic')
 
         # convert to device units
         unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
-            self._dp_spec.data_point
-            and self._dp_spec.data_point.unit_conversion_multiplicator
-        ) else 1.0
-        if unit_conv_factor != 1.0:
+            self._dp_spec.data_point is not None
+            and self._dp_spec.data_point.unit_conversion_multiplicator is not None
+        ) else None
+        if unit_conv_factor is not None:
             value = float(value) / unit_conv_factor
 
         # apply value mappings
         value = str(value)
-        if self._write_cmd.value_mapping:
+        if self._write_cmd.value_mapping is not None:
             mappings = self._write_cmd.value_mapping.mapping
             for m in mappings:
                 if m.generic_value == value:
@@ -190,46 +190,46 @@ class MessagingDataPoint(DataPointProtocol[MessagingFunctionalProfileSpec, Messa
     def _on_message(self, payload: Any):  # type: ignore
         ret_value: Any
         if (
-            self._in_cmd
-            and self._in_cmd.response_query
+            self._in_cmd is not None
+            and self._in_cmd.response_query is not None
             and self._in_cmd.response_query.query_type == ResponseQueryType.JMESPATH_EXPRESSION
         ):
             # JMESPath expression
-            query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query else ''
+            query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query is not None else ''
             ret_value = jmespath.search(query_expression, json.loads(payload))
         elif (
-            self._in_cmd
-            and self._in_cmd.response_query
+            self._in_cmd is not None
+            and self._in_cmd.response_query is not None
             and self._in_cmd.response_query.query_type == ResponseQueryType.JMESPATH_MAPPING
         ):
             # JMESPath mappings
-            mappings = self._in_cmd.response_query.jmes_path_mappings.mapping if self._in_cmd.response_query.jmes_path_mappings else []
+            mappings = self._in_cmd.response_query.jmes_path_mappings.mapping if self._in_cmd.response_query.jmes_path_mappings is not None else []
             ret_value = jmespath_mapping.map_json_response(str(payload), mappings)
         elif (
-            self._in_cmd
-            and self._in_cmd.response_query
+            self._in_cmd is not None
+            and self._in_cmd.response_query is not None
             and self._in_cmd.response_query.query_type == ResponseQueryType.REGULAR_EXPRESSION
         ):
             # regex
-            query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query else ''
+            query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query is not None else ''
             query_match = re.match(query_expression, str(payload))
             ret_value = query_match.group() if query_match is not None else str(payload)
         elif (
-            self._in_cmd
-            and self._in_cmd.response_query
+            self._in_cmd is not None
+            and self._in_cmd.response_query is not None
             and self._in_cmd.response_query.query_type == ResponseQueryType.XPATH_EXPRESSION
         ):
             # XPath expression
-            query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query else ''
+            query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query is not None else ''
             selector = parsel.Selector(str(payload))
             ret_value = selector.xpath(query_expression).get()
         elif (
-            self._in_cmd
-            and self._in_cmd.response_query
+            self._in_cmd is not None
+            and self._in_cmd.response_query is not None
             and self._in_cmd.response_query.query_type == ResponseQueryType.JSONATA_EXPRESSION
         ):
             # JSONata expression
-            query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query else ''
+            query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query is not None else ''
             expression = jsonata.Jsonata(query_expression)
             ret_value = expression.evaluate(json.loads(payload))
         else:
@@ -237,7 +237,7 @@ class MessagingDataPoint(DataPointProtocol[MessagingFunctionalProfileSpec, Messa
             ret_value = str(payload)
 
             # apply value mappings
-            if self._in_cmd and self._in_cmd.value_mapping:
+            if self._in_cmd is not None and self._in_cmd.value_mapping is not None:
                 mappings = self._in_cmd.value_mapping.mapping
                 for m in mappings:
                     if m.device_value == ret_value:
@@ -245,19 +245,16 @@ class MessagingDataPoint(DataPointProtocol[MessagingFunctionalProfileSpec, Messa
                         break
 
             # convert to DP units
-            if (
-                self._dp_spec.data_point
-                and self._dp_spec.data_point.unit_conversion_multiplicator
-                and self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
-            ):
-                ret_value = (
-                    float(ret_value)
-                    * self._dp_spec.data_point.unit_conversion_multiplicator
-                )
+            unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
+                self._dp_spec.data_point is not None
+                and self._dp_spec.data_point.unit_conversion_multiplicator is not None
+            ) else None
+            if unit_conv_factor is not None:
+                ret_value = float(ret_value) * unit_conv_factor
 
         # update data point value
         self._cached_value = ret_value
-        if self._read_response_event:
+        if self._read_response_event is not None:
             self._read_response_event.set()
         if self._handle_message is not None:
             self._handle_message(self, ret_value)
@@ -278,8 +275,8 @@ class MessagingFunctionalProfile(FunctionalProfile[MessagingFunctionalProfileSpe
 
         raw_dps = []
         if (
-            self._fp_spec.data_point_list
-            and self._fp_spec.data_point_list.data_point_list_element
+            self._fp_spec.data_point_list is not None
+            and self._fp_spec.data_point_list.data_point_list_element is not None
         ):
             raw_dps = self._fp_spec.data_point_list.data_point_list_element
 
@@ -305,9 +302,9 @@ class SGrMessagingInterface(SGrBaseInterface):
         super(SGrMessagingInterface, self).__init__(frame)
 
         if (
-            self.device_frame.interface_list
-            and self.device_frame.interface_list
-            and self.device_frame.interface_list.messaging_interface
+            self.device_frame.interface_list is not None
+            and self.device_frame.interface_list is not None
+            and self.device_frame.interface_list.messaging_interface is not None
         ):
             self._raw_interface = (
                 self.device_frame.interface_list.messaging_interface
@@ -328,8 +325,8 @@ class SGrMessagingInterface(SGrBaseInterface):
 
         raw_fps = []
         if (
-            self._raw_interface.functional_profile_list
-            and self._raw_interface.functional_profile_list.functional_profile_list_element
+            self._raw_interface.functional_profile_list is not None
+            and self._raw_interface.functional_profile_list.functional_profile_list_element is not None
         ):
             raw_fps = self._raw_interface.functional_profile_list.functional_profile_list_element
         fps = [MessagingFunctionalProfile(profile, self) for profile in raw_fps]

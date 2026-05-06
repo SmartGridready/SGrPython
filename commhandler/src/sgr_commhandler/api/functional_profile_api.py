@@ -31,8 +31,8 @@ class FunctionalProfile(Generic[TFpSpec]):
             the functional profile name
         """
         if (
-            self._fp_spec.functional_profile
-            and self._fp_spec.functional_profile.functional_profile_name
+            self._fp_spec.functional_profile is not None
+            and self._fp_spec.functional_profile.functional_profile_name is not None
         ):
             return self._fp_spec.functional_profile.functional_profile_name
         return ''

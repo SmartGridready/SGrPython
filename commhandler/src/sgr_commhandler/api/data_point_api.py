@@ -95,7 +95,7 @@ class DataPointProtocol(ABC, Generic[TFpSpec, TDpSpec]):
 
         self._dynamic_parameters = build_dynamic_parameters(
             self._dp_spec.data_point.parameter_list
-            if self._dp_spec.data_point
+            if self._dp_spec.data_point is not None
             else None
         )
 

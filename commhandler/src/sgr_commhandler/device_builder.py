@@ -135,15 +135,15 @@ class DeviceBuilder:
     def _resolve_protocol(self, frame: DeviceFrame) -> SGrDeviceProtocol:
         if frame.interface_list is None:
             raise Exception('no device interface')
-        if frame.interface_list.rest_api_interface:
+        if frame.interface_list.rest_api_interface is not None:
             return SGrDeviceProtocol.RESTAPI
-        elif frame.interface_list.modbus_interface:
+        elif frame.interface_list.modbus_interface is not None:
             return SGrDeviceProtocol.MODBUS
-        elif frame.interface_list.messaging_interface:
+        elif frame.interface_list.messaging_interface is not None:
             return SGrDeviceProtocol.MESSAGING
-        elif frame.interface_list.contact_interface:
+        elif frame.interface_list.contact_interface is not None:
             return SGrDeviceProtocol.CONTACT
-        elif frame.interface_list.generic_interface:
+        elif frame.interface_list.generic_interface is not None:
             return SGrDeviceProtocol.GENERIC
         raise Exception('unsupported device interface')
 

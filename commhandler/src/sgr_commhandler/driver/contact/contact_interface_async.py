@@ -39,7 +39,7 @@ def build_contact_data_point(
     """
     protocol = ContactDataPoint(data_point, functional_profile, interface)
     data_type = None
-    if data_point.data_point and data_point.data_point.data_type:
+    if data_point.data_point is not None and data_point.data_point.data_type is not None:
         data_type = data_point.data_point.data_type
     validator = build_validator(data_type)
     return DataPoint(protocol, validator)
@@ -96,8 +96,8 @@ class ContactFunctionalProfile(FunctionalProfile[ContactFunctionalProfileSpec]):
 
         raw_dps = []
         if (
-            self._fp_spec.data_point_list
-            and self._fp_spec.data_point_list.data_point_list_element
+            self._fp_spec.data_point_list is not None
+            and self._fp_spec.data_point_list.data_point_list_element is not None
         ):
             raw_dps = self._fp_spec.data_point_list.data_point_list_element
 
@@ -124,9 +124,9 @@ class SGrContactInterface(SGrBaseInterface):
         super(SGrContactInterface, self).__init__(frame)
 
         if (
-            self.device_frame.interface_list
-            and self.device_frame.interface_list
-            and self.device_frame.interface_list.contact_interface
+            self.device_frame.interface_list is not None
+            and self.device_frame.interface_list is not None
+            and self.device_frame.interface_list.contact_interface is not None
         ):
             self._raw_interface = self.device_frame.interface_list.contact_interface
         else:
@@ -141,8 +141,8 @@ class SGrContactInterface(SGrBaseInterface):
 
         raw_fps = []
         if (
-            self._raw_interface.functional_profile_list
-            and self._raw_interface.functional_profile_list.functional_profile_list_element
+            self._raw_interface.functional_profile_list is not None
+            and self._raw_interface.functional_profile_list.functional_profile_list_element is not None
         ):
             raw_fps = self._raw_interface.functional_profile_list.functional_profile_list_element
         fps = [ContactFunctionalProfile(profile, self) for profile in raw_fps]
