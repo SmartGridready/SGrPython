@@ -9,9 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Fixed
 
+- Modbus write request expects response
 - Modbus scaling factor is calculated correctly
 - unit conversion factors are calculated correctly
-- all instances where a nullable specification object is accessed with an optional default value
+- all occurrences where a nullable specification object is accessed with an optional default value
 
 
 ## [0.5.1] - 2026-04-28
