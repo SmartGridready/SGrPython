@@ -141,7 +141,8 @@ class SGrModbusClient(ABC):
                 byteorder=self._byte_order,
                 wordorder=self._word_order,
             )
-            return decoder.decode(data_type, 0)
+            byte_count = 2 * len(response.registers)
+            return decoder.decode(data_type, byte_count)
         elif response is not None and response.isError():
             logger.warning(f'Modbus read exception {response.function_code}')
         elif response is None:
@@ -179,7 +180,8 @@ class SGrModbusClient(ABC):
                 byteorder=self._byte_order,
                 wordorder=self._word_order,
             )
-            return decoder.decode(data_type, 0)
+            byte_count = 2 * len(response.registers)
+            return decoder.decode(data_type, byte_count)
         elif response is not None and response.isError():
             logger.warning(f'Modbus read exception {response.function_code}')
         elif response is None:
@@ -217,7 +219,8 @@ class SGrModbusClient(ABC):
                 byteorder=self._byte_order,
                 _wordorder=self._word_order,
             )
-            return decoder.decode(data_type, 0)
+            byte_count = 8 * len(response.bits)
+            return decoder.decode(data_type, byte_count)
         elif response is not None and response.isError():
             logger.warning(f'Modbus read exception {response.function_code}')
         elif response is None:
@@ -255,7 +258,8 @@ class SGrModbusClient(ABC):
                 byteorder=self._byte_order,
                 _wordorder=self._word_order,
             )
-            return decoder.decode(data_type, 0)
+            byte_count = 8 * len(response.bits)
+            return decoder.decode(data_type, byte_count)
         elif response is not None and response.isError():
             logger.warning(f'Modbus read exception {response.function_code}')
         elif response is None:

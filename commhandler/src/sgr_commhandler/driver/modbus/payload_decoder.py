@@ -62,7 +62,9 @@ class PayloadDecoder(BinaryPayloadDecoder):
         elif modbus_type.boolean is not None:
             return bool(self.decode_8bit_uint())
         elif modbus_type.string is not None:
-            return self.decode_string(byte_count)
+            str_bytes = self.decode_string(byte_count)
+            logger.debug(f'bytes={byte_count}, res={str_bytes.__repr__()}')
+            return str_bytes.decode()
         else:
             raise ValueError("No supported modbus data type")
 
