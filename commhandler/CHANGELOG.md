@@ -14,6 +14,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rewritten encoding and decoding of Modbus payload
 
 
+## [0.5.2] - 2026-06-01
+
+## Fixed
+
+- Modbus write request expecting response
+- Modbus string encoding and decoding improved
+- Modbus scaling factor is calculated correctly
+- unit conversion factors are calculated correctly
+- all occurrences where a nullable specification object is accessed with an optional default value
+
+## Changed
+
+- requires `sgr-specification` 2.3
+
+
 ## [0.5.1] - 2026-04-28
 
 ## Changed
