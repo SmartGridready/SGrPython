@@ -64,7 +64,7 @@ def build_rest_data_point(
 ) -> DataPoint:
     protocol = RestDataPoint(data_point, functional_profile, interface)
     data_type = None
-    if data_point.data_point and data_point.data_point.data_type:
+    if data_point.data_point is not None and data_point.data_point.data_type is not None:
         data_type = data_point.data_point.data_type
     validator = build_validator(data_type)
     return DataPoint(protocol, validator)
@@ -84,7 +84,7 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
         super(RestDataPoint, self).__init__(fp_spec, dp_spec)
 
         dp_config = self._dp_spec.rest_api_data_point_configuration
-        if not dp_config:
+        if dp_config is None:
             raise Exception('REST service call configuration missing')
 
         self._read_call: RestApiServiceCall = RestApiServiceCall(request_method=None)
@@ -95,32 +95,32 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
             self._read_call = RestApiServiceCall(
                 request_method=(
                     service_call.request_method
-                    if service_call.request_method
+                    if service_call.request_method is not None
                     else HttpMethod.GET
                 ),
                 request_path=(
                     service_call.request_path
-                    if service_call.request_path
+                    if service_call.request_path is not None
                     else ''
                 ),
                 request_header=(
                     service_call.request_header
-                    if service_call.request_header
+                    if service_call.request_header is not None
                     else HeaderList()
                 ),
                 request_query=(
                     service_call.request_query
-                    if service_call.request_query
+                    if service_call.request_query is not None
                     else ParameterList()
                 ),
                 request_form=(
                     service_call.request_form
-                    if service_call.request_form
+                    if service_call.request_form is not None
                     else ParameterList()
                 ),
                 response_query=(
                     service_call.response_query
-                    if service_call.response_query
+                    if service_call.response_query is not None
                     else None
                 ),
             )
@@ -129,32 +129,32 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
             self._read_call = RestApiServiceCall(
                 request_method=(
                     dp_config.rest_api_service_call.request_method
-                    if dp_config.rest_api_service_call.request_method
+                    if dp_config.rest_api_service_call.request_method is not None
                     else HttpMethod.GET
                 ),
                 request_path=(
                     dp_config.rest_api_service_call.request_path
-                    if dp_config.rest_api_service_call.request_path
+                    if dp_config.rest_api_service_call.request_path is not None
                     else ''
                 ),
                 request_header=(
                     dp_config.rest_api_service_call.request_header
-                    if dp_config.rest_api_service_call.request_header
+                    if dp_config.rest_api_service_call.request_header is not None
                     else HeaderList()
                 ),
                 request_query=(
                     dp_config.rest_api_service_call.request_query
-                    if dp_config.rest_api_service_call.request_query
+                    if dp_config.rest_api_service_call.request_query is not None
                     else ParameterList()
                 ),
                 request_form=(
                     dp_config.rest_api_service_call.request_form
-                    if dp_config.rest_api_service_call.request_form
+                    if dp_config.rest_api_service_call.request_form is not None
                     else ParameterList()
                 ),
                 response_query=(
                     dp_config.rest_api_service_call.response_query
-                    if dp_config.rest_api_service_call.response_query
+                    if dp_config.rest_api_service_call.response_query is not None
                     else None
                 ),
             )
@@ -164,43 +164,43 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
             self._write_call = RestApiServiceCall(
                 request_method=(
                     service_call.request_method
-                    if service_call.request_method
+                    if service_call.request_method is not None
                     else HttpMethod.GET
                 ),
                 request_path=(
                     service_call.request_path
-                    if service_call.request_path
+                    if service_call.request_path is not None
                     else ''
                 ),
                 request_header=(
                     service_call.request_header
-                    if service_call.request_header
+                    if service_call.request_header is not None
                     else HeaderList()
                 ),
                 request_query=(
                     service_call.request_query
-                    if service_call.request_query
+                    if service_call.request_query is not None
                     else ParameterList()
                 ),
                 request_form=(
                     service_call.request_form
-                    if service_call.request_form
+                    if service_call.request_form is not None
                     else ParameterList()
                 ),
                 response_query=(
                     service_call.response_query
-                    if service_call.response_query
+                    if service_call.response_query is not None
                     else None
                 ),
             )
 
-        if not self._read_call and not self._write_call:
+        if self._read_call is None and self._write_call is None:
             raise Exception('No REST service call configured')
 
         self._interface = interface
 
     async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
-        if not self._read_call:
+        if self._read_call is None:
             raise Exception('No read call')
 
         substitutions = build_dynamic_parameter_substitutions(self._dynamic_parameters, parameters)
@@ -208,52 +208,52 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
         request = build_rest_request(self._read_call, str(self._interface.base_url), substitutions)
 
         response = await self._interface.execute_request(request, skip_cache)
-        if not response.body:
+        if response.body is None:
             return None
         if (
-            self._read_call.response_query
+            self._read_call.response_query is not None
             and self._read_call.response_query.query_type == ResponseQueryType.JMESPATH_EXPRESSION
         ):
             # JMESPath expression
             query_expression = template.substitute(
-                self._read_call.response_query.query if self._read_call.response_query.query else '',
+                self._read_call.response_query.query if self._read_call.response_query.query is not None else '',
                 substitutions
             )
             return jmespath.search(query_expression, json.loads(response.body))
         elif (
-            self._read_call.response_query
+            self._read_call.response_query is not None
             and self._read_call.response_query.query_type == ResponseQueryType.JMESPATH_MAPPING
         ):
             # JMESPath mappings
-            mappings = self._read_call.response_query.jmes_path_mappings.mapping if self._read_call.response_query.jmes_path_mappings else []
+            mappings = self._read_call.response_query.jmes_path_mappings.mapping if self._read_call.response_query.jmes_path_mappings is not None else []
             return jmespath_mapping.map_json_response(response.body, mappings)
         elif (
-            self._read_call.response_query
+            self._read_call.response_query is not None
             and self._read_call.response_query.query_type == ResponseQueryType.REGULAR_EXPRESSION
         ):
             # regex
-            query_expression = self._read_call.response_query.query if self._read_call.response_query.query else ''
+            query_expression = self._read_call.response_query.query if self._read_call.response_query.query is not None else ''
             query_match = re.match(query_expression, response.body)
             if query_match is not None:
                 return query_match.group()
         elif (
-            self._read_call.response_query
+            self._read_call.response_query is not None
             and self._read_call.response_query.query_type == ResponseQueryType.XPATH_EXPRESSION
         ):
             # XPath expression
             query_expression = template.substitute(
-                self._read_call.response_query.query if self._read_call.response_query.query else '',
+                self._read_call.response_query.query if self._read_call.response_query.query is not None else '',
                 substitutions
             )
             selector = parsel.Selector(response.body)
             return selector.xpath(query_expression).get()
         elif (
-            self._read_call.response_query
+            self._read_call.response_query is not None
             and self._read_call.response_query.query_type == ResponseQueryType.JSONATA_EXPRESSION
         ):
             # JSONata expression
             query_expression = template.substitute(
-                self._read_call.response_query.query if self._read_call.response_query.query else '',
+                self._read_call.response_query.query if self._read_call.response_query.query is not None else '',
                 substitutions
             )
             expression = jsonata.Jsonata(query_expression)
@@ -263,7 +263,7 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
         ret_value = response.body
 
         # apply value mappings
-        if self._read_call.value_mapping:
+        if self._read_call.value_mapping is not None:
             mappings = self._read_call.value_mapping.mapping
             for m in mappings:
                 if m.device_value == ret_value:
@@ -271,33 +271,30 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
                     break
 
         # convert to DP units
-        if (
-            self._dp_spec.data_point
-            and self._dp_spec.data_point.unit_conversion_multiplicator
-            and self._dp_spec.data_point.unit_conversion_multiplicator != 1.0
-        ):
-            ret_value = (
-                float(str(ret_value))
-                * self._dp_spec.data_point.unit_conversion_multiplicator
-            )
+        unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
+            self._dp_spec.data_point is not None
+            and self._dp_spec.data_point.unit_conversion_multiplicator is not None
+        ) else None
+        if unit_conv_factor is not None:
+            ret_value = float(str(ret_value)) * unit_conv_factor
 
         return ret_value
 
     async def set_val(self, value: Any):
-        if not self._write_call:
+        if self._write_call is None:
             raise Exception('No write call')
 
         # convert to device units
         unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
-            self._dp_spec.data_point
-            and self._dp_spec.data_point.unit_conversion_multiplicator
-        ) else 1.0
-        if unit_conv_factor != 1.0:
+            self._dp_spec.data_point is not None
+            and self._dp_spec.data_point.unit_conversion_multiplicator is not None
+        ) else None
+        if unit_conv_factor is not None:
             value = float(value) / unit_conv_factor
 
         # apply value mappings
         value = str(value)
-        if self._read_call.value_mapping:
+        if self._read_call.value_mapping is not None:
             mappings = self._read_call.value_mapping.mapping
             for m in mappings:
                 if m.generic_value == value:
@@ -327,8 +324,8 @@ class RestFunctionalProfile(FunctionalProfile[RestApiFunctionalProfileSpec]):
 
         raw_dps = []
         if (
-            self._fp_spec.data_point_list
-            and self._fp_spec.data_point_list.data_point_list_element
+            self._fp_spec.data_point_list is not None
+            and self._fp_spec.data_point_list.data_point_list_element is not None
         ):
             raw_dps = self._fp_spec.data_point_list.data_point_list_element
 
@@ -356,9 +353,9 @@ class SGrRestInterface(SGrBaseInterface):
         self._cache = TTLCache(maxsize=100, ttl=5)
 
         if (
-            self.device_frame.interface_list
-            and self.device_frame.interface_list
-            and self.device_frame.interface_list.rest_api_interface
+            self.device_frame.interface_list is not None
+            and self.device_frame.interface_list is not None
+            and self.device_frame.interface_list.rest_api_interface is not None
         ):
             self._raw_interface = self.device_frame.interface_list.rest_api_interface
         else:
@@ -378,8 +375,8 @@ class SGrRestInterface(SGrBaseInterface):
 
         raw_fps = []
         if (
-            self._raw_interface.functional_profile_list
-            and self._raw_interface.functional_profile_list.functional_profile_list_element
+            self._raw_interface.functional_profile_list is not None
+            and self._raw_interface.functional_profile_list.functional_profile_list_element is not None
         ):
             raw_fps = self._raw_interface.functional_profile_list.functional_profile_list_element
         fps = [RestFunctionalProfile(profile, self) for profile in raw_fps]
@@ -399,7 +396,7 @@ class SGrRestInterface(SGrBaseInterface):
             await self.authenticate()
 
     async def authenticate(self):
-        if self._session:
+        if self._session is not None:
             await setup_authentication(self._raw_interface, self._session)
 
     async def execute_request(

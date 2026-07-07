@@ -35,7 +35,7 @@ class EnumValidator(DataPointValidator):
         super(EnumValidator, self).__init__(DataTypes.ENUM)
         self._valid_literals: set[str] = set()
         self._valid_ordinals: set[int] = set()
-        if type and type.enum_entry:
+        if type is not None and type.enum_entry is not None:
             self._options = list(map(lambda e: (e.literal, e.ordinal), type.enum_entry))
             for o in self._options:
                 if o[0]:

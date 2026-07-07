@@ -113,41 +113,41 @@ async def authenticate_with_bearer_token(
                     if response.body is not None:
                         token: Any
                         if (
-                            service_call.response_query
+                            service_call.response_query is not None
                             and service_call.response_query.query_type == ResponseQueryType.JMESPATH_EXPRESSION
                         ):
                             # JMESPath expression
-                            query_expression = service_call.response_query.query if service_call.response_query.query else ''
+                            query_expression = service_call.response_query.query if service_call.response_query.query is not None else ''
                             token = str(jmespath.search(query_expression, json.loads(response.body)))
                         elif (
-                            service_call.response_query
+                            service_call.response_query is not None
                             and service_call.response_query.query_type == ResponseQueryType.JMESPATH_MAPPING
                         ):
                             # JMESPath mappings
-                            mappings = service_call.response_query.jmes_path_mappings.mapping if service_call.response_query.jmes_path_mappings else []
+                            mappings = service_call.response_query.jmes_path_mappings.mapping if service_call.response_query.jmes_path_mappings is not None else []
                             token = str(jmespath_mapping.map_json_response(response.body, mappings))
                         elif (
-                            service_call.response_query
+                            service_call.response_query is not None
                             and service_call.response_query.query_type == ResponseQueryType.REGULAR_EXPRESSION
                         ):
                             # regex
-                            query_expression = service_call.response_query.query if service_call.response_query.query else ''
+                            query_expression = service_call.response_query.query if service_call.response_query.query is not None else ''
                             query_match = re.match(query_expression, response.body)
                             token = query_match.group() if query_match is not None else None
                         elif (
-                            service_call.response_query
+                            service_call.response_query is not None
                             and service_call.response_query.query_type == ResponseQueryType.XPATH_EXPRESSION
                         ):
                             # XPath expression
-                            query_expression = service_call.response_query.query if service_call.response_query.query else ''
+                            query_expression = service_call.response_query.query if service_call.response_query.query is not None else ''
                             selector = parsel.Selector(response.body)
                             token = str(selector.xpath(query_expression).get())
                         elif (
-                            service_call.response_query
+                            service_call.response_query is not None
                             and service_call.response_query.query_type == ResponseQueryType.JSONATA_EXPRESSION
                         ):
                             # JSONata expression
-                            query_expression = service_call.response_query.query if service_call.response_query.query else ''
+                            query_expression = service_call.response_query.query if service_call.response_query.query is not None else ''
                             expression = jsonata.Jsonata(query_expression)
                             token = str(expression.evaluate(json.loads(response.body)))
                         else:

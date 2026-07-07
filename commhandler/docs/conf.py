@@ -11,7 +11,7 @@ copyright = '2026, Verein SmartGridready'
 author = 'Matthias Krebs'
 
 release = '0.5'
-version = '0.5.0'
+version = '0.5.2'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

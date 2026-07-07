@@ -48,8 +48,8 @@ class JMESPathMessagingFilter(MessagingFilter[JmespathFilterType]):
 
     def is_filter_match(self, payload: Any) -> bool:
         ret_value = str(payload)
-        regex = self._filter_spec.matches_regex or '.'
-        if self._filter_spec.query:
+        regex = self._filter_spec.matches_regex if self._filter_spec.matches_regex is not None else '.'
+        if self._filter_spec.query is not None:
             ret_value = json.dumps(jmespath.search(self._filter_spec.query, json.loads(payload)))
 
         match = re.match(regex, ret_value)
@@ -66,7 +66,7 @@ class PlaintextMessagingFilter(MessagingFilter[PlaintextFilterType]):
 
     def is_filter_match(self, payload: Any) -> bool:
         ret_value = str(payload)
-        regex = self._filter_spec.matches_regex or '.'
+        regex = self._filter_spec.matches_regex if self._filter_spec.matches_regex is not None else '.'
 
         match = re.match(regex, ret_value)
         return match is not None
@@ -82,8 +82,8 @@ class RegexMessagingFilter(MessagingFilter[RegexFilterType]):
 
     def is_filter_match(self, payload: Any) -> bool:
         ret_value = str(payload)
-        regex = self._filter_spec.matches_regex or '.'
-        if self._filter_spec.query:
+        regex = self._filter_spec.matches_regex if self._filter_spec.matches_regex is not None else '.'
+        if self._filter_spec.query is not None:
             query_match = re.match(self._filter_spec.query, ret_value)
             if query_match is not None:
                 ret_value = query_match.group()
@@ -102,10 +102,10 @@ class XPathMessagingFilter(MessagingFilter[XpathFilterType]):
 
     def is_filter_match(self, payload: Any) -> bool:
         ret_value = str(payload)
-        regex = self._filter_spec.matches_regex or '.'
-        if self._filter_spec.query:
+        regex = self._filter_spec.matches_regex if self._filter_spec.matches_regex is not None else '.'
+        if self._filter_spec.query is not None:
             selector = parsel.Selector(ret_value)
-            ret_value = selector.xpath(self._filter_spec.query).get()
+            ret_value = selector.xpath(self._filter_spec.query).get('')
 
         match = re.match(regex, ret_value)
         return match is not None
@@ -121,8 +121,8 @@ class JSONataMessagingFilter(MessagingFilter[JsonataFilterType]):
 
     def is_filter_match(self, payload: Any) -> bool:
         ret_value = str(payload)
-        regex = self._filter_spec.matches_regex or '.'
-        if self._filter_spec.query:
+        regex = self._filter_spec.matches_regex if self._filter_spec.matches_regex is not None else '.'
+        if self._filter_spec.query is not None:
             expression = jsonata.Jsonata(self._filter_spec.query)
             ret_value = json.dumps(expression.evaluate(json.loads(payload)))
 
@@ -145,14 +145,14 @@ def get_messaging_filter(filter: MessageFilter) -> Optional[MessagingFilter]:
         the messaging filter, if it could be created
     """
 
-    if filter.jmespath_filter:
+    if filter.jmespath_filter is not None:
         return JMESPathMessagingFilter(filter.jmespath_filter)
-    elif filter.plaintext_filter:
+    elif filter.plaintext_filter is not None:
         return PlaintextMessagingFilter(filter.plaintext_filter)
-    elif filter.regex_filter:
+    elif filter.regex_filter is not None:
         return RegexMessagingFilter(filter.regex_filter)
-    elif filter.xpapath_filter:
+    elif filter.xpapath_filter is not None:
         return XPathMessagingFilter(filter.xpapath_filter)
-    elif filter.jsonata_filter:
+    elif filter.jsonata_filter is not None:
         return JSONataMessagingFilter(filter.jsonata_filter)
     return None

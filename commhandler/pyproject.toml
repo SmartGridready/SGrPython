@@ -28,7 +28,7 @@ dependencies = [
     "aiohttp>=3.13.2,<4.0.0",
     "certifi>=25.11.12",
     "cachetools>=6.2.4,<7.0.0",
-    "sgr-specification>=2.2.0,<3.0.0"
+    "sgr-specification>=2.3.0,<3.0.0"
 ]
 
 [project.urls]
