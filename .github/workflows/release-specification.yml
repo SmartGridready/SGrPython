@@ -85,9 +85,6 @@ jobs:
         working-directory: SGrPython/specification/src/sgr_schema
         run: cp -fR ../../../../SGrSpecifications/SchemaDatabase/SGr/* .
 
-      - name: Check SGrPython Directory
-        run: ls SGrPython
-
       - name: Build Specification Package
         id: build
         working-directory: SGrPython/specification
