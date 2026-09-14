@@ -10,8 +10,8 @@ project = 'SGr Specification'
 copyright = '2026, Verein SmartGridready'
 author = 'Matthias Krebs'
 
-release = '2.2'
-version = '2.2.0'
+release = '2.3'
+version = '2.3.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

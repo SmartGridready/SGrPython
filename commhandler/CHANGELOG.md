@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- requires Python 3.10
+- requires at least Python 3.10
+- compatible up to Python 3.14
 - updated `pymodbus` and other dependencies
 - rewritten encoding and decoding of Modbus payload
 
