@@ -7,7 +7,7 @@ name = "sgr-specification"
 dynamic = ["version"]
 description = "SmartGridready Specification Library"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = "BSD-3-Clause"
 authors = [
     { name = "Robin Schoch" },

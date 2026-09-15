@@ -1,4 +1,4 @@
-zsh: no matches found: xsdata[cli]# SmartGridready Specification
+# SmartGridready Specification
 
 The _specification_ library contains the classes generated from the SGr XML schema.
 
