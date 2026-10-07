@@ -171,7 +171,7 @@ def _get_number_of_elements(node: Any, parent_idx: int, keyword: tuple[str, str]
     pattern = keyword[1]
     regex = re.compile('\\[\\*\\]')
     for i in range(1, iteration):
-        pattern = re.sub(regex, f'[{parent_idx}]', keyword[1], 1)
+        pattern = re.sub(regex, f'[{parent_idx}]', keyword[1], count=1)
     expr = jmespath.compile(f'{pattern} | length(@)')
     result = expr.search(node, jmespath.Options(dict_cls=collections.OrderedDict))
     return int(result)
@@ -205,7 +205,7 @@ def _add_child_element(node: Any, record_map: dict[RecordKey, dict[str, Any]], k
     pattern = kw[1]
     regex = re.compile('\\[\\*\\]')
     for i in range(0, iteration):
-        pattern = re.sub(regex, f'[{key.index(i)}]', pattern, 1)
+        pattern = re.sub(regex, f'[{key.index(i)}]', pattern, count=1)
     node_val = jmespath.search(pattern, node)
     if isinstance(node_val, str):
         record_map[key][kw[0]] = str(node_val)

@@ -5,18 +5,18 @@ Provides the Modbus client implementation.
 import logging
 import threading
 from abc import ABC
-from typing import Any
+from typing import Any, Literal
 
 from pymodbus import FramerType
 from pymodbus.client import AsyncModbusSerialClient, AsyncModbusTcpClient
-from pymodbus.client.base import ModbusBaseClient
-from pymodbus.constants import Endian
 from sgr_specification.v0.product.modbus_types import BitOrder, ModbusDataType
 
-from sgr_commhandler.driver.modbus.payload_decoder import (
-    PayloadBuilder,
-    PayloadDecoder,
+from sgr_commhandler.driver.modbus.modbus_helper import (
+    AnyModbusClient,
+    decode_registers,
+    encode_registers
 )
+
 
 logger = logging.getLogger(__name__)
 
@@ -26,20 +26,20 @@ class SGrModbusClient(ABC):
     Defines an abstract base class for Modbus clients.
     """
 
-    def __init__(self, endianness: BitOrder, addr_offset: int, client: ModbusBaseClient):
+    def __init__(self, bit_order: BitOrder, addr_offset: int, client: AnyModbusClient):
         self._lock = threading.Lock()
-        self._client: ModbusBaseClient = client
-        self._byte_order: Endian = (
-            Endian.LITTLE
-            if endianness
+        self._client: AnyModbusClient = client
+        self._byte_order: Literal['big', 'little'] = (
+            'little'
+            if bit_order
             in {BitOrder.CHANGE_BYTE_ORDER, BitOrder.CHANGE_BIT_ORDER}
-            else Endian.BIG
+            else 'big'
         )
-        self._word_order: Endian = (
-            Endian.LITTLE
-            if endianness
+        self._word_order: Literal['big', 'little'] = (
+            'little'
+            if bit_order
             in {BitOrder.CHANGE_WORD_ORDER, BitOrder.CHANGE_DWORD_ORDER}
-            else Endian.BIG
+            else 'big'
         )
         self._addr_offset: int = addr_offset
 
@@ -66,13 +66,10 @@ class SGrModbusClient(ABC):
         value : Any
             The value to be written
         """
-        builder = PayloadBuilder(
-            byteorder=self._byte_order, wordorder=self._word_order
-        )
-        builder.sgr_encode(value, data_type)
+        registers = encode_registers(self._client, value, data_type, word_order=self._word_order, byte_order=self._byte_order)
         with self._lock:
             response = await self._client.write_registers(
-                address+self._addr_offset, builder.to_registers(), slave=slave_id
+                address+self._addr_offset, registers, device_id=slave_id, no_response_expected=False
             )
             if response is not None and response.isError():
                 logger.warning(f'Modbus write exception {response.function_code}')
@@ -96,13 +93,11 @@ class SGrModbusClient(ABC):
         value : Any
             The value to be written
         """
-        builder = PayloadBuilder(
-            byteorder=self._byte_order, wordorder=self._word_order
-        )
-        builder.sgr_encode(value, data_type)
+        # TODO implement conversion
+        bits: list[bool] = []
         with self._lock:
             response = await self._client.write_coils(
-                address+self._addr_offset, builder.to_coils(), slave=slave_id, no_response_expected=True
+                address+self._addr_offset, bits, device_id=slave_id, no_response_expected=True
             )
             if response is not None and response.isError():
                 logger.warning(f'Modbus write exception {response.function_code}')
@@ -133,16 +128,10 @@ class SGrModbusClient(ABC):
         """
         with self._lock:
             response = await self._client.read_input_registers(
-                address+self._addr_offset, count=size, slave=slave_id
+                address+self._addr_offset, count=size, device_id=slave_id
             )
         if response is not None and not response.isError():
-            decoder = PayloadDecoder.fromRegisters(
-                response.registers,
-                byteorder=self._byte_order,
-                wordorder=self._word_order,
-            )
-            byte_count = 2 * len(response.registers)
-            return decoder.decode(data_type, byte_count)
+            return decode_registers(self._client, response.registers, data_type, word_order=self._word_order, byte_order=self._byte_order)
         elif response is not None and response.isError():
             logger.warning(f'Modbus read exception {response.function_code}')
         elif response is None:
@@ -172,16 +161,10 @@ class SGrModbusClient(ABC):
         """
         with self._lock:
             response = await self._client.read_holding_registers(
-                address+self._addr_offset, count=size, slave=slave_id
+                address+self._addr_offset, count=size, device_id=slave_id
             )
         if response is not None and not response.isError():
-            decoder = PayloadDecoder.fromRegisters(
-                response.registers,
-                byteorder=self._byte_order,
-                wordorder=self._word_order,
-            )
-            byte_count = 2 * len(response.registers)
-            return decoder.decode(data_type, byte_count)
+            return decode_registers(self._client, response.registers, data_type, word_order=self._word_order, byte_order=self._byte_order)
         elif response is not None and response.isError():
             logger.warning(f'Modbus read exception {response.function_code}')
         elif response is None:
@@ -211,16 +194,11 @@ class SGrModbusClient(ABC):
         """
         with self._lock:
             response = await self._client.read_coils(
-                address+self._addr_offset, count=size, slave=slave_id
+                address+self._addr_offset, count=size, device_id=slave_id
             )
         if response is not None and not response.isError():
-            decoder = PayloadDecoder.fromCoils(
-                response.bits,
-                byteorder=self._byte_order,
-                _wordorder=self._word_order,
-            )
-            byte_count = 8 * len(response.bits)
-            return decoder.decode(data_type, byte_count)
+            # TODO implement conversion
+            return response.bits
         elif response is not None and response.isError():
             logger.warning(f'Modbus read exception {response.function_code}')
         elif response is None:
@@ -250,16 +228,11 @@ class SGrModbusClient(ABC):
         """
         with self._lock:
             response = await self._client.read_discrete_inputs(
-                address+self._addr_offset, count=size, slave=slave_id
+                address+self._addr_offset, count=size, device_id=slave_id
             )
         if response is not None and not response.isError():
-            decoder = PayloadDecoder.fromCoils(
-                response.bits,
-                byteorder=self._byte_order,
-                _wordorder=self._word_order,
-            )
-            byte_count = 8 * len(response.bits)
-            return decoder.decode(data_type, byte_count)
+            # TODO implement conversion
+            return response.bits
         elif response is not None and response.isError():
             logger.warning(f'Modbus read exception {response.function_code}')
         elif response is None:
@@ -271,9 +244,9 @@ class SGrModbusTCPClient(SGrModbusClient):
     Implements a Modbus TCP client.
     """
 
-    def __init__(self, ip: str, port: int, endianness: BitOrder = BitOrder.BIG_ENDIAN, addr_offset: int = 0):
+    def __init__(self, ip: str, port: int, bit_order: BitOrder = BitOrder.BIG_ENDIAN, addr_offset: int = 0):
         super(SGrModbusTCPClient, self).__init__(
-            endianness,
+            bit_order,
             addr_offset,
             AsyncModbusTcpClient(
                 host=ip,
@@ -293,8 +266,8 @@ class SGrModbusTCPClient(SGrModbusClient):
             The host to connect to (default 127.0.0.1)
         port : int
             The modbus port to connect to (default 502)
-        endianness : BitOrder
-            The data endianness
+        bit_order : BitOrder
+            The data byte or word order
         addr_offset : int
             The address offset
         """
@@ -317,10 +290,10 @@ class SGrModbusTCPClient(SGrModbusClient):
 
 class SGrModbusRTUClient(SGrModbusClient):
     def __init__(
-        self, serial_port: str, parity: str, baudrate: int, endianness: BitOrder = BitOrder.BIG_ENDIAN, addr_offset: int = 0
+        self, serial_port: str, parity: str, baudrate: int, bit_order: BitOrder = BitOrder.BIG_ENDIAN, addr_offset: int = 0
     ):
         super(SGrModbusRTUClient, self).__init__(
-            endianness,
+            bit_order,
             addr_offset,
             AsyncModbusSerialClient(
                 port=serial_port,
@@ -340,8 +313,8 @@ class SGrModbusRTUClient(SGrModbusClient):
             The serial parity (e.g. EVEN)
         baudrate : int
             The serial baudrate (e.g. 19200)
-        endianness : BitOrder
-            The data endianness
+        bit_order : BitOrder
+            The data byte or word order
         addr_offset : int
             The address offset
         """
