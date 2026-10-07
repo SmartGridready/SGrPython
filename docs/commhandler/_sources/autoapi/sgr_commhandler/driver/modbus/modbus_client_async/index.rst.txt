@@ -32,7 +32,7 @@ Module Contents
 
 .. py:data:: logger
 
-.. py:class:: SGrModbusClient(endianness, addr_offset, client)
+.. py:class:: SGrModbusClient(bit_order, addr_offset, client)
 
    Bases: :py:obj:`abc.ABC`
 
@@ -44,15 +44,19 @@ Module Contents
 
 
    .. py:attribute:: _client
-      :type:  pymodbus.client.base.ModbusBaseClient
+      :type:  sgr_commhandler.driver.modbus.modbus_helper.AnyModbusClient
 
 
    .. py:attribute:: _byte_order
-      :type:  pymodbus.constants.Endian
+      :type:  Literal['big', 'little']
+      :value: 'little'
+
 
 
    .. py:attribute:: _word_order
-      :type:  pymodbus.constants.Endian
+      :type:  Literal['big', 'little']
+      :value: 'little'
+
 
 
    .. py:attribute:: _addr_offset
@@ -186,7 +190,7 @@ Module Contents
 
 
 
-.. py:class:: SGrModbusTCPClient(ip, port, endianness = BitOrder.BIG_ENDIAN, addr_offset = 0)
+.. py:class:: SGrModbusTCPClient(ip, port, bit_order = BitOrder.BIG_ENDIAN, addr_offset = 0)
 
    Bases: :py:obj:`SGrModbusClient`
 
@@ -213,7 +217,7 @@ Module Contents
    .. py:method:: is_connected()
 
 
-.. py:class:: SGrModbusRTUClient(serial_port, parity, baudrate, endianness = BitOrder.BIG_ENDIAN, addr_offset = 0)
+.. py:class:: SGrModbusRTUClient(serial_port, parity, baudrate, bit_order = BitOrder.BIG_ENDIAN, addr_offset = 0)
 
    Bases: :py:obj:`SGrModbusClient`
 

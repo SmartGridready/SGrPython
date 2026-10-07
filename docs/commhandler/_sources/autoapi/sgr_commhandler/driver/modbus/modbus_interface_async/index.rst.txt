@@ -69,9 +69,9 @@ Module Contents
 
 .. py:function:: get_endian(modbus)
 
-   Returns the byte order (endianness).
+   Returns the byte or word order (endianness).
 
-   :returns: the byte order
+   :returns: the byte or word order
    :rtype: BitOrder
 
 
@@ -198,7 +198,7 @@ Module Contents
 
 
 
-   .. py:attribute:: byte_order
+   .. py:attribute:: bit_order
 
 
    .. py:attribute:: address_offset

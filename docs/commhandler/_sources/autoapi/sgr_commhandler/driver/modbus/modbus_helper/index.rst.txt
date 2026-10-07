@@ -1,0 +1,43 @@
+sgr_commhandler.driver.modbus.modbus_helper
+===========================================
+
+.. py:module:: sgr_commhandler.driver.modbus.modbus_helper
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.modbus.modbus_helper.AnyModbusClient
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sgr_commhandler.driver.modbus.modbus_helper.decode_registers
+   sgr_commhandler.driver.modbus.modbus_helper.encode_registers
+   sgr_commhandler.driver.modbus.modbus_helper.change_byte_order
+   sgr_commhandler.driver.modbus.modbus_helper.registers_as_hex
+   sgr_commhandler.driver.modbus.modbus_helper.get_data_type
+
+
+Module Contents
+---------------
+
+.. py:type:: AnyModbusClient
+   :canonical: AsyncModbusSerialClient | AsyncModbusTcpClient
+
+
+.. py:function:: decode_registers(client, registers, data_type, word_order = 'big', byte_order = 'big')
+
+.. py:function:: encode_registers(client, value, data_type, word_order = 'big', byte_order = 'big')
+
+.. py:function:: change_byte_order(word)
+
+.. py:function:: registers_as_hex(registers)
+
+.. py:function:: get_data_type(modbus_type)
+

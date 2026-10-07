@@ -16,8 +16,8 @@ Submodules
    :maxdepth: 1
 
    /autoapi/sgr_commhandler/driver/modbus/modbus_client_async/index
+   /autoapi/sgr_commhandler/driver/modbus/modbus_helper/index
    /autoapi/sgr_commhandler/driver/modbus/modbus_interface_async/index
-   /autoapi/sgr_commhandler/driver/modbus/payload_decoder/index
    /autoapi/sgr_commhandler/driver/modbus/shared_client/index
 
 
@@ -105,7 +105,7 @@ Package Contents
 
 
 
-   .. py:attribute:: byte_order
+   .. py:attribute:: bit_order
 
 
    .. py:attribute:: address_offset
