@@ -125,7 +125,10 @@ class DeviceBuilder:
         frame = parse_device_frame(eid_content)
         # build final properties
         config_params = build_configuration_parameters(frame.configuration_list)
-        properties = build_properties(config_params, properties)
+        try:
+            properties = build_properties(config_params, properties)
+        except ValueError as e:
+            raise ValueError(f'cannot build device from EID "{frame.device_name}" ({frame.manufacturer_name}): {e}') from e
         # parse EID - final
         eid_content = replace_variables(eid_content, properties)
         frame = parse_device_frame(eid_content)
@@ -306,6 +309,7 @@ def build_properties(config: list[ConfigurationParameter], properties: dict) -> 
     Builds EID configuration properties.
     Only parameters defined in the EID configuration list are kept.
     Parameters not defined in the properties are set to the default value.
+    Parameters without default value must be defined in the properties.
 
     Parameters
     ----------
@@ -318,15 +322,26 @@ def build_properties(config: list[ConfigurationParameter], properties: dict) -> 
     -------
     dict
         the final properties
+
+    Raises
+    ------
+    ValueError
+        if parameters are neither defined in the properties nor have a default value
     """
     final_properties = {}
+    missing_params = []
     for config_param in config:
         prop_value = properties.get(config_param.name)
         if prop_value is not None:
             final_properties[config_param.name] = prop_value
         elif config_param.default_value is not None:
             final_properties[config_param.name] = config_param.default_value
+        else:
+            missing_params.append(config_param.name)
+            continue
         logger.debug(f'EID parameter: {config_param.name} = {final_properties[config_param.name]}')
+    if missing_params:
+        raise ValueError(f'no value for configuration parameter(s) without default value: {", ".join(missing_params)}')
     return final_properties
 
 
