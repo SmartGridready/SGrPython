@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - device builder raises a `ValueError` naming the EID and the missing parameters,
   instead of a `KeyError`, when a configuration parameter without default value is not given in the properties
+- REST data points apply the unit conversion multiplicator also to values read with a response query
+  (JMESPath expression, JSONata, regular expression, XPath), as they already do for plain responses
 
 ## [0.6.1] - 2026-10-28
 

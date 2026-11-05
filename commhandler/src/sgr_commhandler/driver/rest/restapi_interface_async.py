@@ -199,6 +199,23 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
 
         self._interface = interface
 
+    def _convert_to_dp_units(self, value: Any) -> Any:
+        """
+        Converts a value read from the device to the unit of the data point,
+        using the unit conversion multiplicator of the data point.
+        A value that is not a number, e.g. a JSON object, is returned as is.
+        """
+        unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
+            self._dp_spec.data_point is not None
+            and self._dp_spec.data_point.unit_conversion_multiplicator is not None
+        ) else None
+        if unit_conv_factor is None or isinstance(value, bool):
+            return value
+        try:
+            return float(value) * unit_conv_factor
+        except (TypeError, ValueError):
+            return value
+
     async def get_val(self, parameters: Optional[dict[str, str]] = None, skip_cache: bool = False) -> Any:
         if self._read_call is None:
             raise Exception('No read call')
@@ -219,12 +236,12 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
                 self._read_call.response_query.query if self._read_call.response_query.query is not None else '',
                 substitutions
             )
-            return jmespath.search(query_expression, json.loads(response.body))
+            return self._convert_to_dp_units(jmespath.search(query_expression, json.loads(response.body)))
         elif (
             self._read_call.response_query is not None
             and self._read_call.response_query.query_type == ResponseQueryType.JMESPATH_MAPPING
         ):
-            # JMESPath mappings
+            # JMESPath mappings, only restructure the JSON, the values are not converted
             mappings = self._read_call.response_query.jmes_path_mappings.mapping if self._read_call.response_query.jmes_path_mappings is not None else []
             return jmespath_mapping.map_json_response(response.body, mappings)
         elif (
@@ -235,7 +252,7 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
             query_expression = self._read_call.response_query.query if self._read_call.response_query.query is not None else ''
             query_match = re.match(query_expression, response.body)
             if query_match is not None:
-                return query_match.group()
+                return self._convert_to_dp_units(query_match.group())
         elif (
             self._read_call.response_query is not None
             and self._read_call.response_query.query_type == ResponseQueryType.XPATH_EXPRESSION
@@ -246,7 +263,7 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
                 substitutions
             )
             selector = parsel.Selector(response.body)
-            return selector.xpath(query_expression).get()
+            return self._convert_to_dp_units(selector.xpath(query_expression).get())
         elif (
             self._read_call.response_query is not None
             and self._read_call.response_query.query_type == ResponseQueryType.JSONATA_EXPRESSION
@@ -257,7 +274,7 @@ class RestDataPoint(DataPointProtocol[RestApiFunctionalProfileSpec, RestApiDataP
                 substitutions
             )
             expression = jsonata.Jsonata(query_expression)
-            return expression.evaluate(json.loads(response.body))
+            return self._convert_to_dp_units(expression.evaluate(json.loads(response.body)))
 
         # plain response
         ret_value = response.body
