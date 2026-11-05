@@ -255,6 +255,7 @@ Module Contents
    Builds EID configuration properties.
    Only parameters defined in the EID configuration list are kept.
    Parameters not defined in the properties are set to the default value.
+   Parameters without default value must be defined in the properties.
 
    :param config: the EID configuration parameters
    :type config: list[ConfigurationParameter]
@@ -263,6 +264,8 @@ Module Contents
 
    :returns: the final properties
    :rtype: dict
+
+   :raises ValueError: if parameters are neither defined in the properties nor have a default value
 
 
 .. py:function:: validate_schema(content)

@@ -68,9 +68,26 @@ Package Contents
       :async:
 
 
+      Writes the data point value.
+
+      :param value: the data point value to write
+      :type value: Any
+
+
 
    .. py:method:: get_val(parameters = None, skip_cache = False)
       :async:
+
+
+      Reads the data point value.
+
+      :param parameters: optional dynamic parameters of the request
+      :type parameters: Optional[dict[str, str]]
+      :param skip_cache: does not use cache if true
+      :type skip_cache: bool
+
+      :returns: the data point value
+      :rtype: Any
 
 
 
@@ -89,6 +106,12 @@ Package Contents
 
 
    .. py:method:: get_data_points()
+
+      Gets all data points.
+
+      :returns: all data points
+      :rtype: dict[tuple[str, str], DataPoint]
+
 
 
 .. py:class:: SGrModbusInterface(frame, sharedRTU = False)
@@ -126,14 +149,26 @@ Package Contents
 
    .. py:method:: is_connected()
 
+      Gets the connection state.
+
+      :returns: the connection state
+      :rtype: bool
+
+
 
    .. py:method:: connect_async()
       :async:
 
 
+      Connects the device asynchronously.
+
+
 
    .. py:method:: disconnect_async()
       :async:
+
+
+      Disconnects the device asynchronously.
 
 
 
