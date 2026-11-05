@@ -122,6 +122,44 @@ async def test_device_builder_rest_ini():
     assert device_frame.interface_list.rest_api_interface.rest_api_interface_description.rest_api_uri == 'http://127.0.0.1'
 
 
+def _load_eid_without_default_value():
+    eid_path = os.path.join(
+        EID_BASE_PATH, "SGr_01_mmmm_dddd_Shelly_1PM_RestAPILocal_V0.1.xml"
+    )
+    with open(eid_path, encoding="utf-8") as eid_file:
+        eid_xml = eid_file.read()
+    # the configuration parameter base_uri has no default value anymore
+    default_value = "<defaultValue>http://192.168.33.1</defaultValue>"
+    assert default_value in eid_xml
+    return eid_xml.replace(default_value, "")
+
+
+@pytest.mark.asyncio
+async def test_device_builder_missing_property():
+    eid_xml = _load_eid_without_default_value()
+
+    with pytest.raises(ValueError, match="base_uri") as error:
+        DeviceBuilder().eid(eid_xml).build()
+    assert "Shelly 1PM Local" in str(error.value)
+
+
+@pytest.mark.asyncio
+async def test_device_builder_property_without_default_value():
+    eid_xml = _load_eid_without_default_value()
+    eid_properties = dict(base_uri="http://127.0.0.1")
+
+    test_device = (
+        DeviceBuilder().eid(eid_xml).properties(eid_properties).build()
+    )
+    assert test_device is not None
+
+    device_frame = test_device.device_frame
+    assert device_frame.interface_list is not None
+    assert device_frame.interface_list.rest_api_interface is not None
+    assert device_frame.interface_list.rest_api_interface.rest_api_interface_description is not None
+    assert device_frame.interface_list.rest_api_interface.rest_api_interface_description.rest_api_uri == 'http://127.0.0.1'
+
+
 @pytest.mark.asyncio
 async def test_device_builder_messaging_dict():
     eid_path = os.path.join(EID_BASE_PATH, "SGr_XX_HiveMQ_MQTT_Cloud.xml")
