@@ -20,7 +20,7 @@ from sgr_specification.v0.product import (
 )
 
 from sgr_commhandler.api.dynamic_parameter import build_dynamic_parameter_substitutions
-from sgr_commhandler.utils import jmespath_mapping, template
+from sgr_commhandler.utils import jmespath_mapping, template, value_util
 from sgr_commhandler.driver.messaging.messaging_filter import (
     MessagingFilter,
     get_messaging_filter
@@ -187,6 +187,18 @@ class MessagingDataPoint(DataPointProtocol[MessagingFunctionalProfileSpec, Messa
     def unsubscribe(self):  # type: ignore
         self._handle_message = None
 
+    def _convert_to_dp_units(self, value: Any) -> Any:
+        """
+        Converts a value read from the device to the unit of the data point,
+        using the unit conversion multiplicator of the data point.
+        A value that is not a number, e.g. a JSON object, is returned as is.
+        """
+        unit_conv_factor = self._dp_spec.data_point.unit_conversion_multiplicator if (
+            self._dp_spec.data_point is not None
+            and self._dp_spec.data_point.unit_conversion_multiplicator is not None
+        ) else None
+        return value_util.convert_to_dp_units(value, unit_conv_factor)
+
     def _on_message(self, payload: Any):  # type: ignore
         ret_value: Any
         if (
@@ -196,13 +208,13 @@ class MessagingDataPoint(DataPointProtocol[MessagingFunctionalProfileSpec, Messa
         ):
             # JMESPath expression
             query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query is not None else ''
-            ret_value = jmespath.search(query_expression, json.loads(payload))
+            ret_value = self._convert_to_dp_units(jmespath.search(query_expression, json.loads(payload)))
         elif (
             self._in_cmd is not None
             and self._in_cmd.response_query is not None
             and self._in_cmd.response_query.query_type == ResponseQueryType.JMESPATH_MAPPING
         ):
-            # JMESPath mappings
+            # JMESPath mappings, only restructure the JSON, the values are not converted
             mappings = self._in_cmd.response_query.jmes_path_mappings.mapping if self._in_cmd.response_query.jmes_path_mappings is not None else []
             ret_value = jmespath_mapping.map_json_response(str(payload), mappings)
         elif (
@@ -213,7 +225,7 @@ class MessagingDataPoint(DataPointProtocol[MessagingFunctionalProfileSpec, Messa
             # regex
             query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query is not None else ''
             query_match = re.match(query_expression, str(payload))
-            ret_value = query_match.group() if query_match is not None else str(payload)
+            ret_value = self._convert_to_dp_units(query_match.group() if query_match is not None else str(payload))
         elif (
             self._in_cmd is not None
             and self._in_cmd.response_query is not None
@@ -222,7 +234,7 @@ class MessagingDataPoint(DataPointProtocol[MessagingFunctionalProfileSpec, Messa
             # XPath expression
             query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query is not None else ''
             selector = parsel.Selector(str(payload))
-            ret_value = selector.xpath(query_expression).get()
+            ret_value = self._convert_to_dp_units(selector.xpath(query_expression).get())
         elif (
             self._in_cmd is not None
             and self._in_cmd.response_query is not None
@@ -231,7 +243,7 @@ class MessagingDataPoint(DataPointProtocol[MessagingFunctionalProfileSpec, Messa
             # JSONata expression
             query_expression = self._in_cmd.response_query.query if self._in_cmd.response_query.query is not None else ''
             expression = jsonata.Jsonata(query_expression)
-            ret_value = expression.evaluate(json.loads(payload))
+            ret_value = self._convert_to_dp_units(expression.evaluate(json.loads(payload)))
         else:
             # plain response
             ret_value = str(payload)
