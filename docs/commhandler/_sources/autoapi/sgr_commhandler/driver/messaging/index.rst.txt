@@ -137,6 +137,14 @@ Package Contents
 
 
 
+   .. py:method:: _convert_to_dp_units(value)
+
+      Converts a value read from the device to the unit of the data point,
+      using the unit conversion multiplicator of the data point.
+      A value that is not a number, e.g. a JSON object, is returned as is.
+
+
+
    .. py:method:: _on_message(payload)
 
 

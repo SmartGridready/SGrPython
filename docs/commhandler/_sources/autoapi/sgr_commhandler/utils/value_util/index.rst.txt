@@ -31,6 +31,7 @@ Functions
 .. autoapisummary::
 
    sgr_commhandler.utils.value_util.round_to_int
+   sgr_commhandler.utils.value_util.convert_to_dp_units
 
 
 Module Contents
@@ -69,5 +70,19 @@ Module Contents
    :type value: float
    :param scheme: the method of rounding, defaults to floor
    :type scheme: RoundingScheme
+
+
+.. py:function:: convert_to_dp_units(value, unit_conv_factor)
+
+   Converts a value read from a device to the unit of the data point.
+
+   :param value: the value read from the device
+   :type value: Any
+   :param unit_conv_factor: the unit conversion multiplicator of the data point, if it has one
+   :type unit_conv_factor: Optional[float]
+
+   :returns: the value multiplied by the factor, as float, if it is a number or a numeric string;
+             otherwise (no factor, boolean, None, JSON object, text) the value as it is
+   :rtype: Any
 
 

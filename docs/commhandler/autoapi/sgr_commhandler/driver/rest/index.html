@@ -150,6 +150,22 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="sgr_commhandler.driver.rest.RestDataPoint._convert_to_dp_units">
+<span class="sig-name descname"><span class="pre">_convert_to_dp_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.RestDataPoint._convert_to_dp_units" title="Link to this definition"></a></dt>
+<dd><p>Converts a value read from the device to the unit of the data point,
+using the unit conversion multiplicator of the data point.
+A value that is not a number, e.g. a JSON object, is returned as is.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="sgr_commhandler.driver.rest.RestDataPoint.get_val">
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.driver.rest.RestDataPoint.get_val" title="Link to this definition"></a></dt>
 <dd><p>Reads the data point value.</p>

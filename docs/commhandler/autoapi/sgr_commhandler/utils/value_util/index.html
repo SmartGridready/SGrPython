@@ -119,6 +119,9 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#sgr_commhandler.utils.value_util.round_to_int" title="sgr_commhandler.utils.value_util.round_to_int"><code class="xref py py-obj docutils literal notranslate"><span class="pre">round_to_int</span></code></a>(value[, scheme])</p></td>
 <td><p>Rounds a floating-point value to an integer, using a given rounding method.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sgr_commhandler.utils.value_util.convert_to_dp_units" title="sgr_commhandler.utils.value_util.convert_to_dp_units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_to_dp_units</span></code></a>(value, unit_conv_factor)</p></td>
+<td><p>Converts a value read from a device to the unit of the data point.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -164,6 +167,27 @@
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sgr_commhandler.utils.value_util.convert_to_dp_units">
+<span class="sig-prename descclassname"><span class="pre">sgr_commhandler.utils.value_util.</span></span><span class="sig-name descname"><span class="pre">convert_to_dp_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_conv_factor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sgr_commhandler.utils.value_util.convert_to_dp_units" title="Link to this definition"></a></dt>
+<dd><p>Converts a value read from a device to the unit of the data point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>Any</em>) – the value read from the device</p></li>
+<li><p><strong>unit_conv_factor</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – the unit conversion multiplicator of the data point, if it has one</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the value multiplied by the factor, as float, if it is a number or a numeric string;
+otherwise (no factor, boolean, None, JSON object, text) the value as it is</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
 </dd>
 </dl>
 </dd></dl>
